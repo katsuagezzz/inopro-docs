@@ -5,16 +5,12 @@
 
 ## ページ
 
-| 科目 | 一覧 |
-|---|---|
-| イノベーションプロジェクトA | <https://katsuagezzz.github.io/inopro-docs/> |
-| イノベーションプロジェクトB | <https://katsuagezzz.github.io/inopro-docs/index-b.html> |
+一覧　<https://katsuagezzz.github.io/inopro-docs/>
 
 | 回 | タイトル | ファイル |
 |---|---|---|
-| A 第1回 | 金利と割引価値 | `01-kinri.html` |
-| B 第1回 | 金利と割引現在価値 | `b01-kinri.html` |
-| B 第2回 | 取引とP/L・B/S | `b02-torihiki.html` |
+| 第1回 | 金利と割引現在価値 | `b01-kinri.html` |
+| 第2回 | 取引とP/L・B/S | `b02-torihiki.html` |
 
 ## 仕様
 
@@ -26,4 +22,9 @@
 ## 更新
 
 資料の編集は別のリポジトリで行い、配布用のHTMLのみをここへ複製する。
+複製のときは次の2点を変換する。
+
+- 一覧 `index-b.html` を `index.html` として置く
+- 各回の末尾にある一覧へのリンク `href="index-b.html"` を `href="index.html"` に置換
+
 `.nojekyll` は Jekyll による加工を止めるために置いている。
