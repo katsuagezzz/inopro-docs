@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="2年イノプロA 後期第1回 授業資料。将来価値・現在価値・期間リスク・リターン。">
+<title>金利と割引価値</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --plane:#f9f9f7;
+    --surface:#fcfcfb;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --muted:#898781;
+    --rule:#e1e0d9;
+    --axis:#c3c2b7;
+    --ring:rgba(11,11,11,0.10);
+    --s1:#2a78d6;
+    --s2:#eb6834;
+    --s3:#1baf7a;
+    --s4:#eda100;
+    --fill-in:#eef3f9;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#0d0d0d;
+      --surface:#1a1a19;
+      --ink:#ffffff;
+      --ink-2:#c3c2b7;
+      --muted:#898781;
+      --rule:#2c2c2a;
+      --axis:#383835;
+      --ring:rgba(255,255,255,0.10);
+      --s1:#3987e5;
+      --s2:#d95926;
+      --s3:#199e70;
+      --s4:#c98500;
+      --fill-in:#1f2733;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#0d0d0d;
+    --surface:#1a1a19;
+    --ink:#ffffff;
+    --ink-2:#c3c2b7;
+    --muted:#898781;
+    --rule:#2c2c2a;
+    --axis:#383835;
+    --ring:rgba(255,255,255,0.10);
+    --s1:#3987e5;
+    --s2:#d95926;
+    --s3:#199e70;
+    --s4:#c98500;
+    --fill-in:#1f2733;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--plane);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:var(--muted); text-transform:uppercase;
+  }
+  h1{
+    font-size:clamp(26px,4.4vw,38px); font-weight:700; letter-spacing:-.01em;
+    margin:6px 0 18px; line-height:1.2;
+  }
+  .facts{
+    display:flex; flex-wrap:wrap; gap:0;
+    border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);
+  }
+  .facts div{
+    flex:1 1 150px; padding:11px 14px 11px 0; min-width:0;
+  }
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:500;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:40px; margin-top:32px; border-top:2px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:2px;} }
+  .num{
+    font-family:var(--mono); font-size:20px; font-weight:700; color:var(--muted);
+    line-height:1.2; padding-top:2px;
+  }
+  h2{font-size:21px; font-weight:700; margin:0 0 4px; line-height:1.3;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em;
+    color:var(--ink);
+  }
+  h3:first-child{margin-top:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring);
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre;
+    line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{
+    padding:7px 0 7px 18px; border-bottom:1px solid var(--rule);
+    font-size:14px; position:relative;
+  }
+  li::before{
+    content:""; position:absolute; left:2px; top:17px;
+    width:6px; height:1px; background:var(--muted);
+  }
+  li b{font-weight:700;}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{
+    caption-side:top; text-align:left; font-family:var(--mono); font-size:11px;
+    letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;
+  }
+  th,td{padding:7px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{
+    font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane);
+    border-bottom:1px solid var(--axis);
+  }
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); padding:14px 12px 12px;}
+  .ctitle{
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+    font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted);
+    padding:0 2px 10px; flex-wrap:wrap;
+  }
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:2px; display:inline-block; border-radius:1px;}
+  .lg i.sq{height:10px; width:10px; border-radius:2px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  #c-dur svg{max-width:520px;}
+  #c-yc svg{max-width:780px;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2; stroke-linejoin:round; stroke-linecap:round;}
+
+  /* tooltip */
+  .tip{
+    position:fixed; z-index:50; pointer-events:none; opacity:0;
+    background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px;
+    padding:6px 9px; white-space:pre; transition:opacity .1s;
+  }
+
+  /* ---------- exam ---------- */
+  details{border:1px solid var(--ring); background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:500;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px;}
+  .q{
+    background:var(--surface); border-left:3px solid var(--s1); padding:12px 14px;
+    margin:0 0 12px; font-size:14px;
+  }
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--muted); display:block; margin-bottom:4px;}
+
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--s1); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:18px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+<style>
+  html{color-scheme:light dark;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">2年イノプロA　後期 第1回　90分</div>
+    <h1>金利と割引価値</h1>
+    <dl class="facts">
+      <div><dt>道具</dt><dd>複利・割引</dd></div>
+      <div><dt>前提</dt><dd>割引率＝金利</dd></div>
+      <div><dt>配布</dt><dd>係数表（10節）</dd></div>
+      <div><dt>試験範囲</dt><dd>将来価値・現在価値の計算</dd></div>
+    </dl>
+  </header>
+
+  <!-- 1 -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>金利の確認</h2>
+      <p class="sub">出典URLと取得日を各自記入。</p>
+
+      <div class="tw">
+        <table>
+          <caption>調査項目</caption>
+          <thead><tr><th>項目</th><th>数値</th><th>単位</th><th>出典</th></tr></thead>
+          <tbody>
+            <tr><td>政策金利（無担保コール翌日物）</td><td class="blank"></td><td class="u">%</td><td class="u">日本銀行</td></tr>
+            <tr><td>10年国債利回り</td><td class="blank"></td><td class="u">%</td><td class="u">財務省</td></tr>
+            <tr><td>30年国債利回り</td><td class="blank"></td><td class="u">%</td><td class="u">財務省</td></tr>
+            <tr><td>普通預金金利</td><td class="blank"></td><td class="u">%</td><td class="u">各行</td></tr>
+            <tr><td>住宅ローン金利（変動）</td><td class="blank"></td><td class="u">%</td><td class="u">各行</td></tr>
+            <tr><td>住宅ローン金利（固定35年）</td><td class="blank"></td><td class="u">%</td><td class="u">各行</td></tr>
+            <tr><td>カードローン・リボ金利</td><td class="blank"></td><td class="u">%</td><td class="u">各社</td></tr>
+            <tr><td>直近の金融政策決定会合の決定</td><td class="blank" colspan="3"></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>将来価値</h2>
+      <p class="sub">元本100円。年1回複利。</p>
+
+      <div class="formula">FV ＝ PV × (1 + r)^n
+72の法則：2倍になる年数 ≒ 72 ÷ 金利(%)</div>
+
+      <figure>
+        <div class="ctitle"><span>100円の将来価値　円</span><span>0–40年</span></div>
+        <div id="c-fv"></div>
+        <div class="legend" id="lg-fv"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>100円の将来価値　円</caption>
+          <thead><tr><th>金利</th><th>1年</th><th>10年</th><th>30年</th><th>40年</th><th>2倍まで</th></tr></thead>
+          <tbody>
+            <tr><td>0.1%</td><td>100.1</td><td>101.0</td><td>103.0</td><td>104.1</td><td>720年</td></tr>
+            <tr><td>1%</td><td>101.0</td><td>110.5</td><td>134.8</td><td>148.9</td><td>72年</td></tr>
+            <tr class="accent"><td>3%</td><td>103.0</td><td>134.4</td><td>242.7</td><td>326.2</td><td>24年</td></tr>
+            <tr><td>5%</td><td>105.0</td><td>162.9</td><td>432.2</td><td>704.0</td><td>14年</td></tr>
+            <tr><td>7%</td><td>107.0</td><td>196.7</td><td>761.2</td><td>1,497.4</td><td>10年</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>現在価値</h2>
+      <p class="sub">2節の逆方向。同一の式。</p>
+
+      <div class="formula">PV ＝ FV ÷ (1 + r)^n
+
+  100円 ──×(1.03)^40──→ 326.2円　　40年後
+  100円 ←─÷(1.03)^40──  326.2円</div>
+
+      <div class="tw">
+        <table>
+          <caption>40年後の金額の現在価値</caption>
+          <thead><tr><th>割引率</th><th>現価係数</th><th>100円</th><th>年収500万円</th></tr></thead>
+          <tbody>
+            <tr><td>0.1%</td><td>0.9608</td><td>96.1円</td><td>480.4万円</td></tr>
+            <tr><td>1%</td><td>0.6717</td><td>67.2円</td><td>335.8万円</td></tr>
+            <tr class="accent"><td>3%</td><td>0.3066</td><td>30.7円</td><td>153.3万円</td></tr>
+            <tr><td>5%</td><td>0.1420</td><td>14.2円</td><td>71.0万円</td></tr>
+            <tr><td>7%</td><td>0.0668</td><td>6.7円</td><td>33.4万円</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>生涯年収の現在価値</h2>
+      <p class="sub">年収500万円 × 43年（22歳→65歳）。年1回受取。名目2億1,500万円。</p>
+
+      <div class="formula">PV ＝ C × [ 1 − (1 + r)^−n ] ÷ r　　（年金現価係数）</div>
+
+      <figure>
+        <div class="ctitle"><span>生涯年収の現在価値　万円</span><span>C＝500万円 / n＝43年</span></div>
+        <div id="c-pv"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>割引率別</caption>
+          <thead><tr><th>割引率</th><th>年金現価係数</th><th>現在価値</th><th>名目比</th><th>名目との差</th></tr></thead>
+          <tbody>
+            <tr><td>名目（0%）</td><td>43.00</td><td>21,500万円</td><td>100%</td><td>—</td></tr>
+            <tr><td>1%</td><td>34.81</td><td>17,405万円</td><td>81%</td><td>−4,095万円</td></tr>
+            <tr class="accent"><td>3%</td><td>23.98</td><td>11,991万円</td><td>56%</td><td>−9,509万円</td></tr>
+            <tr class="accent"><td>5%</td><td>17.55</td><td>8,773万円</td><td>41%</td><td>−12,727万円</td></tr>
+            <tr><td>7%</td><td>13.51</td><td>6,753万円</td><td>31%</td><td>−14,747万円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="formula">3% と 5% の差 ＝ 11,991万円 − 8,773万円 ＝ 3,218万円</div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>家賃の現在価値</h2>
+      <p class="sub">月10万円＝年120万円。年1回受取。</p>
+
+      <div class="tw">
+        <table>
+          <caption>10年分</caption>
+          <thead><tr><th>割引率</th><th>年金現価係数</th><th>現在価値</th></tr></thead>
+          <tbody>
+            <tr><td>名目（0%）</td><td>10.00</td><td>1,200万円</td></tr>
+            <tr><td>1%</td><td>9.47</td><td>1,137万円</td></tr>
+            <tr class="accent"><td>3%</td><td>8.53</td><td>1,024万円</td></tr>
+            <tr><td>5%</td><td>7.72</td><td>927万円</td></tr>
+            <tr><td>7%</td><td>7.02</td><td>843万円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="formula">永続する場合：PV ＝ 年家賃 ÷ 利回り</div>
+
+      <div class="tw">
+        <table>
+          <caption>永久（利回りからの価格逆算）</caption>
+          <thead><tr><th>利回り</th><th>計算</th><th>価格</th></tr></thead>
+          <tbody>
+            <tr><td>3%</td><td>120万 ÷ 0.03</td><td>4,000万円</td></tr>
+            <tr><td>5%</td><td>120万 ÷ 0.05</td><td>2,400万円</td></tr>
+            <tr><td>7%</td><td>120万 ÷ 0.07</td><td>1,714万円</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>リスク</h2>
+      <p class="sub">30年国債利回り &gt; 10年国債利回り。通常時の形状。</p>
+
+      <h3>要因</h3>
+      <ul>
+        <li><b>不確実性の量</b>　将来のインフレ率・政策金利・財政状況の予見可能性が期間に反比例</li>
+        <li><b>価格変動幅</b>　同一の金利変動に対する価格の下落幅が長期債ほど大</li>
+        <li><b>流動性</b>　超長期債の取引量が相対的に小</li>
+        <li><b>期間プレミアム</b>　長期保有の対価として上乗せされる利回り</li>
+      </ul>
+
+      <h3>価格変動幅</h3>
+      <div class="formula">債券価格 ＝ 額面 ÷ (1 + r)^n　　（3節と同一の式）</div>
+
+      <figure>
+        <div class="ctitle"><span>金利 1% → 2% 時の価格変化率　%</span><span>ゼロクーポン債・額面100</span></div>
+        <div id="c-dur"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>価格（額面100）</caption>
+          <thead><tr><th>残存期間</th><th>金利1%</th><th>金利2%</th><th>変化率</th></tr></thead>
+          <tbody>
+            <tr><td>10年</td><td>90.53</td><td>82.03</td><td>−9.4%</td></tr>
+            <tr class="accent"><td>30年</td><td>74.19</td><td>55.21</td><td>−25.6%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>イールドカーブ</h3>
+      <figure>
+        <div class="ctitle"><span>利回り曲線　模式図・数値は例示</span><span>横軸＝残存期間</span></div>
+        <div id="c-yc"></div>
+        <div class="legend" id="lg-yc"></div>
+      </figure>
+      <ul>
+        <li><b>順イールド</b>　長期 &gt; 短期。通常時の形状</li>
+        <li><b>逆イールド</b>　短期 &gt; 長期。景気後退の先行指標として参照される形状</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>リターン</h2>
+      <p class="sub">同一の事象を3つの目線で測定。</p>
+
+      <div class="tw">
+        <table>
+          <caption>3つの目線</caption>
+          <thead><tr><th>目線</th><th>見る数字</th><th>計算式</th></tr></thead>
+          <tbody>
+            <tr><td>経営者</td><td>売上増 → 営業利益</td><td>営業利益 ÷ 投下資本</td></tr>
+            <tr><td>投資家</td><td>配当・株価</td><td>年間配当 ÷ 株価　／　1 ÷ PER</td></tr>
+            <tr><td>本人</td><td>賃金・スキル</td><td>生涯年収の増分の現在価値 ÷ 投下額</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>事業のリターン</h3>
+      <div class="tw">
+        <table>
+          <caption>例：店舗1店</caption>
+          <thead><tr><th>項目</th><th>金額・比率</th></tr></thead>
+          <tbody>
+            <tr><td>投下資本（内装・設備・初期在庫）</td><td>500万円</td></tr>
+            <tr><td>年間売上</td><td>1,200万円</td></tr>
+            <tr><td>年間営業利益</td><td>60万円</td></tr>
+            <tr class="accent"><td>リターン（営業利益 ÷ 投下資本）</td><td>12.0%</td></tr>
+            <tr><td>回収期間（投下資本 ÷ 営業利益）</td><td>8.3年</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>投資家のリターン</h3>
+      <div class="tw">
+        <table>
+          <caption>例：株式1銘柄</caption>
+          <thead><tr><th>項目</th><th>金額・比率</th></tr></thead>
+          <tbody>
+            <tr><td>株価</td><td>2,000円</td></tr>
+            <tr><td>1株配当</td><td>60円</td></tr>
+            <tr class="accent"><td>配当利回り（配当 ÷ 株価）</td><td>3.0%</td></tr>
+            <tr><td>EPS（1株利益）</td><td>120円</td></tr>
+            <tr><td>PER（株価 ÷ EPS）</td><td>16.7倍</td></tr>
+            <tr class="accent"><td>益回り（1 ÷ PER）</td><td>6.0%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>自分のリターン</h3>
+      <div class="tw">
+        <table>
+          <caption>記入。生涯年収の差は各自調査</caption>
+          <thead><tr><th>項目</th><th>金額</th><th>出典・前提</th></tr></thead>
+          <tbody>
+            <tr><td>学費（4年）</td><td class="blank"></td><td class="u">実額</td></tr>
+            <tr><td>機会費用（4年間の逸失収入）</td><td class="blank"></td><td class="u">年収 × 4年</td></tr>
+            <tr><td>投下額 合計</td><td class="blank"></td><td class="u">上記の和</td></tr>
+            <tr><td>生涯年収の増分（名目）</td><td class="blank"></td><td class="u">厚生労働省</td></tr>
+            <tr><td>同 現在価値（割引率3%）</td><td class="blank"></td><td class="u">年金現価係数</td></tr>
+            <tr class="accent"><td>リターン（現在価値 ÷ 投下額）</td><td class="blank"></td><td class="u">倍</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>仕事のリターン</h3>
+      <div class="tw">
+        <table>
+          <caption>例：アルバイト1件</caption>
+          <thead><tr><th>項目</th><th>数値</th></tr></thead>
+          <tbody>
+            <tr><td>時給</td><td>1,200円</td></tr>
+            <tr><td>週あたり時間</td><td>20時間</td></tr>
+            <tr><td>年間稼働</td><td>50週</td></tr>
+            <tr class="accent"><td>年間の金銭リターン</td><td>120万円</td></tr>
+            <tr><td>スキルの蓄積による次の年収への効果</td><td class="u">測定不能・要仮定</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">係数表（10節）使用。電卓可。</p>
+      <ul>
+        <li>1節の表を埋める。政策金利・10年国債・30年国債・住宅ローン・リボ金利</li>
+        <li>10年国債と30年国債の利回り差を算出</li>
+        <li>自分の想定平均年収と就業年数を決定。根拠を1行</li>
+        <li>名目の生涯年収を算出</li>
+        <li>割引率3%と5%で生涯年収の現在価値を算出。差額を算出</li>
+        <li>1節で調べた10年国債利回りを割引率として、同じ計算を実施</li>
+        <li>自分のリターン（7節）の表を埋める</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>試験に出る問</h2>
+
+      <div class="q"><span class="qn">問1</span>年利3%で100万円を10年預けた場合の元利合計。複利終価係数 1.344。</div>
+      <details><summary>解答</summary><p>100万円 × 1.344 ＝ 134.4万円</p></details>
+
+      <div class="q"><span class="qn">問2</span>10年後に受け取る300万円の現在価値。割引率3%、現価係数 0.744。</div>
+      <details><summary>解答</summary><p>300万円 × 0.744 ＝ 223.2万円</p></details>
+
+      <div class="q"><span class="qn">問3</span>年収480万円で40年就業。割引率4%、年金現価係数 19.793。生涯年収の名目額と現在価値。</div>
+      <details><summary>解答</summary><p>名目　480万円 × 40年 ＝ 19,200万円
+現在価値　480万円 × 19.793 ＝ 9,501万円　（名目比 49%）</p></details>
+
+      <div class="q"><span class="qn">問4</span>残存30年のゼロクーポン債（額面100）。金利1%から2%への上昇時の価格変化率。</div>
+      <details><summary>解答</summary><p>金利1%　100 ÷ 1.01^30 ＝ 74.19
+金利2%　100 ÷ 1.02^30 ＝ 55.21
+変化率　−25.6%</p></details>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>係数表</h2>
+      <p class="sub">配布用。試験でも提示。</p>
+      <div class="tw">
+        <table>
+          <caption>複利終価係数・現価係数・年金現価係数</caption>
+          <thead><tr><th>年数</th><th>3% 終価</th><th>3% 現価</th><th>3% 年金現価</th><th>4% 終価</th><th>4% 現価</th><th>4% 年金現価</th><th>5% 終価</th><th>5% 現価</th><th>5% 年金現価</th></tr></thead>
+          <tbody>
+            <tr><td>10年</td><td>1.344</td><td>0.7441</td><td>8.530</td><td>1.480</td><td>0.6756</td><td>8.111</td><td>1.629</td><td>0.6139</td><td>7.722</td></tr>
+            <tr><td>20年</td><td>1.806</td><td>0.5537</td><td>14.877</td><td>2.191</td><td>0.4564</td><td>13.590</td><td>2.653</td><td>0.3769</td><td>12.462</td></tr>
+            <tr><td>30年</td><td>2.427</td><td>0.4120</td><td>19.600</td><td>3.243</td><td>0.3083</td><td>17.292</td><td>4.322</td><td>0.2314</td><td>15.372</td></tr>
+            <tr><td>40年</td><td>3.262</td><td>0.3066</td><td>23.115</td><td>4.801</td><td>0.2083</td><td>19.793</td><td>7.040</td><td>0.1420</td><td>17.159</td></tr>
+            <tr><td>43年</td><td>3.565</td><td>0.2805</td><td>23.982</td><td>5.400</td><td>0.1852</td><td>20.371</td><td>8.150</td><td>0.1227</td><td>17.546</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 -->
+  <section>
+    <div class="num">11</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>日本銀行　政策金利・金融政策決定会合　<a href="https://www.boj.or.jp/">boj.or.jp</a></li>
+        <li>財務省　国債金利情報　<a href="https://www.mof.go.jp/jgbs/reference/interest_rate/">mof.go.jp/jgbs</a></li>
+        <li>厚生労働省　賃金構造基本統計調査　<a href="https://www.mhlw.go.jp/toukei/list/chingin_zenkoku.html">mhlw.go.jp</a></li>
+        <li>日本取引所グループ　株価・PER・PBR　<a href="https://www.jpx.co.jp/">jpx.co.jp</a></li>
+        <li>本資料の年収500万円・43年、店舗・株式・アルバイトの数値は計算例。実数値は各自調査</li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<div class="tip" id="tip"></div>
+
+<script>
+(function(){
+  "use strict";
+  var tip=document.getElementById("tip");
+  function showTip(e,txt){
+    tip.textContent=txt; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+160>window.innerWidth) x=e.clientX-168;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ tip.style.opacity="0"; }
+
+  function svg(w,h){
+    var s=document.createElementNS("http://www.w3.org/2000/svg","svg");
+    s.setAttribute("viewBox","0 0 "+w+" "+h);
+    s.setAttribute("role","img");
+    return s;
+  }
+  function el(n,a){
+    var e=document.createElementNS("http://www.w3.org/2000/svg",n);
+    for(var k in a) e.setAttribute(k,a[k]);
+    return e;
+  }
+  function fmt(n,d){ return n.toLocaleString("ja-JP",{minimumFractionDigits:d||0,maximumFractionDigits:d||0}).replace("-","−"); }
+
+  /* ---------- chart 1 : future value lines ---------- */
+  (function(){
+    var W=720,H=340,L=52,R=86,T=14,B=34;
+    var pw=W-L-R, ph=H-T-B, yMax=1500;
+    var rates=[{r:0.01,c:"var(--s1)",n:"1%"},{r:0.03,c:"var(--s2)",n:"3%"},
+               {r:0.05,c:"var(--s3)",n:"5%"},{r:0.07,c:"var(--s4)",n:"7%"}];
+    var X=function(n){ return L+n/40*pw; };
+    var Y=function(v){ return T+(1-v/yMax)*ph; };
+    var s=svg(W,H);
+
+    [0,500,1000,1500].forEach(function(v){
+      s.appendChild(el("line",{x1:L,y1:Y(v),x2:L+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      var t=el("text",{x:L-8,y:Y(v)+3.5,"text-anchor":"end","class":"tk"});
+      t.textContent=fmt(v); s.appendChild(t);
+    });
+    [0,10,20,30,40].forEach(function(n){
+      var t=el("text",{x:X(n),y:H-B+18,"text-anchor":"middle","class":"tk"});
+      t.textContent=n; s.appendChild(t);
+    });
+    var xl=el("text",{x:L+pw,y:H-B+18,"text-anchor":"end","class":"tk"});
+    xl.textContent="年"; xl.setAttribute("x",L+pw+26); s.appendChild(xl);
+
+    rates.forEach(function(o){
+      var d="",pts=[];
+      for(var n=0;n<=40;n++){
+        var v=100*Math.pow(1+o.r,n);
+        pts.push([X(n),Y(v),n,v]);
+        d+=(n===0?"M":"L")+X(n).toFixed(1)+" "+Y(v).toFixed(1)+" ";
+      }
+      s.appendChild(el("path",{d:d,stroke:o.c,"class":"ln"}));
+      var last=pts[40];
+      s.appendChild(el("circle",{cx:last[0],cy:last[1],r:4,fill:o.c,stroke:"var(--surface)","stroke-width":2}));
+      var lb=el("text",{x:last[0]+9,y:last[1]+4,"class":"el"});
+      lb.textContent=o.n+" "+fmt(last[3])+"円"; s.appendChild(lb);
+      pts.forEach(function(p){
+        if(p[2]%5!==0) return;
+        var h=el("circle",{cx:p[0],cy:p[1],r:9,fill:"transparent"});
+        h.addEventListener("mousemove",function(e){ showTip(e,o.n+"　"+p[2]+"年　"+fmt(p[3],1)+"円"); });
+        h.addEventListener("mouseleave",hideTip);
+        s.appendChild(h);
+      });
+    });
+    document.getElementById("c-fv").appendChild(s);
+    var lg=document.getElementById("lg-fv");
+    rates.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      d.innerHTML='<i style="background:'+o.c+'"></i>'+o.n;
+      lg.appendChild(d);
+    });
+  })();
+
+  /* ---------- chart 2 : PV of lifetime earnings ---------- */
+  (function(){
+    var data=[["名目",21500],["1%",17405],["3%",11991],["5%",8773],["7%",6753]];
+    var W=620,H=300,L=58,R=14,T=26,B=38;
+    var pw=W-L-R, ph=H-T-B, yMax=22000, band=pw/data.length, bw=24;
+    var Y=function(v){ return T+(1-v/yMax)*ph; };
+    var s=svg(W,H);
+    [0,5000,10000,15000,20000].forEach(function(v){
+      s.appendChild(el("line",{x1:L,y1:Y(v),x2:L+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      var t=el("text",{x:L-8,y:Y(v)+3.5,"text-anchor":"end","class":"tk"});
+      t.textContent=fmt(v); s.appendChild(t);
+    });
+    data.forEach(function(d,i){
+      var cx=L+band*i+band/2, y=Y(d[1]), h=Y(0)-y;
+      var p=el("path",{d:"M"+(cx-bw/2)+" "+Y(0)+" L"+(cx-bw/2)+" "+(y+4)+" Q"+(cx-bw/2)+" "+y+" "+(cx-bw/2+4)+" "+y
+        +" L"+(cx+bw/2-4)+" "+y+" Q"+(cx+bw/2)+" "+y+" "+(cx+bw/2)+" "+(y+4)+" L"+(cx+bw/2)+" "+Y(0)+" Z",
+        fill:"var(--s1)"});
+      p.addEventListener("mousemove",function(e){ showTip(e,d[0]+"　"+fmt(d[1])+"万円"); });
+      p.addEventListener("mouseleave",hideTip);
+      s.appendChild(p);
+      var v=el("text",{x:cx,y:y-9,"text-anchor":"middle","class":"vl"});
+      v.textContent=fmt(d[1]); s.appendChild(v);
+      var lb=el("text",{x:cx,y:H-B+18,"text-anchor":"middle","class":"tk"});
+      lb.textContent=d[0]; s.appendChild(lb);
+    });
+    document.getElementById("c-pv").appendChild(s);
+  })();
+
+  /* ---------- chart 3 : bond price change ---------- */
+  (function(){
+    var data=[["10年債",-9.4],["30年債",-25.6]];
+    var W=460,H=250,L=50,R=14,T=28,B=30;
+    var pw=W-L-R, ph=H-T-B, yMin=-30, band=pw/data.length, bw=24;
+    var Y=function(v){ return T+(v/yMin)*ph; };
+    var s=svg(W,H);
+    [0,-10,-20,-30].forEach(function(v){
+      s.appendChild(el("line",{x1:L,y1:Y(v),x2:L+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      var t=el("text",{x:L-8,y:Y(v)+3.5,"text-anchor":"end","class":"tk"});
+      t.textContent=String(v).replace("-","−"); s.appendChild(t);
+    });
+    data.forEach(function(d,i){
+      var cx=L+band*i+band/2, y=Y(d[1]);
+      var p=el("path",{d:"M"+(cx-bw/2)+" "+Y(0)+" L"+(cx-bw/2)+" "+(y-4)+" Q"+(cx-bw/2)+" "+y+" "+(cx-bw/2+4)+" "+y
+        +" L"+(cx+bw/2-4)+" "+y+" Q"+(cx+bw/2)+" "+y+" "+(cx+bw/2)+" "+(y-4)+" L"+(cx+bw/2)+" "+Y(0)+" Z",
+        fill:"var(--s1)"});
+      p.addEventListener("mousemove",function(e){ showTip(e,d[0]+"　"+String(d[1]).replace("-","−")+"%"); });
+      p.addEventListener("mouseleave",hideTip);
+      s.appendChild(p);
+      var v=el("text",{x:cx,y:y+18,"text-anchor":"middle","class":"vl"});
+      v.textContent=String(d[1]).replace("-","−")+"%"; s.appendChild(v);
+      var lb=el("text",{x:cx,y:Y(0)-9,"text-anchor":"middle","class":"tk"});
+      lb.textContent=d[0]; s.appendChild(lb);
+    });
+    document.getElementById("c-dur").appendChild(s);
+  })();
+
+  /* ---------- chart 4 : yield curve ---------- */
+  (function(){
+    var xs=[1,2,5,10,20,30];
+    var series=[
+      {n:"順イールド",c:"var(--s1)",v:[0.3,0.5,0.9,1.4,2.0,2.3]},
+      {n:"逆イールド",c:"var(--s2)",v:[1.8,1.7,1.4,1.2,1.1,1.0]}
+    ];
+    var W=620,H=250,L=44,R=96,T=16,B=34;
+    var pw=W-L-R, ph=H-T-B, yMax=2.5;
+    var X=function(i){ return L+i/(xs.length-1)*pw; };
+    var Y=function(v){ return T+(1-v/yMax)*ph; };
+    var s=svg(W,H);
+    [0,1,2].forEach(function(v){
+      s.appendChild(el("line",{x1:L,y1:Y(v),x2:L+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      var t=el("text",{x:L-8,y:Y(v)+3.5,"text-anchor":"end","class":"tk"});
+      t.textContent=v+"%"; s.appendChild(t);
+    });
+    xs.forEach(function(x,i){
+      var t=el("text",{x:X(i),y:H-B+18,"text-anchor":"middle","class":"tk"});
+      t.textContent=x+"年"; s.appendChild(t);
+    });
+    series.forEach(function(o){
+      var d="";
+      o.v.forEach(function(v,i){ d+=(i===0?"M":"L")+X(i).toFixed(1)+" "+Y(v).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.c,"class":"ln"}));
+      o.v.forEach(function(v,i){
+        s.appendChild(el("circle",{cx:X(i),cy:Y(v),r:4,fill:o.c,stroke:"var(--surface)","stroke-width":2}));
+        var h=el("circle",{cx:X(i),cy:Y(v),r:10,fill:"transparent"});
+        h.addEventListener("mousemove",function(e){ showTip(e,o.n+"　"+xs[i]+"年　"+v+"%"); });
+        h.addEventListener("mouseleave",hideTip);
+        s.appendChild(h);
+      });
+      var li=o.v.length-1;
+      var lb=el("text",{x:X(li)+9,y:Y(o.v[li])+4,"class":"el"});
+      lb.textContent=o.n; s.appendChild(lb);
+    });
+    document.getElementById("c-yc").appendChild(s);
+    var lg=document.getElementById("lg-yc");
+    series.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      d.innerHTML='<i style="background:'+o.c+'"></i>'+o.n;
+      lg.appendChild(d);
+    });
+  })();
+})();
+</script>
+</body>
+</html>

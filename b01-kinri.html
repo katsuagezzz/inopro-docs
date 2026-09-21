@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="2年イノプロB 第1回 授業資料。利回り・割引現在価値・生涯賃金。">
+<title>金利と割引現在価値</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== 第2回と同じポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--pop);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--fill-in); border-bottom:1px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:700;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  td.lens{font-weight:700; border-left:5px solid var(--rule);}
+  tr.l1 td.lens{border-left-color:var(--s1);}
+  tr.l2 td.lens{border-left-color:var(--s2);}
+  tr.l3 td.lens{border-left-color:var(--s3);}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB　第1回　90分</div>
+    <h1>金利と<em>割引現在価値</em></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>割引現在価値の算出</dd></div>
+      <div><dt>道具</dt><dd>利回り・割引現在価値</dd></div>
+      <div><dt>前提</dt><dd>割引率 ＝ 金利 ＝ 利回り</dd></div>
+      <div><dt>試験範囲</dt><dd>利回り逆算・現在価値の計算</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>目線：消費者・経営者・投資家</h2>
+      <p class="sub">ビジネスをどの目線で考えるかを意識する。同じ100万円でも、行き先で得るものが変わる。</p>
+
+      <div class="q"><span class="qn">問い</span>手元に100万円ある。何に使うか。使い道を1つ書き、それがどの目線かを答える。</div>
+
+      <div class="tw">
+        <table class="words">
+          <caption>3つの目線　100万円の行き先</caption>
+          <thead><tr><th>目線</th><th>100万円で何をするか</th><th>性質</th><th>得るもの</th></tr></thead>
+          <tbody>
+            <tr class="l1"><td class="lens">消費者</td><td>モノを買う</td><td>交換</td><td>使う満足</td></tr>
+            <tr class="l2"><td class="lens">経営者</td><td>価値を生み出す</td><td>生産</td><td>利益</td></tr>
+            <tr class="accent l3"><td class="lens">投資家</td><td>資産を増やす</td><td>配当</td><td>利回り</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">本日は投資家の目線。得るものは利回り。100万円が何を生むかを数字で見る。</div>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>前期試験で一番正答率の低かった問題</h2>
+      <p class="sub">2026年度前期 定期試験　第1部 第1問（10点）。記述式8問中で最低の正答率 24.1%。</p>
+
+      <div class="q"><span class="qn">原題　第1部 第1問　正答率 24.1%</span>歌舞伎町の電柱で見つけた投資用不動産の貼り紙。「表面利回り 5.06%、年間家賃収入 18,240,000円」とある。この物件の価格はいくらか。計算式とともに算出。</div>
+      <details><summary>解答</summary><p>表面利回り ＝ 年間家賃収入 ÷ 物件価格
+物件価格 ＝ 年間家賃収入 ÷ 表面利回り
+　　　　 ＝ 18,240,000円 ÷ 0.0506 ≒ 360,474,308円（約3.6億円）</p></details>
+
+      <div class="q"><span class="qn">逆向きの確認　本資料の追加問</span>同じ物件。価格 360,474,308円、年間家賃収入 18,240,000円。表面利回りを算出。</div>
+      <details><summary>解答</summary><p>18,240,000円 ÷ 360,474,308円 ＝ 0.0506 ＝ 5.06%</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>利回り：資産が稼ぐ</h2>
+      <p class="sub">労働で稼ぐのではなく、資産に稼がせる。</p>
+
+      <div class="formula">利回り　 ＝ 年間収益 ÷ 資産価格
+年間収益 ＝ 資産価格 × 利回り
+資産価格 ＝ 年間収益 ÷ 利回り</div>
+
+      <ul>
+        <li><b>2つの稼ぎ方</b>　労働の対価が給与。資産の対価が利回り</li>
+      </ul>
+
+      <div class="note">同一物件・同一家賃でも、市場が求める利回りが6%から3%へ下がれば価格は2倍。金利のニュースが不動産価格のニュースである理由。</div>
+
+      <h3>ワーク</h3>
+      <p class="sub">歌舞伎町のマンション。価格は 3.6億円（第1問の物件を概数へ）。</p>
+
+      <div class="formula">年間収益 ＝ 資産価格 × 利回り
+　　　　 ＝ 3.6億円 × 5.0% ＝ 1,800万円</div>
+
+      <div class="q"><span class="qn">問1</span>3.6億円のマンション。家賃収入が年1,000万円のとき、表面利回りは何%か。</div>
+      <details><summary>解答</summary><p>利回り ＝ 年間収益 ÷ 資産価格
+　　　 ＝ 1,000万円 ÷ 36,000万円 ＝ 0.0278 ＝ 約2.78%</p></details>
+
+      <div class="q"><span class="qn">問2</span>年間1,000万円の収入が欲しい。利回り3.0%で運用できるとき、必要な資産はいくらか。</div>
+      <details><summary>解答</summary><p>資産価格 ＝ 年間収益 ÷ 利回り
+　　　　 ＝ 1,000万円 ÷ 0.03 ≒ 33,333万円 ＝ 約3.33億円</p></details>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>AIで</b>　現在の日本の長期金利（10年国債利回り）は何%かを調べる</li>
+        <li><b>AIで</b>　配当利回り3%以上の銘柄を調べる</li>
+      </ul>
+
+      <div class="q"><span class="qn">問3</span>年間500万円の収益を得る。利回り3.0%として、必要な資産はいくらか。</div>
+      <details><summary>解答</summary><p>500万円 ÷ 0.03 ≒ 16,667万円 ＝ 約1.67億円</p></details>
+
+      <h3>日米金利の推移</h3>
+      <p class="sub">10年国債利回り。各年12月の水準。0.1ポイント丸め。2026年のみ 9/10（米）・9/1（日本）。</p>
+
+      <figure>
+        <div class="ctitle"><span>10年国債利回り　%</span><span>2006–2026年 / 各年12月</span></div>
+        <div id="c-jgb"></div>
+        <div class="legend" id="lg-jgb"></div>
+      </figure>
+
+      <ul>
+        <li><b>日本</b>　2016–2020年は ほぼ 0%。日銀が上限を決めて国債を買っていた期間</li>
+        <li><b>転換</b>　2024年3月に YCC 撤廃。2024年 1.1% → 2026年 3.0%</li>
+        <li><b>日米差</b>　2020年 米0.9%・日0.0% → 2026年 米4.9%・日3.0%</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>割引現在価値</h2>
+      <p class="sub">将来の収益を現在の金額へ換算。割引率は年率。</p>
+
+      <div class="formula">現在価値 ＝ 将来の金額 ÷ (1 ＋ 割引率)^年数</div>
+
+      <h3>判定</h3>
+
+      <div class="formula">現在価値 ＞ 市場価格　→　割安。投資は妥当
+現在価値 ＝ 市場価格　→　市場の利回りと自分の要求利回りが一致
+現在価値 ＜ 市場価格　→　割高。投資は不成立</div>
+
+      <p>割引率は「自分が最低限求める利回り」。国債利回りを下限、リスク分を上乗せして各自で設定。</p>
+
+      <div class="note">価格の妥当性は「高い・安い」ではなく「自分の要求利回りで割り戻した現在価値との差」。判定の基準は割引率の設定に帰着。</div>
+
+      <h3>生涯賃金</h3>
+      <p class="sub">年収500万円 × 43年（22歳→65歳）。名目 2億1,500万円。年1回受取。</p>
+
+      <div class="formula">永続の近似　現在価値 ＝ 年収 ÷ 割引率
+有期43年　 現在価値 ＝ 年収 × 年金現価係数</div>
+
+      <figure>
+        <div class="ctitle"><span>生涯賃金の現在価値　万円</span><span>年収500万円 / 43年</span></div>
+        <div id="c-pv"></div>
+      </figure>
+
+      <div class="formula">3% と 5% の差　11,991万円 − 8,773万円 ＝ 3,218万円</div>
+
+      <div class="note">金利が2ポイント動くと、自分の生涯賃金の現在価値は3,218万円動く。日銀の金利のニュースは、自分の人生の値札が書き換わるニュース。</div>
+
+      <h3>例　前期試験 第6問</h3>
+      <p class="sub">2026年度前期 定期試験　第1部 第6問（各5点）。(2)は金利を年3%に変更。原題は年10%。</p>
+
+      <div class="q"><span class="qn">原題(1)　正答率 34.5%</span>金利を年3%（複利）とするとき、現在の100万円は4年後にいくらになるか。計算式とともに算出。</div>
+      <details><summary>解答</summary><p>100万円 × (1 ＋ 0.03)⁴ ＝ 100万円 × 1.12550881
+　　　　　　　　　　　　　 ≒ 1,125,509円（約112.6万円）</p></details>
+
+      <div class="q"><span class="qn">(2)　原題の正答率 17.2%　小問単位で最低</span>金利を年3%とするとき、1年後に受け取る100万円の現在価値はいくらか。計算式とともに算出。</div>
+      <details><summary>解答</summary><p>100万円 ÷ (1 ＋ 0.03) ≒ 970,874円（約97.1万円）
+検算　970,874円 × 1.03 ＝ 1,000,000円</p></details>
+
+      <div class="tw">
+        <table>
+          <caption>第6問　同一設問の2方向　正答率は原題</caption>
+          <thead><tr><th>小問</th><th>操作</th><th>正答率</th></tr></thead>
+          <tbody>
+            <tr><td>(1)</td><td>× (1 ＋ 金利)^年数</td><td>34.5%</td></tr>
+            <tr class="accent"><td>(2)</td><td>÷ (1 ＋ 金利)^年数</td><td>17.2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>誤答の型</h4>
+      <ul>
+        <li><b>掛ける／割るの反転</b>　(2)で 100万 × 1.03 ＝ 103万円 と算出</li>
+        <li><b>単利化</b>　(2)で 100万 −（100万 × 3%）＝ 97万円 と算出。正解 97.1万円 に近く判別が難しい</li>
+        <li><b>無割引</b>　金額をそのまま100万円と回答</li>
+        <li><b>複利と単利の混同</b>　(1)で 100万 ＋（100万 × 3% × 4年）＝ 112万円 と算出。複利は 112.6万円</li>
+      </ul>
+
+      <div class="note">現在価値は必ず将来の金額より小さい。桁と向きの検算を先に行う。</div>
+
+      <h3>ワーク　AIに尋ねる</h3>
+      <p class="sub">元本100万円。年3%の複利。年1回。40年後まで。</p>
+
+      <div class="formula">100万円を年3%で複利運用した場合の、40年後までの毎年の残高を
+表にして。前年からの増加額も付記して。</div>
+
+      <details><summary>解答</summary>
+      <div class="ans">
+      <figure>
+        <div class="ctitle"><span>残高　万円</span><span>元本100万円 / 年3%複利 / 0–40年</span></div>
+        <div id="c-cmp"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>年ごとの残高と前年からの増加額</caption>
+          <thead><tr><th>経過</th><th>残高</th><th>前年からの増加額</th><th>元本比</th></tr></thead>
+          <tbody>
+            <tr><td>0年</td><td>100.0万円</td><td>—</td><td>1.000倍</td></tr>
+            <tr><td>1年</td><td>103.0万円</td><td>3.0万円</td><td>1.030倍</td></tr>
+            <tr><td>2年</td><td>106.1万円</td><td>3.1万円</td><td>1.061倍</td></tr>
+            <tr><td>3年</td><td>109.3万円</td><td>3.2万円</td><td>1.093倍</td></tr>
+            <tr><td>4年</td><td>112.6万円</td><td>3.3万円</td><td>1.126倍</td></tr>
+            <tr><td>5年</td><td>115.9万円</td><td>3.4万円</td><td>1.159倍</td></tr>
+            <tr><td>6年</td><td>119.4万円</td><td>3.5万円</td><td>1.194倍</td></tr>
+            <tr><td>7年</td><td>123.0万円</td><td>3.6万円</td><td>1.230倍</td></tr>
+            <tr><td>8年</td><td>126.7万円</td><td>3.7万円</td><td>1.267倍</td></tr>
+            <tr><td>9年</td><td>130.5万円</td><td>3.8万円</td><td>1.305倍</td></tr>
+            <tr><td>10年</td><td>134.4万円</td><td>3.9万円</td><td>1.344倍</td></tr>
+            <tr><td>11年</td><td>138.4万円</td><td>4.0万円</td><td>1.384倍</td></tr>
+            <tr><td>12年</td><td>142.6万円</td><td>4.2万円</td><td>1.426倍</td></tr>
+            <tr><td>13年</td><td>146.9万円</td><td>4.3万円</td><td>1.469倍</td></tr>
+            <tr><td>14年</td><td>151.3万円</td><td>4.4万円</td><td>1.513倍</td></tr>
+            <tr><td>15年</td><td>155.8万円</td><td>4.5万円</td><td>1.558倍</td></tr>
+            <tr><td>16年</td><td>160.5万円</td><td>4.7万円</td><td>1.605倍</td></tr>
+            <tr><td>17年</td><td>165.3万円</td><td>4.8万円</td><td>1.653倍</td></tr>
+            <tr><td>18年</td><td>170.2万円</td><td>5.0万円</td><td>1.702倍</td></tr>
+            <tr><td>19年</td><td>175.4万円</td><td>5.1万円</td><td>1.754倍</td></tr>
+            <tr><td>20年</td><td>180.6万円</td><td>5.3万円</td><td>1.806倍</td></tr>
+            <tr><td>21年</td><td>186.0万円</td><td>5.4万円</td><td>1.860倍</td></tr>
+            <tr><td>22年</td><td>191.6万円</td><td>5.6万円</td><td>1.916倍</td></tr>
+            <tr><td>23年</td><td>197.4万円</td><td>5.7万円</td><td>1.974倍</td></tr>
+            <tr class="accent"><td>24年</td><td>203.3万円</td><td>5.9万円</td><td>2.033倍</td></tr>
+            <tr><td>25年</td><td>209.4万円</td><td>6.1万円</td><td>2.094倍</td></tr>
+            <tr><td>26年</td><td>215.7万円</td><td>6.3万円</td><td>2.157倍</td></tr>
+            <tr><td>27年</td><td>222.1万円</td><td>6.5万円</td><td>2.221倍</td></tr>
+            <tr><td>28年</td><td>228.8万円</td><td>6.7万円</td><td>2.288倍</td></tr>
+            <tr><td>29年</td><td>235.7万円</td><td>6.9万円</td><td>2.357倍</td></tr>
+            <tr><td>30年</td><td>242.7万円</td><td>7.1万円</td><td>2.427倍</td></tr>
+            <tr><td>31年</td><td>250.0万円</td><td>7.3万円</td><td>2.500倍</td></tr>
+            <tr><td>32年</td><td>257.5万円</td><td>7.5万円</td><td>2.575倍</td></tr>
+            <tr><td>33年</td><td>265.2万円</td><td>7.7万円</td><td>2.652倍</td></tr>
+            <tr><td>34年</td><td>273.2万円</td><td>8.0万円</td><td>2.732倍</td></tr>
+            <tr><td>35年</td><td>281.4万円</td><td>8.2万円</td><td>2.814倍</td></tr>
+            <tr><td>36年</td><td>289.8万円</td><td>8.4万円</td><td>2.898倍</td></tr>
+            <tr><td>37年</td><td>298.5万円</td><td>8.7万円</td><td>2.985倍</td></tr>
+            <tr><td>38年</td><td>307.5万円</td><td>9.0万円</td><td>3.075倍</td></tr>
+            <tr><td>39年</td><td>316.7万円</td><td>9.2万円</td><td>3.167倍</td></tr>
+            <tr class="accent"><td>40年</td><td>326.2万円</td><td>9.5万円</td><td>3.262倍</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">増加額は1年目 3.0万円、40年目 9.5万円。元本は変わらないのに増え方が増える。これが複利。72の法則では 72 ÷ 3 ＝ 24年で2倍。表の24年 203.3万円と一致。</div>
+      </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>日本銀行　政策金利・金融政策決定会合　<a href="https://www.boj.or.jp/">boj.or.jp</a></li>
+        <li>財務省　国債金利情報　<a href="https://www.mof.go.jp/jgbs/reference/interest_rate/">mof.go.jp/jgbs</a></li>
+        <li>米国財務省　Daily Treasury Par Yield Curve Rates　<a href="https://home.treasury.gov/interest-rates-data-csv-archive">home.treasury.gov</a></li>
+        <li>厚生労働省　賃金構造基本統計調査　<a href="https://www.mhlw.go.jp/toukei/list/chingin_zenkoku.html">mhlw.go.jp</a></li>
+        <li>国土交通省　不動産情報ライブラリ　<a href="https://www.reinfolib.mlit.go.jp/">reinfolib.mlit.go.jp</a></li>
+        <li>日米金利の推移は各年12月の水準を0.1ポイントに丸めた値。2026年のみ 9/10（米）・9/1（日本）</li>
+        <li>2節は2026年度前期 定期試験（イノベーションプロジェクトA）第1部 第1問の原題。4節の例は同 第6問で、(2)のみ金利を年10%から年3%へ変更</li>
+        <li>正答率は同試験の結果（受験者29名／履修32名）の値</li>
+        <li>年収500万円・43年は計算例。実数値は各自調査</li>
+        <li>表面利回りは空室・経費・税を考慮しない。実質利回りは第5回で扱う</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b02-torihiki.html"><b>第2回 →</b>取引とP/L・B/S</a>
+    <a href="index-b.html"><b>一覧</b>イノベーションプロジェクトB 授業資料</a>
+  </nav>
+
+</div>
+
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines(host, cfg) / LC.bars(host, cfg) / LC.hbars(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,fmt:fmt,legend:legend};
+})();
+
+
+/* ===== 図 ===== */
+
+/* 日米の10年国債利回り。各年12月の水準・0.1ポイント丸め。2026年のみ 9/10（米）・9/1（日本）。
+   出典：米国財務省 Daily Treasury Par Yield Curve Rates ／ 財務省 国債金利情報 */
+LC.lines("#c-jgb",{
+  w:760,h:370,pad:{l:52,r:92,t:36,b:34},alt:"日米の10年国債利回りの推移 2006年から2026年",
+  x:{min:2006,max:2026,ticks:[2006,2010,2014,2018,2022,2026],unit:"年"},
+  y:{min:0,max:6,ticks:[0,1,2,3,4,5,6],fmt:function(v){return v+"%";}},
+  marks:[
+    {x:2008,label:"2008 リーマン",row:0},
+    {x:2016,label:"2016 マイナス金利",row:1},
+    {x:2020,label:"2020 コロナ",row:0},
+    {x:2024,label:"2024/3 YCC撤廃",row:1}
+  ],
+  series:[
+    {name:"日本10年債",color:"var(--s1)",label:"日本 3.0%",points:[
+      [2006,1.7],[2007,1.5],[2008,1.2],[2009,1.3],[2010,1.1],[2011,1.0],[2012,0.8],
+      [2013,0.7],[2014,0.3],[2015,0.3],[2016,0.0],[2017,0.0],[2018,0.0],[2019,0.0],
+      [2020,0.0],[2021,0.1],[2022,0.4],[2023,0.6],[2024,1.1],[2025,2.0],[2026,3.0]
+    ]},
+    {name:"米10年債",color:"var(--s2)",label:"米 4.9%",points:[
+      [2006,4.7],[2007,4.0],[2008,2.2],[2009,3.8],[2010,3.3],[2011,1.9],[2012,1.8],
+      [2013,3.0],[2014,2.2],[2015,2.3],[2016,2.4],[2017,2.4],[2018,2.7],[2019,1.9],
+      [2020,0.9],[2021,1.5],[2022,3.9],[2023,3.9],[2024,4.6],[2025,4.2],[2026,4.9]
+    ]}
+  ],
+  tip:function(o,p){ return o.name+"　"+p[0]+"年　"+LC.fmt(p[1],1)+"%"; },
+  legend:"#lg-jgb"
+});
+
+LC.bars("#c-pv",{
+  w:660,h:300,pad:{l:62,r:14,t:26,b:38},alt:"割引率別の生涯賃金の現在価値",max:660,
+  y:{min:0,max:22000,ticks:[0,5000,10000,15000,20000]},
+  unit:"万円",
+  data:[["名目",21500],["1%",17405],["2%",14331],["3%",11991],["5%",8773]]
+});
+
+
+/* 100万円を年3%の複利で運用したときの残高。0年から40年。 */
+LC.lines("#c-cmp",{
+  w:720,h:320,pad:{l:56,r:100,t:34,b:34},alt:"100万円を年3%の複利で運用したときの残高 0年から40年",
+  x:{min:0,max:40,ticks:[0,10,20,30,40],unit:"年"},
+  y:{min:0,max:350,ticks:[0,100,200,300]},
+  marks:[{x:24,label:"24年 2倍",row:0}],
+  every:5,
+  series:[{name:"残高",color:"var(--s1)",label:"40年　326.2万円",points:(function(){
+    var a=[]; for(var n=0;n<=40;n++){ a.push([n,100*Math.pow(1.03,n)]); } return a;
+  })()}],
+  tip:function(o,p){ return p[0]+"年　"+LC.fmt(p[1],1)+"万円"; }
+});</script>
+</body>
+</html>

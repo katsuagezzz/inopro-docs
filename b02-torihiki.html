@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="2年イノプロB 第2回 授業資料。現金の動きとP/L・B/Sの関係。">
+<title>取引とP/L・B/S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== 第2回のみポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB　第2回　90分</div>
+    <h1>取引と<em>P/L・B/S</em></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>取引が動かす場所の判定</dd></div>
+      <div><dt>道具</dt><dd>現金・P/L・B/S の3つの箱</dd></div>
+      <div><dt>前提</dt><dd>発生主義。税・消費税は捨象</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>キャッシュの入口と出口</h2>
+      <p class="sub">現金が入る取引は3つ。出る取引は4つ。入る場所と出る場所が違う。</p>
+
+      <div class="q"><span class="qn">問い</span>企業にキャッシュが入る取引を3つ、出ていく取引を4つ挙げる。</div>
+
+      <figure>
+        <div class="ctitle"><span>P/LとB/S　キャッシュの入口</span><span>模式図・金額なし</span></div>
+        <div class="dgwrap">
+        <svg class="dg" viewBox="0 0 760 412" role="img">
+          <title>P/LとB/Sの概略図。売上・純資産・負債の3か所に、外側からキャッシュの矢印が入る</title>
+
+          <text class="cl" x="333" y="15" text-anchor="middle">キャッシュ③　銀行が貸す</text>
+          <text class="cl" x="610" y="15" text-anchor="middle">キャッシュ①　顧客が払う</text>
+          <line class="cash" x1="333" y1="26" x2="333" y2="54"/>
+          <polygon class="cashh" points="333,68 326,52 340,52"/>
+          <line class="cash" x1="610" y1="26" x2="610" y2="54"/>
+          <polygon class="cashh" points="610,68 603,52 617,52"/>
+
+          <text class="hd" x="130" y="44">B/S　貸借対照表</text>
+          <rect class="pane" x="130" y="68" width="270" height="232"/>
+          <rect class="hl" x="131" y="69" width="134" height="71"/>
+          <rect class="bs" x="130" y="68" width="270" height="232"/>
+          <line class="sp" x1="265" y1="68" x2="265" y2="300"/>
+          <line class="sp" x1="131" y1="140" x2="264" y2="140"/>
+          <line class="sp" x1="266" y1="170" x2="399" y2="170"/>
+          <text class="lbl" x="198" y="86" text-anchor="middle">資産</text>
+          <text class="t" x="198" y="110" text-anchor="middle">現金</text>
+          <text class="lbl" x="198" y="130" text-anchor="middle">3つとも ここに入る</text>
+          <text class="t" x="198" y="210" text-anchor="middle">その他の資産</text>
+          <text class="s" x="198" y="230" text-anchor="middle">売掛金・在庫・設備</text>
+          <text class="lbl" x="333" y="86" text-anchor="middle">負債・純資産</text>
+          <text class="t" x="333" y="115" text-anchor="middle">負債</text>
+          <text class="s" x="333" y="135" text-anchor="middle">借入金・買掛金</text>
+          <text class="t" x="333" y="212" text-anchor="middle">純資産</text>
+          <text class="s" x="333" y="232" text-anchor="middle">資本金・利益剰余金</text>
+
+          <text class="hd" x="500" y="44">P/L　損益計算書</text>
+          <rect class="pane" x="500" y="68" width="220" height="232"/>
+          <rect class="pl" x="500" y="68" width="220" height="232"/>
+          <line class="sp" x1="500" y1="140" x2="720" y2="140"/>
+          <line class="sp" x1="500" y1="230" x2="720" y2="230"/>
+          <text class="t" x="610" y="110" text-anchor="middle">売上</text>
+          <text class="t" x="610" y="192" text-anchor="middle">費用</text>
+          <text class="t" x="610" y="272" text-anchor="middle">利益</text>
+
+          <text class="kl" x="452" y="212" text-anchor="middle">利益の蓄積</text>
+          <path class="keep" d="M498 264 L418 238"/>
+          <polygon class="keeph" points="404,233 419,231 416,244"/>
+
+          <line class="cash" x1="333" y1="386" x2="333" y2="318"/>
+          <polygon class="cashh" points="333,300 326,316 340,316"/>
+          <text class="cl" x="333" y="404" text-anchor="middle">キャッシュ②　株主が出す</text>
+        </svg>
+        </div>
+      </figure>
+
+      <div class="tw">
+        <table class="words">
+          <caption>キャッシュの3つの入口</caption>
+          <thead><tr><th>入口</th><th>払う人</th><th>現金の相手</th><th>P/L</th><th>返済</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>① 売上</td><td>顧客</td><td>売上（収益）</td><td>通る</td><td>なし</td></tr>
+            <tr class="accent"><td>② 出資</td><td>株主</td><td>資本金（純資産）</td><td>通らない</td><td>なし</td></tr>
+            <tr><td>③ 借入</td><td>銀行</td><td>借入金（負債）</td><td>通らない</td><td>あり。利息は費用</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>入口の違い</b>　3つとも現金は同じだけ増える。違いは相手科目と、P/Lを通るかどうか。売上だけがP/Lを通る。</div>
+
+      <figure>
+        <div class="ctitle"><span>P/LとB/S　キャッシュの出口</span><span>模式図・金額なし</span></div>
+        <div class="dgwrap">
+        <svg class="dg" viewBox="0 0 760 412" role="img">
+          <title>P/LとB/Sの概略図。費用・配当・返済の3か所から外側へキャッシュが出る。設備投資は資産の中で振り替わる</title>
+
+          <text class="ol" x="333" y="15" text-anchor="middle">キャッシュ③　銀行へ</text>
+          <text class="ol" x="757" y="15" text-anchor="end">キャッシュ①　仕入先・従業員へ</text>
+          <line class="out" x1="333" y1="68" x2="333" y2="40"/>
+          <polygon class="outh" points="333,24 326,40 340,40"/>
+          <path class="out" d="M722 192 H742 V40"/>
+          <polygon class="outh" points="742,24 735,40 749,40"/>
+
+          <text class="hd" x="130" y="44">B/S　貸借対照表</text>
+          <rect class="pane" x="130" y="68" width="270" height="232"/>
+          <rect class="hl" x="131" y="69" width="134" height="71"/>
+          <rect class="bs" x="130" y="68" width="270" height="232"/>
+          <line class="sp" x1="265" y1="68" x2="265" y2="300"/>
+          <line class="sp" x1="131" y1="140" x2="264" y2="140"/>
+          <line class="sp" x1="266" y1="170" x2="399" y2="170"/>
+          <text class="lbl" x="198" y="86" text-anchor="middle">資産</text>
+          <text class="t" x="198" y="110" text-anchor="middle">現金</text>
+          <text class="lbl" x="215" y="130" text-anchor="middle">ここから出る</text>
+          <text class="t" x="198" y="232" text-anchor="middle">その他の資産</text>
+          <text class="s" x="198" y="252" text-anchor="middle">売掛金・在庫・設備</text>
+          <text class="lbl" x="333" y="86" text-anchor="middle">負債・純資産</text>
+          <text class="t" x="333" y="115" text-anchor="middle">負債</text>
+          <text class="s" x="333" y="135" text-anchor="middle">借入金・買掛金</text>
+          <text class="t" x="333" y="212" text-anchor="middle">純資産</text>
+          <text class="s" x="333" y="232" text-anchor="middle">資本金・利益剰余金</text>
+
+          <line class="swap" x1="146" y1="130" x2="146" y2="182"/>
+          <polygon class="swaph" points="146,196 139,180 153,180"/>
+          <text class="sl" x="215" y="168" text-anchor="middle">④ 設備投資</text>
+
+          <text class="hd" x="500" y="44">P/L　損益計算書</text>
+          <rect class="pane" x="500" y="68" width="220" height="232"/>
+          <rect class="pl" x="500" y="68" width="220" height="232"/>
+          <line class="sp" x1="500" y1="140" x2="720" y2="140"/>
+          <line class="sp" x1="500" y1="230" x2="720" y2="230"/>
+          <text class="t" x="610" y="110" text-anchor="middle">売上</text>
+          <text class="t" x="610" y="192" text-anchor="middle">費用</text>
+          <text class="t" x="610" y="272" text-anchor="middle">利益</text>
+
+          <line class="out" x1="333" y1="300" x2="333" y2="364"/>
+          <polygon class="outh" points="333,380 326,364 340,364"/>
+          <text class="ol" x="333" y="400" text-anchor="middle">キャッシュ②　株主へ</text>
+        </svg>
+        </div>
+      </figure>
+
+      <div class="tw">
+        <table class="words">
+          <caption>キャッシュの4つの出口</caption>
+          <thead><tr><th>出口</th><th>受け取る人</th><th>現金の相手</th><th>P/L</th><th>B/S合計</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>① 費用</td><td>仕入先・従業員</td><td>費用</td><td>通る</td><td>減る</td></tr>
+            <tr><td>② 配当</td><td>株主</td><td>利益剰余金（純資産）</td><td>通らない</td><td>減る</td></tr>
+            <tr><td>③ 返済</td><td>銀行</td><td>借入金（負債）</td><td>通らない</td><td>減る</td></tr>
+            <tr class="accent"><td>④ 設備投資</td><td>売り手</td><td>設備（資産）</td><td>通らない</td><td>変わらない</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>出口の違い</b>　4つとも現金は同じだけ減る。P/Lを通るのは費用だけ。設備投資は現金が設備に変わるだけで、B/Sの合計は変わらない。</div>
+
+      <div class="formula">利益　　 ＝ 収益 − 費用
+資産　　 ＝ 負債 ＋ 純資産
+現金残高 ＝ 期首現金 ＋ 入金 − 出金</div>
+
+      <h3>3つの箱</h3>
+
+      <div class="tw">
+        <table class="words">
+          <caption>B/S・P/L・現金の性質</caption>
+          <thead><tr><th>箱</th><th>種類</th><th>測るもの</th><th>期間</th><th>行き先</th></tr></thead>
+          <tbody>
+            <tr><td>B/S　貸借対照表</td><td>ストック</td><td>残高</td><td>ある一日</td><td>翌期へ繰り越す</td></tr>
+            <tr><td>P/L　損益計算書</td><td>フロー</td><td>もうけ</td><td>1年間</td><td>利益がB/Sの純資産へ</td></tr>
+            <tr class="accent"><td>現金　キャッシュ</td><td>フロー＋ストック</td><td>財布の出入り</td><td>1年間／ある一日</td><td>残高がB/Sの資産へ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>つながり</b>　P/Lの利益はB/Sの純資産に積み上がる。現金の残高はB/Sの資産に並ぶ。P/Lと現金は別々の箱。</div>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>P/Lの5つの利益</h2>
+      <p class="sub">売上高から当期純利益まで。引く順番が決まっている。日本基準。</p>
+
+      <div class="q"><span class="qn">問い</span>P/Lに利益は何種類あるか。順番に並べる。</div>
+
+      <figure>
+        <div class="ctitle"><span>P/Lの並び　売上高 → 当期純利益</span><span>模式図・金額なし・日本基準</span></div>
+        <div class="dgwrap">
+        <svg class="dg pl5" viewBox="0 0 760 476" role="img">
+          <title>損益計算書の並び。売上高から売上原価・販管費・営業外損益・特別損益・法人税等を順に引き、5つの利益が出る</title>
+          <rect class="r-rev" x="44" y="24" width="356" height="34" rx="8"/>
+          <text class="rt" x="64" y="46">売上高</text>
+          <rect class="r-cost" x="44" y="64" width="356" height="34" rx="8"/>
+          <text class="rt c" x="64" y="86">売上原価</text>
+          <rect class="r-pf" x="44" y="104" width="356" height="34" rx="8"/>
+          <text class="rt" x="64" y="126">売上総利益　粗利</text>
+          <text class="rn" x="26" y="126" text-anchor="middle">①</text>
+          <rect class="r-cost" x="44" y="144" width="356" height="34" rx="8"/>
+          <text class="rt c" x="64" y="166">販売費及び一般管理費</text>
+          <rect class="r-pf" x="44" y="184" width="356" height="34" rx="8"/>
+          <text class="rt" x="64" y="206">営業利益</text>
+          <text class="rn" x="26" y="206" text-anchor="middle">②</text>
+          <rect class="r-cost" x="44" y="224" width="356" height="34" rx="8"/>
+          <text class="rt c" x="64" y="246">営業外収益　−　営業外費用</text>
+          <rect class="r-pf" x="44" y="264" width="356" height="34" rx="8"/>
+          <text class="rt" x="64" y="286">経常利益</text>
+          <text class="rn" x="26" y="286" text-anchor="middle">③</text>
+          <rect class="r-cost" x="44" y="304" width="356" height="34" rx="8"/>
+          <text class="rt c" x="64" y="326">特別利益　−　特別損失</text>
+          <rect class="r-pf" x="44" y="344" width="356" height="34" rx="8"/>
+          <text class="rt" x="64" y="366">税引前当期純利益</text>
+          <text class="rn" x="26" y="366" text-anchor="middle">④</text>
+          <rect class="r-cost" x="44" y="384" width="356" height="34" rx="8"/>
+          <text class="rt c" x="64" y="406">法人税等</text>
+          <rect class="r-pf2" x="44" y="424" width="356" height="34" rx="8"/>
+          <text class="rt" x="64" y="446">当期純利益</text>
+          <text class="rn p2" x="26" y="446" text-anchor="middle">⑤</text>
+          <line class="ar" x1="452" y1="81" x2="418" y2="81"/>
+          <polygon class="arh" points="406,81 420,75 420,87"/>
+          <text class="at" x="462" y="85">仕入・製造の費用</text>
+          <line class="ar hi" x1="452" y1="161" x2="418" y2="161"/>
+          <polygon class="arh hi" points="406,161 420,155 420,167"/>
+          <text class="at hi" x="462" y="165">給与・家賃・広告・研究開発</text>
+          <line class="ar" x1="452" y1="241" x2="418" y2="241"/>
+          <polygon class="arh" points="406,241 420,235 420,247"/>
+          <text class="at" x="462" y="245">支払利息・受取利息・為替差損益</text>
+          <line class="ar" x1="452" y1="321" x2="418" y2="321"/>
+          <polygon class="arh" points="406,321 420,315 420,327"/>
+          <text class="at" x="462" y="325">減損損失・固定資産売却損</text>
+          <line class="ar" x1="452" y1="401" x2="418" y2="401"/>
+          <polygon class="arh" points="406,401 420,395 420,407"/>
+          <text class="at" x="462" y="405">法人税・住民税・事業税</text>
+        </svg>
+        </div>
+      </figure>
+
+      <div class="tw">
+        <table class="words">
+          <caption>5つの利益　順番と意味</caption>
+          <thead><tr><th>順</th><th>利益</th><th>直前に引くもの</th><th>わかること</th></tr></thead>
+          <tbody>
+            <tr><td>①</td><td>売上総利益（粗利）</td><td>売上原価</td><td>商品そのもののもうけ</td></tr>
+            <tr class="accent"><td>②</td><td>営業利益</td><td>販売費及び一般管理費</td><td>本業のもうけ</td></tr>
+            <tr><td>③</td><td>経常利益</td><td>営業外収益・営業外費用</td><td>財務を含めた毎年の実力</td></tr>
+            <tr><td>④</td><td>税引前当期純利益</td><td>特別利益・特別損失</td><td>その年だけの要因を含む</td></tr>
+            <tr class="accent"><td>⑤</td><td>当期純利益</td><td>法人税等</td><td>株主に残るもうけ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>給与の位置</b>　本社・営業の給与は販売費及び一般管理費。②営業利益の手前</li>
+        <li><b>例外</b>　製造業の工場で働く人の給与は労務費。売上原価に入り、①売上総利益の手前</li>
+        <li><b>支払利息</b>　営業外費用。②の後、③経常利益の手前。借金の多い会社は②と③が離れる</li>
+      </ul>
+
+      <div class="note"><b>会計基準による違い</b>　経常利益と特別損益は日本基準の区分。IFRSにはない。下のメルカリはIFRSのため、経常利益は開示されない。</div>
+
+      <h3>ニュース</h3>
+
+      <div class="tw">
+        <table>
+          <caption>メルカリ 2026年6月期 決算　億円</caption>
+          <thead><tr><th>項目</th><th>2026年6月期</th><th>2025年6月期</th></tr></thead>
+          <tbody>
+            <tr><td>売上収益</td><td>2,293</td><td>1,926</td></tr>
+            <tr><td>営業利益</td><td>439</td><td>278</td></tr>
+            <tr class="accent"><td>当期利益</td><td>354</td><td>261</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="q"><span class="qn">問1</span>当期利益 354億円。過去最高。本業で現金は増えたか、減ったか。</div>
+      <div class="q"><span class="qn">問2</span>手元の現金は1年で370億円増加。増えた原資は、売上・出資・借入のどれか。</div>
+
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>取引の4象限</h2>
+      <p class="sub">現金が動くか × 利益が動くか。取引は4つに分かれる。B/Sは全取引で動く。</p>
+
+      <figure>
+        <div class="ctitle"><span>現金 × 利益　取引の4象限</span><span>模式図・取引は例示</span></div>
+        <div class="quadwrap">
+          <div class="quad">
+            <div class="qh"></div>
+            <div class="qh">現金が動く</div>
+            <div class="qh">現金は動かない</div>
+
+            <div class="qs">利益が<br>動く</div>
+            <div class="qc c1"><b>① 同時に動く</b>
+              <ul><li>現金で売る</li><li>給料を現金で払う</li><li>家賃を現金で払う</li></ul>
+            </div>
+            <div class="qc c2"><b>② 利益だけ動く</b>
+              <ul><li>掛けで売る</li><li>減価償却</li><li>在庫の評価損</li></ul>
+            </div>
+
+            <div class="qs">利益は<br>動かない</div>
+            <div class="qc c3"><b>③ 現金だけ動く</b>
+              <ul><li>銀行から借りる・返す</li><li>設備を買う</li><li>売掛金の回収</li><li>増資・配当</li></ul>
+            </div>
+            <div class="qc c4"><b>④ どちらも動かない</b>
+              <ul><li>掛けで仕入れて在庫のまま</li><li>受注・契約の締結</li></ul>
+            </div>
+          </div>
+        </div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>取引10本　現金・利益・B/S合計への影響　万円</caption>
+          <thead><tr><th>取引</th><th>現金</th><th>利益</th><th>B/S合計</th><th>象限</th></tr></thead>
+          <tbody>
+            <tr><td>現金で売る　売価100・原価60</td><td>＋100</td><td>＋40</td><td>＋40</td><td>①</td></tr>
+            <tr><td>掛けで売る　売価100・原価60</td><td>0</td><td>＋40</td><td>＋40</td><td>②</td></tr>
+            <tr class="accent"><td>売掛金100を回収</td><td>＋100</td><td>0</td><td>0</td><td>③</td></tr>
+            <tr><td>銀行から300を借りる</td><td>＋300</td><td>0</td><td>＋300</td><td>③</td></tr>
+            <tr><td>借入100を返済</td><td>−100</td><td>0</td><td>−100</td><td>③</td></tr>
+            <tr><td>支払利息2</td><td>−2</td><td>−2</td><td>−2</td><td>①</td></tr>
+            <tr class="accent"><td>設備を現金200で買う</td><td>−200</td><td>0</td><td>0</td><td>③</td></tr>
+            <tr><td>減価償却40</td><td>0</td><td>−40</td><td>−40</td><td>②</td></tr>
+            <tr><td>給料50を現金で払う</td><td>−50</td><td>−50</td><td>−50</td><td>①</td></tr>
+            <tr><td>配当30を払う</td><td>−30</td><td>0</td><td>−30</td><td>③</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>取引別の現金増減　万円</span><span>上表より6本を抜粋</span></div>
+        <div id="c-cash"></div>
+        <div class="legend" id="lg-cash"></div>
+      </figure>
+
+      <ul>
+        <li><b>設備の購入</b>　現金は出るが費用ではない。資産の中身が現金から設備へ入れ替わるだけ</li>
+        <li><b>減価償却</b>　現金は出ないが費用になる。設備の代金を使う年数に配る</li>
+        <li><b>借入・返済・配当</b>　現金は動くが利益には無関係。P/Lを通らずB/Sだけが動く</li>
+      </ul>
+
+      <div class="note"><b>判定の順番</b>　① 現金は動くか　② 利益は動くか　③ B/Sのどこが入れ替わるか。</div>
+
+      <h3>答え合わせ</h3>
+      <p class="sub">メルカリ 2026年6月期 有価証券報告書。連結・IFRS。2026年9月17日提出。</p>
+
+      <dl class="tiles">
+        <div class="tile t3"><dt>当期利益</dt><dd>354<span class="u">億円</span></dd></div>
+        <div class="tile t2"><dt>営業CF</dt><dd>−95<span class="u">億円</span></dd></div>
+        <div class="tile t2"><dt>営業債権の増加</dt><dd>1,092<span class="u">億円</span></dd></div>
+        <div class="tile t1"><dt>財務CF</dt><dd>＋735<span class="u">億円</span></dd></div>
+      </dl>
+
+      <div class="tw">
+        <table>
+          <caption>現金の増減の内訳　2026年6月期　億円</caption>
+          <thead><tr><th>区分</th><th>金額</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>営業活動</td><td>−95.1</td><td>本業。利益354億円とは別</td></tr>
+            <tr><td>投資活動</td><td>−292.4</td><td>投資・貸付</td></tr>
+            <tr class="accent"><td>財務活動</td><td>＋734.7</td><td>借入・調達</td></tr>
+            <tr><td>為替の影響</td><td>＋23.2</td><td>外貨の換算</td></tr>
+            <tr><td>現金の増減</td><td>＋370.4</td><td>1,470.3 → 1,840.7</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table>
+          <caption>4象限との対応　億円</caption>
+          <thead><tr><th>動き</th><th>現金</th><th>利益</th><th>B/S</th><th>象限</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>売れたが代金は未回収</td><td>0</td><td>＋</td><td>営業債権が増える</td><td>②</td></tr>
+            <tr class="accent"><td>借入などで調達</td><td>＋735</td><td>0</td><td>負債が増える</td><td>③</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>問1の答え</b>　減った。営業CF −95億円。過去最高益354億円との差は449億円</li>
+        <li><b>問2の答え</b>　財務活動の735億円。借りた現金は利益ではない</li>
+        <li><b>営業債権</b>　2,547.3億円 → 3,639.5億円。1年で1,092.3億円の増加。現金の回収はこれから</li>
+      </ul>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>EDINETで</b>　メルカリの2026年6月期 有価証券報告書を開き、営業債権の金額を確認</li>
+        <li><b>AIで</b>　減価償却の対象になる資産と、ならない支出の区分を調べる</li>
+        <li><b>AIで</b>　売掛金の平均回収期間（売上債権回転日数）の業種別の目安を調べる</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>利益と現金のずれ</h2>
+      <p class="sub">売上が毎月20%増。仕入・経費は当月現金払い。入金は2か月後。期首現金1,000万円。</p>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>9か月の累計利益</dt><dd>1,248<span class="u">万円</span></dd></div>
+        <div class="tile t2"><dt>9か月後の現金</dt><dd>−117<span class="u">万円</span></dd></div>
+        <div class="tile t3"><dt>ずれ</dt><dd>1,365<span class="u">万円</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>累計利益と現金残高　万円</span><span>1–9か月 / 数値は例示</span></div>
+        <div id="c-gap"></div>
+        <div class="legend" id="lg-gap"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>月次の推移　抜粋　万円　全9か月はグラフ</caption>
+          <thead><tr><th>月</th><th>売上</th><th>費用</th><th>利益</th><th>入金</th><th>現金残高</th><th>累計利益</th></tr></thead>
+          <tbody>
+            <tr><td>1か月</td><td>300</td><td>240</td><td>60</td><td>0</td><td>760</td><td>60</td></tr>
+            <tr><td>3か月</td><td>432</td><td>346</td><td>86</td><td>300</td><td>426</td><td>218</td></tr>
+            <tr><td>5か月</td><td>622</td><td>498</td><td>124</td><td>432</td><td>306</td><td>446</td></tr>
+            <tr><td>8か月</td><td>1,075</td><td>860</td><td>215</td><td>747</td><td>19</td><td>990</td></tr>
+            <tr class="accent"><td>9か月</td><td>1,290</td><td>1,032</td><td>258</td><td>896</td><td>−117</td><td>1,248</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>黒字倒産</b>　P/Lは9か月連続の黒字。現金は9か月目にマイナス。支払いが止まった時点で事業は終了。倒産の判定はP/Lではなく現金。</div>
+
+      <div class="note"><b>2節との対応</b>　メルカリも営業活動の現金はマイナス95億円。差は調達。財務活動で735億円を確保。上の例は調達がない場合。</div>
+
+      <h3>演習</h3>
+      <p class="sub">対象は上表の会社。売上は前月比20%増、費用は売上の80%、入金は2か月前の売上。</p>
+      <ul>
+        <li><b>算出</b>　10か月目の売上・費用・利益・入金・現金残高を算出</li>
+        <li><b>判定</b>　3節の取引10本から3本を選び、4象限のどこに入るかを判定</li>
+        <li><b>説明</b>　累計利益と現金残高の差が毎月開く理由を1行で記述</li>
+      </ul>
+
+      <h3>問い</h3>
+
+      <div class="q"><span class="qn">問1</span>次の取引のうち、当期の利益を動かさないものをすべて選ぶ。　ア 銀行から1,000万円を借りる　イ 減価償却費200万円を計上　ウ 設備を現金500万円で購入　エ 配当300万円を支払う　オ 給料400万円を現金で支払う</div>
+      <details><summary>解答</summary><p>ア・ウ・エ
+ア　現金＋1,000／借入金＋1,000。P/Lを通らない
+ウ　現金−500／設備＋500。資産の入れ替え
+エ　現金−300／利益剰余金−300。純資産の分配であり費用ではない
+イ・オ　費用としてP/Lに計上</p></details>
+
+      <div class="q"><span class="qn">問2</span>当期の取引は次の3件のみ。売上1,000万円（全額が掛け・未回収）、仕入600万円（全額を現金で支払い・全量販売済み）、減価償却100万円。当期の利益と現金の増減を、計算式とともに算出。</div>
+      <details><summary>解答</summary><p>利益 ＝ 1,000 − 600 − 100 ＝ 300万円
+現金 ＝ 0 − 600 − 0 ＝ −600万円
+差 ＝ 300 −（−600）＝ 900万円
+内訳　売掛金1,000（未入金）− 減価償却100（現金の出ない費用）＝ 900万円</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>金融庁　EDINET（有価証券報告書）　<a href="https://disclosure2.edinet-fsa.go.jp/">disclosure2.edinet-fsa.go.jp</a></li>
+        <li>株式会社メルカリ　2026年6月期 有価証券報告書（2026年9月17日提出）　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Z2BE">EDINET S100Z2BE</a>。2節・3節の数値はすべて同報告書の連結・IFRS。売上収益 229,293百万円、営業利益 43,905百万円、当期利益 35,401百万円、営業CF −9,512百万円、投資CF −29,240百万円、財務CF 73,473百万円、為替の影響 2,319百万円、現金及び現金同等物 期末 184,069百万円・前期末 147,028百万円、営業債権 期末 363,953百万円・前期末 254,728百万円</li>
+        <li>中小企業庁　中小企業実態基本調査　<a href="https://www.chusho.meti.go.jp/koukai/chousa/kihon/">chusho.meti.go.jp</a></li>
+        <li>国税庁　減価償却　<a href="https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/2100.htm">nta.go.jp</a></li>
+        <li>企業会計基準委員会（ASBJ）　<a href="https://www.asb.or.jp/">asb.or.jp</a></li>
+        <li>4節の月次数値は例示。売上の月次増加率20%、原価率80%、入金サイト2か月、期首現金1,000万円の設定による試算</li>
+        <li>3節の取引10本は例示。消費税・法人税・在庫の期末評価は捨象</li>
+        <li>第3回以降で実企業の有価証券報告書を用いた財務分析を行う。本資料はその基礎</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b01-kinri.html"><b>← 第1回</b>金利と割引現在価値</a>
+    <a href="index-b.html"><b>一覧</b>イノベーションプロジェクトB 授業資料</a>
+  </nav>
+
+</div>
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines(host, cfg) / LC.bars(host, cfg) / LC.hbars(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,fmt:fmt,legend:legend};
+})();
+
+
+/* ===== 図 ===== */
+
+/* 取引別の現金増減。3節の表から6本を抜粋。数値は例示。 */
+LC.bars("#c-cash",{
+  w:720,h:320,pad:{l:62,r:16,t:30,b:44},alt:"取引別の現金増減",max:720,
+  y:{min:-250,max:350,ticks:[-200,0,200,300]},
+  unit:"万円",bw:44,
+  tip:function(d){ return d[0]+"　現金 "+LC.fmt(d[1])+"万円"; },
+  data:[
+    ["現金で売る",100,"var(--s1)"],
+    ["掛けで売る",0,"var(--s4)"],
+    ["借りる",300,"var(--s1)"],
+    ["設備を買う",-200,"var(--s2)"],
+    ["減価償却",0,"var(--s4)"],
+    ["配当",-30,"var(--s2)"]
+  ]
+});
+LC.legend("#lg-cash",[
+  {name:"現金が増える",color:"var(--s1)",square:true},
+  {name:"現金が減る",color:"var(--s2)",square:true},
+  {name:"現金は動かない",color:"var(--s4)",square:true}
+]);
+
+/* 累計利益と現金残高。4節の表と同一の設定。数値は例示。 */
+LC.lines("#c-gap",{
+  w:760,h:360,pad:{l:62,r:110,t:34,b:34},alt:"累計利益と現金残高の推移 1か月から9か月",
+  x:{min:1,max:9,ticks:[1,3,5,7,9],unit:"か月"},
+  y:{min:-200,max:1400,ticks:[-200,0,400,800,1200]},
+  marks:[{x:9,label:"9か月 資金ショート",row:0}],
+  series:[
+    {name:"累計利益",color:"var(--s1)",label:"利益 1,248",points:[
+      [1,60],[2,132],[3,218],[4,322],[5,446],[6,596],[7,775],[8,990],[9,1248]
+    ]},
+    {name:"現金残高",color:"var(--s2)",label:"現金 −117",points:[
+      [1,760],[2,472],[3,426],[4,372],[5,306],[6,227],[7,133],[8,19],[9,-117]
+    ]}
+  ],
+  tip:function(o,p){ return o.name+"　"+p[0]+"か月　"+LC.fmt(p[1])+"万円"; },
+  legend:"#lg-gap"
+});</script>
+</body>
+</html>
