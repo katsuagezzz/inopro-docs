@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 第3回 授業資料。ユニクロ・しまむら・ベイカレントのP/L・B/S・CFを並べた同業比較（アパレル）と異業種比較（コンサル）。">
+<title>同業比較と異業種比較</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">イノベーションプロジェクト　第3回　90分</div>
+    <h1>同業比較と<em>異業種比較</em></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>数字の差から事業モデルを特定</dd></div>
+      <div><dt>道具</dt><dd>百分率P/L・回転日数・CFの符号・ROE分解</dd></div>
+      <div><dt>対象</dt><dd>ユニクロ・しまむら・ベイカレント</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>比較の物差し</h2>
+      <p class="sub">連結・直近の本決算。決算期は3社とも異なる。金額は億円未満切り捨て。</p>
+
+      <div class="q"><span class="qn">問い</span>売上3.4兆円の会社と7,000億円の会社。金額のままで比べられるか。</div>
+
+      <div class="tw">
+        <table class="words">
+          <caption>比較する3社</caption>
+          <thead><tr><th>会社</th><th>決算期</th><th>会計基準</th><th>業種</th><th>売上</th></tr></thead>
+          <tbody>
+            <tr><td>ファーストリテイリング　ユニクロ</td><td>2025年8月期</td><td>IFRS</td><td>小売　SPA</td><td>3兆4,005億円</td></tr>
+            <tr><td>しまむら</td><td>2026年2月期</td><td>日本基準</td><td>小売　仕入販売</td><td>7,000億円</td></tr>
+            <tr class="accent"><td>ベイカレント</td><td>2026年2月期</td><td>IFRS</td><td>サービス　コンサルティング</td><td>1,483億円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="formula">百分率P/L　 ＝ 各項目 ÷ 売上高 × 100
+構成比B/S　 ＝ 各項目 ÷ 総資産 × 100
+在庫回転日数 ＝ 棚卸資産 ÷ 売上原価 × 365
+総資産回転率 ＝ 売上高 ÷ 総資産</div>
+
+      <ul>
+        <li><b>同業比較</b>　ユニクロ × しまむら。同じ服の小売。差は事業のつくり方</li>
+        <li><b>異業種比較</b>　ベイカレント × アパレル2社。服を売るか、人の時間を売るか。差は業種の構造</li>
+        <li><b>決算期のずれ</b>　最大6か月。しまむらとベイカレントは同じ2月期。比較は「直近の1年」同士。期をラベルで明記</li>
+      </ul>
+
+      <h3>言葉の国籍</h3>
+
+      <div class="tw">
+        <table class="words">
+          <caption>同じ中身・違う名前　IFRS と 日本基準</caption>
+          <thead><tr><th>中身</th><th>ユニクロ・ベイカレント　IFRS</th><th>しまむら　日本基準</th></tr></thead>
+          <tbody>
+            <tr><td>売上</td><td>売上収益</td><td>売上高</td></tr>
+            <tr class="accent"><td>本業の利益</td><td>営業利益。会社独自の指標を併用（ユニクロ 事業利益・ベイカレント EBITDA）</td><td>営業利益</td></tr>
+            <tr><td>財務を含む毎年の利益</td><td>なし</td><td>経常利益</td></tr>
+            <tr><td>最終利益</td><td>親会社の所有者に帰属する当期利益</td><td>親会社株主に帰属する当期純利益</td></tr>
+            <tr class="accent"><td>店舗の賃借</td><td>使用権資産・リース負債としてB/Sに計上</td><td>地代家賃としてP/Lの費用のみ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>8/28「言葉には国籍がある」の再登場</b>　会計の言葉にも国籍。IFRSに経常利益はない。ユニクロの「事業利益」は、売上収益 − 売上原価 − 販管費で会社が定義した数字。</div>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>作る会社と仕入れる会社</h2>
+      <p class="sub">同業比較のP/L。売上高を100とした百分率。ユニクロ 2025年8月期・しまむら 2026年2月期。</p>
+
+      <div class="q"><span class="qn">問い</span>原価率が高いのはどちらか。その差を、P/Lのどこで取り返しているか。</div>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>原価率　ユニクロ</dt><dd>46.2<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>原価率　しまむら</dt><dd>65.2<span class="u">%</span></dd></div>
+        <div class="tile t1"><dt>販管費率　ユニクロ</dt><dd>37.6<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>販管費率　しまむら</dt><dd>26.3<span class="u">%</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>売上高100の内訳　%</span><span>本業の残り ＝ 売上 − 原価 − 販管費</span></div>
+        <div class="stk" id="c-pl"></div>
+        <div class="legend" id="lg-pl"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>百分率P/L　億円・%</caption>
+          <thead><tr><th>項目</th><th>ユニクロ　億円</th><th>%</th><th>しまむら　億円</th><th>%</th></tr></thead>
+          <tbody>
+            <tr><td>売上高（売上収益）</td><td>34,005</td><td>100.0</td><td>7,000</td><td>100.0</td></tr>
+            <tr class="accent"><td>売上原価</td><td>15,716</td><td>46.2</td><td>4,561</td><td>65.2</td></tr>
+            <tr><td>売上総利益　粗利</td><td>18,288</td><td>53.8</td><td>2,439</td><td>34.8</td></tr>
+            <tr class="accent"><td>販売費及び一般管理費</td><td>12,777</td><td>37.6</td><td>1,837</td><td>26.3</td></tr>
+            <tr><td>本業の残り　粗利 − 販管費</td><td>5,511</td><td>16.2</td><td>601</td><td>8.6</td></tr>
+            <tr><td>営業利益（開示）</td><td>5,642</td><td>16.6</td><td>614</td><td>8.8</td></tr>
+            <tr><td>当期純利益</td><td>4,330</td><td>12.7</td><td>444</td><td>6.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>ユニクロの残り5,511億円</b>　会社開示の「事業利益」と一致。営業利益との差131億円は、その他の収益・費用</li>
+        <li><b>しまむらの営業利益</b>　粗利に営業収入13億円を加えた後の数字。差はこの分</li>
+      </ul>
+
+      <h3>工程の分担</h3>
+
+      <div class="tw">
+        <table class="words">
+          <caption>企画から販売まで　誰が担うか</caption>
+          <thead><tr><th>工程</th><th>ユニクロ　SPA</th><th>しまむら　仕入販売</th></tr></thead>
+          <tbody>
+            <tr><td>企画・素材</td><td><span class="chip o">自社</span>　素材メーカーと共同開発</td><td><span class="chip">仕入先</span>　一部はPB・共同開発</td></tr>
+            <tr><td>生産</td><td><span class="chip o">自社管理</span>　委託工場に大量発注</td><td><span class="chip">仕入先</span>　完成品を買い取る</td></tr>
+            <tr><td>物流</td><td><span class="chip o">自社</span>　自動化倉庫へ投資</td><td><span class="chip o">自社</span>　自社の物流網</td></tr>
+            <tr><td>販売</td><td><span class="chip o">自社</span>　店舗・EC</td><td><span class="chip o">自社</span>　店舗・EC</td></tr>
+            <tr class="accent"><td>P/Lに出る場所</td><td>原価が低い。ブランド・店舗・物流の費用が販管費へ</td><td>仕入先の利益が原価に入る。販管費は低い</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table>
+          <caption>販管費の中身　売上高に対する%</caption>
+          <thead><tr><th>科目</th><th>ユニクロ</th><th>しまむら</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>人件費</td><td>13.8</td><td>11.6</td></tr>
+            <tr class="accent"><td>店舗費用　地代家賃＋減価償却</td><td>10.0</td><td>5.8</td></tr>
+            <tr><td>広告宣伝費</td><td>3.2</td><td>1.7</td></tr>
+            <tr><td>物流費</td><td>4.2</td><td>—</td></tr>
+            <tr><td>その他</td><td>6.3</td><td>7.2</td></tr>
+            <tr><td>合計　販管費率</td><td>37.6</td><td>26.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>答え</b>　原価率はしまむらが約19ポイント高い。販管費率ではユニクロが約11ポイント高い</li>
+        <li><b>差し引き</b>　約8ポイント。本業の残りの差 16.2 − 8.6 ＝ 7.6</li>
+        <li><b>店舗費用の計上</b>　ユニクロはIFRS。店舗の家賃の多くが使用権資産の減価償却として計上</li>
+        <li><b>しまむらの物流費</b>　販管費明細に独立の科目なし。その他に含む</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>在庫と回転日数</h2>
+      <p class="sub">同業比較のB/S。P/Lの原価率とB/Sの在庫は同じ事業モデルの表と裏。</p>
+
+      <div class="q"><span class="qn">問い</span>在庫を長く持つのはどちらか。長く持つことは損か。</div>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>在庫回転日数　ユニクロ</dt><dd>118.7<span class="u">日</span></dd></div>
+        <div class="tile t2"><dt>在庫回転日数　しまむら</dt><dd>48.8<span class="u">日</span></dd></div>
+        <div class="tile t3"><dt>在庫1円あたり年間粗利　2社</dt><dd>3.6 / 4.0<span class="u">円</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>在庫回転日数　日</span><span>棚卸資産 ÷ 売上原価 × 365</span></div>
+        <div id="c-inv"></div>
+      </figure>
+
+      <div class="formula">在庫1円あたり粗利 ＝ 粗利 ÷ 棚卸資産
+                  ＝ 粗利率 × 在庫回転率（売上高 ÷ 棚卸資産）
+
+ユニクロ　53.8% ×  6.66回 ＝ 3.58円
+しまむら　34.8% × 11.49回 ＝ 4.00円</div>
+
+      <ul>
+        <li><b>ユニクロ</b>　粗利は厚い。在庫は約4か月。企画から店頭まで長く、大量に作る</li>
+        <li><b>しまむら</b>　粗利は薄い。在庫は約1.6か月。少量ずつ仕入れ、売り切る</li>
+        <li><b>答え</b>　長いのはユニクロ。ただし厚い粗利で回収。在庫1円の稼ぎは2社で近い</li>
+      </ul>
+
+      <h3>B/Sの形</h3>
+
+      <figure>
+        <div class="ctitle"><span>総資産100の内訳　%</span><span>ユニクロ 2025/8末・しまむら 2026/2末</span></div>
+        <div class="stk" id="c-bs"></div>
+        <div class="legend" id="lg-bs"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>B/Sの主要項目　億円</caption>
+          <thead><tr><th>項目</th><th>ユニクロ</th><th>しまむら</th></tr></thead>
+          <tbody>
+            <tr><td>総資産</td><td>38,593</td><td>5,546</td></tr>
+            <tr><td>現金及び現金同等物</td><td>8,932</td><td>1,271</td></tr>
+            <tr><td>有価証券（流動）</td><td>—</td><td>1,531</td></tr>
+            <tr class="accent"><td>棚卸資産　在庫</td><td>5,109</td><td>609</td></tr>
+            <tr><td>有形固定資産</td><td>3,323</td><td>1,577</td></tr>
+            <tr><td>リース負債</td><td>5,135</td><td>—</td></tr>
+            <tr><td>負債合計</td><td>15,862</td><td>661</td></tr>
+            <tr class="accent"><td>自己資本比率</td><td>58.9%</td><td>88.1%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>手元資金</b>　ユニクロの方針は月商の3〜5か月分。実績 8,932億円 ＝ 月商の3.2か月分</li>
+        <li><b>しまむらの負債</b>　661億円。財務CFに借入・返済の動きなし。流動負債568億円のうち買掛金256億円</li>
+        <li><b>リース負債5,135億円</b>　IFRSで店舗の賃借を負債に計上。日本基準のしまむらには出ない</li>
+      </ul>
+
+      <div class="note"><b>比較の落とし穴</b>　自己資本比率58.9%対88.1%。差の一部は会計基準。IFRSでは店舗の家賃契約がB/Sに載り、総資産と負債が膨らむ。</div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>キャッシュフロー</h2>
+      <p class="sub">同業比較のCF。営業・投資・財務の3区分。符号の組み合わせで会社の段階を読む。</p>
+
+      <div class="q"><span class="qn">問い</span>2社とも現金は1年で減った。業績の悪化か。</div>
+
+      <div class="tw">
+        <table>
+          <caption>キャッシュフロー計算書　億円</caption>
+          <thead><tr><th>区分</th><th>ユニクロ</th><th>符号</th><th>しまむら</th><th>符号</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>営業活動　本業で稼いだ現金</td><td>5,806</td><td><span class="chip up">＋</span></td><td>480</td><td><span class="chip up">＋</span></td></tr>
+            <tr><td>投資活動　設備・預金・有価証券</td><td>−5,789</td><td><span class="chip dn">−</span></td><td>−663</td><td><span class="chip dn">−</span></td></tr>
+            <tr><td>財務活動　借入・返済・株主還元</td><td>−3,391</td><td><span class="chip dn">−</span></td><td>−607</td><td><span class="chip dn">−</span></td></tr>
+            <tr><td>現金の増減（為替の影響を含む）</td><td>−3,003</td><td></td><td>−790</td><td></td></tr>
+            <tr class="accent"><td>設備投資</td><td>1,719</td><td></td><td>249</td><td></td></tr>
+            <tr class="accent"><td>簡易FCF　営業CF − 設備投資</td><td>4,087</td><td></td><td>231</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>売上高に対する営業CF・設備投資　%</span><span>同じ売上100から残る現金</span></div>
+        <div id="c-cf"></div>
+        <div class="legend" id="lg-cf"></div>
+      </figure>
+
+      <div class="tw">
+        <table class="words">
+          <caption>現金が減った理由　投資・財務の主な中身</caption>
+          <thead><tr><th>区分</th><th>ユニクロ</th><th>しまむら</th></tr></thead>
+          <tbody>
+            <tr><td>投資活動</td><td>定期預金への預け入れ 2,096億円・投資有価証券 1,850億円・有形固定資産 1,355億円</td><td>有価証券の取得と償還の差 212億円・有形固定資産 229億円・投資有価証券 216億円</td></tr>
+            <tr class="accent"><td>財務活動</td><td>配当 1,426億円・リース負債の返済 1,404億円・社債の償還 300億円</td><td>自己株式の取得 456億円・配当 150億円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>答え</b>　悪化ではない。営業CFは2社ともプラス。現金を預金・有価証券へ移し、株主へ返した結果</li>
+        <li><b>符号 ＋ − −</b>　本業で稼ぎ、投資し、株主と債権者に返す。成熟した優良企業の型</li>
+        <li><b>営業CF÷売上</b>　ユニクロ17.1%・しまむら6.9%。P/Lの利益率の差が現金でも再現</li>
+      </ul>
+
+      <div class="note"><b>CFの符号　読み方の型</b>　＋ − − 稼いで返す。＋ − ＋ 稼いだ上に借りて大型投資。− ＋ ＋ 本業が赤字で資産売却と借入に依存。</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>コンサルとアパレル</h2>
+      <p class="sub">異業種比較。ベイカレント 2026年2月期（IFRS）× アパレル2社。服を売る会社と、人の時間を売る会社。</p>
+
+      <div class="q"><span class="qn">問い</span>原価率はユニクロ46.2%、ベイカレント43.4%。ほぼ同じ。原価の中身も同じか。お金はB/Sのどこに眠るか。</div>
+
+      <dl class="tiles">
+        <div class="tile t3"><dt>営業利益率　ベイカレント</dt><dd>34.3<span class="u">%</span></dd></div>
+        <div class="tile t3"><dt>在庫回転日数　ベイカレント</dt><dd>3.5<span class="u">日</span></dd></div>
+        <div class="tile t3"><dt>現金 ÷ 総資産　ベイカレント</dt><dd>45.9<span class="u">%</span></dd></div>
+        <div class="tile t3"><dt>営業CF ÷ 売上　ベイカレント</dt><dd>25.4<span class="u">%</span></dd></div>
+      </dl>
+
+      <div class="tw">
+        <table class="words">
+          <caption>売っているもの・原価の中身</caption>
+          <thead><tr><th>項目</th><th>アパレル　ユニクロ・しまむら</th><th>コンサル　ベイカレント</th></tr></thead>
+          <tbody>
+            <tr><td>売るもの</td><td>服。在庫として先に持つ</td><td>コンサルタントの時間と知見。在庫にできない</td></tr>
+            <tr class="accent"><td>原価の中身</td><td>商品の生産・仕入の費用</td><td>運転資金の主な使い道はコンサルタントの人件費（会社の記載）</td></tr>
+            <tr><td>生産実績</td><td>ユニクロは委託生産・しまむらは仕入</td><td>「生産活動を行っていないため該当なし」</td></tr>
+            <tr><td>売上を増やす方法</td><td>店舗・EC・品ぞろえ</td><td>採用と単価。人数 × 稼働 × 単価</td></tr>
+            <tr class="accent"><td>お金が眠る場所</td><td>在庫</td><td>売上債権。請求後・入金前の代金</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>総資産100の内訳　%</span><span>アパレル2社・コンサル1社　各社の期末</span></div>
+        <div class="stk" id="c-bs3"></div>
+        <div class="legend" id="lg-bs3"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>異業種比較　P/L・B/S・CF　%・日・億円</caption>
+          <thead><tr><th>項目</th><th>ユニクロ</th><th>しまむら</th><th>ベイカレント</th></tr></thead>
+          <tbody>
+            <tr><td>売上高　億円</td><td>34,005</td><td>7,000</td><td>1,483</td></tr>
+            <tr><td>原価率</td><td>46.2</td><td>65.2</td><td>43.4</td></tr>
+            <tr><td>販管費率</td><td>37.6</td><td>26.3</td><td>22.3</td></tr>
+            <tr class="accent"><td>営業利益率</td><td>16.6</td><td>8.8</td><td>34.3</td></tr>
+            <tr class="accent"><td>在庫回転日数　日</td><td>118.7</td><td>48.8</td><td>3.5</td></tr>
+            <tr><td>現金 ÷ 総資産</td><td>23.1</td><td>22.9</td><td>45.9</td></tr>
+            <tr><td>有形固定資産 ÷ 総資産</td><td>8.6</td><td>28.4</td><td>8.7</td></tr>
+            <tr><td>自己資本比率</td><td>58.9</td><td>88.1</td><td>74.3</td></tr>
+            <tr><td>営業CF ÷ 売上</td><td>17.1</td><td>6.9</td><td>25.4</td></tr>
+            <tr><td>設備投資 ÷ 売上</td><td>5.1</td><td>3.6</td><td>1.8</td></tr>
+            <tr><td>簡易FCF　億円</td><td>4,087</td><td>231</td><td>349</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>ベイカレント　P/L・B/S・CFの主要項目　億円</caption>
+          <thead><tr><th>項目</th><th>金額</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>売上収益</td><td>1,483</td><td>前期比 ＋27.8%</td></tr>
+            <tr><td>売上原価</td><td>643</td><td>43.4%</td></tr>
+            <tr><td>販管費</td><td>330</td><td>22.3%。増加の主因は人件費</td></tr>
+            <tr class="accent"><td>営業利益</td><td>509</td><td>34.3%</td></tr>
+            <tr><td>当期利益</td><td>378</td><td>25.5%</td></tr>
+            <tr><td>総資産</td><td>1,574</td><td>現金 723・のれん 191・有形固定資産 136</td></tr>
+            <tr><td>棚卸資産</td><td>6</td><td>総資産の0.4%</td></tr>
+            <tr class="accent"><td>営業CF</td><td>376</td><td>売上債権の増加 114億円が現金を押し下げ</td></tr>
+            <tr><td>投資CF</td><td>−65</td><td>有形固定資産の取得 26・貸付 23</td></tr>
+            <tr><td>財務CF</td><td>−193</td><td>配当 132・自己株式 30・リース返済 20</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>答え</b>　原価率は近いが中身は別物。アパレルは服、コンサルは人。お金が眠る場所も在庫と売上債権で逆</li>
+        <li><b>在庫3.5日</b>　服も工場もない。B/Sの半分近くが現金</li>
+        <li><b>設備投資 ÷ 売上 1.8%</b>　設備がほぼ要らない。営業CFの大半がそのまま残る</li>
+        <li><b>売上債権</b>　売上が伸びるほど未回収の代金も増える。第2回のメルカリと同じ構造</li>
+        <li><b>売上 ÷ 連結従業員数</b>　1,483億円 ÷ 6,788人 ＝ 2,185万円</li>
+      </ul>
+
+      <div class="note"><b>B/Sに載らない資産</b>　コンサルの稼ぐ力の源はコンサルタント。人はB/Sの資産に載らない。人件費としてP/Lに出るだけ。退職は、B/Sに見えない資産の流出。</div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>ROEの分解</h2>
+      <p class="sub">3社を1本の式で並べる。期末の数値で計算。会社公表のROEは期中平均のため少し異なる。</p>
+
+      <div class="q"><span class="qn">問い</span>ROEが最も高いのはどこか。差は3つの要素のどれから来るか。</div>
+
+      <div class="formula">ROE ＝ 純利益 ÷ 自己資本
+    ＝ 売上高純利益率 × 総資産回転率 × 財務レバレッジ
+    ＝ （純利益÷売上高）×（売上高÷総資産）×（総資産÷自己資本）</div>
+
+      <figure>
+        <div class="ctitle"><span>ROE　%</span><span>期末ベース・3社</span></div>
+        <div id="c-roe"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>デュポン分解　3社</caption>
+          <thead><tr><th>要素</th><th>ユニクロ</th><th>しまむら</th><th>ベイカレント</th></tr></thead>
+          <tbody>
+            <tr><td>売上高純利益率</td><td>12.7%</td><td>6.4%</td><td>25.5%</td></tr>
+            <tr><td>× 総資産回転率</td><td>0.88回</td><td>1.26回</td><td>0.94回</td></tr>
+            <tr><td>× 財務レバレッジ</td><td>1.70倍</td><td>1.14倍</td><td>1.35倍</td></tr>
+            <tr class="accent"><td>＝ ROE　期末ベース</td><td>19.0%</td><td>9.1%</td><td>32.3%</td></tr>
+            <tr><td>ROE　会社公表</td><td>20.2%</td><td>9.0%</td><td>35.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>ベイカレント</b>　利益率25.5%が突出。回転率はユニクロと同水準。レバレッジは低め</li>
+        <li><b>ユニクロ</b>　利益率・回転率ともに中位。レバレッジは3社で最大</li>
+        <li><b>しまむら</b>　回転率は最大。自己資本比率88.1%でレバレッジが最小。これがROEを押し下げる</li>
+        <li><b>答え</b>　ベイカレント。ユニクロとの差はほぼ利益率。しまむらとの差は利益率とレバレッジ</li>
+      </ul>
+
+      <div class="note"><b>レバレッジの両面</b>　借入でROEは上がる。同時に倒産の確率も上がる。しまむらの低いROEは、無借金の安全性の裏返し。</div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">EDINETで有価証券報告書を3社分開く。同業2社＋異業種1社。</p>
+
+      <ul>
+        <li><b>選定</b>　自分が客として使う会社を1社。同業を1社。在庫の有無が違う異業種を1社</li>
+        <li><b>転記</b>　「主要な経営指標等の推移」と連結財務諸表から下表の金額を記入</li>
+        <li><b>算出</b>　百分率・回転日数・回転率・ROEを電卓で算出</li>
+        <li><b>特定</b>　同業2社の差が、原価率・販管費率・在庫のどこに出るかを1行で記述</li>
+        <li><b>特定</b>　異業種の会社とのROEの差が、3要素のどれから来るかを1行で記述</li>
+      </ul>
+
+      <div class="tw">
+        <table>
+          <caption>比較シート　億円・%</caption>
+          <thead><tr><th>項目</th><th>自分の会社</th><th>同業</th><th>異業種</th></tr></thead>
+          <tbody>
+            <tr><td>会社名・決算期・会計基準</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>売上高</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>原価率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>販管費率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>営業利益率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>在庫回転日数</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>自己資本比率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>営業CF・投資CF・財務CFの符号</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>売上高純利益率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>総資産回転率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>財務レバレッジ</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr class="accent"><td>ROE</td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>EDINETで</b>　ユニクロの有価証券報告書の「事業利益」の定義を確認</li>
+        <li><b>EDINETで</b>　しまむらの販管費明細を開き、地代家賃の金額を確認</li>
+        <li><b>AIで</b>　SPAの代表企業を国内外で5社。各社の原価率と並べて検証</li>
+        <li><b>AIで</b>　IFRS第16号（リース）の導入で自己資本比率がどう変わるかを調べる</li>
+      </ul>
+
+      <div class="note"><b>AIの数字は照合</b>　AIが答えた原価率・ROEは、必ず有価証券報告書の数字と突き合わせる。期ずれと会計基準の違いに注意。</div>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>金融庁　EDINET（有価証券報告書）　<a href="https://disclosure2.edinet-fsa.go.jp/">disclosure2.edinet-fsa.go.jp</a></li>
+        <li>株式会社ファーストリテイリング　2025年8月期 有価証券報告書（2025年11月28日提出）　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100X6X6">EDINET S100X6X6</a>。連結・IFRS。売上収益 3,400,539百万円、売上原価 1,571,681百万円、販管費 1,277,701百万円、営業利益 564,265百万円、親会社の所有者に帰属する当期利益 433,009百万円、総資産 3,859,353百万円、親会社の所有者に帰属する持分 2,273,115百万円、現金及び現金同等物 893,239百万円、棚卸資産 510,958百万円、有形固定資産 332,351百万円、リース負債 513,500百万円（流動・非流動の合計）、営業CF 580,618百万円、投資CF −578,922百万円、財務CF −339,139百万円、設備投資 1,719億円</li>
+        <li>株式会社しまむら　2026年2月期 有価証券報告書（2026年5月12日提出）　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Y2PP">EDINET S100Y2PP</a>。連結・日本基準。売上高 700,034百万円、売上原価 456,130百万円、営業収入 1,350百万円、販管費 183,771百万円、営業利益 61,483百万円、親会社株主に帰属する当期純利益 44,460百万円、総資産 554,667百万円、純資産 488,545百万円、現金及び現金同等物 127,185百万円、有価証券 153,183百万円、商品 60,923百万円、有形固定資産 157,704百万円、営業CF 48,052百万円、投資CF −66,334百万円、財務CF −60,754百万円、設備投資 249億円</li>
+        <li>株式会社ベイカレント　2026年2月期 有価証券報告書（2026年5月26日提出）　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Y69G">EDINET S100Y69G</a>。連結・IFRS。売上収益 148,332百万円、売上原価 64,346百万円、販管費 33,069百万円、営業利益 50,931百万円、親会社の所有者に帰属する当期利益 37,840百万円、総資産 157,485百万円、資本 117,038百万円、現金及び現金同等物 72,308百万円、棚卸資産 624百万円、のれん 19,187百万円、有形固定資産 13,631百万円、営業CF 37,616百万円、投資CF −6,508百万円、財務CF −19,352百万円、有形固定資産の取得 2,645百万円、連結従業員数 6,788人</li>
+        <li>販管費の内訳は各社の販管費明細（連結損益計算書注記）。区分は本資料での集計。しまむらは主要科目のみ開示のため、開示外はその他に計上</li>
+        <li>企業会計基準委員会（ASBJ）　<a href="https://www.asb.or.jp/">asb.or.jp</a>　／　IFRS財団　IFRS第16号「リース」　<a href="https://www.ifrs.org/">ifrs.org</a></li>
+        <li>在庫回転日数・総資産回転率・ROE分解は本資料による計算。期末残高を使用。ベイカレントの設備投資は有形固定資産の取得額</li>
+        <li>ユニクロの2026年8月期決算は本資料作成時点で未公表。公表後に数値を更新</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b02-torihiki.html"><b>← 第2回</b>取引とP/L・B/S</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines / LC.bars / LC.hbars / LC.stack(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+
+  /* ---- 帯グラフ：構成比（1行＝1社、合計を100として区切る） ----
+     rows:[{name, segs:[[区分, 値, 色, 文字色], ...]}]。値は%。 */
+  function stack(h,cfg){
+    var P={l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:96, r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:12, t:cfg.pad&&cfg.pad.t!==undefined?cfg.pad.t:24, b:8};
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var band=ph/cfg.rows.length, bh=cfg.bh||30;
+    [0,25,50,75,100].forEach(function(v){
+      var x=P.l+v/100*pw;
+      s.appendChild(el("line",{x1:x,y1:P.t-4,x2:x,y2:P.t+ph,"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(x,P.t-8,v+"%","tk"));
+    });
+    cfg.rows.forEach(function(row,i){
+      var cy=P.t+band*i+band/2, tot=0, x=P.l;
+      row.segs.forEach(function(g){ tot+=g[1]; });
+      s.appendChild(txt(P.l-10,cy+4,row.name,"el","end"));
+      row.segs.forEach(function(g){
+        var w=g[1]/tot*pw;
+        var r=el("rect",{x:x,y:cy-bh/2,width:Math.max(1,w-1.5),height:bh,rx:3,fill:g[2]});
+        hover(r,row.name+"　"+g[0]+"　"+fmt(g[1],1)+"%");
+        s.appendChild(r);
+        if(w>44){
+          var t=txt(x+w/2,cy+4,fmt(g[1],1),"vl");
+          t.style.fill=g[3]||"#fff";
+          t.style.pointerEvents="none";
+          s.appendChild(t);
+        }
+        x+=w;
+      });
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,stack:stack,fmt:fmt,legend:legend};
+})();
+
+
+/* ===== 図 ===== 数値は各社の有価証券報告書（出典欄）から算出 */
+
+var C_COST=["売上原価","var(--axis)","var(--ink)"],
+    C_SGA =["販管費","var(--s4)","#141019"],
+    C_OP  =["本業の残り","var(--pop)","#fff"];
+function seg(c,v){ return [c[0],v,c[1],c[2]]; }
+
+/* 2節　百分率P/L */
+LC.stack("#c-pl",{
+  w:720,h:130,alt:"売上高100の内訳。ユニクロは原価46.2・販管費37.6・残り16.2、しまむらは原価65.2・販管費26.3・残り8.6",max:720,
+  pad:{l:84},
+  rows:[
+    {name:"ユニクロ",segs:[seg(C_COST,46.2),seg(C_SGA,37.6),seg(C_OP,16.2)]},
+    {name:"しまむら",segs:[seg(C_COST,65.2),seg(C_SGA,26.3),seg(C_OP,8.6)]}
+  ]
+});
+LC.legend("#lg-pl",[
+  {name:"売上原価",color:"var(--axis)",square:true},
+  {name:"販管費",color:"var(--s4)",square:true},
+  {name:"本業の残り",color:"var(--pop)",square:true}
+]);
+
+/* 3節　在庫回転日数 */
+LC.bars("#c-inv",{
+  w:720,h:260,pad:{l:52,r:16,t:26,b:34},alt:"在庫回転日数。ユニクロ118.7日、しまむら48.8日",max:560,
+  y:{min:0,max:140,ticks:[0,30,60,90,120]},
+  unit:"日",digits:1,bw:64,
+  data:[["ユニクロ",118.7,"var(--s1)"],["しまむら",48.8,"var(--s2)"]]
+});
+
+/* 3節・5節　B/Sの構成 */
+var B_INV=["棚卸資産","var(--pop)","#fff"],
+    B_CUR=["その他の流動資産","var(--axis)","var(--ink)"],
+    B_PPE=["有形固定資産","var(--s4)","#141019"],
+    B_NCA=["その他の固定資産","var(--muted)","#fff"];
+var BS={
+  fr :{name:"ユニクロ",segs:[seg(B_INV,13.2),seg(B_CUR,52.3),seg(B_PPE,8.6),seg(B_NCA,25.9)]},
+  sh :{name:"しまむら",segs:[seg(B_INV,11.0),seg(B_CUR,47.0),seg(B_PPE,28.4),seg(B_NCA,13.5)]},
+  bc :{name:"ベイカレント",segs:[seg(B_INV,0.4),seg(B_CUR,72.2),seg(B_PPE,8.7),seg(B_NCA,18.8)]}
+};
+var BS_LG=[
+  {name:"棚卸資産",color:"var(--pop)",square:true},
+  {name:"その他の流動資産　現金・預金・有価証券・売上債権など",color:"var(--axis)",square:true},
+  {name:"有形固定資産",color:"var(--s4)",square:true},
+  {name:"その他の固定資産",color:"var(--muted)",square:true}
+];
+LC.stack("#c-bs",{
+  w:720,h:130,alt:"総資産100の内訳。ユニクロとしまむら",max:720,pad:{l:84},
+  rows:[BS.fr,BS.sh]
+});
+LC.legend("#lg-bs",BS_LG);
+LC.stack("#c-bs3",{
+  w:720,h:180,alt:"総資産100の内訳。ユニクロ・しまむら・ベイカレント",max:720,pad:{l:100},
+  rows:[BS.fr,BS.sh,BS.bc]
+});
+LC.legend("#lg-bs3",BS_LG);
+
+/* 4節　売上高に対する営業CF・設備投資 */
+LC.bars("#c-cf",{
+  w:720,h:280,pad:{l:52,r:16,t:26,b:34},alt:"売上高に対する営業CFと設備投資。ユニクロ17.1%と5.1%、しまむら6.9%と3.6%",max:720,
+  y:{min:0,max:20,ticks:[0,5,10,15,20]},
+  unit:"%",digits:1,bw:52,
+  data:[
+    ["ユニクロ 営業CF",17.1,"var(--s1)"],
+    ["ユニクロ 設備投資",5.1,"var(--s1)"],
+    ["しまむら 営業CF",6.9,"var(--s2)"],
+    ["しまむら 設備投資",3.6,"var(--s2)"]
+  ]
+});
+LC.legend("#lg-cf",[
+  {name:"ユニクロ",color:"var(--s1)",square:true},
+  {name:"しまむら",color:"var(--s2)",square:true}
+]);
+
+/* 6節　ROE */
+LC.bars("#c-roe",{
+  w:720,h:260,pad:{l:52,r:16,t:26,b:34},alt:"ROE 期末ベース。ユニクロ19.0%、しまむら9.1%、ベイカレント32.3%",max:640,
+  y:{min:0,max:40,ticks:[0,10,20,30,40]},
+  unit:"%",digits:1,bw:64,
+  data:[["ユニクロ",19.0,"var(--s1)"],["しまむら",9.1,"var(--s2)"],["ベイカレント",32.3,"var(--s3)"]]
+});
+</script>
+</body>
+</html>
