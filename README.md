@@ -12,6 +12,7 @@
 | 第1回 | 金利と割引現在価値 | `b01-kinri.html` |
 | 第2回 | 取引とP/L・B/S | `b02-torihiki.html` |
 | 第3回 | 同業比較と異業種比較 | `b03-hikaku.html` |
+| 第4回 | ランキングで会社を読む | `b04-ranking.html` |
 
 ## 仕様
 

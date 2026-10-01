@@ -1,0 +1,1155 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 第4回 授業資料。EDINET DBのランキングで、営業利益率（経営者目線）・純利益率と配当性向（投資家目線）・平均年収（従業員目線）を読む。">
+<title>ランキングで会社を読む</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">イノベーションプロジェクト　第4回　90分</div>
+    <h1>ランキングで<em>会社を読む</em></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>ランキング上位の理由を1行で特定</dd></div>
+      <div><dt>道具</dt><dd>営業利益率・純利益率・配当性向・平均年収</dd></div>
+      <div><dt>サイト</dt><dd><a href="https://edinetdb.jp/">EDINET DB　edinetdb.jp</a> のランキング</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>三つの目線</h2>
+      <p class="sub">同じP/Lでも、立場ごとに見る行が違う。調べる順は 経営者 → 投資家 → 従業員。</p>
+
+      <div class="q"><span class="qn">問い</span>売上1兆円の会社。経営者・株主・社員は、それぞれP/Lのどの行を最初に見るか。</div>
+
+      <div class="eyes">
+        <div class="eye e1">
+          <span class="who">経営者目線　本業</span>
+          <div class="q2">本業で稼ぐ力はあるか</div>
+          <div class="m"><b>営業利益率</b><br>＝ 営業利益 ÷ 売上高</div>
+        </div>
+        <div class="eye e2">
+          <span class="who">投資家目線　株主</span>
+          <div class="q2">最終的にいくら残り、いくら戻るか</div>
+          <div class="m"><b>純利益率</b>　＝ 純利益 ÷ 売上高<br><b>配当性向</b>　＝ 配当総額 ÷ 純利益</div>
+        </div>
+        <div class="eye e3">
+          <span class="who">従業員目線　働き手</span>
+          <div class="q2">稼ぎが給料に回っているか</div>
+          <div class="m"><b>平均年収</b><br>＝ 提出会社の平均年間給与</div>
+        </div>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>P/Lの階段と三つの目線　億円</span><span>キーエンス 2026年3月期・連結</span></div>
+        <div id="c-ladder"></div>
+        <div class="legend" id="lg-ladder"></div>
+      </figure>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>キーエンスの4指標　P/Lのどこを割るか</caption>
+          <thead><tr><th>指標</th><th>値</th><th>計算</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip e1">経営者</span>　営業利益率</td><td>51.0%</td><td>営業利益 5,958 ÷ 売上高 11,693</td></tr>
+            <tr><td><span class="chip e2">投資家</span>　純利益率</td><td>38.1%</td><td>純利益 4,452 ÷ 売上高 11,693</td></tr>
+            <tr><td><span class="chip e2">投資家</span>　配当性向</td><td>30.0%</td><td>1株配当 550円 ÷ 1株利益 1,835.63円</td></tr>
+            <tr class="accent"><td><span class="chip e3">従業員</span>　平均年収</td><td>2,178万円</td><td>提出会社 3,306人・平均35.0歳</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>ワークの手順</h3>
+      <ul class="steps">
+        <li><b>開く</b>　edinetdb.jp のトップ → ランキング</li>
+        <li><b>選ぶ</b>　指標を 営業利益率 → 純利益率 → 配当性向 → 平均年収 の順に切り替え</li>
+        <li><b>記入</b>　各ランキングの1位・10位を下表へ。社名・値・業種</li>
+        <li><b>疑う</b>　1位の値が業種の中央値の何倍かを算出。理由を1行</li>
+      </ul>
+
+      <div class="tw">
+        <table>
+          <caption>記入表　ランキングの確認　当日の表示</caption>
+          <thead><tr><th>ランキング</th><th>1位の会社</th><th>値</th><th>業種</th><th>10位の値</th></tr></thead>
+          <tbody>
+            <tr><td>営業利益率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>純利益率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>配当性向</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>平均年収</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>本資料の数値</b>　2026年10月1日時点のEDINET DBの値。各社の最新の有価証券報告書ベース。決算期は会社ごとに異なる。サイトの表示はデータ更新で変わる。</div>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>営業利益率</h2>
+      <p class="sub"><span class="chip e1">経営者目線</span>　営業利益 ÷ 売上高。本業の稼ぐ力。売上100円のうち本業で残る円数。</p>
+
+      <div class="q"><span class="qn">問い</span>上位20社に製造業は何社あるか。上位に並ぶのはどんな業種か。</div>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>1位　手間いらず</dt><dd>72.4<span class="u">%</span></dd></div>
+        <div class="tile t1"><dt>13位　キーエンス</dt><dd>51.0<span class="u">%</span></dd></div>
+        <div class="tile"><dt>中央値　電気機器</dt><dd>7.0<span class="u">%</span></dd></div>
+        <div class="tile"><dt>中央値　小売業</dt><dd>3.6<span class="u">%</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>営業利益率　上位10社　%</span><span>EDINET DB ランキング・2026/10/1時点</span></div>
+        <div id="c-om"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>上位20社の業種　社数</span><span>東証33業種を4区分に集約</span></div>
+        <div id="c-om-ind"></div>
+      </figure>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>上位20社の業種の内訳</caption>
+          <thead><tr><th>区分</th><th>社数</th><th>会社</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>金融　保証・証券・取引所</td><td>8</td><td>全国保証・インテグラル・アサックス・日本取引所G・ジャパンインベストメントアドバイザー・豊トラスティ証券・イー・ギャランティ・トレイダーズHD</td></tr>
+            <tr><td>情報・通信</td><td>4</td><td>手間いらず・オービック・ジェノバ・日本ファルコム</td></tr>
+            <tr><td>サービス</td><td>3</td><td>ユー・エス・エス・楽待・ムービン・ストラテジック・キャリア</td></tr>
+            <tr class="accent"><td>製造業</td><td>3</td><td>北里コーポレーション・キーエンス・中外製薬</td></tr>
+            <tr><td>その他</td><td>2</td><td>メタプラネット（卸売業）・INPEX（鉱業）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>業種の物差し</h3>
+
+      <figure>
+        <div class="ctitle"><span>営業利益率の業種中央値　%</span><span>EDINET DB 業種ベンチマーク・2026年度</span></div>
+        <div id="c-om-med"></div>
+      </figure>
+
+      <div class="formula">何倍か ＝ 会社の営業利益率 ÷ 業種の中央値
+
+キーエンス　51.0% ÷ 電気機器   7.0% ＝ 7.3倍
+オービック　65.7% ÷ 情報・通信 8.6% ＝ 7.6倍</div>
+
+      <ul>
+        <li><b>答え</b>　製造業は3社。上位は金融・ソフトウェア・仲介。工場・在庫・原材料をほぼ持たない業種</li>
+        <li><b>業種で決まる部分</b>　小売・卸売の中央値は3%台。商品の仕入代金が売上原価に入るため</li>
+        <li><b>会社で決まる部分</b>　キーエンスは電気機器の中央値の7.3倍。同業内での差が経営の差</li>
+        <li><b>規模</b>　1位の手間いらずは売上が小さい会社。率は高くても利益の金額は小さい場合あり</li>
+      </ul>
+
+      <div class="note"><b>読み方の型</b>　率の高さ → 業種の中央値と比較 → 同業内の順位 → 金額の大きさ。この4段で「業種のおかげ」と「経営の成果」を分ける。</div>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>純利益率</h2>
+      <p class="sub"><span class="chip e2">投資家目線</span>　純利益 ÷ 売上高。本業の後に、営業外の損益・特別損益・税金を通った最終の残り。</p>
+
+      <div class="q"><span class="qn">問い</span>1位のサン電子は純利益率97.5%。本業の営業利益率は何%か。</div>
+
+      <figure>
+        <div class="ctitle"><span>純利益率　上位10社　%</span><span>EDINET DB ランキング・2026/10/1時点</span></div>
+        <div id="c-nm"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>営業利益率と純利益率　%</span><span>各社の最新決算期・連結</span></div>
+        <div id="c-gap"></div>
+        <div class="legend" id="lg-gap"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>営業利益率と純利益率の差　%・ポイント</caption>
+          <thead><tr><th>会社</th><th>営業利益率</th><th>純利益率</th><th>純 − 営業</th></tr></thead>
+          <tbody>
+            <tr><td>キーエンス</td><td>51.0</td><td>38.1</td><td>−12.9</td></tr>
+            <tr><td>オービック</td><td>65.7</td><td>55.6</td><td>−10.1</td></tr>
+            <tr><td>マックス</td><td>17.6</td><td>13.9</td><td>−3.7</td></tr>
+            <tr><td>光通信</td><td>15.9</td><td>20.6</td><td>＋4.7</td></tr>
+            <tr class="accent"><td>サン電子</td><td>−0.2</td><td>97.5</td><td>＋97.7</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>本業以外の利益</h3>
+
+      <figure>
+        <div class="ctitle"><span>サン電子　営業利益から純利益まで　億円</span><span>2026年3月期・連結・売上高 99.1億円</span></div>
+        <div id="c-wf"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　営業利益率は −0.2%。本業は赤字。純利益の96.6億円は、営業外収益と特別利益から</li>
+        <li><b>通常の形</b>　純利益率 ＜ 営業利益率。法人税で約3割が減るため。キーエンス・オービックがこの形</li>
+        <li><b>逆転の形</b>　純利益率 ＞ 営業利益率。保有株の売却益・投資先の利益など、本業の外の利益が大きい</li>
+        <li><b>続くか</b>　特別利益は臨時の利益。翌年も出る保証なし。株主は営業利益の推移と合わせて判断</li>
+      </ul>
+
+      <div class="note"><b>上位の常連</b>　純利益率の上位には投資会社・保険・証券が入る。ソフトバンクグループ64.1%は投資の評価益・売却益の寄与。本業の物差しとしては営業利益率を優先。</div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>配当性向</h2>
+      <p class="sub"><span class="chip e2">投資家目線</span>　配当総額 ÷ 純利益。利益のうち株主へ現金で戻す割合。残りは内部留保。</p>
+
+      <div class="q"><span class="qn">問い</span>上位20社はすべて174〜200%。利益の2倍の配当を払う会社が、本当に20社も並ぶか。</div>
+
+      <div class="formula">配当性向 ＝ 配当総額 ÷ 純利益
+       ＝ 1株配当（DPS）÷ 1株利益（EPS）
+
+100%超 ＝ その年の利益以上を配当。過去の内部留保を取り崩し</div>
+
+      <figure>
+        <div class="ctitle"><span>配当性向　上位10社　%</span><span>EDINET DB ランキング・2026/10/1時点</span></div>
+        <div id="c-po"></div>
+      </figure>
+
+      <h3>株式分割の罠</h3>
+
+      <div class="tw">
+        <table>
+          <caption>2位 南都銀行・5位 マックス　ランキングの値と再計算</caption>
+          <thead><tr><th>項目</th><th>南都銀行</th><th>マックス</th></tr></thead>
+          <tbody>
+            <tr><td>決算期</td><td>2026年3月期</td><td>2026年3月期</td></tr>
+            <tr><td>株式分割</td><td>1株 → 5株</td><td>1株 → 4株</td></tr>
+            <tr><td>1株配当　分割前の株数で表示</td><td>215円</td><td>148円</td></tr>
+            <tr><td>1株利益　分割後の株数で計算</td><td>108.64円</td><td>76.55円</td></tr>
+            <tr class="accent"><td>ランキングの値　215 ÷ 108.64 など</td><td>197.9%</td><td>193.3%</td></tr>
+            <tr><td>配当総額</td><td>68.4億円</td><td>66.5億円</td></tr>
+            <tr><td>純利益</td><td>170.6億円</td><td>138.9億円</td></tr>
+            <tr class="accent"><td>再計算　配当総額 ÷ 純利益</td><td>40.1%</td><td>47.9%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>ランキングの値と再計算の値　%</span><span>分子と分母の株数をそろえた結果</span></div>
+        <div id="c-split"></div>
+        <div class="legend" id="lg-split"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　並ばない。上位には、分子と分母で株数の基準がずれた値が混在</li>
+        <li><b>見分け方</b>　上位の値が200%付近に密集。異常値の兆候。有価証券報告書の配当総額と純利益で再計算</li>
+        <li><b>本物の100%超</b>　純利益が一時的に落ち、配当を据え置いた年に起きる。翌年の利益で戻るかを確認</li>
+      </ul>
+
+      <h3>業種の物差し</h3>
+
+      <figure>
+        <div class="ctitle"><span>配当性向の業種中央値　%</span><span>EDINET DB 業種ベンチマーク・2026年度</span></div>
+        <div id="c-po-med"></div>
+      </figure>
+
+      <ul>
+        <li><b>中央値の帯</b>　多くの業種で30〜40%。利益の約3分の1を配当、残りを再投資</li>
+        <li><b>低い業種</b>　電気・ガス22.0%。発電所・送電網への設備投資に利益を回す</li>
+        <li><b>高い業種</b>　証券55.8%。設備が少なく、利益を株主へ戻しやすい</li>
+      </ul>
+
+      <div class="note"><b>高い ＝ 良い ではない</b>　配当性向が高いほど株主への現金は多い。同時に、将来の成長への投資は少ない。投資家は 配当性向 × 利益の伸び の両方で判断。</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>平均年収</h2>
+      <p class="sub"><span class="chip e3">従業員目線</span>　有価証券報告書「従業員の状況」の平均年間給与。賞与を含む。対象は提出会社の社員のみ。</p>
+
+      <div class="q"><span class="qn">問い</span>1位の光通信は3,518万円。この平均は何人の平均か。</div>
+
+      <figure>
+        <div class="ctitle"><span>平均年収　上位10社　万円</span><span>EDINET DB ランキング・2026/10/1時点</span></div>
+        <div id="c-sal"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>平均年収の裏側　提出会社の従業員</caption>
+          <thead><tr><th>会社</th><th>平均年収　万円</th><th>平均年齢　歳</th><th>勤続　年</th><th>提出会社　人</th><th>連結　人</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>光通信</td><td>3,518</td><td>49.0</td><td>21.7</td><td>3</td><td>4,012</td></tr>
+            <tr><td>キーエンス</td><td>2,178</td><td>35.0</td><td>11.3</td><td>3,306</td><td>12,784</td></tr>
+            <tr><td>三菱商事</td><td>2,113</td><td>42.3</td><td>17.0</td><td>4,456</td><td>63,037</td></tr>
+            <tr><td>オービック</td><td>1,129</td><td>35.8</td><td>12.9</td><td>2,030</td><td>2,256</td></tr>
+            <tr><td>マックス</td><td>1,000</td><td>41.3</td><td>16.5</td><td>977</td><td>2,470</td></tr>
+            <tr><td>サン電子</td><td>561</td><td>44.3</td><td>14.3</td><td>215</td><td>307</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>光通信の平均年収　万円</span><span>提出会社の従業員 2人 → 3人</span></div>
+        <div id="c-hikari"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　3人。光通信の提出会社は持株会社。グループ4,012人の大半は子会社の所属</li>
+        <li><b>持株会社</b>　本社機能の少人数だけが母数。役員級が多いと平均は跳ね上がる。1人の増減で1,000万円以上動く</li>
+        <li><b>年齢</b>　キーエンスは平均35.0歳で2,178万円。三菱商事は42.3歳。同じ年収でも年齢が違えば意味が違う</li>
+        <li><b>母数の確認</b>　平均年収の横に、提出会社の従業員数・平均年齢・勤続年数を必ず並べる</li>
+      </ul>
+
+      <div class="note"><b>志望先の見方</b>　年収の高さ → 母数（持株会社か）→ 平均年齢 → 営業利益率。高い年収を払い続けられるかは、本業の稼ぐ力で決まる。</div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>1社を三つの目線で</h2>
+      <p class="sub">ランキングは1指標の順位。会社の評価は4指標を横に並べて行う。各社の最新決算期。</p>
+
+      <div class="q"><span class="qn">問い</span>経営者・投資家・従業員の三者すべてにとって数字が良い会社はどこか。</div>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>4指標の横並び　%・万円</caption>
+          <thead><tr><th>会社</th><th>営業利益率</th><th>純利益率</th><th>配当性向</th><th>平均年収</th><th>見えること</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>キーエンス</td><td>51.0</td><td>38.1</td><td>30.0</td><td>2,178</td><td>本業が強い。利益は内部に厚く残す</td></tr>
+            <tr class="accent"><td>オービック</td><td>65.7</td><td>55.6</td><td>48.9</td><td>1,129</td><td>本業が強い。株主還元も厚い</td></tr>
+            <tr><td>マックス</td><td>17.6</td><td>13.9</td><td>48.3</td><td>1,000</td><td>分割調整後の配当性向。機械の中央値8.3%の2倍</td></tr>
+            <tr><td>光通信</td><td>15.9</td><td>20.6</td><td>21.8</td><td>3,518</td><td>本業外の利益が大きい。年収は持株会社3人</td></tr>
+            <tr><td>サン電子</td><td>−0.2</td><td>97.5</td><td>11.3</td><td>561</td><td>本業は赤字。純利益は臨時の利益</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>営業利益率と平均年収</span><span>5社・各社の最新決算期</span></div>
+        <div id="c-cross"></div>
+        <div class="legend" id="lg-cross"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　キーエンスとオービック。営業利益率が高く、純利益率との差が税金分のみ。年収も高い</li>
+        <li><b>順番の意味</b>　経営者目線の営業利益率が土台。純利益・配当・年収は、本業の稼ぎの分配先</li>
+        <li><b>ランキング上位の多く</b>　1指標だけが突出。残りの指標で理由が判明</li>
+      </ul>
+
+      <div class="note"><b>分配の構図</b>　営業利益は 税金・株主（配当）・会社（内部留保）へ分かれる。給料は営業利益の手前、販管費・売上原価の中。従業員への分配と株主への分配は、同じ売上の取り合い。</div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">EDINET DBのランキングから1社ずつ選び、三つの目線で検証。所要30分。</p>
+
+      <ul>
+        <li><b>選定</b>　4つのランキングの上位20社から、名前を知っている会社を1社ずつ。計4社</li>
+        <li><b>転記</b>　各社の詳細ページで、4指標と業種・決算期を下表へ記入</li>
+        <li><b>比較</b>　営業利益率を業種の中央値で割り、何倍かを算出</li>
+        <li><b>検証</b>　純利益率 ＞ 営業利益率 の会社は、差の発生源を特定。営業外か特別損益か</li>
+        <li><b>再計算</b>　配当性向100%超の会社は、配当総額 ÷ 純利益 で再計算</li>
+        <li><b>確認</b>　平均年収の会社は、提出会社の従業員数と平均年齢を記入。持株会社かを判定</li>
+      </ul>
+
+      <div class="tw">
+        <table>
+          <caption>検証シート　%・万円・人</caption>
+          <thead><tr><th>項目</th><th>営業利益率の会社</th><th>純利益率の会社</th><th>配当性向の会社</th><th>平均年収の会社</th></tr></thead>
+          <tbody>
+            <tr><td>会社名・業種・決算期</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>営業利益率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>業種の中央値の何倍か</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>純利益率</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>配当性向　再計算値</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>平均年収</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr><td>提出会社の従業員数・平均年齢</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+            <tr class="accent"><td>上位の理由　1行</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>確認の型</h3>
+      <div class="tw">
+        <table class="words">
+          <caption>ランキング上位で疑う点</caption>
+          <thead><tr><th>ランキング</th><th>目線</th><th>疑う点</th><th>確認する場所</th></tr></thead>
+          <tbody>
+            <tr><td>営業利益率</td><td><span class="chip e1">経営者</span></td><td>業種の構造か、経営の成果か。売上の規模</td><td>業種の中央値・売上高</td></tr>
+            <tr><td>純利益率</td><td><span class="chip e2">投資家</span></td><td>本業の外の臨時の利益</td><td>営業利益率・特別利益・営業外収益</td></tr>
+            <tr><td>配当性向</td><td><span class="chip e2">投資家</span></td><td>株式分割による計算のずれ。利益の一時的な落ち込み</td><td>配当総額・純利益・前年の値</td></tr>
+            <tr><td>平均年収</td><td><span class="chip e3">従業員</span></td><td>持株会社の少人数。年齢構成</td><td>従業員の状況　人数・年齢・勤続</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>EDINETで</b>　サン電子の2026年3月期 有価証券報告書。特別利益48億円の中身を確認</li>
+        <li><b>EDINETで</b>　メタプラネットの事業内容。業種区分が卸売業で営業利益率70.6%の理由を確認</li>
+        <li><b>EDINET DBで</b>　志望業界の1社。平均年収と、同業他社の平均年収・平均年齢を比較</li>
+        <li><b>AIで</b>　「配当性向100%超の日本企業」を質問。回答の数値を有価証券報告書で照合</li>
+      </ul>
+
+      <div class="note"><b>AIとデータベースの数字は照合</b>　ランキングサイトもAIも、計算の前提がずれることがある。最後は有価証券報告書の配当総額・純利益・従業員数で確認。</div>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>EDINET DB（株式会社Cabocia）　<a href="https://edinetdb.jp/">edinetdb.jp</a>。ランキング（営業利益率・純利益率・配当性向・平均年収）と業種ベンチマーク（業種中央値）。2026年10月1日取得。数値は金融庁EDINETの有価証券報告書に基づく同社の集計</li>
+        <li>金融庁　EDINET（有価証券報告書）　<a href="https://disclosure2.edinet-fsa.go.jp/">disclosure2.edinet-fsa.go.jp</a></li>
+        <li>株式会社キーエンス　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YAHE">EDINET S100YAHE</a>。連結・日本基準。売上高 1,169,289百万円、売上総利益 970,737百万円、販管費 374,978百万円、営業利益 595,759百万円、親会社株主に帰属する当期純利益 445,185百万円、配当金総額 133,388百万円、1株配当 550円、1株当たり当期純利益 1,835.63円、提出会社 従業員 3,306人・平均年齢 35.0歳・平均勤続 11.3年・平均年間給与 21,783,259円</li>
+        <li>株式会社オービック　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YGBS">EDINET S100YGBS</a>。売上高 135,209百万円、営業利益 88,823百万円、当期純利益 75,191百万円、1株配当 84円、1株利益 171.61円、提出会社 2,030人・35.8歳・11,292,000円</li>
+        <li>サン電子株式会社　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YKGG">EDINET S100YKGG</a>。売上高 9,907百万円、営業損失 15百万円、営業外収益 5,235百万円、営業外費用 86百万円、経常利益 5,133百万円、特別利益 4,804百万円、特別損失 2百万円、税金等調整前当期純利益 9,936百万円、当期純利益 9,664百万円、1株配当 50円、1株利益 441.53円、提出会社 215人・44.3歳・5,605,362円</li>
+        <li>株式会社光通信　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YN0V">EDINET S100YN0V</a>。IFRS。売上収益 734,791百万円、営業利益 116,664百万円、税引前利益 199,081百万円、当期利益 151,014百万円、1株配当 751円、1株利益 3,440.12円、提出会社 3人・49.0歳・35,175,984円、連結 4,012人。前期（2025年3月期 <a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100W9IT">S100W9IT</a>）提出会社 2人・24,086,850円</li>
+        <li>株式会社南都銀行　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YEBM">EDINET S100YEBM</a>。親会社株主に帰属する当期純利益 17,062百万円、配当金総額 6,837百万円、1株配当 215円、1株利益 108.64円、株式分割 1:5</li>
+        <li>マックス株式会社　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YHEY">EDINET S100YHEY</a>。売上高 99,607百万円、営業利益 17,571百万円、当期純利益 13,891百万円、配当金総額 6,653百万円、1株配当 148円、1株利益 76.55円、株式分割 1:4、提出会社 977人・41.3歳・10,002,000円</li>
+        <li>三菱商事株式会社　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YB25">EDINET S100YB25</a>。IFRS。提出会社 4,456人・42.3歳・勤続17.0年・21,125,472円、連結 63,037人</li>
+        <li>業種区分は東証33業種。上位20社の業種の4区分への集約、営業利益率・純利益率・中央値比・再計算の配当性向は本資料による計算。配当性向の横並びはDPS÷EPS（マックスは分割調整後 37円 ÷ 76.55円）</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b03-hikaku.html"><b>← 第3回</b>同業比較と異業種比較</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines / LC.bars / LC.hbars / LC.stack(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+
+  /* ---- 帯グラフ：構成比（1行＝1社、合計を100として区切る） ----
+     rows:[{name, segs:[[区分, 値, 色, 文字色], ...]}]。値は%。 */
+  function stack(h,cfg){
+    var P={l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:96, r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:12, t:cfg.pad&&cfg.pad.t!==undefined?cfg.pad.t:24, b:8};
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var band=ph/cfg.rows.length, bh=cfg.bh||30;
+    [0,25,50,75,100].forEach(function(v){
+      var x=P.l+v/100*pw;
+      s.appendChild(el("line",{x1:x,y1:P.t-4,x2:x,y2:P.t+ph,"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(x,P.t-8,v+"%","tk"));
+    });
+    cfg.rows.forEach(function(row,i){
+      var cy=P.t+band*i+band/2, tot=0, x=P.l;
+      row.segs.forEach(function(g){ tot+=g[1]; });
+      s.appendChild(txt(P.l-10,cy+4,row.name,"el","end"));
+      row.segs.forEach(function(g){
+        var w=g[1]/tot*pw;
+        var r=el("rect",{x:x,y:cy-bh/2,width:Math.max(1,w-1.5),height:bh,rx:3,fill:g[2]});
+        hover(r,row.name+"　"+g[0]+"　"+fmt(g[1],1)+"%");
+        s.appendChild(r);
+        if(w>44){
+          var t=txt(x+w/2,cy+4,fmt(g[1],1),"vl");
+          t.style.fill=g[3]||"#fff";
+          t.style.pointerEvents="none";
+          s.appendChild(t);
+        }
+        x+=w;
+      });
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,stack:stack,fmt:fmt,legend:legend};
+})();
+
+/* ===== LC 追加：第4回で使う図形 =====
+   LC.gbars  … グループ縦棒（系列2〜4本・負値可）
+   LC.wf     … ウォーターフォール（利益の段階を積み上げ）
+   LC.scatter… 散布図（2指標の位置関係） */
+(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){ var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"}); t.textContent=s; return t; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(n,s){ n.addEventListener("mousemove",function(e){ showTip(e,s); }); n.addEventListener("mouseleave",hideTip); }
+  function mount(h,cfg){
+    var n=typeof h==="string"?document.querySelector(h):h; if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function P(p){ p=p||{}; return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?26:p.t, b:p.b===undefined?34:p.b}; }
+  function yaxis(s,cfg,p){
+    var pw=cfg.w-p.l-p.r, ph=cfg.h-p.t-p.b, lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return p.t+(hi-v)/(hi-lo)*ph; };
+    cfg.y.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:p.l,y1:Y(v),x2:p.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(p.l-8,Y(v)+3.5,(cfg.y.fmt||LC.fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  LC.gbars=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.groups.length, n=cfg.series.length, bw=cfg.bw||22, gap=4;
+    var tot=n*bw+(n-1)*gap, base=A.Y(0), d=cfg.digits===undefined?1:cfg.digits;
+    cfg.groups.forEach(function(g,i){
+      var cx=p.l+band*i+band/2;
+      g[1].forEach(function(v,j){
+        var x=cx-tot/2+j*(bw+gap), y=A.Y(v), up=v>=0;
+        var r=el("rect",{x:x,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:cfg.series[j].color});
+        hover(r,g[0]+"　"+cfg.series[j].name+"　"+LC.fmt(v,d)+(cfg.unit||""));
+        s.appendChild(r);
+        s.appendChild(txt(x+bw/2,up?y-6:y+14,LC.fmt(v,d),"vl"));
+      });
+      s.appendChild(txt(cx,cfg.h-p.b+18,g[0],"tk"));
+    });
+    if(cfg.legend) LC.legend(cfg.legend,cfg.series.map(function(o){ return {name:o.name,color:o.color,square:true}; }));
+  };
+
+  LC.wf=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.steps.length, bw=cfg.bw||46, cum=0, prev=null, d=cfg.digits===undefined?1:cfg.digits;
+    cfg.steps.forEach(function(o,i){
+      var cx=p.l+band*i+band/2, a, b;
+      if(o.total){ a=0; b=o.v; cum=o.v; } else { a=cum; b=cum+o.v; cum=b; }
+      var top=A.Y(Math.max(a,b)), bot=A.Y(Math.min(a,b));
+      var col=o.total?(o.v<0?"var(--pop)":"var(--s2)"):(o.v>=0?"var(--s3)":"var(--pop)");
+      if(prev!==null) s.appendChild(el("line",{x1:prev.x,y1:A.Y(prev.v),x2:cx-bw/2,y2:A.Y(prev.v),"class":"gl","stroke-dasharray":"3 3"}));
+      var r=el("rect",{x:cx-bw/2,y:top,width:bw,height:Math.max(1.5,bot-top),rx:2,fill:col});
+      var lab=(o.total?"":(o.v>=0?"＋":""))+LC.fmt(o.v,d);
+      hover(r,o.name+"　"+lab+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(cx,top-7,lab,"vl"));
+      s.appendChild(txt(cx,cfg.h-p.b+18,o.name,"tk"));
+      prev={x:cx+bw/2,v:cum};
+    });
+    if(cfg.ref){
+      var y=A.Y(cfg.ref.v);
+      s.appendChild(el("line",{x1:p.l,y1:y,x2:p.l+A.pw,y2:y,stroke:"var(--s1)","stroke-width":1.5,"stroke-dasharray":"6 4"}));
+      s.appendChild(txt(p.l+6,y-6,cfg.ref.label,"el","start"));
+    }
+  };
+
+  LC.scatter=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), x0=cfg.x.min||0, x1=cfg.x.max;
+    var X=function(v){ return p.l+(v-x0)/(x1-x0)*A.pw; };
+    cfg.x.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:p.t,x2:X(v),y2:p.t+A.ph,"class":v===x0?"ax":"gl"}));
+      s.appendChild(txt(X(v),cfg.h-p.b+18,(cfg.x.fmt||LC.fmt)(v),"tk"));
+    });
+    if(cfg.x.label) s.appendChild(txt(p.l+A.pw,cfg.h-4,cfg.x.label,"tk","end"));
+    if(cfg.y.label) s.appendChild(txt(p.l,p.t-12,cfg.y.label,"tk","start"));
+    cfg.points.forEach(function(o){
+      var c=el("circle",{cx:X(o.x),cy:A.Y(o.y),r:8,fill:o.color,stroke:"var(--surface)","stroke-width":2});
+      hover(c,o.name+"　"+cfg.tip(o));
+      s.appendChild(c);
+      s.appendChild(txt(X(o.x)+(o.left?-13:13),A.Y(o.y)+4,o.name,"el",o.left?"end":"start"));
+    });
+  };
+})();
+
+
+/* ===== 図 ===== 数値は EDINET DB（2026/10/1取得）と各社の有価証券報告書 */
+
+var E1="var(--s1)", E2="var(--s2)", E3="var(--s3)", GR="var(--axis)";
+
+/* 1節　P/Lの階段 */
+LC.hbars("#c-ladder",{
+  w:720,h:250,max:720,alt:"キーエンス2026年3月期。売上高11,693億円、売上総利益9,707億円、営業利益5,958億円、純利益4,452億円、配当総額1,334億円",
+  pad:{l:150,r:70,t:22,b:8},bh:24,
+  x:{min:0,max:12000,ticks:[0,3000,6000,9000,12000]},
+  unit:"億円",digits:0,
+  data:[
+    ["売上高",11693,GR],
+    ["売上総利益",9707,GR],
+    ["営業利益　経営者",5958,E1],
+    ["純利益　投資家",4452,E2],
+    ["配当総額　投資家",1334,E2]
+  ]
+});
+LC.legend("#lg-ladder",[
+  {name:"経営者目線　営業利益率 ＝ 営業利益 ÷ 売上高",color:E1,square:true},
+  {name:"投資家目線　純利益率・配当性向",color:E2,square:true},
+  {name:"給料は売上原価・販管費の中　従業員目線",color:GR,square:true}
+]);
+
+/* 2節　営業利益率 */
+LC.hbars("#c-om",{
+  w:720,h:330,max:720,alt:"営業利益率上位10社",
+  pad:{l:190,r:60,t:22,b:8},bh:18,
+  x:{min:0,max:80,ticks:[0,20,40,60,80]},unit:"%",digits:1,color:E1,
+  data:[
+    ["手間いらず　情報通信",72.4],["メタプラネット　卸売",70.6],["全国保証　金融",70.5],
+    ["インテグラル　証券",67.8],["アサックス　金融",66.3],["オービック　情報通信",65.7],
+    ["日本取引所G　金融",58.5],["ジェノバ　情報通信",56.6],["INPEX　鉱業",56.5],["北里コーポ　精密",53.5]
+  ]
+});
+LC.hbars("#c-om-ind",{
+  w:720,h:200,max:720,alt:"営業利益率上位20社の業種。金融8、情報通信4、サービス3、製造業3、その他2",
+  pad:{l:150,r:50,t:22,b:8},bh:20,
+  x:{min:0,max:10,ticks:[0,2,4,6,8,10]},unit:"社",digits:0,
+  data:[["金融",8,E1],["情報・通信",4,E1],["サービス",3,E1],["製造業",3,"var(--pop)"],["その他",2,GR]]
+});
+LC.hbars("#c-om-med",{
+  w:720,h:350,max:720,alt:"営業利益率の業種中央値",
+  pad:{l:150,r:56,t:22,b:8},bh:16,
+  x:{min:0,max:20,ticks:[0,5,10,15,20]},unit:"%",digits:1,color:GR,
+  data:[
+    ["証券",19.6,E1],["その他金融",12.1,E1],["不動産",9.1],["情報・通信",8.6],["機械",8.3],
+    ["建設",7.5],["サービス",7.2],["電気機器",7.0],["輸送用機器",5.3],["食料品",4.0],["小売",3.6],["卸売",3.1]
+  ]
+});
+
+/* 3節　純利益率 */
+LC.hbars("#c-nm",{
+  w:720,h:330,max:720,alt:"純利益率上位10社",
+  pad:{l:200,r:60,t:22,b:8},bh:18,
+  x:{min:0,max:100,ticks:[0,25,50,75,100]},unit:"%",digits:1,color:E2,
+  data:[
+    ["サン電子　電気機器",97.5,"var(--pop)"],["T&DHD　保険",82.2],["ソフトバンクG　情報通信",64.1],
+    ["レントラックス　サービス",57.9],["極東証券　証券",57.6],["オービック　情報通信",55.6],
+    ["全国保証　金融",55.4],["手間いらず　情報通信",48.6],["コーエーテクモ　情報通信",48.5],["アドヴァンG　小売",47.3]
+  ]
+});
+LC.gbars("#c-gap",{
+  w:720,h:300,max:720,alt:"営業利益率と純利益率。5社",
+  y:{min:-10,max:100,ticks:[0,25,50,75,100]},bw:26,unit:"%",
+  series:[{name:"営業利益率　経営者",color:E1},{name:"純利益率　投資家",color:E2}],
+  legend:"#lg-gap",
+  groups:[["キーエンス",[51.0,38.1]],["オービック",[65.7,55.6]],["マックス",[17.6,13.9]],["光通信",[15.9,20.6]],["サン電子",[-0.2,97.5]]]
+});
+LC.wf("#c-wf",{
+  w:720,h:300,max:720,alt:"サン電子。営業利益−0.2億円、営業外損益＋51.5億円、特別損益＋48.0億円、法人税等−2.7億円、純利益96.6億円",
+  y:{min:-10,max:110,ticks:[0,25,50,75,100]},unit:"億円",bw:56,
+  steps:[
+    {name:"営業利益",v:-0.2,total:true},
+    {name:"営業外損益",v:51.5},
+    {name:"特別損益",v:48.0},
+    {name:"法人税等",v:-2.7},
+    {name:"純利益",v:96.6,total:true}
+  ],
+  ref:{v:99.1,label:"売上高 99.1"}
+});
+
+/* 4節　配当性向 */
+LC.hbars("#c-po",{
+  w:720,h:330,max:720,alt:"配当性向上位10社。すべて187%から200%",
+  pad:{l:200,r:66,t:22,b:8},bh:18,
+  x:{min:0,max:200,ticks:[0,50,100,150,200]},unit:"%",digits:1,color:E2,
+  data:[
+    ["誠建設工業　不動産",200.0],["南都銀行　銀行",197.9,"var(--pop)"],["OSGコーポ　電気機器",195.2],
+    ["ファーマフーズ　食料品",194.9],["マックス　機械",193.3,"var(--pop)"],["秋川牧園　水産農林",191.2],
+    ["共和レザー　化学",189.0],["GENOVA　サービス",188.8],["ビーウィズ　サービス",188.3],["住友精化　化学",187.3]
+  ]
+});
+LC.gbars("#c-split",{
+  w:720,h:260,max:560,alt:"南都銀行 ランキング197.9%・再計算40.1%、マックス 193.3%・47.9%",
+  y:{min:0,max:200,ticks:[0,50,100,150,200]},bw:52,unit:"%",
+  series:[{name:"ランキングの値",color:"var(--pop)"},{name:"再計算　配当総額 ÷ 純利益",color:E2}],
+  legend:"#lg-split",
+  groups:[["南都銀行",[197.9,40.1]],["マックス",[193.3,47.9]]]
+});
+LC.hbars("#c-po-med",{
+  w:720,h:300,max:720,alt:"配当性向の業種中央値",
+  pad:{l:150,r:56,t:22,b:8},bh:16,
+  x:{min:0,max:60,ticks:[0,20,40,60]},unit:"%",digits:1,color:GR,
+  data:[
+    ["証券",55.8,E2],["医薬品",48.3],["保険",46.7],["その他金融",43.3],["情報・通信",37.4],
+    ["銀行",37.5],["電気機器",36.2],["小売",33.4],["陸運",30.3],["電気・ガス",22.0,E1]
+  ]
+});
+
+/* 5節　平均年収 */
+LC.hbars("#c-sal",{
+  w:720,h:330,max:720,alt:"平均年収上位10社",
+  pad:{l:210,r:76,t:22,b:8},bh:18,
+  x:{min:0,max:4000,ticks:[0,1000,2000,3000,4000]},unit:"万円",digits:0,color:E3,
+  data:[
+    ["光通信　持株会社",3518,"var(--pop)"],["ヒューリック　不動産",2295],["M&Aキャピタル　サービス",2266],
+    ["キーエンス　電気機器",2178],["インテグラル　証券",2136],["三菱商事　卸売",2113],
+    ["三井物産　卸売",2059],["サンバイオ　医薬品",2023],["マーキュリアHD　証券",2008],["伊藤忠商事　卸売",1991]
+  ]
+});
+LC.bars("#c-hikari",{
+  w:720,h:240,pad:{l:52,r:16,t:26,b:34},max:480,alt:"光通信の平均年収。2025年3月期2,409万円（2人）、2026年3月期3,518万円（3人）",
+  y:{min:0,max:4000,ticks:[0,1000,2000,3000,4000]},unit:"万円",digits:0,bw:72,
+  data:[["2025年3月期　2人",2409,E3],["2026年3月期　3人",3518,"var(--pop)"]]
+});
+
+/* 6節　営業利益率と平均年収 */
+LC.scatter("#c-cross",{
+  w:720,h:320,max:720,alt:"営業利益率と平均年収の散布図。5社",
+  pad:{l:60,r:24,t:30,b:40},
+  x:{min:-10,max:70,ticks:[-10,0,10,20,30,40,50,60,70],label:"営業利益率 %"},
+  y:{min:0,max:4000,ticks:[0,1000,2000,3000,4000],label:"平均年収 万円"},
+  tip:function(o){ return "営業利益率 "+LC.fmt(o.x,1)+"%　平均年収 "+LC.fmt(o.y,0)+"万円"; },
+  points:[
+    {name:"キーエンス",x:51.0,y:2178,color:E1},
+    {name:"オービック",x:65.7,y:1129,color:E1,left:true},
+    {name:"マックス",x:17.6,y:1000,color:E3},
+    {name:"光通信　提出会社3人",x:15.9,y:3518,color:"var(--pop)"},
+    {name:"サン電子",x:-0.2,y:561,color:GR}
+  ]
+});
+LC.legend("#lg-cross",[
+  {name:"本業が強く年収も高い",color:E1,square:true},
+  {name:"持株会社の少人数平均",color:"var(--pop)",square:true},
+  {name:"本業が赤字",color:GR,square:true}
+]);
+</script>
+</body>
+</html>
