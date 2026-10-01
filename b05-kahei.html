@@ -1,0 +1,1091 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 第5回 授業資料。イーロン・マスクのインタビューから、お金は不要か、貨幣とは何か、インフレの割り算、日米欧の購買力平価をビッグマック指数と物価統計で読む。">
+<title>お金は要らなくなるか？ - イーロン・マスクインタビューから</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ---------- interview (第5回) ---------- */
+  .h1sub{display:block; font-size:clamp(15px,2.4vw,19px); font-weight:700; color:var(--ink-2); margin-top:10px; letter-spacing:0;}
+  .en{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px; padding:12px 14px; margin:0 0 10px;}
+  .en .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--s1); margin-bottom:6px;}
+  .en p{margin:0; font-size:15px; line-height:1.85;}
+  .en b{font-weight:700; background:linear-gradient(transparent 60%, var(--s4) 60%);}
+  ul.eng{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:8px; margin:14px 0 20px;}
+  ul.eng li{background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; padding:10px 12px; font-size:13.5px;}
+  ul.eng li::before{display:none;}
+  ul.eng li.hd{grid-column:1/-1; background:none; border:none; padding:0; font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--pop);}
+  ul.eng code{font-family:var(--mono); font-size:13px; font-weight:700;}
+  ul.eng .s{display:block; font-size:12.5px; color:var(--ink-2); margin-top:4px;}
+  span.blank{display:inline-block; min-width:84px; border-bottom:2px dashed var(--axis); background:var(--fill-in); margin:0 3px;}
+  span.blank.wide{min-width:min(100%,420px);}
+  .ana{padding:12px 14px; background:var(--surface); border:1px dashed var(--axis); border-radius:12px; font-size:13.5px; color:var(--ink-2); margin:0 0 14px;}
+  .ana .lb{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--s3); margin-right:8px;}
+  .hw{background:var(--surface); border:2px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 16px; font-size:14px;}
+  .hw .qn{display:block; font-family:var(--mono); font-size:11px; font-weight:700; color:#fff; background:var(--pop); border-radius:999px; padding:3px 10px; width:fit-content; margin-bottom:6px;}
+  section:nth-of-type(9) .num{background:var(--ink);}
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">イノベーションプロジェクト　第5回　90分</div>
+    <h1>お金は<em>要らなくなるか？</em><span class="h1sub">イーロン・マスクインタビューから</span></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>物価と為替を割り算で説明</dd></div>
+      <div><dt>道具</dt><dd>貨幣の3機能・数量方程式・購買力平価</dd></div>
+      <div><dt>素材</dt><dd>マスク × エコノミスト誌・ビッグマック指数</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>数値の確認</h2>
+      <p class="sub">当日の値を記入。本資料の値は2026年9月時点。出典は節9。</p>
+
+      <div class="tw">
+        <table>
+          <caption>記入表　物価・お金・為替</caption>
+          <thead><tr><th>指標</th><th>本資料の値</th><th>当日の値</th><th>出典</th></tr></thead>
+          <tbody>
+            <tr><td>消費者物価　日本　前年比</td><td>1.9%　8月</td><td class="blank"></td><td class="u">総務省統計局</td></tr>
+            <tr><td>消費者物価　米国　前年比</td><td>3.4%　8月</td><td class="blank"></td><td class="u">米労働統計局</td></tr>
+            <tr><td>消費者物価　ユーロ圏　前年比</td><td>3.2%　8月</td><td class="blank"></td><td class="u">Eurostat</td></tr>
+            <tr><td>マネーストックM2　日本　前年比</td><td>2.0%　8月</td><td class="blank"></td><td class="u">日本銀行</td></tr>
+            <tr class="accent"><td>ドル円　1ドル ＝ 円</td><td>162.1　7月</td><td class="blank"></td><td class="u">ビッグマック指数の採用値</td></tr>
+            <tr class="accent"><td>購買力平価　1ドル ＝ 円　OECD</td><td>—</td><td class="blank"></td><td class="u">OECD Data Explorer</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="q"><span class="qn">素材</span>イーロン・マスク　「I think that money won't matter in twenty thirty six.」　英エコノミスト誌編集長とのインタビュー抜粋。2036年にお金は重要でなくなるという予想。</div>
+
+      <ul class="steps">
+        <li><b>何のためにお金が欲しいのか</b>　インタビューの英文を読み、使い道を4つ抜き出す</li>
+        <li><b>お金は不要か</b>　お金の役割を3つに分解。どれが消えるかを判定</li>
+        <li><b>貨幣とは</b>　日本のお金の量と形。現金は全体の約1割</li>
+        <li><b>インフレか</b>　物価 ＝ お金の量 ÷ モノ・サービスの量。日米欧の実績で検証</li>
+        <li><b>購買力平価</b>　同じ商品の値段から「本来の為替レート」を算出。実際のレートと比較</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2　何のためにお金が欲しいのか（夏期講義 9/11 資料 §1 より） ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>何のためにお金が欲しいのか</h2>
+      <p class="sub">最初の10秒で結論が出ている。<b>そのあと、彼は自分で理由を1つだけ足した。</b></p>
+
+      <div class="hw">
+        <span class="qn">宿題　授業前に必ず見ておく</span>
+        Elon Musk × The Economist 編集長　インタビュー抜粋（約3分半）の文字起こし。英文とタイムコードは配布動画のもの　<a href="https://www.instagram.com/reel/DbNPAhVgfTx/" target="_blank" rel="noopener">instagram.com/reel/DbNPAhVgfTx</a>
+      </div>
+
+      <div class="en">
+        <div class="who">ELON MUSK　00:00:04</div>
+        <p>I think that money won't matter in twenty thirty six. <b>What do you want money for?</b></p>
+      </div>
+      <div class="en">
+        <div class="who">ELON MUSK　00:00:34</div>
+        <p>You want money for <b>goods and services</b>, right? You want money for obviously food, housing, transport, entertainment. If that is so <b>abundant</b> that there's more that the robots and AI are providing more goods and services than any human could possibly consume, what do you need money for in that case?</p>
+      </div>
+
+      <ul class="eng">
+        <li class="hd">英語の確認 ── 言えるか</li>
+        <li><code>What do you want money for?</code><span class="s">最後の <b>for</b> は何をしているか。<b>for を取ると、文の意味はどう変わるか。</b></span></li>
+        <li><code>goods and services</code><span class="s">日本語で1語ずつ。<b>goods はなぜ複数形なのか。</b></span></li>
+        <li><code>abundant</code><span class="s">名詞形は。<b>この2行のうち、どの日本語がこれに当たるか。</b></span></li>
+        <li><code>any human could possibly consume</code><span class="s">possibly はどこに効いているか。<b>無くても意味は通るのに、なぜ入れたか。</b></span></li>
+      </ul>
+
+      <h4>埋める</h4>
+      <p>彼が挙げたお金の使い道は4つ ── <span class="blank">　　　</span>／<span class="blank">　　　</span>／<span class="blank">　　　</span>／<span class="blank">　　　</span>。<br>
+      <b>この4つに共通するのは何か。</b><span class="blank">　　　　　　　　　　　　　　</span></p>
+
+      <div class="ana">
+        <span class="lb">たとえ</span>学食の食券。<b>券が要るのは、定食の数が限られているからである。</b>
+        定食が無限に出てくる日、券売機の前に列はできるか。
+      </div>
+
+      <div class="q">
+        <span class="qn">§1 の問い</span>
+        「<b>使いきれないほどある</b>」と「<b>全員に行き渡る</b>」は、同じことか。<br>
+        違うと思うなら、どこが違うかを1行で。<br>
+        <span class="blank wide">　</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>お金は不要か</h2>
+      <p class="sub">マスクの主張を、お金の3つの機能に分けて検証。編集長の1回目の押し返しは財源。</p>
+
+      <div class="q"><span class="qn">問い</span>お金の3つの機能のうち、モノが使いきれないほどある世界で残るのはどれか。</div>
+
+      <div class="formula">THE ECONOMIST　00:01:30
+But where's the revenue coming from?
+If you just issue checks, you're going to have inflation.</div>
+
+      <div class="tw">
+        <table class="words">
+          <caption>お金の3つの機能　モノが無限にある世界で残るか</caption>
+          <thead><tr><th>機能</th><th>中身</th><th>例</th><th>無限の供給で</th></tr></thead>
+          <tbody>
+            <tr><td>交換手段</td><td>欲しい物と持っている物が合わなくても取引が成立</td><td>給料で食料を買う</td><td><span class="chip">不要に近づく</span>　足りない物がなければ交換も不要</td></tr>
+            <tr><td>価値尺度</td><td>すべての物の値打ちを1つの単位で比較</td><td>定食 600円・家賃 7万円</td><td><span class="chip o">残る</span>　土地・時間・人気の席は増やせない</td></tr>
+            <tr class="accent"><td>価値保存</td><td>今日の稼ぎを将来へ持ち越す</td><td>預金・年金</td><td><span class="chip o">残る</span>　物価が動くと持ち越せる量も変わる</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table class="words">
+          <caption>増やせる物・増やせない物</caption>
+          <thead><tr><th>区分</th><th>例</th><th>AI・ロボットで増えるか</th></tr></thead>
+          <tbody>
+            <tr><td>工業製品・デジタル財</td><td>服・家電・動画・ソフト</td><td><span class="chip o">増える</span></td></tr>
+            <tr><td>人の手が要るサービス</td><td>介護・理容・飲食の接客</td><td><span class="chip o">一部は増える</span></td></tr>
+            <tr class="accent"><td>数が決まっている物</td><td>都心の土地・人気の席・有名人の時間</td><td><span class="chip">増えない</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>住宅</b>　マスクの挙げた使い道のうち、土地という増やせない物を含む</li>
+        <li><b>編集長の押し返し</b>　1回目は財源（小切手を配ればインフレ）、2回目は政治（そこまでの道のり）</li>
+        <li><b>答え</b>　交換手段は不要に近づく。価値尺度と価値保存は残る。増やせない物の配分を決める仕組みが要るため</li>
+      </ul>
+
+      <div class="note"><b>数字の扱い</b>　「2036年」「a thousand percent」は本人の口頭の予想と例示。計算された数値ではない。</div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>貨幣とは</h2>
+      <p class="sub">日本のお金の量と形。マネーストックM2 ＝ 現金 ＋ 国内銀行などの預金。</p>
+
+      <div class="q"><span class="qn">問い</span>日本のお金のうち、紙幣はどのくらいか。残りはどこにあるか。</div>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>M2　2026年7月平均</dt><dd>1,297<span class="u">兆円</span></dd></div>
+        <div class="tile t2"><dt>日本銀行券　2024年度末</dt><dd>118.7<span class="u">兆円</span></dd></div>
+        <div class="tile t3"><dt>紙幣 ÷ M2</dt><dd>約9<span class="u">%</span></dd></div>
+        <div class="tile"><dt>キャッシュレス比率　2025年</dt><dd>58.0<span class="u">%</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>日本のお金の量　兆円</span><span>M2は2026年7月平均・銀行券は2024年度末</span></div>
+        <div id="c-money"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>キャッシュレス決済額の内訳　%</span><span>2025年・決済額162.7兆円・経済産業省</span></div>
+        <div class="stk" id="c-cashless"></div>
+        <div class="legend" id="lg-cashless"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　紙幣は約9%。残りの約9割は銀行の預金。帳簿（データベース）上の数字</li>
+        <li><b>預金が増える仕組み</b>　銀行が貸し出すと、借り手の口座に預金が生まれる。信用創造</li>
+        <li><b>紙幣の減少</b>　日本銀行券の発行高は2024年に1953年以降で初めて減少。キャッシュレス化の進行</li>
+        <li><b>マスクの言い換え</b>　「change the database and never print money」。お金を増やす実務は、紙を刷るより口座の数字の書き換え</li>
+      </ul>
+
+      <div class="formula">お金の条件　 ＝ みんなが受け取る ＋ 量が勝手に増えない
+紙幣　　　　 ＝ 日本銀行の負債。法律で受け取りが保証（法定通貨）
+預金　　　　 ＝ 銀行の負債。いつでも紙幣に換えられるという約束</div>
+
+      <div class="note"><b>概算の注意</b>　日本銀行券の発行残高には金融機関の手元の現金を含む。M2の現金通貨とは範囲が異なるため、9%は目安。</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>インフレの割り算</h2>
+      <p class="sub">マスク「Inflation is simply the ratio of money to goods and services.」　分子 ＝ お金、分母 ＝ モノ・サービス。</p>
+
+      <div class="q"><span class="qn">問い</span>2020年から2025年。物価が最も上がったのは日米欧のどこか。原因は分子か分母か。</div>
+
+      <div class="formula">物価の水準 ∝ お金の量 ÷ モノ・サービスの量
+
+数量方程式　M × V ＝ P × Y
+            M お金の量・V 回転数・P 物価・Y 実質の生産量
+変化率で　　物価上昇率 ≒ お金の伸び − 生産の伸び（回転数が一定のとき）
+
+分子が速く増える → インフレ　　分母が速く増える → デフレ</div>
+
+      <figure>
+        <div class="ctitle"><span>消費者物価の上昇率　前年比 %</span><span>年平均・2015〜2025年</span></div>
+        <div id="c-cpi"></div>
+        <div class="legend" id="lg-cpi"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>2025年の物価水準　2020年 ＝ 100</span><span>年平均の上昇率を累積</span></div>
+        <div id="c-level"></div>
+      </figure>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>分子と分母の動き　米国の例</caption>
+          <thead><tr><th>項目</th><th>値</th><th>割り算の位置</th></tr></thead>
+          <tbody>
+            <tr><td>M2　2020年2月 → 2022年4月</td><td>約15.4 → 約21.7兆ドル　＋41%</td><td>分子　給付金・量的緩和</td></tr>
+            <tr><td>供給網の混乱・エネルギー高</td><td>2021〜2022年</td><td>分母　モノが届かない</td></tr>
+            <tr class="accent"><td>消費者物価　ピーク</td><td>9.1%　2022年6月</td><td>結果</td></tr>
+            <tr><td>M2　2026年7月</td><td>23.2兆ドル　前年比 ＋5.4%</td><td>分子は再び増加</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>答え</b>　米国。2020年 ＝ 100 で124.3。ユーロ圏122.6、日本111.9</li>
+        <li><b>米国</b>　分子が急増。給付金（編集長の言う「小切手」）と量的緩和でM2が2年で4割増</li>
+        <li><b>ユーロ圏</b>　分母側。ロシアのウクライナ侵攻後のエネルギー不足で2022年8.4%</li>
+        <li><b>日本</b>　2021年まで0%前後。2022年以降、輸入物価と円安で2〜3%台</li>
+      </ul>
+
+      <h3>デフレの条件</h3>
+      <div class="tw">
+        <table>
+          <caption>マスクの予想を割り算で検証　前年比 %・例示</caption>
+          <thead><tr><th>ケース</th><th>お金の伸び</th><th>生産の伸び</th><th>物価</th></tr></thead>
+          <tbody>
+            <tr><td>現在に近い日本</td><td>2</td><td>1</td><td>＋1　インフレ</td></tr>
+            <tr><td>小切手を配る</td><td>20</td><td>1</td><td>＋19　インフレ</td></tr>
+            <tr class="accent"><td>マスクの予想　AIで生産急増</td><td>20</td><td>50</td><td>−30　デフレ</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note"><b>成り立つ条件</b>　分母が分子より速く増え続けること。土地・エネルギー・人の時間など増やせない物の値段は、この割り算でも下がらない。</div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>購買力平価</h2>
+      <p class="sub">同じ物は、どの国でも同じ値段のはず。その前提で計算した為替レート ＝ 購買力平価（PPP）。</p>
+
+      <div class="q"><span class="qn">問い</span>ビッグマックは日本で500円、米国で6.22ドル。1ドルは何円が「本来の値」か。実際は162.1円。</div>
+
+      <div class="formula">購買力平価 ＝ 日本の値段 ÷ 米国の値段
+           ＝ 500円 ÷ 6.22ドル ≒ 80.4円
+
+割安・割高 ＝ 購買力平価 ÷ 実際のレート − 1
+           ＝ 80.4 ÷ 162.1 − 1 ≒ −50.4%　円は約半分の評価</div>
+
+      <figure>
+        <div class="ctitle"><span>ビッグマック1個のドル換算価格　ドル</span><span>2026年7月・各国の実際のレートで換算</span></div>
+        <div id="c-bmusd"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>日米欧のビッグマック指数　2026年7月</caption>
+          <thead><tr><th>項目</th><th>日本</th><th>米国</th><th>ユーロ圏</th></tr></thead>
+          <tbody>
+            <tr><td>現地の値段</td><td>500円</td><td>6.22ドル</td><td>6.19ユーロ</td></tr>
+            <tr class="accent"><td>購買力平価　1ドル ＝</td><td>80.4円</td><td>—</td><td>0.995ユーロ</td></tr>
+            <tr><td>実際のレート　1ドル ＝</td><td>162.1円</td><td>—</td><td>0.874ユーロ</td></tr>
+            <tr><td>ドル換算の値段</td><td>3.08ドル</td><td>6.22ドル</td><td>7.08ドル</td></tr>
+            <tr class="accent"><td>ドルに対する評価</td><td>−50.4%　割安</td><td>基準</td><td>＋13.8%　割高</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>1ドル ＝ 円　ビッグマックの購買力平価と実際のレート</span><span>各年7月・2010〜2026年</span></div>
+        <div id="c-bmppp"></div>
+        <div class="legend" id="lg-bmppp"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　ビッグマック基準では1ドル ＝ 約80円。実際は約2倍の162円。円の購買力は国内で高く、海外で低い</li>
+        <li><b>購買力平価はほぼ横ばい</b>　2010年以降75〜91円。日米とも値上げしたため比率が保たれた</li>
+        <li><b>実際のレートは2倍</b>　2012年78円 → 2026年162円。動かしたのは物価ではなく金利差と資金の流れ</li>
+        <li><b>ユーロは逆</b>　ドルに対して割高。欧州の旅行者には米国のビッグマックが安い</li>
+      </ul>
+
+      <div class="note"><b>ビッグマックの限界</b>　1品の値段には家賃・人件費・税が含まれる。国全体の購買力平価はOECDが数千品目で算出。円はOECD基準でも実際のレートより大幅に高い評価。当日の値は節1へ記入。</div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>物価差と為替</h2>
+      <p class="sub">相対的購買力平価。物価が速く上がる国の通貨は、その分だけ安くなるはず。</p>
+
+      <div class="q"><span class="qn">問い</span>2020年から2025年に物価は日本＋11.9%、米国＋24.3%。この差だけなら円は高くなるか、安くなるか。</div>
+
+      <div class="formula">相対的購買力平価
+2025年の理論値 ＝ 2020年のレート × 日本の物価の伸び ÷ 米国の物価の伸び
+              ＝ 107.3円 × 111.9 ÷ 124.3 ≒ 96.6円
+
+実際の2025年7月 ＝ 148.8円　　差 ＝ 約52円</div>
+
+      <figure>
+        <div class="ctitle"><span>1ドル ＝ 円　物価差だけで動いた場合と実際</span><span>2020年7月を起点・物価は年平均</span></div>
+        <div id="c-rel"></div>
+      </figure>
+
+      <ul>
+        <li><b>答え</b>　物価差だけなら円高。米国の物価が速く上がり、ドルの購買力が落ちたため</li>
+        <li><b>実際は円安</b>　2022年以降、米国は利上げ・日本は低金利を維持。金利差でドルに資金が移動</li>
+        <li><b>長期と短期</b>　購買力平価は数十年単位の「重力」。数年単位では金利差・貿易収支・投資の流れが優先</li>
+      </ul>
+
+      <div class="tw">
+        <table class="words">
+          <caption>円安の影響　割り算のどこに効くか</caption>
+          <thead><tr><th>立場</th><th>影響</th><th>割り算の位置</th></tr></thead>
+          <tbody>
+            <tr><td>輸入する会社・家計</td><td>エネルギー・食料の円建て価格が上昇</td><td>分母　輸入品の供給コスト</td></tr>
+            <tr><td>輸出する会社</td><td>ドル建ての売上が円で膨らむ</td><td>利益の増加</td></tr>
+            <tr class="accent"><td>訪日客</td><td>日本の物が半額に見える</td><td>購買力平価との差</td></tr>
+            <tr><td>海外で働く・学ぶ日本人</td><td>現地の物価が約2倍に見える</td><td>購買力平価との差</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">自分で選んだ商品で購買力平価を算出。最後にマスクの予想へYESかNOで回答。</p>
+
+      <ul>
+        <li><b>選定</b>　日米で同じ物が売られている商品を2つ。例　スターバックスのラテ・iPhone・Netflixの月額・ユニクロのTシャツ</li>
+        <li><b>調査</b>　日本と米国の公式サイトで、税込・税抜をそろえて値段を記入</li>
+        <li><b>算出</b>　購買力平価 ＝ 円の値段 ÷ ドルの値段。当日のレートと比べ、割安・割高を%で</li>
+        <li><b>比較</b>　ビッグマックの80.4円と比べて高いか低いか。理由を1行。輸入品か、国内の人件費が中心か</li>
+      </ul>
+
+      <div class="tw">
+        <table>
+          <caption>購買力平価シート　円・ドル・%</caption>
+          <thead><tr><th>項目</th><th>商品1</th><th>商品2</th><th>ビッグマック</th></tr></thead>
+          <tbody>
+            <tr><td>商品名</td><td class="blank"></td><td class="blank"></td><td>ビッグマック</td></tr>
+            <tr><td>日本の値段　円</td><td class="blank"></td><td class="blank"></td><td>500</td></tr>
+            <tr><td>米国の値段　ドル</td><td class="blank"></td><td class="blank"></td><td>6.22</td></tr>
+            <tr class="accent"><td>購買力平価　1ドル ＝ 円</td><td class="blank"></td><td class="blank"></td><td>80.4</td></tr>
+            <tr><td>当日のレート</td><td class="blank"></td><td class="blank"></td><td>162.1　7月</td></tr>
+            <tr><td>円の割安・割高　%</td><td class="blank"></td><td class="blank"></td><td>−50.4</td></tr>
+            <tr><td>差の理由　1行</td><td class="blank"></td><td class="blank"></td><td>店舗の家賃・人件費が中心</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>議論の1問</h3>
+      <div class="q"><span class="qn">問い</span>2036年、お金は要らなくなるか。YES か NO か。理由を1行。</div>
+      <ul>
+        <li><b>条件1</b>　「AIが」「ロボットが」で終わらせない。要らなくなる、または残る物を1つ名指し</li>
+        <li><b>条件2</b>　その1行が、割り算の分子（お金）と分母（モノ・サービス）のどちらの話かを明記</li>
+        <li><b>条件3</b>　お金の3機能のうち、どれが消え、どれが残るかを1つ指定</li>
+      </ul>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>OECDで</b>　日本・ユーロ圏の購買力平価（GDPベース）。ビッグマックの値との差を確認</li>
+        <li><b>FREDで</b>　米国のM2（系列 M2SL）と消費者物価（CPIAUCSL）を同じグラフに表示。山の時期のずれを確認</li>
+        <li><b>日本銀行で</b>　マネーストック統計の最新月。M2の前年比と、現金通貨・預金通貨の内訳</li>
+        <li><b>AIで</b>　「マスクのデフレ予想への反論」を質問。返答が分子・分母・配分のどれの話かを分類</li>
+      </ul>
+
+      <div class="note"><b>値段の比較の注意</b>　米国の店頭価格は消費税（売上税）抜き、日本は税込が基本。州ごとに税率も違う。そろえ方を表の下に1行で明記。</div>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>Elon Musk × The Economist 編集長　インタビュー抜粋（約3分半）の文字起こし。英文とタイムコードは配布動画のもの　<a href="https://www.instagram.com/reel/DbNPAhVgfTx/">instagram.com/reel/DbNPAhVgfTx</a>。投稿アカウントが The Economist 本体かは各自で確認。「2036年」「a thousand percent」は本人の口頭の予想</li>
+        <li>節2の英文・英語の確認・たとえ・問いは、夏期講義 個別講義資料 2026年9月11日（第4回）§1「何のためにお金が欲しいのか」をそのまま転載　<a href="https://katsuagezzz.github.io/summer_lecture/lectures/lecture_toyonaga_20260911.html">katsuagezzz.github.io/summer_lecture</a></li>
+        <li>The Economist　The Big Mac index　<a href="https://github.com/TheEconomist/big-mac-data">github.com/TheEconomist/big-mac-data</a>（output-data/big-mac-full-index.csv、2026年8月4日更新）。2026年7月　日本 500円・為替 162.135円、米国 6.22ドル、ユーロ圏 6.19ユーロ・為替 0.87439ユーロ、スイス 7.3フラン、中国 26.5元、韓国 5,700ウォン、英国 5.49ポンド。2010〜2025年の日本・米国の値も同データ</li>
+        <li>総務省統計局　消費者物価指数　<a href="https://www.stat.go.jp/data/cpi/">stat.go.jp/data/cpi</a>。2025年平均 111.9（2020年 ＝ 100）、前年比 3.2%。2026年8月 総合 前年比 1.9%</li>
+        <li>米労働統計局（BLS）　Consumer Price Index　<a href="https://www.bls.gov/cpi/">bls.gov/cpi</a>。2026年8月 全項目 前年比 3.4%。2022年6月 9.1%</li>
+        <li>Eurostat　HICP（ユーロ圏の消費者物価）　<a href="https://ec.europa.eu/eurostat/web/hicp">ec.europa.eu/eurostat/web/hicp</a>。2026年8月 前年比 3.2%</li>
+        <li>日本銀行　マネーストック統計　<a href="https://www.boj.or.jp/statistics/money/ms/index.htm">boj.or.jp/statistics/money/ms</a>。M2平均残高 2026年7月 1,297兆円、2026年8月 前年比 2.0%</li>
+        <li>日本銀行　第140回事業年度（令和6年度）決算　<a href="https://www.boj.or.jp/about/account/zai2505a.htm">boj.or.jp</a>。日本銀行券発行残高 2024年度末 118兆6,685億円、前年度末比 −1.8%</li>
+        <li>経済産業省　2025年のキャッシュレス決済比率（2026年3月31日公表）　<a href="https://www.meti.go.jp/press/2025/03/20260331006/20260331006.html">meti.go.jp</a>。国内指標 58.0%（国際比較指標 46.3%）。決済額の内訳 クレジット 82.7%・コード決済 10.2%・電子マネー 3.7%・デビット 3.4%</li>
+        <li>米連邦準備制度理事会　H.6 Money Stock Measures　<a href="https://www.federalreserve.gov/releases/h6/current/default.htm">federalreserve.gov</a>　／　セントルイス連銀 FRED M2SL　<a href="https://fred.stlouisfed.org/series/M2SL">fred.stlouisfed.org</a>。2026年7月 23.2兆ドル。2020年2月・2022年4月の値は要確認（演習で各自確認）</li>
+        <li>OECD　Purchasing power parities (PPP)　<a href="https://www.oecd.org/en/data/indicators/purchasing-power-parities-ppp.html">oecd.org</a>。当日の値を節1へ記入</li>
+        <li>年平均の物価上昇率（2015〜2025年）は各統計機関の公表値。米国 2025年 2.6%、ユーロ圏 2025年 2.1% は年平均の速報ベースで要確認。2020年 ＝ 100 の水準・相対的購買力平価・割安割高の%は本資料による計算</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b04-ranking.html"><b>← 第4回</b>ランキングで会社を読む</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines / LC.bars / LC.hbars / LC.stack(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+
+  /* ---- 帯グラフ：構成比（1行＝1社、合計を100として区切る） ----
+     rows:[{name, segs:[[区分, 値, 色, 文字色], ...]}]。値は%。 */
+  function stack(h,cfg){
+    var P={l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:96, r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:12, t:cfg.pad&&cfg.pad.t!==undefined?cfg.pad.t:24, b:8};
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var band=ph/cfg.rows.length, bh=cfg.bh||30;
+    [0,25,50,75,100].forEach(function(v){
+      var x=P.l+v/100*pw;
+      s.appendChild(el("line",{x1:x,y1:P.t-4,x2:x,y2:P.t+ph,"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(x,P.t-8,v+"%","tk"));
+    });
+    cfg.rows.forEach(function(row,i){
+      var cy=P.t+band*i+band/2, tot=0, x=P.l;
+      row.segs.forEach(function(g){ tot+=g[1]; });
+      s.appendChild(txt(P.l-10,cy+4,row.name,"el","end"));
+      row.segs.forEach(function(g){
+        var w=g[1]/tot*pw;
+        var r=el("rect",{x:x,y:cy-bh/2,width:Math.max(1,w-1.5),height:bh,rx:3,fill:g[2]});
+        hover(r,row.name+"　"+g[0]+"　"+fmt(g[1],1)+"%");
+        s.appendChild(r);
+        if(w>44){
+          var t=txt(x+w/2,cy+4,fmt(g[1],1),"vl");
+          t.style.fill=g[3]||"#fff";
+          t.style.pointerEvents="none";
+          s.appendChild(t);
+        }
+        x+=w;
+      });
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,stack:stack,fmt:fmt,legend:legend};
+})();
+
+/* ===== LC 追加：第4回で使う図形 =====
+   LC.gbars  … グループ縦棒（系列2〜4本・負値可）
+   LC.wf     … ウォーターフォール（利益の段階を積み上げ）
+   LC.scatter… 散布図（2指標の位置関係） */
+(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){ var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"}); t.textContent=s; return t; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(n,s){ n.addEventListener("mousemove",function(e){ showTip(e,s); }); n.addEventListener("mouseleave",hideTip); }
+  function mount(h,cfg){
+    var n=typeof h==="string"?document.querySelector(h):h; if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function P(p){ p=p||{}; return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?26:p.t, b:p.b===undefined?34:p.b}; }
+  function yaxis(s,cfg,p){
+    var pw=cfg.w-p.l-p.r, ph=cfg.h-p.t-p.b, lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return p.t+(hi-v)/(hi-lo)*ph; };
+    cfg.y.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:p.l,y1:Y(v),x2:p.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(p.l-8,Y(v)+3.5,(cfg.y.fmt||LC.fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  LC.gbars=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.groups.length, n=cfg.series.length, bw=cfg.bw||22, gap=4;
+    var tot=n*bw+(n-1)*gap, base=A.Y(0), d=cfg.digits===undefined?1:cfg.digits;
+    cfg.groups.forEach(function(g,i){
+      var cx=p.l+band*i+band/2;
+      g[1].forEach(function(v,j){
+        var x=cx-tot/2+j*(bw+gap), y=A.Y(v), up=v>=0;
+        var r=el("rect",{x:x,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:cfg.series[j].color});
+        hover(r,g[0]+"　"+cfg.series[j].name+"　"+LC.fmt(v,d)+(cfg.unit||""));
+        s.appendChild(r);
+        s.appendChild(txt(x+bw/2,up?y-6:y+14,LC.fmt(v,d),"vl"));
+      });
+      s.appendChild(txt(cx,cfg.h-p.b+18,g[0],"tk"));
+    });
+    if(cfg.legend) LC.legend(cfg.legend,cfg.series.map(function(o){ return {name:o.name,color:o.color,square:true}; }));
+  };
+
+  LC.wf=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.steps.length, bw=cfg.bw||46, cum=0, prev=null, d=cfg.digits===undefined?1:cfg.digits;
+    cfg.steps.forEach(function(o,i){
+      var cx=p.l+band*i+band/2, a, b;
+      if(o.total){ a=0; b=o.v; cum=o.v; } else { a=cum; b=cum+o.v; cum=b; }
+      var top=A.Y(Math.max(a,b)), bot=A.Y(Math.min(a,b));
+      var col=o.total?(o.v<0?"var(--pop)":"var(--s2)"):(o.v>=0?"var(--s3)":"var(--pop)");
+      if(prev!==null) s.appendChild(el("line",{x1:prev.x,y1:A.Y(prev.v),x2:cx-bw/2,y2:A.Y(prev.v),"class":"gl","stroke-dasharray":"3 3"}));
+      var r=el("rect",{x:cx-bw/2,y:top,width:bw,height:Math.max(1.5,bot-top),rx:2,fill:col});
+      var lab=(o.total?"":(o.v>=0?"＋":""))+LC.fmt(o.v,d);
+      hover(r,o.name+"　"+lab+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(cx,top-7,lab,"vl"));
+      s.appendChild(txt(cx,cfg.h-p.b+18,o.name,"tk"));
+      prev={x:cx+bw/2,v:cum};
+    });
+    if(cfg.ref){
+      var y=A.Y(cfg.ref.v);
+      s.appendChild(el("line",{x1:p.l,y1:y,x2:p.l+A.pw,y2:y,stroke:"var(--s1)","stroke-width":1.5,"stroke-dasharray":"6 4"}));
+      s.appendChild(txt(p.l+6,y-6,cfg.ref.label,"el","start"));
+    }
+  };
+
+  LC.scatter=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), x0=cfg.x.min||0, x1=cfg.x.max;
+    var X=function(v){ return p.l+(v-x0)/(x1-x0)*A.pw; };
+    cfg.x.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:p.t,x2:X(v),y2:p.t+A.ph,"class":v===x0?"ax":"gl"}));
+      s.appendChild(txt(X(v),cfg.h-p.b+18,(cfg.x.fmt||LC.fmt)(v),"tk"));
+    });
+    if(cfg.x.label) s.appendChild(txt(p.l+A.pw,cfg.h-4,cfg.x.label,"tk","end"));
+    if(cfg.y.label) s.appendChild(txt(p.l,p.t-12,cfg.y.label,"tk","start"));
+    cfg.points.forEach(function(o){
+      var c=el("circle",{cx:X(o.x),cy:A.Y(o.y),r:8,fill:o.color,stroke:"var(--surface)","stroke-width":2});
+      hover(c,o.name+"　"+cfg.tip(o));
+      s.appendChild(c);
+      s.appendChild(txt(X(o.x)+(o.left?-13:13),A.Y(o.y)+4,o.name,"el",o.left?"end":"start"));
+    });
+  };
+})();
+
+
+/* ===== 図 ===== 数値は節9の出典。ビッグマックは The Economist big-mac-data */
+
+var JP="var(--s1)", US="var(--s2)", EA="var(--s3)", GR="var(--axis)", PO="var(--pop)";
+
+/* 3節　お金の量 */
+LC.hbars("#c-money",{
+  w:720,h:150,max:720,alt:"M2 1,297兆円、うち日本銀行券118.7兆円、残り約1,178兆円",
+  pad:{l:170,r:76,t:22,b:8},bh:22,
+  x:{min:0,max:1400,ticks:[0,350,700,1050,1400]},unit:"兆円",digits:0,
+  data:[["M2　お金の総量",1297,JP],["うち預金など　概算",1178,EA],["うち日本銀行券",119,PO]]
+});
+
+/* 3節　キャッシュレスの内訳 */
+LC.stack("#c-cashless",{
+  w:720,h:80,max:720,alt:"キャッシュレス決済額の内訳。クレジット82.7%、コード決済10.2%、電子マネー3.7%、デビット3.4%",
+  pad:{l:84},bh:30,
+  rows:[{name:"2025年",segs:[
+    ["クレジット",82.7,JP,"#fff"],["コード決済",10.2,US,"#fff"],["電子マネー",3.7,EA,"#fff"],["デビット",3.4,"var(--s4)","#141019"]
+  ]}]
+});
+LC.legend("#lg-cashless",[
+  {name:"クレジットカード 82.7",color:JP,square:true},{name:"コード決済 10.2",color:US,square:true},
+  {name:"電子マネー 3.7",color:EA,square:true},{name:"デビットカード 3.4",color:"var(--s4)",square:true}
+]);
+
+/* 4節　消費者物価 */
+function yr(a){ return a.map(function(v,i){ return [2015+i,v]; }); }
+LC.lines("#c-cpi",{
+  w:720,h:300,max:720,alt:"消費者物価上昇率。米国は2022年8.0%、ユーロ圏8.4%、日本2023年3.2%",
+  pad:{l:44,r:80,t:16,b:34},
+  x:{min:2015,max:2025,ticks:[2015,2017,2019,2021,2023,2025]},
+  y:{min:-2,max:10,ticks:[-2,0,2,4,6,8,10]},
+  tip:function(o,p){ return o.name+"　"+p[0]+"年　"+LC.fmt(p[1],1)+"%"; },
+  legend:"#lg-cpi",
+  series:[
+    {name:"米国",label:"米国 2.6",color:US,points:yr([0.1,1.3,2.1,2.4,1.8,1.2,4.7,8.0,4.1,2.9,2.6])},
+    {name:"ユーロ圏",label:"ユーロ圏 2.1",color:EA,points:yr([0.2,0.2,1.5,1.8,1.2,0.3,2.6,8.4,5.4,2.4,2.1])},
+    {name:"日本",label:"日本 3.2",color:JP,points:yr([0.8,-0.1,0.5,1.0,0.5,0.0,-0.2,2.5,3.2,2.7,3.2])}
+  ]
+});
+
+/* 4節　物価水準 */
+LC.bars("#c-level",{
+  w:720,h:250,pad:{l:52,r:16,t:26,b:34},max:560,alt:"2025年の物価水準（2020年＝100）。米国124.3、ユーロ圏122.6、日本111.9",
+  y:{min:0,max:140,ticks:[0,35,70,105,140]},digits:1,bw:64,
+  data:[["米国",124.3,US],["ユーロ圏",122.6,EA],["日本",111.9,JP]]
+});
+
+/* 5節　ビッグマックのドル価格 */
+LC.hbars("#c-bmusd",{
+  w:720,h:260,max:720,alt:"ビッグマックのドル換算価格。スイス9.04、英国7.40、ユーロ圏7.08、米国6.22、中国3.91、韓国3.84、日本3.08",
+  pad:{l:120,r:70,t:22,b:8},bh:18,
+  x:{min:0,max:10,ticks:[0,2,4,6,8,10]},unit:"ドル",digits:2,color:GR,
+  data:[["スイス",9.04],["英国",7.40],["ユーロ圏",7.08,EA],["米国",6.22,US],["中国",3.91],["韓国",3.84],["日本",3.08,JP]]
+});
+
+/* 5節　購買力平価と実際のレート */
+var Y=[2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026];
+var PPP=[90.7,87.9,80.8,76.6,86.2,86.2,82.2,84.4,84.4,82.8,80.9,79.1,75.7,80.6,84.4,79.9,80.4];
+var MKT=[87.2,78.4,78.2,100.1,101.5,123.9,106.7,113.1,111.3,108.8,107.3,109.9,137.9,142.1,150.5,148.8,162.1];
+function zip(a){ return Y.map(function(y,i){ return [y,a[i]]; }); }
+LC.lines("#c-bmppp",{
+  w:720,h:300,max:720,alt:"1ドル＝円。ビッグマックの購買力平価は75〜91円で横ばい、実際のレートは2012年78円から2026年162円",
+  pad:{l:44,r:110,t:16,b:34},
+  x:{min:2010,max:2026,ticks:[2010,2014,2018,2022,2026]},
+  y:{min:60,max:180,ticks:[60,90,120,150,180]},
+  tip:function(o,p){ return o.name+"　"+p[0]+"年7月　"+LC.fmt(p[1],1)+"円"; },
+  legend:"#lg-bmppp",
+  series:[
+    {name:"実際のレート",label:"実際 162.1",color:PO,points:zip(MKT)},
+    {name:"購買力平価",label:"平価 80.4",color:JP,points:zip(PPP)}
+  ]
+});
+
+/* 6節　相対的購買力平価 */
+LC.bars("#c-rel",{
+  w:720,h:260,pad:{l:52,r:16,t:26,b:34},max:600,alt:"2020年7月107.3円、物価差だけの2025年理論値96.6円、実際の2025年7月148.8円",
+  y:{min:0,max:160,ticks:[0,40,80,120,160]},digits:1,unit:"円",bw:64,
+  data:[["2020年7月　実際",107.3,GR],["2025年　物価差だけ",96.6,JP],["2025年7月　実際",148.8,PO]]
+});
+</script>
+</body>
+</html>
