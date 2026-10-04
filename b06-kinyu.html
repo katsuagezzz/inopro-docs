@@ -1,0 +1,1005 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 第6回 授業資料。マッチング企業の金融。メルカリのFintech（メルペイ・メルカード）とタイミーの即日払いを、部門別利益・成長率・債権残高・キャッシュ・フローで本業と比較する。">
+<title>マッチングと金融</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">イノベーションプロジェクト　第6回　90分</div>
+    <h1>マッチングと<em>金融</em></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>部門別利益から「金利で稼ぐ部分」を特定</dd></div>
+      <div><dt>道具</dt><dd>セグメント・コア営業利益率・債権残高・回収率</dd></div>
+      <div><dt>事例</dt><dd>メルカリ（4385）・タイミー（215A）</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>結論</h2>
+      <p class="sub">メルカリ 2026年6月期・タイミー 2025年10月期。各社の有価証券報告書。億円。</p>
+
+      <div class="q"><span class="qn">問い</span>同じマッチング企業。金利で稼ぐのはどちらか。その利益は本業の何分の1か。</div>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>メルカリ Fintech　コア営業利益</dt><dd>91<span class="u">億円</span></dd></div>
+        <div class="tile t1"><dt>同　前年比</dt><dd>2.0<span class="u">倍</span></dd></div>
+        <div class="tile"><dt>メルカリ 本業 Marketplace</dt><dd>429<span class="u">億円</span></dd></div>
+        <div class="tile t2"><dt>タイミー 金融部門の利益</dt><dd>0<span class="u">億円</span></dd></div>
+      </dl>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>二社の比較　億円・%</caption>
+          <thead><tr><th>項目</th><th>メルカリ</th><th>タイミー</th><th>見えること</th></tr></thead>
+          <tbody>
+            <tr><td>決算期</td><td>2026年6月期</td><td>2025年10月期</td><td>直近の通期</td></tr>
+            <tr><td>売上高</td><td>2,293</td><td>343</td><td>規模は6.7倍</td></tr>
+            <tr><td>売上高の伸び</td><td>＋19.0%</td><td>＋27.6%</td><td>伸び率はタイミーが上</td></tr>
+            <tr class="accent"><td>金融部門</td><td>Fintech　売上651・利益91</td><td>なし　単一セグメント</td><td>金利で稼ぐのはメルカリのみ</td></tr>
+            <tr><td>金融部門の伸び</td><td>売上＋29.2%・利益2.0倍</td><td>−</td><td>本業より速い</td></tr>
+            <tr><td>本業の利益率</td><td>37.0%　Marketplace・概算</td><td>19.7%　営業利益率</td><td>本業はメルカリが厚い</td></tr>
+            <tr class="accent"><td>お金の流れの扱い</td><td>後払い・分割に金利　年18%</td><td>賃金の即日払いを無料で立替</td><td>金融は 収益源 か 集客の道具 か</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>メルカリ</b>　本業の売買手数料に、後払い・分割の金利を上乗せ。金融部門の利益は本業の約5分の1、伸びは本業の2倍超</li>
+        <li><b>タイミー</b>　収益の99%が仲介手数料。即日払いは立替で実施、金利は取らない。金融は費用の側</li>
+        <li><b>共通点</b>　どちらも「お金の流れ」の真ん中に立つ。金利を取るかどうかが分岐点</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>収益の三層</h2>
+      <p class="sub">マッチング企業の稼ぎ方。下の層ほど、B/S（資産と借入）を使う。</p>
+
+      <div class="formula">第1層　手数料　＝ 取引額 × 手数料率　　　　　　取引の上で稼ぐ
+第2層　決済　　＝ 決済額 × 加盟店手数料率　　　お金の通り道で稼ぐ
+第3層　与信　　＝ 貸したお金 × 金利 − 調達コスト − 貸倒れ　時間の差で稼ぐ</div>
+
+      <div class="tw">
+        <table class="words">
+          <caption>二社の三層　あり・なし</caption>
+          <thead><tr><th>層</th><th>中身</th><th>メルカリ</th><th>タイミー</th></tr></thead>
+          <tbody>
+            <tr><td>第1層　手数料</td><td>売買・仲介の成功報酬</td><td><span class="chip o">あり</span>　販売手数料 10%</td><td><span class="chip o">あり</span>　賃金報酬等の約30%</td></tr>
+            <tr><td>第2層　決済</td><td>アプリ内外の支払い</td><td><span class="chip o">あり</span>　メルペイ</td><td><span class="chip">なし</span></td></tr>
+            <tr class="accent"><td>第3層　与信</td><td>後払い・分割・カード</td><td><span class="chip o">あり</span>　メルカード・定額払い</td><td><span class="chip">なし</span>　立替は無償</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>シェアリングエコノミー</b>　余った物（メルカリ）・余った時間（タイミー）を、手数料を取ってつなぐ事業</li>
+        <li><b>金融への入口</b>　利用者の売上金・賃金が、いったん会社を通る。この「お金の滞留」が第2層・第3層の材料</li>
+        <li><b>代償</b>　第3層は貸したお金が資産に積み上がる。資金の調達と貸倒れのリスクを会社が負担</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>メルカリの部門別利益</h2>
+      <p class="sub">2026年6月期・IFRS。コア営業利益＝会社が開示する本業ベースの利益。有価証券報告書の経営者による分析。</p>
+
+      <figure>
+        <div class="ctitle"><span>事業別コア営業利益　億円</span><span>2026年6月期</span></div>
+        <div id="c-seg"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>売上と利益の構成比　%</span><span>利益は3事業の合計541億円に対する比率</span></div>
+        <div id="c-share"></div>
+        <div class="legend" id="lg-share"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>事業別の数値　億円・%</caption>
+          <thead><tr><th>事業</th><th>売上収益</th><th>コア営業利益</th><th>利益率</th><th>前年比　利益</th></tr></thead>
+          <tbody>
+            <tr><td>Marketplace　本業・国内フリマ</td><td>約1,158</td><td>429</td><td>約37.0</td><td>＋40.6%</td></tr>
+            <tr class="accent"><td>Fintech　メルペイ・メルカード</td><td>651</td><td>91</td><td>14.0</td><td>＋102%</td></tr>
+            <tr><td>US　米国フリマ</td><td>408</td><td>21</td><td>5.1</td><td>−</td></tr>
+            <tr><td>連結　全社費用・その他を含む</td><td>2,293</td><td>441</td><td>19.2</td><td>＋60.2%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>本業が主役</b>　利益の79%がMarketplace。Fintechは売上の28%、利益の17%</li>
+        <li><b>利益率の差</b>　Fintech 14.0%、Marketplace 約37%。金融は貸倒れ・調達・ポイント還元の費用が重い</li>
+        <li><b>位置づけ</b>　会社の目標は「Fintechのコア営業利益100億円以上・第2の収益の柱」</li>
+      </ul>
+
+      <div class="note"><b>セグメントの注意</b>　有価証券報告書の報告セグメントは Japan Business（Marketplace＋Fintech）と US の2つ。Fintech単独の数値は経営者による分析の本文に記載。Marketplaceの売上はJapan Business 1,808.6億円からFintech 651億円を引いた概算。</div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>Fintechの成長</h2>
+      <p class="sub">債権残高＝利用者に貸しているお金の残り。後払い（翌月・定額・分割）とスマートマネーの合計。各期末。</p>
+
+      <figure>
+        <div class="ctitle"><span>債権残高　億円</span><span>6月末</span></div>
+        <div id="c-recv"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>Fintechの売上収益とコア営業利益　億円</span><span>2025年6月期の売上は前年比から逆算</span></div>
+        <div id="c-fin"></div>
+        <div class="legend" id="lg-fin"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>前年比の伸び　%</span><span>2026年6月期</span></div>
+        <div id="c-growth"></div>
+      </figure>
+
+      <ul>
+        <li><b>成長率</b>　債権残高 ＋44.4%、Fintech売上 ＋29.2%、本業GMV ＋14.7%。金融が本業の2〜3倍の速さ</li>
+        <li><b>回収率</b>　99.4%。11か月以内に回収できた割合。未回収 約0.6%</li>
+        <li><b>金利の引き上げ</b>　定額払いの実質年率を2025年1月から18%。分割3回以上も2026年1月から18%</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>金利で稼ぐ式</h2>
+      <p class="sub">第1回の金利の応用。貸す側の損益。調達金利・経費は例示。</p>
+
+      <div class="formula">与信の利益 ＝ 貸したお金 ×（貸出金利 − 調達金利 − 貸倒れ率）− 経費
+
+10万円を1年　18% − 1.5% − 0.6% ＝ 15.9%
+            ＝ 15,900円（経費の前）</div>
+
+      <figure>
+        <div class="ctitle"><span>10万円を1年貸したときの残り　円</span><span>模式図・数値は例示</span></div>
+        <div id="c-wf"></div>
+      </figure>
+
+      <h3>B/Sへの影響</h3>
+
+      <div class="tw">
+        <table>
+          <caption>メルカリ　利益と現金の差　億円</caption>
+          <thead><tr><th>項目</th><th>2026年6月期</th></tr></thead>
+          <tbody>
+            <tr><td>税引前利益</td><td>442</td></tr>
+            <tr class="accent"><td>営業債権の増加　貸したお金の増加</td><td>−1,087</td></tr>
+            <tr><td>営業キャッシュ・フロー</td><td>−95</td></tr>
+            <tr><td>短期借入金の増加</td><td>＋520</td></tr>
+            <tr><td>総資産　前期比</td><td>7,266　＋1,829</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>黒字なのに現金が出る</b>　利益442億円、営業CFは−95億円。貸したお金の増加1,087億円が現金を吸収</li>
+        <li><b>調達</b>　借入・社債・債権流動化で確保。債権流動化＝貸したお金の回収権を投資家へ売り、先に現金化</li>
+        <li><b>金利上昇の影響</b>　調達金利が上がると、式の「貸出金利 − 調達金利」が縮む</li>
+      </ul>
+
+      <div class="note"><b>手数料ビジネスとの違い</b>　手数料は取引の瞬間に終わる。与信は回収まで続く。売上の伸びより先に、資産・借入・貸倒れが膨らむ。</div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>タイミーの稼ぎ方</h2>
+      <p class="sub">2025年10月期・日本基準。「タイミー」事業の単一セグメント。有価証券報告書。</p>
+
+      <div class="q"><span class="qn">問い</span>働いた直後に給料が入る。払っているのは雇い主か、タイミーか。</div>
+
+      <figure>
+        <div class="ctitle"><span>売上高と営業利益　億円</span><span>10月期。2023・2024年は単体</span></div>
+        <div id="c-tm"></div>
+        <div class="legend" id="lg-tm"></div>
+      </figure>
+
+      <div class="formula">売上高 ≒ 流通総額 × テイクレート
+  343 ≒ 1,172 × 29.3%　　賃金報酬等の約30%が手数料
+
+立替の費用 ≒ 借入金 × 調達金利
+  支払利息 1.14億円 ／ 受取利息 0.11億円</div>
+
+      <div class="tw">
+        <table>
+          <caption>即日払いの仕組み　2025年10月期</caption>
+          <thead><tr><th>項目</th><th>値</th></tr></thead>
+          <tbody>
+            <tr><td>ワーカーへの支払い</td><td>勤務直後・24時間365日・手数料なし</td></tr>
+            <tr><td>雇い主からの回収</td><td>月末締め・翌月末払い</td></tr>
+            <tr class="accent"><td>立替金の増加</td><td>21.2億円</td></tr>
+            <tr><td>短期借入金　期末</td><td>111.1億円</td></tr>
+            <tr><td>営業利益率</td><td>19.7%</td></tr>
+            <tr><td>営業キャッシュ・フロー</td><td>＋26.7億円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>答え</b>　タイミー。雇い主の支払いは最大で約2か月後。その間を借入で立て替え</li>
+        <li><b>金融部門の利益</b>　0。立替に金利・手数料を課さない。即日払いはワーカーを集める道具</li>
+        <li><b>成長率</b>　売上 ＋66.5% → ＋27.6%。営業利益 ＋117% → ＋58.9%。伸びは鈍化、利益率は上昇</li>
+        <li><b>直近</b>　決算期を4月へ変更。2025年11月〜2026年1月は売上108.6億円 ＋25.6%、営業利益21.1億円 ＋49.2%</li>
+      </ul>
+
+      <div class="note"><b>メルカリとの接点</b>　メルカリは2024年3月にスポットワーク「メルカリ ハロ」を開始、2026年6月期第1四半期に撤退を決定。タイミーとの直接競合は2年足らずで終了。</div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>本業との比較</h2>
+      <p class="sub">利益と現金の関係。億円。各社の直近通期。</p>
+
+      <figure>
+        <div class="ctitle"><span>税引前利益と営業キャッシュ・フロー　億円</span><span>メルカリ 2026年6月期・タイミー 2025年10月期</span></div>
+        <div id="c-cf"></div>
+        <div class="legend" id="lg-cf"></div>
+      </figure>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>金融を持つ・持たないの違い</caption>
+          <thead><tr><th>観点</th><th>メルカリ</th><th>タイミー</th><th>差の理由</th></tr></thead>
+          <tbody>
+            <tr><td>利益の源泉</td><td>手数料＋金利</td><td>手数料のみ</td><td>与信の有無</td></tr>
+            <tr><td>金融部門の利益率</td><td>14.0%</td><td>−</td><td>貸倒れ・調達・ポイント費用</td></tr>
+            <tr><td>本業の利益率</td><td>約37%</td><td>19.7%</td><td>テイクレートと広告費の差</td></tr>
+            <tr class="accent"><td>営業CF − 税引前利益</td><td>−537</td><td>−40</td><td>貸したお金・立替の増加、税金の支払い</td></tr>
+            <tr><td>借入の目的</td><td>利用者への与信</td><td>賃金の立替</td><td>どちらもお金の時間差</td></tr>
+            <tr><td>金利上昇の影響</td><td>利ざやが縮む</td><td>支払利息が増える</td><td>どちらも費用増</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>金融の利益</b>　本業の利益を超えていない。メルカリでも本業の約5分の1</li>
+        <li><b>金融の役割</b>　本業の利用頻度を上げる。メルカード保有でメルカリ内の購入額が増える設計</li>
+        <li><b>次の一手</b>　タイミーが即日払いを有料化・前払い融資へ広げれば第3層が生まれる。ワーカーの離脱と規制が論点</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">決算短信・有価証券報告書で確認。所要30分。</p>
+
+      <ul class="steps">
+        <li><b>記入</b>　下表の当日の値を、メルカリ・タイミーのIRページの最新決算から転記</li>
+        <li><b>算出</b>　メルカリ Fintechのコア営業利益率。Marketplaceの利益率との差</li>
+        <li><b>算出</b>　債権残高の伸び率と、Fintech売上の伸び率の差。差の理由を1行</li>
+        <li><b>試算</b>　タイミーの流通総額1,172億円の1%を即日払い手数料として徴収した場合の売上。現在の売上の何%増か</li>
+        <li><b>判断</b>　その試算を実行すべきか。ワーカー・雇い主・株主の三つの目線で1行ずつ</li>
+      </ul>
+
+      <div class="tw">
+        <table>
+          <caption>記入表　最新決算　当日の表示</caption>
+          <thead><tr><th>項目</th><th>値</th><th>決算期</th><th>単位・出典</th></tr></thead>
+          <tbody>
+            <tr><td>メルカリ　Fintech 売上収益</td><td class="blank"></td><td class="blank"></td><td class="u">億円・決算説明資料</td></tr>
+            <tr><td>メルカリ　Fintech コア営業利益</td><td class="blank"></td><td class="blank"></td><td class="u">億円・決算説明資料</td></tr>
+            <tr><td>メルカリ　債権残高・回収率</td><td class="blank"></td><td class="blank"></td><td class="u">億円・%</td></tr>
+            <tr><td>タイミー　流通総額・テイクレート</td><td class="blank"></td><td class="blank"></td><td class="u">億円・%</td></tr>
+            <tr><td>タイミー　営業利益率</td><td class="blank"></td><td class="blank"></td><td class="u">%・決算短信</td></tr>
+            <tr class="accent"><td>日本銀行　政策金利</td><td class="blank"></td><td class="blank"></td><td class="u">%・日本銀行</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details>
+        <summary>解答例　本資料の数値</summary>
+        <p>Fintech コア営業利益率 ＝ 91 ÷ 651 ＝ 14.0%。Marketplace 約37.0%との差 約23ポイント
+債権残高 ＋44.4% − Fintech売上 ＋29.2% ＝ 15.2ポイント。ポイント還元の売上控除・翌月払い（無利息）の比率・期末残高と期中平均の差
+即日払い手数料 ＝ 1,172 × 1% ＝ 11.7億円。売上343億円の3.4%増</p>
+      </details>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>EDINETで</b>　メルカリ 2026年6月期 有価証券報告書。「事業等のリスク」から金融に関する項目を3つ抜き出し</li>
+        <li><b>EDINETで</b>　タイミー 2025年10月期 有価証券報告書。借入金の金利・返済条件を確認</li>
+        <li><b>比較</b>　楽天グループ（楽天カード）・LINEヤフー（PayPay）のセグメント。金融部門の利益が本業を超える会社を特定</li>
+        <li><b>AIで</b>　「メルカリのFintech事業の利益」を質問。回答の数値を有価証券報告書で照合</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>株式会社メルカリ　2026年6月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Z2BE">EDINET S100Z2BE</a>。IFRS。売上収益 229,293百万円、営業利益 43,905百万円、コア営業利益 441億円、親会社の所有者に帰属する当期利益 35,401百万円。Marketplace GMV 12,856億円（＋14.7%）・コア営業利益 429億円（＋40.6%）。Fintech 売上収益 651億円（＋29.2%）・コア営業利益 91億円（前期比＋46億円）、債権残高 3,581億円（＋44.4%）、債権回収率 99.4%。Japan Business 売上収益 180,858百万円。US 売上収益 40,782百万円・コア営業利益 2,062百万円。総資産 726,622百万円（＋182,859百万円）、営業債権の増加 108,732百万円、営業CF −9,512百万円、税引前利益 44,188百万円、短期借入金の増加 51,956百万円</li>
+        <li>株式会社メルカリ　2025年6月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100WQDW">EDINET S100WQDW</a>。Fintech コア営業利益 45億円、債権残高 2,481億円、回収率 99.3%</li>
+        <li>株式会社メルカリ　2024年6月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100UEYZ">EDINET S100UEYZ</a>。債権残高 1,872億円、回収率 99.2%、「メルカリ ハロ」2024年3月開始</li>
+        <li>株式会社メルカリ　FY2026.6 2Q 決算説明資料（実質年率の改定）・2026年6月期 第1四半期決算短信（「メルカリ ハロ」撤退の決定）　<a href="https://about.mercari.com/ir/">about.mercari.com/ir</a></li>
+        <li>株式会社タイミー　2025年10月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100XI0W">EDINET S100XI0W</a>。日本基準・単一セグメント。売上高 34,289百万円、営業利益 6,747百万円、親会社株主に帰属する当期純利益 5,310百万円、流通総額 117,202百万円。「タイミー」マッチングサービス 34,035百万円。手数料は賃金報酬等の30%程度。立替金の増加 2,121百万円、短期借入金 11,110百万円、支払利息 114百万円、受取利息 11百万円、営業CF 2,675百万円、税金等調整前当期純利益 6,654百万円</li>
+        <li>株式会社タイミー　2024年10月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100V59M">EDINET S100V59M</a>。売上高 26,881百万円。2023年10月期 売上高 16,145百万円。両期の営業利益は 売上高 − 売上原価 − 販管費 による本資料の計算</li>
+        <li>株式会社タイミー　2026年4月期 第1四半期決算短信・決算説明資料（決算期変更、2025年11月〜2026年1月の実績）　<a href="https://corp.timee.co.jp/ir/">corp.timee.co.jp/ir</a></li>
+        <li>EDINET DB（株式会社Cabocia）　<a href="https://edinetdb.jp/">edinetdb.jp</a>。上記有価証券報告書の取得。2026年10月4日</li>
+        <li>Marketplace売上（Japan Business − Fintech）、利益率、構成比、Fintech 2025年6月期売上（651億円 ÷ 1.292）、テイクレート、成長率の差、与信の利益の例示（調達金利1.5%・貸倒れ率0.6%）は本資料による計算・例示</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b05-kahei.html"><b>← 第5回</b>お金は要らなくなるか？ - イーロン・マスクインタビューから</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines / LC.bars / LC.hbars / LC.stack(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+
+  /* ---- 帯グラフ：構成比（1行＝1社、合計を100として区切る） ----
+     rows:[{name, segs:[[区分, 値, 色, 文字色], ...]}]。値は%。 */
+  function stack(h,cfg){
+    var P={l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:96, r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:12, t:cfg.pad&&cfg.pad.t!==undefined?cfg.pad.t:24, b:8};
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var band=ph/cfg.rows.length, bh=cfg.bh||30;
+    [0,25,50,75,100].forEach(function(v){
+      var x=P.l+v/100*pw;
+      s.appendChild(el("line",{x1:x,y1:P.t-4,x2:x,y2:P.t+ph,"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(x,P.t-8,v+"%","tk"));
+    });
+    cfg.rows.forEach(function(row,i){
+      var cy=P.t+band*i+band/2, tot=0, x=P.l;
+      row.segs.forEach(function(g){ tot+=g[1]; });
+      s.appendChild(txt(P.l-10,cy+4,row.name,"el","end"));
+      row.segs.forEach(function(g){
+        var w=g[1]/tot*pw;
+        var r=el("rect",{x:x,y:cy-bh/2,width:Math.max(1,w-1.5),height:bh,rx:3,fill:g[2]});
+        hover(r,row.name+"　"+g[0]+"　"+fmt(g[1],1)+"%");
+        s.appendChild(r);
+        if(w>44){
+          var t=txt(x+w/2,cy+4,fmt(g[1],1),"vl");
+          t.style.fill=g[3]||"#fff";
+          t.style.pointerEvents="none";
+          s.appendChild(t);
+        }
+        x+=w;
+      });
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,stack:stack,fmt:fmt,legend:legend};
+})();
+
+/* ===== LC 追加：第4回で使う図形 =====
+   LC.gbars  … グループ縦棒（系列2〜4本・負値可）
+   LC.wf     … ウォーターフォール（利益の段階を積み上げ）
+   LC.scatter… 散布図（2指標の位置関係） */
+(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){ var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"}); t.textContent=s; return t; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(n,s){ n.addEventListener("mousemove",function(e){ showTip(e,s); }); n.addEventListener("mouseleave",hideTip); }
+  function mount(h,cfg){
+    var n=typeof h==="string"?document.querySelector(h):h; if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function P(p){ p=p||{}; return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?26:p.t, b:p.b===undefined?34:p.b}; }
+  function yaxis(s,cfg,p){
+    var pw=cfg.w-p.l-p.r, ph=cfg.h-p.t-p.b, lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return p.t+(hi-v)/(hi-lo)*ph; };
+    cfg.y.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:p.l,y1:Y(v),x2:p.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(p.l-8,Y(v)+3.5,(cfg.y.fmt||LC.fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  LC.gbars=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.groups.length, n=cfg.series.length, bw=cfg.bw||22, gap=4;
+    var tot=n*bw+(n-1)*gap, base=A.Y(0), d=cfg.digits===undefined?1:cfg.digits;
+    cfg.groups.forEach(function(g,i){
+      var cx=p.l+band*i+band/2;
+      g[1].forEach(function(v,j){
+        var x=cx-tot/2+j*(bw+gap), y=A.Y(v), up=v>=0;
+        var r=el("rect",{x:x,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:cfg.series[j].color});
+        hover(r,g[0]+"　"+cfg.series[j].name+"　"+LC.fmt(v,d)+(cfg.unit||""));
+        s.appendChild(r);
+        s.appendChild(txt(x+bw/2,up?y-6:y+14,LC.fmt(v,d),"vl"));
+      });
+      s.appendChild(txt(cx,cfg.h-p.b+18,g[0],"tk"));
+    });
+    if(cfg.legend) LC.legend(cfg.legend,cfg.series.map(function(o){ return {name:o.name,color:o.color,square:true}; }));
+  };
+
+  LC.wf=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.steps.length, bw=cfg.bw||46, cum=0, prev=null, d=cfg.digits===undefined?1:cfg.digits;
+    cfg.steps.forEach(function(o,i){
+      var cx=p.l+band*i+band/2, a, b;
+      if(o.total){ a=0; b=o.v; cum=o.v; } else { a=cum; b=cum+o.v; cum=b; }
+      var top=A.Y(Math.max(a,b)), bot=A.Y(Math.min(a,b));
+      var col=o.total?(o.v<0?"var(--pop)":"var(--s2)"):(o.v>=0?"var(--s3)":"var(--pop)");
+      if(prev!==null) s.appendChild(el("line",{x1:prev.x,y1:A.Y(prev.v),x2:cx-bw/2,y2:A.Y(prev.v),"class":"gl","stroke-dasharray":"3 3"}));
+      var r=el("rect",{x:cx-bw/2,y:top,width:bw,height:Math.max(1.5,bot-top),rx:2,fill:col});
+      var lab=(o.total?"":(o.v>=0?"＋":""))+LC.fmt(o.v,d);
+      hover(r,o.name+"　"+lab+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(cx,top-7,lab,"vl"));
+      s.appendChild(txt(cx,cfg.h-p.b+18,o.name,"tk"));
+      prev={x:cx+bw/2,v:cum};
+    });
+    if(cfg.ref){
+      var y=A.Y(cfg.ref.v);
+      s.appendChild(el("line",{x1:p.l,y1:y,x2:p.l+A.pw,y2:y,stroke:"var(--s1)","stroke-width":1.5,"stroke-dasharray":"6 4"}));
+      s.appendChild(txt(p.l+6,y-6,cfg.ref.label,"el","start"));
+    }
+  };
+
+  LC.scatter=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), x0=cfg.x.min||0, x1=cfg.x.max;
+    var X=function(v){ return p.l+(v-x0)/(x1-x0)*A.pw; };
+    cfg.x.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:p.t,x2:X(v),y2:p.t+A.ph,"class":v===x0?"ax":"gl"}));
+      s.appendChild(txt(X(v),cfg.h-p.b+18,(cfg.x.fmt||LC.fmt)(v),"tk"));
+    });
+    if(cfg.x.label) s.appendChild(txt(p.l+A.pw,cfg.h-4,cfg.x.label,"tk","end"));
+    if(cfg.y.label) s.appendChild(txt(p.l,p.t-12,cfg.y.label,"tk","start"));
+    cfg.points.forEach(function(o){
+      var c=el("circle",{cx:X(o.x),cy:A.Y(o.y),r:8,fill:o.color,stroke:"var(--surface)","stroke-width":2});
+      hover(c,o.name+"　"+cfg.tip(o));
+      s.appendChild(c);
+      s.appendChild(txt(X(o.x)+(o.left?-13:13),A.Y(o.y)+4,o.name,"el",o.left?"end":"start"));
+    });
+  };
+})();
+
+
+/* ===== 図 ===== 数値は各社の有価証券報告書（EDINET）。2026/10/4取得 */
+
+var E1="var(--s1)", E2="var(--s2)", E3="var(--s3)", E4="var(--s4)", GR="var(--axis)";
+
+/* 3節　部門別利益 */
+LC.hbars("#c-seg",{
+  w:720,h:170,max:720,alt:"メルカリ2026年6月期の事業別コア営業利益。Marketplace 429億円、Fintech 91億円、US 21億円",
+  pad:{l:170,r:70,t:22,b:8},bh:24,
+  x:{min:0,max:500,ticks:[0,100,200,300,400,500]},unit:"億円",digits:0,
+  data:[["Marketplace　本業",429,E1],["Fintech　金融",91,E2],["US",21,GR]]
+});
+LC.stack("#c-share",{
+  w:720,h:140,max:720,alt:"売上構成 Marketplace50.5% Fintech28.4% US17.8% その他3.3%。利益構成 Marketplace79.3% Fintech16.8% US3.9%",
+  pad:{l:70},bh:34,
+  rows:[
+    {name:"売上",segs:[["Marketplace",50.5,E1],["Fintech",28.4,E2],["US",17.8,E3],["その他",3.3,GR]]},
+    {name:"利益",segs:[["Marketplace",79.3,E1],["Fintech",16.8,E2],["US",3.9,E3]]}
+  ]
+});
+LC.legend("#lg-share",[
+  {name:"Marketplace",color:E1,square:true},{name:"Fintech",color:E2,square:true},
+  {name:"US",color:E3,square:true},{name:"その他",color:GR,square:true}
+]);
+
+/* 4節　Fintechの成長 */
+LC.bars("#c-recv",{
+  w:720,h:240,pad:{l:56,r:16,t:26,b:34},max:560,alt:"債権残高。2024年6月末1,872億円、2025年6月末2,481億円、2026年6月末3,581億円",
+  y:{min:0,max:4000,ticks:[0,1000,2000,3000,4000]},unit:"億円",digits:0,bw:72,
+  data:[["2024年6月末",1872,GR],["2025年6月末",2481,GR],["2026年6月末",3581,E2]]
+});
+LC.gbars("#c-fin",{
+  w:720,h:260,max:560,alt:"Fintech。2025年6月期 売上約504億円・コア営業利益45億円、2026年6月期 売上651億円・コア営業利益91億円",
+  y:{min:0,max:800,ticks:[0,200,400,600,800]},bw:56,unit:"億円",digits:0,
+  series:[{name:"売上収益",color:GR},{name:"コア営業利益",color:E2}],
+  legend:"#lg-fin",
+  groups:[["2025年6月期",[504,45]],["2026年6月期",[651,91]]]
+});
+LC.hbars("#c-growth",{
+  w:720,h:250,max:720,alt:"2026年6月期の前年比。Fintechコア営業利益102%、債権残高44.4%、Marketplaceコア営業利益40.6%、Fintech売上29.2%、連結売上19.0%、Marketplace GMV 14.7%",
+  pad:{l:210,r:66,t:22,b:8},bh:18,
+  x:{min:0,max:120,ticks:[0,30,60,90,120]},unit:"%",digits:1,
+  valueFmt:function(v){ return "＋"+LC.fmt(v,1)+"%"; },
+  data:[
+    ["Fintech　コア営業利益",102.2,E2],["Fintech　債権残高",44.4,E2],["Marketplace　コア営業利益",40.6,E1],
+    ["Fintech　売上収益",29.2,E2],["連結　売上収益",19.0,GR],["Marketplace　GMV",14.7,E1]
+  ]
+});
+
+/* 5節　金利で稼ぐ式 */
+LC.wf("#c-wf",{
+  w:720,h:280,max:720,alt:"例示。10万円を年18%で1年。金利収入18,000円、調達コスト1,500円、貸倒れ600円、残り15,900円",
+  pad:{l:64},
+  y:{min:0,max:20000,ticks:[0,5000,10000,15000,20000]},unit:"円",bw:64,digits:0,
+  steps:[
+    {name:"金利収入 18%",v:18000,total:true},
+    {name:"調達コスト",v:-1500},
+    {name:"貸倒れ",v:-600},
+    {name:"残り",v:15900,total:true}
+  ]
+});
+
+/* 6節　タイミー */
+LC.gbars("#c-tm",{
+  w:720,h:280,max:640,alt:"タイミー。売上高 2023年10月期161億円、2024年269億円、2025年343億円。営業利益 20億円、42億円、67億円",
+  y:{min:0,max:400,ticks:[0,100,200,300,400]},bw:44,unit:"億円",digits:0,
+  series:[{name:"売上高",color:GR},{name:"営業利益",color:E3}],
+  legend:"#lg-tm",
+  groups:[["2023年10月期",[161,20]],["2024年10月期",[269,42]],["2025年10月期",[343,67]]]
+});
+
+/* 7節　利益と現金 */
+LC.gbars("#c-cf",{
+  w:720,h:300,max:560,alt:"税引前利益と営業キャッシュ・フロー。メルカリ 442億円と−95億円、タイミー 67億円と27億円",
+  y:{min:-200,max:500,ticks:[-200,0,200,400]},bw:56,unit:"億円",digits:0,
+  series:[{name:"税引前利益",color:GR},{name:"営業キャッシュ・フロー",color:E1}],
+  legend:"#lg-cf",
+  groups:[["メルカリ",[442,-95]],["タイミー",[67,27]]]
+});
+</script>
+</body>
+</html>
