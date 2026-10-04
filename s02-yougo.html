@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 資料02。経済・経営・会計の用語35語の一言解説・式・例示。">
+<title>経済用語辞典</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== 変更禁止。全資料で共通 */
+  :root{
+    --plane:#f9f9f7;
+    --surface:#fcfcfb;
+    --ink:#0b0b0b;
+    --ink-2:#52514e;
+    --muted:#898781;
+    --rule:#e1e0d9;
+    --axis:#c3c2b7;
+    --ring:rgba(11,11,11,0.10);
+    --s1:#2a78d6;
+    --s2:#eb6834;
+    --s3:#1baf7a;
+    --s4:#eda100;
+    --fill-in:#eef3f9;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#0d0d0d; --surface:#1a1a19;
+      --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+      --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
+      --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+      --fill-in:#1f2733;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#0d0d0d; --surface:#1a1a19;
+    --ink:#ffffff; --ink-2:#c3c2b7; --muted:#898781;
+    --rule:#2c2c2a; --axis:#383835; --ring:rgba(255,255,255,0.10);
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500;
+    --fill-in:#1f2733;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase;}
+  h1{font-size:clamp(26px,4.4vw,38px); font-weight:700; letter-spacing:-.01em; margin:6px 0 18px; line-height:1.2;}
+  .facts{display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);}
+  .facts div{flex:1 1 150px; padding:11px 14px 11px 0; min-width:0;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:500;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:40px; margin-top:32px; border-top:2px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:2px;} }
+  .num{font-family:var(--mono); font-size:20px; font-weight:700; color:var(--muted); line-height:1.2; padding-top:2px;}
+  h2{font-size:21px; font-weight:700; margin:0 0 4px; line-height:1.3;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  p{margin:0 0 14px; font-size:14px;}
+
+  /* ---------- index ---------- */
+  .search{display:flex; gap:10px; align-items:center; margin:0 0 14px;}
+  .search input{
+    flex:1 1 auto; min-width:0; font:inherit; font-size:14px; color:var(--ink);
+    background:var(--fill-in); border:1px solid var(--ring); padding:9px 12px;
+  }
+  .search input:focus-visible{outline:2px solid var(--s1); outline-offset:1px;}
+  .search .cnt{font-family:var(--mono); font-size:12px; color:var(--muted); white-space:nowrap;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 6px;}
+  .chips a{
+    font-family:var(--mono); font-size:12px; color:var(--ink); text-decoration:none;
+    border:1px solid var(--axis); padding:3px 9px; background:var(--surface);
+  }
+  .chips a:hover{border-color:var(--s1); color:var(--s1);}
+  .empty{font-size:13px; color:var(--muted); padding:14px 0;}
+
+  /* ---------- terms ---------- */
+  .terms{border-top:1px solid var(--axis);}
+  .term{
+    display:grid; grid-template-columns:200px minmax(0,1fr); gap:4px 22px;
+    padding:16px 0; border-bottom:1px solid var(--rule); scroll-margin-top:16px;
+  }
+  .term:target{background:var(--fill-in); box-shadow:-8px 0 0 var(--fill-in), 8px 0 0 var(--fill-in);}
+  .tn .w{display:block; font-size:18px; font-weight:700; line-height:1.3; overflow-wrap:anywhere;}
+  .tn .r{display:block; font-family:var(--mono); font-size:11.5px; color:var(--ink-2); margin-top:4px; line-height:1.5; overflow-wrap:anywhere;}
+  .tb .one{font-size:15px; font-weight:700; margin:0 0 8px; line-height:1.6;}
+  .tb .formula{
+    font-family:var(--mono); font-size:13px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring);
+    padding:8px 12px; margin:0 0 8px; overflow-x:auto; white-space:pre; line-height:1.8;
+  }
+  .tb .ex{font-size:13.5px; margin:0 0 6px; font-variant-numeric:tabular-nums;}
+  .tb .tag{
+    font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;
+    border:1px solid var(--axis); padding:0 6px; margin-right:8px;
+  }
+  .tb .nt{font-size:13px; color:var(--ink-2); margin:0;}
+  @media (max-width:640px){
+    .term{grid-template-columns:minmax(0,1fr);}
+    .tb .formula{font-size:12px; white-space:pre-wrap;}
+  }
+
+  /* ---------- list / sources ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 18px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:17px; width:6px; height:1px; background:var(--muted);}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans); font-size:12.5px;}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible{outline:2px solid var(--s1); outline-offset:2px;}
+
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+  @media print{
+    body{background:#fff;}
+    .search,.nav{display:none;}
+    .term{break-inside:avoid;}
+    .term:target{background:none; box-shadow:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">イノベーションプロジェクト　資料02</div>
+  <h1>経済用語辞典</h1>
+  <dl class="facts">
+    <div><dt>収録</dt><dd>35語・7分野</dd></div>
+    <div><dt>形式</dt><dd>一言解説 → 式 → 例示 → 補足</dd></div>
+    <div><dt>例示の数値</dt><dd>計算用の架空値</dd></div>
+  </dl>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>索引</h2>
+      <p class="sub">略語・カタカナ・日本語訳・読みで絞り込み。語を押すと解説へ移動</p>
+      <div class="search">
+        <input type="search" id="q" placeholder="例　ROE、減価償却、わっく" aria-label="用語を検索" autocomplete="off">
+        <span class="cnt" id="cnt" aria-live="polite">35語</span>
+      </div>
+      <nav class="chips" id="chips" aria-label="用語一覧">
+        <a href="#roa">ROA</a>
+        <a href="#roe">ROE</a>
+        <a href="#roi">ROI</a>
+        <a href="#roic">ROIC</a>
+        <a href="#eps">EPS</a>
+        <a href="#ebitda">EBITDA</a>
+        <a href="#cagr">CAGR</a>
+        <a href="#mcap">時価総額</a>
+        <a href="#valuation">バリュエーション</a>
+        <a href="#per">PER</a>
+        <a href="#pbr">PBR</a>
+        <a href="#dcf">DCF</a>
+        <a href="#wacc">WACC</a>
+        <a href="#is">Income Statement</a>
+        <a href="#ifrs">IFRS</a>
+        <a href="#dep">Depreciation</a>
+        <a href="#impair">減損処理</a>
+        <a href="#insolv">債務超過</a>
+        <a href="#wc">Working Capital</a>
+        <a href="#capex">CAPEX</a>
+        <a href="#opex">OPEX</a>
+        <a href="#initial">イニシャルコスト</a>
+        <a href="#sunk">サンクコスト</a>
+        <a href="#down">Down Payment</a>
+        <a href="#lev">レバレッジ</a>
+        <a href="#arr">ARR</a>
+        <a href="#runrate">Run Rate</a>
+        <a href="#burn">バーンレート</a>
+        <a href="#ops">Operation</a>
+        <a href="#board">Board Member</a>
+        <a href="#lead">リードタイム</a>
+        <a href="#supply">サプライチェーン</a>
+        <a href="#dilemma">イノベーションのジレンマ</a>
+        <a href="#stag">スタグフレーション</a>
+        <a href="#commodity">コモディティ</a>
+      </nav>
+      <p class="empty" id="empty" hidden>該当なし</p>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section class="grp">
+    <div class="num">2</div>
+    <div>
+      <h2>収益性</h2>
+      <p class="sub">利益率・成長率。分母の違いで5種。7語</p>
+      <div class="terms">
+        <div class="term" id="roa" data-k="roa return on assets　総資産利益率 ろあ そうしさんりえきりつ">
+          <div class="tn"><span class="w">ROA</span><span class="r">Return on Assets　総資産利益率</span></div>
+          <div class="tb">
+            <p class="one">会社の全資産が1年で生んだ利益の比率</p>
+            <div class="formula">ROA ＝ 当期純利益 ÷ 総資産 × 100</div>
+            <p class="ex"><span class="tag">例示</span>純利益 50億円 ÷ 総資産 1,000億円 ＝ 5.0%</p>
+            <p class="nt">分子に営業利益・経常利益を使う流儀もあり。比較時は分子をそろえる</p>
+          </div>
+        </div>
+        <div class="term" id="roe" data-k="roe return on equity　自己資本利益率 ろえ じこしほんりえきりつ">
+          <div class="tn"><span class="w">ROE</span><span class="r">Return on Equity　自己資本利益率</span></div>
+          <div class="tb">
+            <p class="one">株主の出資が1年で生んだ利益の比率</p>
+            <div class="formula">ROE ＝ 当期純利益 ÷ 自己資本 × 100
+    ＝ 売上高純利益率 × 総資産回転率 × 財務レバレッジ</div>
+            <p class="ex"><span class="tag">例示</span>純利益 50億円 ÷ 自己資本 500億円 ＝ 10.0%</p>
+            <p class="nt">伊藤レポート（経済産業省 2014年）の目安　8%以上。分解は<a href="b03-hikaku.html">第3回</a></p>
+          </div>
+        </div>
+        <div class="term" id="roi" data-k="roi return on investment　投資利益率 ろい とうしりえきりつ">
+          <div class="tn"><span class="w">ROI</span><span class="r">Return on Investment　投資利益率</span></div>
+          <div class="tb">
+            <p class="one">個別の投資額に対して得た利益の比率</p>
+            <div class="formula">ROI ＝ 投資から得た利益 ÷ 投資額 × 100</div>
+            <p class="ex"><span class="tag">例示</span>広告費 200万円 → 粗利の増加 300万円 → ROI 150%</p>
+            <p class="nt">会社全体ではなく案件単位。広告・設備・システム導入の評価</p>
+          </div>
+        </div>
+        <div class="term" id="roic" data-k="roic return on invested capital　投下資本利益率 ろいっく とうかしほんりえきりつ nopat">
+          <div class="tn"><span class="w">ROIC</span><span class="r">Return on Invested Capital　投下資本利益率</span></div>
+          <div class="tb">
+            <p class="one">本業に投じた資金（借入＋株主資本）が生んだ利益の比率</p>
+            <div class="formula">ROIC ＝ 税引後営業利益（NOPAT） ÷（有利子負債 ＋ 自己資本）× 100</div>
+            <p class="ex"><span class="tag">例示</span>NOPAT 70億円 ÷ 投下資本 1,000億円 ＝ 7.0%</p>
+            <p class="nt">ROIC ＞ WACC で企業価値が増加。逆は価値の毀損</p>
+          </div>
+        </div>
+        <div class="term" id="eps" data-k="eps earnings per share　1株当たり利益 いーぴーえす ひとかぶあたりりえき">
+          <div class="tn"><span class="w">EPS</span><span class="r">Earnings Per Share　1株当たり利益</span></div>
+          <div class="tb">
+            <p class="one">当期純利益を株式1株あたりに割り当てた額</p>
+            <div class="formula">EPS ＝ 当期純利益 ÷ 発行済株式数（自己株式を除く）</div>
+            <p class="ex"><span class="tag">例示</span>純利益 100億円 ÷ 1億株 ＝ 100円</p>
+            <p class="nt">PERの分母。自社株買いで株数が減るとEPSは上昇</p>
+          </div>
+        </div>
+        <div class="term" id="ebitda" data-k="ebitda earnings before interest, taxes, depreciation and amortization いーびっとでぃーえー">
+          <div class="tn"><span class="w">EBITDA</span><span class="r">Earnings Before Interest, Taxes, Depreciation and Amortization</span></div>
+          <div class="tb">
+            <p class="one">利払い・税金・減価償却の前の利益。本業が生む現金の目安</p>
+            <div class="formula">EBITDA ≒ 営業利益 ＋ 減価償却費</div>
+            <p class="ex"><span class="tag">例示</span>営業利益 80億円 ＋ 減価償却費 40億円 ＝ 120億円</p>
+            <p class="nt">読み　イービットディーエー。金利・税制・設備の違いを除いた国際比較に使用</p>
+          </div>
+        </div>
+        <div class="term" id="cagr" data-k="cagr compound annual growth rate　年平均成長率 けーがー しーえーじーあーる ねんへいきんせいちょうりつ">
+          <div class="tn"><span class="w">CAGR</span><span class="r">Compound Annual Growth Rate　年平均成長率</span></div>
+          <div class="tb">
+            <p class="one">複数年の成長を1年あたりの複利の率に換算した値</p>
+            <div class="formula">CAGR ＝（最終年の値 ÷ 初年の値）^（1 ÷ 年数）− 1</div>
+            <p class="ex"><span class="tag">例示</span>売上 100億円 → 5年後 161億円 → CAGR 10.0%</p>
+            <p class="nt">単純平均（61% ÷ 5 ＝ 12.2%）とは不一致。複利は<a href="b01-kinri.html">第1回</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section class="grp">
+    <div class="num">3</div>
+    <div>
+      <h2>企業価値</h2>
+      <p class="sub">株価・評価額。市場の値段と理論の値段。6語</p>
+      <div class="terms">
+        <div class="term" id="mcap" data-k="時価総額 market capitalization じかそうがく market cap">
+          <div class="tn"><span class="w">時価総額</span><span class="r">Market Capitalization</span></div>
+          <div class="tb">
+            <p class="one">市場が付けた会社（株主の持ち分）全体の値段</p>
+            <div class="formula">時価総額 ＝ 株価 × 発行済株式数</div>
+            <p class="ex"><span class="tag">例示</span>株価 2,000円 × 5億株 ＝ 1兆円</p>
+            <p class="nt">負債を含めた買収価格の目安は EV（企業価値）＝ 時価総額 ＋ 純有利子負債</p>
+          </div>
+        </div>
+        <div class="term" id="valuation" data-k="バリュエーション valuation ばりゅえーしょん 企業価値評価">
+          <div class="tn"><span class="w">バリュエーション</span><span class="r">Valuation</span></div>
+          <div class="tb">
+            <p class="one">企業・株式・資産の価値の評価。またはその評価額</p>
+            <p class="ex"><span class="tag">例示</span>「バリュエーションが高い」＝ 利益や純資産に比べて株価が割高</p>
+            <p class="nt">主な手法　類似会社比較（PER・EV/EBITDA）、DCF、純資産法</p>
+          </div>
+        </div>
+        <div class="term" id="per" data-k="per price earnings ratio　株価収益率 ぴーいーあーる かぶかしゅうえきりつ">
+          <div class="tn"><span class="w">PER</span><span class="r">Price Earnings Ratio　株価収益率</span></div>
+          <div class="tb">
+            <p class="one">株価が1株当たり利益の何年分か</p>
+            <div class="formula">PER ＝ 株価 ÷ EPS ＝ 時価総額 ÷ 当期純利益</div>
+            <p class="ex"><span class="tag">例示</span>株価 2,000円 ÷ EPS 100円 ＝ 20倍</p>
+            <p class="nt">高い＝成長期待が大きい、または割高。同業内で比較</p>
+          </div>
+        </div>
+        <div class="term" id="pbr" data-k="pbr price book-value ratio　株価純資産倍率 ぴーびーあーる かぶかじゅんしさんばいりつ bps">
+          <div class="tn"><span class="w">PBR</span><span class="r">Price Book-value Ratio　株価純資産倍率</span></div>
+          <div class="tb">
+            <p class="one">株価が1株当たり純資産の何倍か</p>
+            <div class="formula">PBR ＝ 株価 ÷ BPS（1株当たり純資産）＝ PER × ROE</div>
+            <p class="ex"><span class="tag">例示</span>株価 2,000円 ÷ BPS 2,500円 ＝ 0.8倍</p>
+            <p class="nt">1倍割れ＝ 解散価値を下回る評価。東証が2023年3月に改善策の開示を要請</p>
+          </div>
+        </div>
+        <div class="term" id="dcf" data-k="dcf discounted cash flow　割引キャッシュフロー法 でぃーしーえふ わりびき げんざいかち fcf">
+          <div class="tn"><span class="w">DCF</span><span class="r">Discounted Cash Flow　割引キャッシュフロー法</span></div>
+          <div class="tb">
+            <p class="one">将来のキャッシュフローを現在価値に割り引いて合計する評価法</p>
+            <div class="formula">企業価値 ＝ Σ FCFₜ ÷（1 ＋ WACC）ᵗ ＋ 継続価値の現在価値</div>
+            <p class="ex"><span class="tag">例示</span>1年後の 110万円 を 10% で割引 → 現在価値 100万円</p>
+            <p class="nt">割引率に WACC を使用。割引現在価値は<a href="b01-kinri.html">第1回</a></p>
+          </div>
+        </div>
+        <div class="term" id="wacc" data-k="wacc weighted average cost of capital　加重平均資本コスト わっく かじゅうへいきんしほんこすと">
+          <div class="tn"><span class="w">WACC</span><span class="r">Weighted Average Cost of Capital　加重平均資本コスト</span></div>
+          <div class="tb">
+            <p class="one">株主と債権者が求めるリターンを資金の比率で平均した率</p>
+            <div class="formula">WACC ＝ E/(D＋E) × 株主資本コスト ＋ D/(D＋E) × 負債コスト ×（1 − 税率）</div>
+            <p class="ex"><span class="tag">例示</span>株主資本 60%・8%、負債 40%・2%、税率 30% → 4.8% ＋ 0.56% ＝ 5.4%</p>
+            <p class="nt">読み　ワック。会社が超えるべき最低利回り。DCFの割引率</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section class="grp">
+    <div class="num">4</div>
+    <div>
+      <h2>会計</h2>
+      <p class="sub">財務諸表と会計処理。6語</p>
+      <div class="terms">
+        <div class="term" id="is" data-k="income statement 損益計算書　p/l そんえきけいさんしょ pl p/l いんかむすてーとめんと">
+          <div class="tn"><span class="w">Income Statement</span><span class="r">損益計算書　P/L</span></div>
+          <div class="tb">
+            <p class="one">一定期間の収益・費用・利益をまとめた財務諸表</p>
+            <div class="formula">売上高 − 売上原価 ＝ 売上総利益
+売上総利益 − 販管費 ＝ 営業利益
+→ 経常利益 → 税引前当期純利益 → 当期純利益</div>
+            <p class="nt">米国では Profit and Loss Statement とも。5つの利益は<a href="b02-torihiki.html">第2回</a></p>
+          </div>
+        </div>
+        <div class="term" id="ifrs" data-k="ifrs international financial reporting standards　国際財務報告基準 いふぁーす こくさいかいけいきじゅん iasb">
+          <div class="tn"><span class="w">IFRS</span><span class="r">International Financial Reporting Standards　国際財務報告基準</span></div>
+          <div class="tb">
+            <p class="one">国際会計基準審議会（IASB）が定める会計基準</p>
+            <p class="ex"><span class="tag">例示</span>日本基準との差　のれんを償却しない、経常利益の区分がない</p>
+            <p class="nt">読み　イファース。日本では任意適用。日本基準・米国基準と並ぶ選択肢</p>
+          </div>
+        </div>
+        <div class="term" id="dep" data-k="depreciation 減価償却 げんかしょうきゃく でぷりしえーしょん">
+          <div class="tn"><span class="w">Depreciation</span><span class="r">減価償却</span></div>
+          <div class="tb">
+            <p class="one">設備などの購入額を、使う年数にわたって費用に配分する処理</p>
+            <div class="formula">定額法　年間の減価償却費 ＝（取得原価 − 残存価額）÷ 耐用年数</div>
+            <p class="ex"><span class="tag">例示</span>機械 500万円・耐用年数 5年・残存価額 0 → 毎年 100万円</p>
+            <p class="nt">現金の支出を伴わない費用。営業CFでは足し戻し</p>
+          </div>
+        </div>
+        <div class="term" id="impair" data-k="減損処理 impairment げんそんしょり いんぺあめんと のれん">
+          <div class="tn"><span class="w">減損処理</span><span class="r">Impairment</span></div>
+          <div class="tb">
+            <p class="one">回収の見込みが下がった資産の帳簿価額を引き下げ、損失を計上する処理</p>
+            <div class="formula">減損損失 ＝ 帳簿価額 − 回収可能価額</div>
+            <p class="ex"><span class="tag">例示</span>帳簿価額 100億円・回収可能価額 60億円 → 減損損失 40億円</p>
+            <p class="nt">日本基準では特別損失。買収時ののれんで多発</p>
+          </div>
+        </div>
+        <div class="term" id="insolv" data-k="債務超過 negative equity / insolvency さいむちょうか">
+          <div class="tn"><span class="w">債務超過</span><span class="r">Negative Equity / Insolvency</span></div>
+          <div class="tb">
+            <p class="one">負債が資産を上回り、純資産がマイナスの状態</p>
+            <div class="formula">純資産 ＝ 資産 − 負債 ＜ 0</div>
+            <p class="ex"><span class="tag">例示</span>資産 80億円・負債 100億円 → 純資産 −20億円</p>
+            <p class="nt">東証の上場廃止基準　債務超過が1年以内に解消しない場合</p>
+          </div>
+        </div>
+        <div class="term" id="wc" data-k="working capital 運転資本 うんてんしほん わーきんぐきゃぴたる">
+          <div class="tn"><span class="w">Working Capital</span><span class="r">運転資本</span></div>
+          <div class="tb">
+            <p class="one">仕入から代金回収までの間、事業に寝かせておく資金</p>
+            <div class="formula">運転資本 ＝ 売上債権 ＋ 棚卸資産 − 仕入債務</div>
+            <p class="ex"><span class="tag">例示</span>売掛金 30億円 ＋ 在庫 20億円 − 買掛金 25億円 ＝ 25億円</p>
+            <p class="nt">増加 → 営業CFが減少。広義には 流動資産 − 流動負債</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section class="grp">
+    <div class="num">5</div>
+    <div>
+      <h2>投資と費用</h2>
+      <p class="sub">お金の出し方の区分。6語</p>
+      <div class="terms">
+        <div class="term" id="capex" data-k="capex capital expenditure　設備投資 きゃぺっくす せつびとうし">
+          <div class="tn"><span class="w">CAPEX</span><span class="r">Capital Expenditure　設備投資</span></div>
+          <div class="tb">
+            <p class="one">将来の利益のために、建物・機械・ソフトウェアなどを取得する支出</p>
+            <p class="ex"><span class="tag">例示</span>工場の新設、サーバーの購入</p>
+            <p class="nt">支出時は資産に計上し、減価償却で費用化。CF計算書では投資CF</p>
+          </div>
+        </div>
+        <div class="term" id="opex" data-k="opex operating expenditure　運営費 おぺっくす うんえいひ">
+          <div class="tn"><span class="w">OPEX</span><span class="r">Operating Expenditure　運営費</span></div>
+          <div class="tb">
+            <p class="one">事業を日々回すための支出</p>
+            <p class="ex"><span class="tag">例示</span>人件費、家賃、光熱費、クラウドの月額利用料</p>
+            <p class="nt">発生した期にP/Lの費用。サーバー購入＝CAPEX、クラウド利用＝OPEX</p>
+          </div>
+        </div>
+        <div class="term" id="initial" data-k="イニシャルコスト initial cost　初期費用 いにしゃるこすと しょきひよう らんにんぐこすと">
+          <div class="tn"><span class="w">イニシャルコスト</span><span class="r">Initial Cost　初期費用</span></div>
+          <div class="tb">
+            <p class="one">導入時に一度だけかかる費用</p>
+            <div class="formula">総費用 ＝ イニシャルコスト ＋ ランニングコスト × 期間</div>
+            <p class="ex"><span class="tag">例示</span>導入 300万円 ＋ 月額 10万円 × 36か月 ＝ 3年総額 660万円</p>
+            <p class="nt">対になる語　ランニングコスト（継続費用）</p>
+          </div>
+        </div>
+        <div class="term" id="sunk" data-k="サンクコスト sunk cost　埋没費用 さんくこすと まいぼつひよう こんこるど">
+          <div class="tn"><span class="w">サンクコスト</span><span class="r">Sunk Cost　埋没費用</span></div>
+          <div class="tb">
+            <p class="one">すでに支払い、取り戻せない費用。今後の判断には含めない</p>
+            <p class="ex"><span class="tag">例示</span>開発費 5億円を投じた事業。追加 2億円で回収 1億円なら撤退が合理的</p>
+            <p class="nt">サンクコストに引きずられる誤り　コンコルド効果</p>
+          </div>
+        </div>
+        <div class="term" id="down" data-k="down payment 頭金 だうんぺいめんと あたまきん てつけきん">
+          <div class="tn"><span class="w">Down Payment</span><span class="r">頭金</span></div>
+          <div class="tb">
+            <p class="one">購入時に先に払う代金の一部。残りはローン</p>
+            <div class="formula">借入額 ＝ 購入価格 − 頭金</div>
+            <p class="ex"><span class="tag">例示</span>住宅 5,000万円・頭金 20% → 頭金 1,000万円・借入 4,000万円</p>
+            <p class="nt">契約時の手付金の意味でも使用</p>
+          </div>
+        </div>
+        <div class="term" id="lev" data-k="レバレッジ leverage　てこ ればれっじ てこ">
+          <div class="tn"><span class="w">レバレッジ</span><span class="r">Leverage　てこ</span></div>
+          <div class="tb">
+            <p class="one">借入を使い、自己資金を超える規模で投資する仕組み。損益の振れ幅が拡大</p>
+            <div class="formula">財務レバレッジ ＝ 総資産 ÷ 自己資本</div>
+            <p class="ex"><span class="tag">例示</span>自己資金 100 ＋ 借入 400（金利 2%）で 500 に投資。利回り +10% → +42%、−10% → −58%</p>
+            <p class="nt">ROE分解の第3項。<a href="b03-hikaku.html">第3回</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section class="grp">
+    <div class="num">6</div>
+    <div>
+      <h2>スタートアップ指標</h2>
+      <p class="sub">サブスク・赤字成長企業の物差し。3語</p>
+      <div class="terms">
+        <div class="term" id="arr" data-k="arr annual recurring revenue　年間経常収益 えーあーるあーる ねんかんけいじょうしゅうえき mrr サブスク">
+          <div class="tn"><span class="w">ARR</span><span class="r">Annual Recurring Revenue　年間経常収益</span></div>
+          <div class="tb">
+            <p class="one">サブスク契約から毎年繰り返し入る売上の年額</p>
+            <div class="formula">ARR ＝ MRR（月間経常収益）× 12</div>
+            <p class="ex"><span class="tag">例示</span>月額 1万円 × 500社 ＝ MRR 500万円 → ARR 6,000万円</p>
+            <p class="nt">初期費用・単発売上は含めない</p>
+          </div>
+        </div>
+        <div class="term" id="runrate" data-k="run rate ランレート　年換算値 らんれーと ねんかんさん">
+          <div class="tn"><span class="w">Run Rate</span><span class="r">ランレート　年換算値</span></div>
+          <div class="tb">
+            <p class="one">直近の実績がそのまま1年続いたと仮定した年換算値</p>
+            <div class="formula">ランレート ＝ 直近四半期の売上 × 4（月次なら × 12）</div>
+            <p class="ex"><span class="tag">例示</span>直近四半期 売上 30億円 → ランレート 120億円</p>
+            <p class="nt">季節変動・一時的な売上も年換算される点に注意</p>
+          </div>
+        </div>
+        <div class="term" id="burn" data-k="バーンレート burn rate　資金燃焼率 ばーんれーと らんうぇい">
+          <div class="tn"><span class="w">バーンレート</span><span class="r">Burn Rate　資金燃焼率</span></div>
+          <div class="tb">
+            <p class="one">1か月あたりに減る手元資金の額</p>
+            <div class="formula">ランウェイ（資金が尽きるまでの月数）＝ 手元資金 ÷ バーンレート</div>
+            <p class="ex"><span class="tag">例示</span>現金 3億円 ÷ 月 2,500万円 ＝ 12か月</p>
+            <p class="nt">資金調達の時期を決める指標</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section class="grp">
+    <div class="num">7</div>
+    <div>
+      <h2>経営</h2>
+      <p class="sub">組織・業務・戦略の用語。5語</p>
+      <div class="terms">
+        <div class="term" id="ops" data-k="operation オペレーション おぺれーしょん coo">
+          <div class="tn"><span class="w">Operation</span><span class="r">オペレーション</span></div>
+          <div class="tb">
+            <p class="one">事業を日々回す業務とその仕組み（生産・物流・販売・顧客対応）</p>
+            <p class="ex"><span class="tag">例示</span>「オペレーションが回らない」＝ 現場の運営が追い付かない状態</p>
+            <p class="nt">Operating Income ＝ 営業利益。COO ＝ 最高執行責任者</p>
+          </div>
+        </div>
+        <div class="term" id="board" data-k="board member 取締役　取締役会の構成員 ぼーどめんばー とりしまりやく しゃがいとりしまりやく">
+          <div class="tn"><span class="w">Board Member</span><span class="r">取締役　取締役会の構成員</span></div>
+          <div class="tb">
+            <p class="one">取締役会で経営の重要事項を決め、経営陣の業務執行を監督する役員</p>
+            <p class="ex"><span class="tag">例示</span>社外取締役＝ 会社の外部から選ばれ、監督を担う取締役</p>
+            <p class="nt">コーポレートガバナンス・コード　プライム市場は独立社外取締役 3分の1以上</p>
+          </div>
+        </div>
+        <div class="term" id="lead" data-k="リードタイム lead time りーどたいむ">
+          <div class="tn"><span class="w">リードタイム</span><span class="r">Lead Time</span></div>
+          <div class="tb">
+            <p class="one">発注から納品まで、または着手から完了までの所要時間</p>
+            <p class="ex"><span class="tag">例示</span>受注 → 生産 → 出荷 → 納品　計 14日</p>
+            <p class="nt">短縮 → 在庫と運転資本が減少</p>
+          </div>
+        </div>
+        <div class="term" id="supply" data-k="サプライチェーン supply chain　供給網 さぷらいちぇーん きょうきゅうもう">
+          <div class="tn"><span class="w">サプライチェーン</span><span class="r">Supply Chain　供給網</span></div>
+          <div class="tb">
+            <p class="one">原材料の調達から製造・物流・販売を経て消費者に届くまでの一連の流れ</p>
+            <div class="formula">調達 → 製造 → 物流 → 販売 → 消費者</div>
+            <p class="ex"><span class="tag">例示</span>2021年の半導体不足 → 自動車各社が減産</p>
+            <p class="nt">1社の停止が全体に波及。地政学リスクの対象</p>
+          </div>
+        </div>
+        <div class="term" id="dilemma" data-k="イノベーションのジレンマ the innovator&#x27;s dilemma いのべーしょんのじれんま くりすてんせん 破壊的イノベーション">
+          <div class="tn"><span class="w">イノベーションのジレンマ</span><span class="r">The Innovator's Dilemma</span></div>
+          <div class="tb">
+            <p class="one">優良企業が既存顧客向けの改良に集中した結果、新興の破壊的技術に市場を奪われる現象</p>
+            <p class="ex"><span class="tag">例示</span>フィルム写真 → デジタルカメラ → スマートフォン</p>
+            <p class="nt">クレイトン・クリステンセン（ハーバード・ビジネス・スクール）、1997年</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section class="grp">
+    <div class="num">8</div>
+    <div>
+      <h2>マクロ経済と市場</h2>
+      <p class="sub">景気・物価・商品市場。2語</p>
+      <div class="terms">
+        <div class="term" id="stag" data-k="スタグフレーション stagflation すたぐふれーしょん いんふれ">
+          <div class="tn"><span class="w">スタグフレーション</span><span class="r">Stagflation</span></div>
+          <div class="tb">
+            <p class="one">景気の停滞と物価の上昇が同時に進む状態</p>
+            <div class="formula">Stagnation（停滞）＋ Inflation（物価上昇）</div>
+            <p class="ex"><span class="tag">例示</span>1970年代の石油危機</p>
+            <p class="nt">利上げ → 景気悪化、利下げ → 物価上昇。金融政策の打ち手が限定</p>
+          </div>
+        </div>
+        <div class="term" id="commodity" data-k="コモディティ commodity こもでぃてぃ しょうひん こもでぃてぃか">
+          <div class="tn"><span class="w">コモディティ</span><span class="r">Commodity</span></div>
+          <div class="tb">
+            <p class="one">① 原油・金・小麦・銅など規格化され市場で取引される商品　② 差別化が失われ価格だけで選ばれる状態（コモディティ化）</p>
+            <p class="ex"><span class="tag">例示</span>② 家電・パソコン → 機能差が縮小し価格競争</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>定義・式は一般的な教科書の定義に準拠。会社や媒体により分子・分母の取り方に差。比較時は定義をそろえる</li>
+        <li>例示の数値はすべて計算用の架空値</li>
+        <li>経済産業省　「持続的成長への競争力とインセンティブ」プロジェクト最終報告書（伊藤レポート）2014年8月　<a href="https://www.meti.go.jp/policy/economy/keiei_innovation/kigyoukaikei/itoreport.pdf">meti.go.jp</a>。ROE 8%の目安</li>
+        <li>日本取引所グループ　資本コストや株価を意識した経営の実現に向けた対応について　2023年3月31日　<a href="https://www.jpx.co.jp/equities/follow-up/02.html">jpx.co.jp</a>。PBR 1倍割れへの要請</li>
+        <li>日本取引所グループ　上場廃止基準　<a href="https://www.jpx.co.jp/equities/listing/delisting/">jpx.co.jp</a>。債務超過の基準</li>
+        <li>日本取引所グループ　コーポレートガバナンス・コード（2021年6月改訂）原則4-8　<a href="https://www.jpx.co.jp/equities/listing/cg/">jpx.co.jp</a>。独立社外取締役 3分の1以上</li>
+        <li>IFRS財団　IFRS Accounting Standards　<a href="https://www.ifrs.org/">ifrs.org</a>　／　金融庁　IFRS（国際会計基準）に関する情報　<a href="https://www.fsa.go.jp/policy/ifrs/">fsa.go.jp</a></li>
+        <li>Clayton M. Christensen　The Innovator's Dilemma　Harvard Business School Press、1997年（邦訳『イノベーションのジレンマ』翔泳社）</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+<script>
+(function(){
+  var q=document.getElementById("q"), cnt=document.getElementById("cnt"), empty=document.getElementById("empty");
+  var terms=[].slice.call(document.querySelectorAll(".term"));
+  var groups=[].slice.call(document.querySelectorAll("section.grp"));
+  var chips=[].slice.call(document.querySelectorAll("#chips a"));
+  function norm(s){ return (s||"").toLowerCase().normalize("NFKC").replace(/[\s　・\/]/g,""); }
+  var hay=terms.map(function(t){ return norm(t.getAttribute("data-k")+" "+t.textContent); });
+  function run(){
+    var v=norm(q.value), n=0;
+    terms.forEach(function(t,i){
+      var hit=!v||hay[i].indexOf(v)>=0;
+      t.hidden=!hit; chips[i].hidden=!hit; if(hit) n++;
+    });
+    groups.forEach(function(g){ g.hidden=!g.querySelector(".term:not([hidden])"); });
+    cnt.textContent=n+"語"; empty.hidden=n>0;
+  }
+  q.addEventListener("input",run);
+})();
+</script>
+</body>
+</html>
