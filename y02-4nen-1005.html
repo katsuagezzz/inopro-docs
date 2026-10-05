@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="イノベーションプロジェクト 授業資料。マッチング企業の金融。メルカリのFintech（メルペイ・メルカード）を、部門別利益・成長率・債権残高・キャッシュ・フローで本業のMarketplaceと比較する。">
-<title>マッチングと金融</title>
+<meta name="description" content="イノベーションプロジェクト 講義要点（4年・2026年10月5日）。リスクとリターン、利回り、複利、割引現在価値、AIへの業務依頼の5段階。">
+<title>利回り・割引現在価値とAIへの業務依頼</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
@@ -270,18 +270,22 @@
     section{break-inside:avoid;}
     figure,.tw{break-inside:avoid;}
   }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
 </style>
+</head>
 <body>
 <div class="wrap">
 
   <!-- ============ header ============ -->
   <header>
-    <div class="eyebrow">イノベーションプロジェクト　90分</div>
-    <h1>マッチングと<em>金融</em></h1>
+    <div class="eyebrow">4年イノプロ　2026年10月5日　講義要点</div>
+    <h1>利回り・割引現在価値と<em>AIへの業務依頼</em></h1>
     <dl class="facts">
-      <div><dt>ゴール</dt><dd>部門別利益から「金利で稼ぐ部分」を特定</dd></div>
-      <div><dt>道具</dt><dd>セグメント・コア営業利益率・債権残高・回収率</dd></div>
-      <div><dt>事例</dt><dd>メルカリ（4385）　メルペイ・メルカード</dd></div>
+      <div><dt>前半</dt><dd>リスクとリターン・利回り・複利・割引現在価値</dd></div>
+      <div><dt>後半</dt><dd>業務の分解・AI活用の5段階・Human-on-the-loop</dd></div>
+      <div><dt>復習</dt><dd>Google Classroom の復習クイズ</dd></div>
     </dl>
   </header>
 
@@ -289,37 +293,15 @@
   <section>
     <div class="num">1</div>
     <div>
-      <h2>結論</h2>
-      <p class="sub">メルカリ 2026年6月期・IFRS。有価証券報告書。億円。</p>
-
-      <div class="q"><span class="qn">問い</span>金融部門（Fintech）の利益は本業の何分の1か。速く伸びているのはどちらか。</div>
-
-      <dl class="tiles">
-        <div class="tile t1"><dt>Fintech　コア営業利益</dt><dd>91<span class="u">億円</span></dd></div>
-        <div class="tile t1"><dt>同　前年比</dt><dd>2.0<span class="u">倍</span></dd></div>
-        <div class="tile"><dt>本業 Marketplace</dt><dd>429<span class="u">億円</span></dd></div>
-        <div class="tile t2"><dt>Fintech ÷ 本業</dt><dd>21<span class="u">%</span></dd></div>
-      </dl>
-
-      <div class="tw">
-        <table class="mix">
-          <caption>本業と金融の比較　億円・%</caption>
-          <thead><tr><th>項目</th><th>Marketplace　本業</th><th>Fintech　金融</th><th>見えること</th></tr></thead>
-          <tbody>
-            <tr><td>売上収益</td><td>約1,158</td><td>651</td><td>金融は本業の約6割</td></tr>
-            <tr class="accent"><td>コア営業利益</td><td>429</td><td>91</td><td>金融は本業の約5分の1</td></tr>
-            <tr><td>利益率</td><td>約37.0</td><td>14.0</td><td>本業が厚い</td></tr>
-            <tr class="accent"><td>利益の伸び</td><td>＋40.6%</td><td>＋102%</td><td>金融が2.5倍の速さ</td></tr>
-            <tr><td>規模の指標</td><td>GMV 12,856　＋14.7%</td><td>債権残高 3,581　＋44.4%</td><td>貸したお金が急増</td></tr>
-            <tr><td>稼ぎ方</td><td>販売手数料 10%</td><td>決済手数料＋後払い・分割の金利 年18%</td><td>取引の上か、時間の差か</td></tr>
-          </tbody>
-        </table>
-      </div>
-
+      <h2>要点</h2>
+      <p class="sub">Day1試験で正答率が最も低かった第1問（利回りの計算）の背景。</p>
       <ul>
-        <li><b>利益の主役</b>　本業のMarketplace。グループ3事業の利益の79%</li>
-        <li><b>伸びの主役</b>　金融のFintech。利益は1年で2倍、債権残高は＋44.4%</li>
-        <li><b>会社の位置づけ</b>　「Fintechのコア営業利益100億円以上・第2の収益の柱」</li>
+        <li><b>リスクとリターン</b>　高いリターンの裏には高いリスク</li>
+        <li><b>利回りの式</b>　元本 × 利回り ＝ 収益。割り算で利回り・元本も算出</li>
+        <li><b>複利</b>　金利の小さな差が、10年・20年後に大きな差</li>
+        <li><b>自分＝資産</b>　年収を、自分という資産から毎年出る配当とみなす</li>
+        <li><b>割引現在価値</b>　将来のお金は今の価値に割り戻して比較</li>
+        <li><b>AIへの依頼</b>　返信文の作成だけでなく、業務全体を分解して手放す</li>
       </ul>
     </div>
   </section>
@@ -328,29 +310,24 @@
   <section>
     <div class="num">2</div>
     <div>
-      <h2>収益の三層</h2>
-      <p class="sub">マッチング企業の稼ぎ方。下の層ほど、B/S（資産と借入）を使う。</p>
-
-      <div class="formula">第1層　手数料　＝ 取引額 × 手数料率　　　　　　取引の上で稼ぐ
-第2層　決済　　＝ 決済額 × 加盟店手数料率　　　お金の通り道で稼ぐ
-第3層　与信　　＝ 貸したお金 × 金利 − 調達コスト − 貸倒れ　時間の差で稼ぐ</div>
+      <h2>リスクとリターン</h2>
+      <p class="sub">リスク＝値動きの幅（ボラティリティ）。授業で挙がった例。</p>
 
       <div class="tw">
-        <table class="words">
-          <caption>メルカリの三層</caption>
-          <thead><tr><th>層</th><th>中身</th><th>メルカリ</th><th>担当</th></tr></thead>
+        <table class="txt">
+          <caption>リスクとリターンの組合せ</caption>
+          <thead><tr><th>型</th><th>例</th><th>特徴</th></tr></thead>
           <tbody>
-            <tr><td>第1層　手数料</td><td>売買・仲介の成功報酬</td><td><span class="chip o">あり</span>　販売手数料 10%</td><td>Marketplace</td></tr>
-            <tr><td>第2層　決済</td><td>アプリ内外の支払い</td><td><span class="chip o">あり</span>　メルペイ</td><td>Fintech</td></tr>
-            <tr class="accent"><td>第3層　与信</td><td>後払い・分割・カード</td><td><span class="chip o">あり</span>　メルカード・定額払い</td><td>Fintech</td></tr>
+            <tr><td>ハイリスク・ハイリターン</td><td>仮想通貨</td><td>明日上がるか下がるか不明</td></tr>
+            <tr class="accent"><td>ローリスク・ローリターン</td><td>預金・国債・債券</td><td>失うものが小さい。増え方も小さい</td></tr>
           </tbody>
         </table>
       </div>
-
       <ul>
-        <li><b>シェアリングエコノミー</b>　家庭で余った物を、手数料を取って個人間でつなぐ事業</li>
-        <li><b>金融への入口</b>　売上金・購入代金が、いったんメルカリを通る。この「お金の滞留」が第2層・第3層の材料</li>
-        <li><b>代償</b>　第3層は貸したお金が資産に積み上がる。資金の調達と貸倒れのリスクを会社が負担</li>
+        <li><b>原則</b>　儲け話の裏には必ずリスク。安定した投資は儲けが小さい</li>
+        <li><b>国債</b>　国が支払を約束。代表的なローリスク資産</li>
+        <li><b>フランス国債の例</b>　長期金利の上昇 → 政府の支払能力への不安の表れ</li>
+        <li><b>金利と価格</b>　利回りの上昇 ＝ 国債価格の下落</li>
       </ul>
     </div>
   </section>
@@ -359,40 +336,23 @@
   <section>
     <div class="num">3</div>
     <div>
-      <h2>メルカリの部門別利益</h2>
-      <p class="sub">2026年6月期・IFRS。コア営業利益＝会社が開示する本業ベースの利益。有価証券報告書の経営者による分析。</p>
-
-      <figure>
-        <div class="ctitle"><span>事業別コア営業利益　億円</span><span>2026年6月期</span></div>
-        <div id="c-seg"></div>
-      </figure>
-
-      <figure>
-        <div class="ctitle"><span>売上と利益の構成比　%</span><span>利益は3事業の合計541億円に対する比率</span></div>
-        <div id="c-share"></div>
-        <div class="legend" id="lg-share"></div>
-      </figure>
+      <h2>長期金利の比較</h2>
+      <p class="sub">授業中に各自で検索。30年国債の利回り。調べた日と出典を各自記入。</p>
 
       <div class="tw">
         <table>
-          <caption>事業別の数値　億円・%</caption>
-          <thead><tr><th>事業</th><th>売上収益</th><th>コア営業利益</th><th>利益率</th><th>前年比　利益</th></tr></thead>
+          <caption>30年国債の利回り　%</caption>
+          <thead><tr><th>国</th><th>利回り</th><th>調べた日</th><th>出典</th></tr></thead>
           <tbody>
-            <tr><td>Marketplace　本業・国内フリマ</td><td>約1,158</td><td>429</td><td>約37.0</td><td>＋40.6%</td></tr>
-            <tr class="accent"><td>Fintech　メルペイ・メルカード</td><td>651</td><td>91</td><td>14.0</td><td>＋102%</td></tr>
-            <tr><td>US　米国フリマ</td><td>408</td><td>21</td><td>5.1</td><td>−</td></tr>
-            <tr><td>連結　全社費用・その他を含む</td><td>2,293</td><td>441</td><td>19.2</td><td>＋60.2%</td></tr>
+            <tr><td>日本</td><td class="blank"></td><td class="blank"></td><td class="u">財務省</td></tr>
+            <tr><td>韓国</td><td class="blank"></td><td class="blank"></td><td class="u">韓国銀行</td></tr>
+            <tr><td>フランス</td><td class="blank"></td><td class="blank"></td><td class="u">フランス国庫庁</td></tr>
           </tbody>
         </table>
       </div>
-
       <ul>
-        <li><b>本業が主役</b>　利益の79%がMarketplace。Fintechは売上の28%、利益の17%</li>
-        <li><b>利益率の差</b>　Fintech 14.0%、Marketplace 約37%。金融は貸倒れ・調達・ポイント還元の費用が重い</li>
-        <li><b>位置づけ</b>　会社の目標は「Fintechのコア営業利益100億円以上・第2の収益の柱」</li>
+        <li><b>読み方</b>　利回りが高い国ほど、市場が見込むリスクが高い</li>
       </ul>
-
-      <div class="note"><b>セグメントの注意</b>　有価証券報告書の報告セグメントは Japan Business（Marketplace＋Fintech）と US の2つ。Fintech単独の数値は経営者による分析の本文に記載。Marketplaceの売上はJapan Business 1,808.6億円からFintech 651億円を引いた概算。</div>
     </div>
   </section>
 
@@ -400,29 +360,21 @@
   <section>
     <div class="num">4</div>
     <div>
-      <h2>Fintechの成長</h2>
-      <p class="sub">債権残高＝利用者に貸しているお金の残り。後払い（翌月・定額・分割）とスマートマネーの合計。各期末。</p>
+      <h2>利回り</h2>
+      <p class="sub">掛け算と割り算の関係。電卓・AIを使う場合も桁の確認は手計算で。</p>
 
-      <figure>
-        <div class="ctitle"><span>債権残高　億円</span><span>6月末</span></div>
-        <div id="c-recv"></div>
-      </figure>
+      <div class="formula">収益 ＝ 元本 × 利回り
+利回り ＝ 収益 ÷ 元本
+元本 ＝ 収益 ÷ 利回り</div>
 
-      <figure>
-        <div class="ctitle"><span>Fintechの売上収益とコア営業利益　億円</span><span>2025年6月期の売上は前年比から逆算</span></div>
-        <div id="c-fin"></div>
-        <div class="legend" id="lg-fin"></div>
-      </figure>
-
-      <figure>
-        <div class="ctitle"><span>前年比の伸び　%</span><span>2026年6月期</span></div>
-        <div id="c-growth"></div>
-      </figure>
-
+      <dl class="tiles">
+        <div class="tile"><dt>予算（元本）</dt><dd>1<span class="u">億円</span></dd></div>
+        <div class="tile"><dt>国債利回り　例示</dt><dd>4<span class="u">%</span></dd></div>
+        <div class="tile t1"><dt>1年後に必要な価値</dt><dd>1.04<span class="u">億円</span></dd></div>
+      </dl>
       <ul>
-        <li><b>成長率</b>　債権残高 ＋44.4%、Fintech売上 ＋29.2%、本業GMV ＋14.7%。金融が本業の2〜3倍の速さ</li>
-        <li><b>回収率</b>　99.4%。11か月以内に回収できた割合。未回収 約0.6%</li>
-        <li><b>金利の引き上げ</b>　定額払いの実質年率を2025年1月から18%。分割3回以上も2026年1月から18%</li>
+        <li><b>会社での使い方</b>　予算1億円の事業は、最低でも国債で運用した場合を超える価値が必要</li>
+        <li><b>判断基準</b>　1億円はどこでも1億円。国債・不動産・社内の事業のどれが得かで比較</li>
       </ul>
     </div>
   </section>
@@ -431,42 +383,19 @@
   <section>
     <div class="num">5</div>
     <div>
-      <h2>金利で稼ぐ式</h2>
-      <p class="sub">第1回の金利の応用。貸す側の損益。調達金利・経費は例示。</p>
+      <h2>複利</h2>
+      <p class="sub">元本100万円。利回り2%と4%。年1回の複利。数値は例示。</p>
 
-      <div class="formula">与信の利益 ＝ 貸したお金 ×（貸出金利 − 調達金利 − 貸倒れ率）− 経費
-
-10万円を1年　18% − 1.5% − 0.6% ＝ 15.9%
-            ＝ 15,900円（経費の前）</div>
+      <div class="formula">将来価値 ＝ 元本 × (1 ＋ 利回り)^年数</div>
 
       <figure>
-        <div class="ctitle"><span>10万円を1年貸したときの残り　円</span><span>模式図・数値は例示</span></div>
-        <div id="c-wf"></div>
+        <div class="ctitle"><span>100万円の将来価値　万円</span><span>0〜30年・例示</span></div>
+        <div id="c-fv"></div>
+        <div class="legend" id="lg-fv"></div>
       </figure>
-
-      <h3>B/Sへの影響</h3>
-
-      <div class="tw">
-        <table>
-          <caption>メルカリ　利益と現金の差　億円</caption>
-          <thead><tr><th>項目</th><th>2026年6月期</th></tr></thead>
-          <tbody>
-            <tr><td>税引前利益</td><td>442</td></tr>
-            <tr class="accent"><td>営業債権の増加　貸したお金の増加</td><td>−1,087</td></tr>
-            <tr><td>営業キャッシュ・フロー</td><td>−95</td></tr>
-            <tr><td>短期借入金の増加</td><td>＋520</td></tr>
-            <tr><td>総資産　前期比</td><td>7,266　＋1,829</td></tr>
-          </tbody>
-        </table>
-      </div>
-
       <ul>
-        <li><b>黒字なのに現金が出る</b>　利益442億円、営業CFは−95億円。貸したお金の増加1,087億円が現金を吸収</li>
-        <li><b>調達</b>　借入・社債・債権流動化で確保。債権流動化＝貸したお金の回収権を投資家へ売り、先に現金化</li>
-        <li><b>金利上昇の影響</b>　調達金利が上がると、式の「貸出金利 − 調達金利」が縮む</li>
+        <li><b>30年後</b>　2%で181.1万円、4%で324.3万円。差143.2万円</li>
       </ul>
-
-      <div class="note"><b>手数料ビジネスとの違い</b>　手数料は取引の瞬間に終わる。与信は回収まで続く。売上の伸びより先に、資産・借入・貸倒れが膨らむ。</div>
     </div>
   </section>
 
@@ -474,38 +403,27 @@
   <section>
     <div class="num">6</div>
     <div>
-      <h2>本業との比較</h2>
-      <p class="sub">手数料ビジネスと与信ビジネスの性質の違い。2026年6月期。</p>
-
-      <figure>
-        <div class="ctitle"><span>利益率と利益の伸び　%</span><span>コア営業利益ベース・Marketplaceの利益率は概算</span></div>
-        <div id="c-cmp"></div>
-        <div class="legend" id="lg-cmp"></div>
-      </figure>
+      <h2>自分という資産</h2>
+      <p class="sub">投資家の目線を働き方に当てはめる考え方。</p>
 
       <div class="tw">
-        <table class="words">
-          <caption>Marketplace と Fintech の性質</caption>
-          <thead><tr><th>観点</th><th>Marketplace　本業</th><th>Fintech　金融</th></tr></thead>
+        <table class="txt">
+          <caption>資産と収益の対応</caption>
+          <thead><tr><th>資産</th><th>毎年の収益</th></tr></thead>
           <tbody>
-            <tr><td>収益が生まれる時点</td><td>取引の瞬間</td><td>貸してから回収まで</td></tr>
-            <tr class="accent"><td>必要な資金</td><td>少ない</td><td>債権残高の分だけ調達</td></tr>
-            <tr><td>主なリスク</td><td>不正出品・流通額の鈍化</td><td>貸倒れ・調達金利の上昇</td></tr>
-            <tr><td>金利上昇の影響</td><td>小さい</td><td>利ざやが縮む</td></tr>
-            <tr><td>関係する法律</td><td>特定商取引法など</td><td>資金決済法・割賦販売法</td></tr>
-            <tr class="accent"><td>現金の動き</td><td>利益 ≒ 現金</td><td>利益より先に現金が出る</td></tr>
+            <tr><td>国債</td><td>利息</td></tr>
+            <tr><td>不動産</td><td>家賃</td></tr>
+            <tr><td>株式</td><td>配当</td></tr>
+            <tr class="accent"><td>自分（生涯賃金の現在価値）</td><td>年収</td></tr>
           </tbody>
         </table>
       </div>
-
       <ul>
-        <li><b>金融の利益</b>　本業の約5分の1。本業を超えていない</li>
-        <li><b>金融の役割</b>　本業の利用を増やす装置。メルカード保有でメルカリ内の利用額（ARPU）が50%向上（2024年6月期）</li>
-        <li><b>循環</b>　売上金 → メルペイで支払い → 後払い・分割 → 金利収入。本業の取引が金融の顧客を生む</li>
-        <li><b>代償</b>　貸したお金の増加で営業CFはマイナス。成長するほど調達が必要</li>
+        <li><b>見方</b>　自分の時間と労働を会社へ投資し、年収という配当を受け取る</li>
+        <li><b>生涯賃金の現在価値</b>　授業での例は約2.5億円（前回の計算。例示）</li>
+        <li><b>再投資</b>　受け取ったお金を資産へ回す → 複利で増加</li>
+        <li><b>労働以外の資産</b>　収入源が2つに。上司や職場への依存が低下し、辞める選択肢が確保</li>
       </ul>
-
-      <div class="note"><b>読み方の型</b>　部門の利益額 → 利益率 → 伸び率 → B/Sへの影響。金融部門は利益額だけでなく、債権残高と回収率をセットで確認。</div>
     </div>
   </section>
 
@@ -513,45 +431,18 @@
   <section>
     <div class="num">7</div>
     <div>
-      <h2>演習</h2>
-      <p class="sub">決算短信・有価証券報告書で確認。所要30分。</p>
+      <h2>割引現在価値</h2>
+      <p class="sub">今の100万と1年後の100万では、今の100万が高価値。金利4%で例示。</p>
 
-      <ul class="steps">
-        <li><b>記入</b>　下表の当日の値を、メルカリのIRページの最新決算から転記</li>
-        <li><b>算出</b>　メルカリ Fintechのコア営業利益率。Marketplaceの利益率との差</li>
-        <li><b>算出</b>　債権残高の伸び率と、Fintech売上の伸び率の差。差の理由を1行</li>
-        <li><b>試算</b>　債権残高3,581億円が翌年も＋44.4%で伸びた場合の残高。追加で必要な資金</li>
-        <li><b>判断</b>　Fintechをさらに伸ばすべきか。利用者・株主・お金の貸し手の三つの目線で1行ずつ</li>
-      </ul>
+      <div class="formula">現在価値 ＝ 将来の金額 ÷ (1 ＋ 金利)^年数</div>
 
-      <div class="tw">
-        <table>
-          <caption>記入表　最新決算　当日の表示</caption>
-          <thead><tr><th>項目</th><th>値</th><th>決算期</th><th>単位・出典</th></tr></thead>
-          <tbody>
-            <tr><td>メルカリ　Fintech 売上収益</td><td class="blank"></td><td class="blank"></td><td class="u">億円・決算説明資料</td></tr>
-            <tr><td>メルカリ　Fintech コア営業利益</td><td class="blank"></td><td class="blank"></td><td class="u">億円・決算説明資料</td></tr>
-            <tr><td>メルカリ　債権残高・回収率</td><td class="blank"></td><td class="blank"></td><td class="u">億円・%</td></tr>
-            <tr><td>メルカリ　Marketplace GMV</td><td class="blank"></td><td class="blank"></td><td class="u">億円・決算説明資料</td></tr>
-            <tr><td>メルカリ　Marketplace コア営業利益</td><td class="blank"></td><td class="blank"></td><td class="u">億円・決算説明資料</td></tr>
-            <tr class="accent"><td>日本銀行　政策金利</td><td class="blank"></td><td class="blank"></td><td class="u">%・日本銀行</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <details>
-        <summary>解答例　本資料の数値</summary>
-        <p>Fintech コア営業利益率 ＝ 91 ÷ 651 ＝ 14.0%。Marketplace 約37.0%との差 約23ポイント
-債権残高 ＋44.4% − Fintech売上 ＋29.2% ＝ 15.2ポイント。ポイント還元の売上控除・翌月払い（無利息）の比率・期末残高と期中平均の差
-翌年の債権残高 ＝ 3,581 × 1.444 ≒ 5,171億円。追加で必要な資金 約1,590億円</p>
-      </details>
-
-      <h3>調べる</h3>
+      <dl class="tiles">
+        <div class="tile"><dt>今の100万　1年後</dt><dd>104<span class="u">万</span></dd></div>
+        <div class="tile t1"><dt>1年後の100万　現在価値</dt><dd>96.2<span class="u">万</span></dd></div>
+      </dl>
       <ul>
-        <li><b>EDINETで</b>　メルカリ 2026年6月期 有価証券報告書。「事業等のリスク」から金融に関する項目を3つ抜き出し</li>
-        <li><b>決算説明資料で</b>　Fintech売上の内訳（Payment・Credit）。伸びているのはどちらかを確認</li>
-        <li><b>比較</b>　楽天グループ（楽天カード）・LINEヤフー（PayPay）のセグメント。金融部門の利益が本業を超える会社を特定</li>
-        <li><b>AIで</b>　「メルカリのFintech事業の利益」を質問。回答の数値を有価証券報告書で照合</li>
+        <li><b>割り戻すと小さくなる理由</b>　1より大きい数で割るため</li>
+        <li><b>英語</b>　Net Present Value（NPV）の考え方の土台</li>
       </ul>
     </div>
   </section>
@@ -560,23 +451,181 @@
   <section>
     <div class="num">8</div>
     <div>
+      <h2>事業計画の評価</h2>
+      <p class="sub">純利益が1年目10億円・2年目20億円・3年目30億円の計画。数値は例示。</p>
+
+      <div class="tw">
+        <table>
+          <caption>3年間の利益の現在価値　億円</caption>
+          <thead><tr><th>割引率</th><th>1年目</th><th>2年目</th><th>3年目</th><th>合計</th></tr></thead>
+          <tbody>
+            <tr><td>割引なし（P/Lの合計）</td><td>10.0</td><td>20.0</td><td>30.0</td><td>60.0</td></tr>
+            <tr class="accent"><td>4%</td><td>9.6</td><td>18.5</td><td>26.7</td><td>54.8</td></tr>
+            <tr><td>10%</td><td>9.1</td><td>16.5</td><td>22.5</td><td>48.2</td></tr>
+            <tr><td>20%</td><td>8.3</td><td>13.9</td><td>17.4</td><td>39.6</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>誤り</b>　「3年で60億円儲かるので60億円を投資してほしい」</li>
+        <li><b>正しい手順</b>　各年の利益を現在価値に割り戻して合計 → 投資額の上限</li>
+        <li><b>根拠</b>　気合ではなく計算式。社内外のプレゼンでの説明材料</li>
+        <li><b>背景</b>　米国のM&amp;Aから広がった考え方。従来の日本の銀行はP/Lで判断</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ AI-1 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>業務の分解</h2>
+      <p class="sub">後半　AI業務自動化講座 Day2。架空の会社「はるかぜ食品」の新卒採用担当という設定。</p>
+
+      <div class="q"><span class="qn">題材</span>学生からのメール。「11月12日の説明会を欠席。土曜の対面の回へ変更希望」</div>
+
+      <div class="tw">
+        <table class="txt">
+          <caption>メール1通への対応で発生するタスク</caption>
+          <thead><tr><th>順</th><th>タスク</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>メール確認</td><td>受信トレイから問い合わせを拾う</td></tr>
+            <tr><td>2</td><td>内容の認識</td><td>誰が・どの回から・どの回へ</td></tr>
+            <tr><td>3</td><td>候補の確認</td><td>日程表で空席を照合。14日は満席、21日は残3</td></tr>
+            <tr class="accent"><td>4</td><td>返信文の作成</td><td>空いている回を案内</td></tr>
+            <tr><td>5</td><td>返信の送信</td><td>メーラーへ貼付・送信</td></tr>
+            <tr><td>6</td><td>名簿の修正</td><td>参加回の書換え、各回の人数の更新</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>チャットで返信文だけ作成</b>　6タスクのうち4だけが対象</li>
+        <li><b>残り5タスク</b>　効率化・自動化の余地</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ AI-2 ============ -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>AI活用の5段階</h2>
+      <p class="sub">講師による区分。ツール名は授業での例。</p>
+
+      <div class="tw">
+        <table class="txt">
+          <caption>レベル別の方法と代替されるタスク</caption>
+          <thead><tr><th>レベル</th><th>方法</th><th>ツール例</th><th>人の手が外れるタスク</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>チャットで依頼</td><td>Gemini</td><td>4 返信文の作成</td></tr>
+            <tr><td>2</td><td>仕様ごと渡す</td><td>NotebookLM</td><td>2 認識・3 候補確認・4 作成</td></tr>
+            <tr><td>3</td><td>コネクタ</td><td>Gemini × Gmail</td><td>1 メール確認</td></tr>
+            <tr><td>4</td><td>バイブコーディング</td><td>Google Apps Script</td><td>5 送信・6 名簿修正</td></tr>
+            <tr class="accent"><td>5</td><td>データの蓄積</td><td>修正ログ・集計</td><td>例外対応の縮小</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>レベル2　仕様</h3>
+      <ul>
+        <li><b>渡す資料</b>　説明会の概要・日程表・日程変更のルール・過去の返信例</li>
+        <li><b>人に戻す条件</b>　前日17時以降の連絡、満席の回だけを希望 → 担当者が対応</li>
+        <li><b>効果</b>　前提条件の毎回入力が不要。空いている回の判断もAI側</li>
+        <li><b>限界</b>　読み込んだ時点の資料が正。その後の満席・会場変更は反映なし</li>
+      </ul>
+
+      <h3>レベル3　コネクタ</h3>
+      <ul>
+        <li><b>定義</b>　AIとGmail・Googleドライブ等の外部サービスを接続する仕組み</li>
+        <li><b>指示例</b>　受信トレイから会社説明会の問い合わせを全件抽出、古い順に受付ID</li>
+        <li><b>出力</b>　受付ID・受信日時・氏名・種別・要約の表。全件を読む作業が不要</li>
+      </ul>
+
+      <h3>レベル4　GASの依頼文</h3>
+      <div class="formula">依頼文 ＝ シートの構成（各列の中身） ＋ やりたいこと（条件と処理）</div>
+      <ul>
+        <li><b>例1</b>　I列に返信案あり・送信チェック空欄の行 → 宛先へGmailの下書きを作成</li>
+        <li><b>例2</b>　日程変更・送信済み・名簿未反映の行 → 名簿の参加回を書換え、人数を更新</li>
+        <li><b>運用</b>　自動送信ではなく下書き止め。人が最終確認して送信</li>
+        <li><b>次の段</b>　スケジュール実行・トリガーで、ボタン操作も不要に</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ AI-3 ============ -->
+  <section>
+    <div class="num">11</div>
+    <div>
+      <h2>Human-in / on-the-loop</h2>
+      <p class="sub">メール確認 → 返信作成 → 送信のループに対する人の位置。</p>
+
+      <div class="tw">
+        <table class="txt">
+          <caption>2つの型の比較</caption>
+          <thead><tr><th>項目</th><th>in-the-loop</th><th>on-the-loop</th></tr></thead>
+          <tbody>
+            <tr><td>人の位置</td><td>ループの中</td><td>ループの上</td></tr>
+            <tr><td>人の作業</td><td>読む・貼る・確認・コピー</td><td>例外の判断のみ</td></tr>
+            <tr><td>ボトルネック</td><td>人の確認とコピペの速度</td><td>例外の件数</td></tr>
+            <tr class="accent"><td>該当レベル</td><td>レベル1</td><td>レベル2〜5の組合せ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>例外の例</b>　「人が多い場所が不安」「私服で可か」「交通費の有無」</li>
+        <li><b>レベル5の役割</b>　人の対応・修正をログ化 → 次回からAIのルールへ追加</li>
+        <li><b>結果</b>　AIで回る範囲が拡大、人が見る件数が減少</li>
+        <li><b>実習・インターンでの観点</b>　業務を最小単位のタスクへ分解し、各タスクに自動化の手段を対応</li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ============ 12 ============ -->
+  <section>
+    <div class="num">12</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">電卓可。小数第1位まで。</p>
+      <ul>
+        <li>3節の表に、日本・韓国・フランスの30年国債利回りと出典を記入</li>
+        <li>元本500万円・利回り3%の1年間の収益を算出</li>
+        <li>3年後に受け取る100万円の現在価値を、金利4%で算出</li>
+        <li>8節の計画で、割引率を自分で決めて現在価値の合計を算出。割引率の根拠を1行</li>
+        <li>内定先・志望先の業務を1つ選び、最小単位のタスクへ分解。各タスクにAI活用のレベルを記入</li>
+        <li>Google Classroom の復習クイズに回答</li>
+      </ul>
+      <details>
+        <summary>解答（計算問題）</summary>
+        <p>収益　500万 × 0.03 ＝ 15万円
+現在価値　100万 ÷ 1.04^3 ＝ 100万 ÷ 1.1249 ≒ 88.9万円</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 13 ============ -->
+  <section>
+    <div class="num">13</div>
+    <div>
       <h2>出典</h2>
       <ul class="src">
-        <li>株式会社メルカリ　2026年6月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Z2BE">EDINET S100Z2BE</a>。IFRS。売上収益 229,293百万円、営業利益 43,905百万円、コア営業利益 441億円、親会社の所有者に帰属する当期利益 35,401百万円。Marketplace GMV 12,856億円（＋14.7%）・コア営業利益 429億円（＋40.6%）。Fintech 売上収益 651億円（＋29.2%）・コア営業利益 91億円（前期比＋46億円）、債権残高 3,581億円（＋44.4%）、債権回収率 99.4%。Japan Business 売上収益 180,858百万円。US 売上収益 40,782百万円・コア営業利益 2,062百万円。総資産 726,622百万円（＋182,859百万円）、営業債権の増加 108,732百万円、営業CF −9,512百万円、税引前利益 44,188百万円、短期借入金の増加 51,956百万円</li>
-        <li>株式会社メルカリ　2025年6月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100WQDW">EDINET S100WQDW</a>。Fintech コア営業利益 45億円、債権残高 2,481億円、回収率 99.3%</li>
-        <li>株式会社メルカリ　2024年6月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100UEYZ">EDINET S100UEYZ</a>。債権残高 1,872億円、回収率 99.2%、「メルカード」保有に伴うメルカリ内ARPU 50%向上</li>
-        <li>株式会社メルカリ　FY2026.6 2Q 決算説明資料（実質年率の改定）　<a href="https://about.mercari.com/ir/">about.mercari.com/ir</a></li>
-        <li>EDINET DB（株式会社Cabocia）　<a href="https://edinetdb.jp/">edinetdb.jp</a>。上記有価証券報告書の取得。2026年10月4日</li>
-        <li>Marketplace売上（Japan Business − Fintech）、利益率、構成比、Fintech 2025年6月期売上（651億円 ÷ 1.292）、成長率の差、与信の利益の例示（調達金利1.5%・貸倒れ率0.6%）は本資料による計算・例示</li>
+        <li>本資料　2026年10月5日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約</li>
+        <li>財務省　国債金利情報　<a href="https://www.mof.go.jp/jgbs/reference/interest_rate/">mof.go.jp/jgbs/reference/interest_rate</a></li>
+        <li>韓国銀行　ECOS　<a href="https://ecos.bok.or.kr/">ecos.bok.or.kr</a></li>
+        <li>フランス国庫庁（Agence France Trésor）　<a href="https://www.aft.gouv.fr/">aft.gouv.fr</a></li>
+        <li>Google　NotebookLM　<a href="https://notebooklm.google.com/">notebooklm.google.com</a></li>
+        <li>Google　Apps Script　<a href="https://developers.google.com/apps-script">developers.google.com/apps-script</a></li>
+        <li>5・7・8節の数値は計算例。「はるかぜ食品」と説明会の日程・人数は授業用の架空の設定</li>
       </ul>
     </div>
   </section>
 
   <nav class="nav">
-    <a href="b05-kahei.html"><b>← 前の資料</b>お金は要らなくなるか？ - イーロン・マスクインタビューから</a>
-    <a href="y01-2nen-1005.html"><b>次の資料 →</b>B/S・P/LとAIへの業務依頼</a>
+    <a href="y01-2nen-1005.html"><b>← 前の資料</b>B/S・P/LとAIへの業務依頼</a>
     <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
   </nav>
+
+</div>
 
 </div>
 <script>
@@ -872,77 +921,19 @@ var LC=(function(){
       s.appendChild(txt(X(o.x)+(o.left?-13:13),A.Y(o.y)+4,o.name,"el",o.left?"end":"start"));
     });
   };
-})();
 
-
-/* ===== 図 ===== 数値は各社の有価証券報告書（EDINET）。2026/10/4取得 */
-
-var E1="var(--s1)", E2="var(--s2)", E3="var(--s3)", E4="var(--s4)", GR="var(--axis)";
-
-/* 3節　部門別利益 */
-LC.hbars("#c-seg",{
-  w:720,h:170,max:720,alt:"メルカリ2026年6月期の事業別コア営業利益。Marketplace 429億円、Fintech 91億円、US 21億円",
-  pad:{l:170,r:70,t:22,b:8},bh:24,
-  x:{min:0,max:500,ticks:[0,100,200,300,400,500]},unit:"億円",digits:0,
-  data:[["Marketplace　本業",429,E1],["Fintech　金融",91,E2],["US",21,GR]]
-});
-LC.stack("#c-share",{
-  w:720,h:140,max:720,alt:"売上構成 Marketplace50.5% Fintech28.4% US17.8% その他3.3%。利益構成 Marketplace79.3% Fintech16.8% US3.9%",
-  pad:{l:70},bh:34,
-  rows:[
-    {name:"売上",segs:[["Marketplace",50.5,E1],["Fintech",28.4,E2],["US",17.8,E3],["その他",3.3,GR]]},
-    {name:"利益",segs:[["Marketplace",79.3,E1],["Fintech",16.8,E2],["US",3.9,E3]]}
-  ]
-});
-LC.legend("#lg-share",[
-  {name:"Marketplace",color:E1,square:true},{name:"Fintech",color:E2,square:true},
-  {name:"US",color:E3,square:true},{name:"その他",color:GR,square:true}
-]);
-
-/* 4節　Fintechの成長 */
-LC.bars("#c-recv",{
-  w:720,h:240,pad:{l:56,r:16,t:26,b:34},max:560,alt:"債権残高。2024年6月末1,872億円、2025年6月末2,481億円、2026年6月末3,581億円",
-  y:{min:0,max:4000,ticks:[0,1000,2000,3000,4000]},unit:"億円",digits:0,bw:72,
-  data:[["2024年6月末",1872,GR],["2025年6月末",2481,GR],["2026年6月末",3581,E2]]
-});
-LC.gbars("#c-fin",{
-  w:720,h:260,max:560,alt:"Fintech。2025年6月期 売上約504億円・コア営業利益45億円、2026年6月期 売上651億円・コア営業利益91億円",
-  y:{min:0,max:800,ticks:[0,200,400,600,800]},bw:56,unit:"億円",digits:0,
-  series:[{name:"売上収益",color:GR},{name:"コア営業利益",color:E2}],
-  legend:"#lg-fin",
-  groups:[["2025年6月期",[504,45]],["2026年6月期",[651,91]]]
-});
-LC.hbars("#c-growth",{
-  w:720,h:250,max:720,alt:"2026年6月期の前年比。Fintechコア営業利益102%、債権残高44.4%、Marketplaceコア営業利益40.6%、Fintech売上29.2%、連結売上19.0%、Marketplace GMV 14.7%",
-  pad:{l:210,r:66,t:22,b:8},bh:18,
-  x:{min:0,max:120,ticks:[0,30,60,90,120]},unit:"%",digits:1,
-  valueFmt:function(v){ return "＋"+LC.fmt(v,1)+"%"; },
-  data:[
-    ["Fintech　コア営業利益",102.2,E2],["Fintech　債権残高",44.4,E2],["Marketplace　コア営業利益",40.6,E1],
-    ["Fintech　売上収益",29.2,E2],["連結　売上収益",19.0,GR],["Marketplace　GMV",14.7,E1]
-  ]
-});
-
-/* 5節　金利で稼ぐ式 */
-LC.wf("#c-wf",{
-  w:720,h:280,max:720,alt:"例示。10万円を年18%で1年。金利収入18,000円、調達コスト1,500円、貸倒れ600円、残り15,900円",
-  pad:{l:64},
-  y:{min:0,max:20000,ticks:[0,5000,10000,15000,20000]},unit:"円",bw:64,digits:0,
-  steps:[
-    {name:"金利収入 18%",v:18000,total:true},
-    {name:"調達コスト",v:-1500},
-    {name:"貸倒れ",v:-600},
-    {name:"残り",v:15900,total:true}
-  ]
-});
-
-/* 6節　本業との比較 */
-LC.gbars("#c-cmp",{
-  w:720,h:280,max:560,alt:"利益率 Marketplace約37.0%・Fintech14.0%。利益の伸び Marketplace＋40.6%・Fintech＋102.2%",
-  y:{min:0,max:120,ticks:[0,30,60,90,120]},bw:56,unit:"%",digits:1,
-  series:[{name:"Marketplace　本業",color:E1},{name:"Fintech　金融",color:E2}],
-  legend:"#lg-cmp",
-  groups:[["利益率",[37.0,14.0]],["利益の伸び　前年比",[40.6,102.2]]]
+/* 5節　複利。数値は例示 */
+LC.lines("#c-fv",{
+  w:720,h:320,pad:{l:52,r:110,t:14,b:34},alt:"100万円の将来価値。30年後に2%で181.1万円、4%で324.3万円",
+  x:{min:0,max:30,ticks:[0,10,20,30],unit:"年"},
+  y:{min:0,max:350,ticks:[0,100,200,300]},
+  every:5,
+  series:[{r:0.02,n:"2%"},{r:0.04,n:"4%"}].map(function(o,i){
+    var pts=[]; for(var n=0;n<=30;n++) pts.push([n,100*Math.pow(1+o.r,n)]);
+    return {name:o.n,color:"var(--s"+(i+1)+")",points:pts,label:o.n+" "+LC.fmt(pts[30][1],1)+"万"};
+  }),
+  tip:function(o,p){ return o.name+"　"+p[0]+"年　"+LC.fmt(p[1],1)+"万円"; },
+  legend:"#lg-fv"
 });
 </script>
 </body>
