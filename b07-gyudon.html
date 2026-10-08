@@ -1,0 +1,1124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 授業資料。吉野家HD・松屋フーズHD・ゼンショーHD（すき家）の稼ぐ力を、百分率P/L・セグメント・ROE分解・株主総利回りで比較する。">
+<title>牛丼3社の稼ぐ力</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--s3);}
+  section:nth-of-type(9) .num{background:var(--s4);}
+  section:nth-of-type(10) .num{background:var(--pop);}
+  section:nth-of-type(11) .num{background:var(--s1);}
+  section:nth-of-type(12) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+</style>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">イノベーションプロジェクト　90分</div>
+    <h1>牛丼3社の<em>稼ぐ力</em></h1>
+    <dl class="facts">
+      <div><dt>ゴール</dt><dd>「一番儲かっている」を3つの物差しで判定</dd></div>
+      <div><dt>道具</dt><dd>百分率P/L・セグメント・ROE分解・株主総利回り</dd></div>
+      <div><dt>事例</dt><dd>吉野家HD（9861）・松屋フーズHD（9887）・ゼンショーHD（7550）</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>数値の確認</h2>
+      <p class="sub">各社の公式サイト・メニュー表で確認。調査日と出典を記入。</p>
+
+      <div class="q"><span class="qn">問い</span>吉野家・松屋・すき家。一番儲かっているのはどこか。「儲かる」の定義を先に決定。</div>
+
+      <div class="tw">
+        <table>
+          <caption>調査項目　当日の数値</caption>
+          <thead><tr><th>項目</th><th>吉野家</th><th>松屋</th><th>すき家</th><th>単位</th></tr></thead>
+          <tbody>
+            <tr><td>牛丼（牛めし）並盛　店内</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">円・税込</td></tr>
+            <tr><td>みそ汁の有無</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">別料金／無料</td></tr>
+            <tr><td>親会社の株価　終値</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">円</td></tr>
+            <tr><td>最寄り店舗までの距離</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">km</td></tr>
+            <tr><td>直近1か月の利用回数</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">回</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table class="words">
+          <caption>3社の顔ぶれ</caption>
+          <thead><tr><th>ブランド</th><th>上場している親会社</th><th>決算期</th><th>主な事業（セグメント）</th></tr></thead>
+          <tbody>
+            <tr><td><span class="chip e2">吉野家</span></td><td>吉野家ホールディングス</td><td>2月末</td><td>吉野家・はなまる（うどん）・海外・その他</td></tr>
+            <tr><td><span class="chip e1">松屋</span></td><td>松屋フーズホールディングス</td><td>3月末</td><td>飲食事業の1つのみ。松屋・松のや・マイカリー食堂・六厘舎（2026年1月〜）</td></tr>
+            <tr class="accent"><td><span class="chip e3">すき家</span></td><td>ゼンショーホールディングス</td><td>3月末</td><td>すき家・はま寿司・海外の寿司テイクアウト・ココス等のレストラン・なか卯等・小売</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>比較の単位</b>　上場しているのは親会社。ブランド単体の数字はセグメント情報から取得</li>
+        <li><b>決算期のずれ</b>　吉野家は2026年2月期（2025年3月〜2026年2月）、他の2社は2026年3月期（2025年4月〜2026年3月）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>規模</h2>
+      <p class="sub">連結・日本基準。直近の通期。有価証券報告書。億円。</p>
+
+      <dl class="tiles">
+        <div class="tile t3"><dt>ゼンショー　売上高</dt><dd>12,641<span class="u">億円</span></dd></div>
+        <div class="tile t2"><dt>吉野家　売上高</dt><dd>2,257<span class="u">億円</span></dd></div>
+        <div class="tile t1"><dt>松屋　売上高</dt><dd>1,845<span class="u">億円</span></dd></div>
+        <div class="tile"><dt>ゼンショー ÷ 2社合計</dt><dd>3.1<span class="u">倍</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>売上高　億円</span><span>吉野家 2026年2月期／松屋・ゼンショー 2026年3月期</span></div>
+        <div id="c-rev"></div>
+      </figure>
+
+      <figure>
+        <div class="ctitle"><span>営業利益　億円</span><span>同上</span></div>
+        <div id="c-oi"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>P/L・B/Sの主要項目　億円</caption>
+          <thead><tr><th>項目</th><th>吉野家HD</th><th>松屋フーズHD</th><th>ゼンショーHD</th></tr></thead>
+          <tbody>
+            <tr><td>売上高</td><td>2,257</td><td>1,845</td><td>12,641</td></tr>
+            <tr class="accent"><td>営業利益</td><td>81</td><td>76</td><td>814</td></tr>
+            <tr><td>経常利益</td><td>88</td><td>83</td><td>783</td></tr>
+            <tr><td>親会社株主に帰属する当期純利益</td><td>47</td><td>38</td><td>458</td></tr>
+            <tr><td>総資産</td><td>1,248</td><td>1,408</td><td>9,604</td></tr>
+            <tr><td>自己資本</td><td>676</td><td>575</td><td>3,015</td></tr>
+            <tr><td>従業員数　連結・正社員</td><td>3,361人</td><td>2,617人</td><td>20,626人</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>額の物差し</b>　営業利益はゼンショーが吉野家の約10倍</li>
+        <li><b>吉野家と松屋</b>　売上の差 412億円、営業利益の差 5億円</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>百分率P/L</h2>
+      <p class="sub">売上高＝100%。連結。規模の違う会社を同じ尺度に変換。</p>
+
+      <div class="formula">原価率　　 ＝ 売上原価 ÷ 売上高
+販管費率　 ＝ 販売費及び一般管理費 ÷ 売上高　　人件費・家賃・水道光熱費
+営業利益率 ＝ 営業利益 ÷ 売上高 ＝ 100% − 原価率 − 販管費率</div>
+
+      <figure>
+        <div class="ctitle"><span>売上高100の内訳　%</span><span>直近の通期・連結</span></div>
+        <div id="c-pl"></div>
+        <div class="legend" id="lg-pl"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>百分率P/L　%</caption>
+          <thead><tr><th>項目</th><th>吉野家HD</th><th>松屋フーズHD</th><th>ゼンショーHD</th></tr></thead>
+          <tbody>
+            <tr><td>原価率</td><td>38.0</td><td>36.8</td><td>45.7</td></tr>
+            <tr><td>売上総利益率（粗利率）</td><td>62.0</td><td>63.2</td><td>54.3</td></tr>
+            <tr><td>販管費率</td><td>58.4</td><td>59.0</td><td>47.9</td></tr>
+            <tr class="accent"><td>営業利益率</td><td>3.6</td><td>4.1</td><td>6.4</td></tr>
+            <tr><td>純利益率</td><td>2.1</td><td>2.0</td><td>3.6</td></tr>
+            <tr><td>EBITDA率　（営業利益＋減価償却費）÷ 売上高</td><td>7.0</td><td>7.8</td><td>10.7</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>ゼンショーの形</b>　原価率が約8ポイント高く、販管費率が約11ポイント低い</li>
+        <li><b>原価率が高い理由</b>　食品の製造・卸・小売など、店舗以外の事業を含む連結の数字</li>
+        <li><b>販管費率が低い構造</b>　店舗を持たない製造・卸の事業を含む。調達から製造・物流・販売までの自社一貫体制（会社呼称 MMD）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>牛丼事業</h2>
+      <p class="sub">セグメント情報。セグメント利益＝各事業の営業利益。本社費の配賦方法は会社ごとに相違。</p>
+
+      <figure>
+        <div class="ctitle"><span>事業別の営業利益率　%</span><span>セグメント利益 ÷ 売上高</span></div>
+        <div id="c-seg"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>牛丼チェーンの事業別数値　億円・%</caption>
+          <thead><tr><th>事業</th><th>年度</th><th>売上高</th><th>セグメント利益</th><th>利益率</th></tr></thead>
+          <tbody>
+            <tr><td>吉野家　国内</td><td>2025年2月期</td><td>1,368</td><td>78</td><td>5.7</td></tr>
+            <tr class="accent"><td>吉野家　国内</td><td>2026年2月期</td><td>1,502</td><td>76</td><td>5.1</td></tr>
+            <tr><td>グローバルすき家　海外店舗を含む</td><td>2025年3月期</td><td>2,958</td><td>245</td><td>8.3</td></tr>
+            <tr class="accent"><td>グローバルすき家　海外店舗を含む</td><td>2026年3月期</td><td>3,145</td><td>93</td><td>3.0</td></tr>
+            <tr><td>松屋フーズHD　全社（単一セグメント）</td><td>2026年3月期</td><td>1,845</td><td>76</td><td>4.1</td></tr>
+            <tr><td>参考　グローバルはま寿司</td><td>2026年3月期</td><td>3,203</td><td>268</td><td>8.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>すき家の急落</b>　セグメント利益 245億円 → 93億円（−62%）。売上は＋6.3%</li>
+        <li><b>該当期間の出来事</b>　2025年1月 鳥取県の店舗でみそ汁へのネズミ混入。3月に別店舗で異物混入。3月31日〜4月4日 国内ほぼ全店（約1,970店）を一斉休業</li>
+        <li><b>ゼンショーの稼ぎ頭の交代</b>　2026年3月期の最大の利益はGlobal Prepared Food（274億円）、次いではま寿司（268億円）。すき家は4番目</li>
+        <li><b>吉野家</b>　売上＋9.8%、利益−2.1%。増収減益で利益率は0.6ポイント低下</li>
+      </ul>
+
+      <div class="note"><b>比較の注意</b>　松屋はセグメントを1つしか開示しないため、とんかつ（松のや）・ラーメン（六厘舎）を含む全社の数値。グローバルすき家には海外のすき家を含む。吉野家の国内セグメントには、はなまる・海外を含まない。</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>5年の推移</h2>
+      <p class="sub">連結の営業利益率。年度は決算期末の年。吉野家は2月期、他は3月期。</p>
+
+      <figure>
+        <div class="ctitle"><span>営業利益率　%</span><span>2022〜2026年度</span></div>
+        <div id="c-trend"></div>
+        <div class="legend" id="lg-trend"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>売上高と営業利益の推移　億円</caption>
+          <thead><tr><th>項目</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>2026</th></tr></thead>
+          <tbody>
+            <tr><td>吉野家HD　売上高</td><td>1,536</td><td>1,681</td><td>1,875</td><td>2,050</td><td>2,257</td></tr>
+            <tr><td>吉野家HD　営業利益</td><td>24</td><td>34</td><td>80</td><td>73</td><td>81</td></tr>
+            <tr><td>松屋フーズHD　売上高</td><td>945</td><td>1,066</td><td>1,276</td><td>1,542</td><td>1,845</td></tr>
+            <tr><td>松屋フーズHD　営業利益</td><td>−42</td><td>15</td><td>53</td><td>44</td><td>76</td></tr>
+            <tr class="accent"><td>ゼンショーHD　売上高</td><td>6,585</td><td>7,800</td><td>9,658</td><td>11,367</td><td>12,641</td></tr>
+            <tr class="accent"><td>ゼンショーHD　営業利益</td><td>92</td><td>217</td><td>537</td><td>751</td><td>814</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>2022年度</b>　コロナ禍。松屋は営業赤字。3社とも営業外収益（時短営業の協力金など）で経常黒字</li>
+        <li><b>売上の伸び　4年間</b>　ゼンショー 1.92倍、松屋 1.95倍、吉野家 1.47倍</li>
+        <li><b>ゼンショーの拡大</b>　2024年3月期に英国の寿司テイクアウト Snowfox を買収。売上1兆円を2025年3月期に突破</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>ROE分解</h2>
+      <p class="sub">株主の出したお金に対する利益。期末の数値で分解。有価証券報告書のROEは期首・期末の平均で算出。</p>
+
+      <div class="formula">ROE ＝ 純利益 ÷ 自己資本
+    ＝ 純利益率（純利益 ÷ 売上高）
+    × 総資産回転率（売上高 ÷ 総資産）
+    × 財務レバレッジ（総資産 ÷ 自己資本）</div>
+
+      <figure>
+        <div class="ctitle"><span>ROE　%</span><span>有価証券報告書の記載値</span></div>
+        <div id="c-roe"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>ROEの3要素　期末ベース</caption>
+          <thead><tr><th>要素</th><th>吉野家HD</th><th>松屋フーズHD</th><th>ゼンショーHD</th></tr></thead>
+          <tbody>
+            <tr><td>純利益率　%</td><td>2.1</td><td>2.0</td><td>3.6</td></tr>
+            <tr><td>総資産回転率　回</td><td>1.81</td><td>1.31</td><td>1.32</td></tr>
+            <tr><td>財務レバレッジ　倍</td><td>1.85</td><td>2.45</td><td>3.18</td></tr>
+            <tr class="accent"><td>ROE　積　%</td><td>6.9</td><td>6.6</td><td>15.2</td></tr>
+            <tr><td>ROE　有価証券報告書　%</td><td>7.1</td><td>7.3</td><td>15.8</td></tr>
+            <tr><td>自己資本比率　%</td><td>54.5</td><td>41.0</td><td>35.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>吉野家</b>　資産の回転が最も速い。借入が少なくレバレッジは最小</li>
+        <li><b>松屋</b>　六厘舎の買収（約92億円）で総資産が増加、回転率が低下。借入でレバレッジ上昇</li>
+        <li><b>ゼンショー</b>　利益率とレバレッジの両方で上回り、ROEは他の2社の約2倍</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>市場の評価</h2>
+      <p class="sub">時価総額・PER・PBRは決算期末の株価による。株主総利回り（TSR）＝5年前に投資した100が配当込みで何になったか。</p>
+
+      <figure>
+        <div class="ctitle"><span>株主総利回り　5年前＝100</span><span>有価証券報告書　直近期末</span></div>
+        <div id="c-tsr"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>株式市場の物差し</caption>
+          <thead><tr><th>指標</th><th>吉野家HD</th><th>松屋フーズHD</th><th>ゼンショーHD</th></tr></thead>
+          <tbody>
+            <tr><td>時価総額　億円</td><td>2,014</td><td>1,174</td><td>15,683</td></tr>
+            <tr><td>PER　倍</td><td>42.9</td><td>29.0</td><td>33.3</td></tr>
+            <tr><td>PBR　倍</td><td>2.9</td><td>2.0</td><td>5.5</td></tr>
+            <tr class="accent"><td>株主総利回り　5年前＝100</td><td>151</td><td>166</td><td>333</td></tr>
+            <tr><td>1株配当　円</td><td>22</td><td>24</td><td>75</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>株主優待</b>　3社とも食事券を株主に提供。個人株主が多く、利益に比べて株価が高い一因とされる</li>
+        <li><b>ゼンショー</b>　5年で配当込み3.3倍。PBR 5.5倍は「自己資本の5.5倍の価値」という市場の評価</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>直近の決算</h2>
+      <p class="sub">2027年度の第1四半期（3か月）と会社の通期予想。決算短信。億円・%。</p>
+
+      <figure>
+        <div class="ctitle"><span>営業利益率　%</span><span>前期実績と今期の会社予想</span></div>
+        <div id="c-fc"></div>
+        <div class="legend" id="lg-fc"></div>
+      </figure>
+
+      <div class="tw">
+        <table>
+          <caption>第1四半期と通期予想　億円・%</caption>
+          <thead><tr><th>項目</th><th>吉野家HD</th><th>松屋フーズHD</th><th>ゼンショーHD</th></tr></thead>
+          <tbody>
+            <tr><td>第1四半期の期間</td><td>2026年3〜5月</td><td>2026年4〜6月</td><td>2026年4〜6月</td></tr>
+            <tr><td>第1四半期　売上高</td><td>588</td><td>507</td><td>3,248</td></tr>
+            <tr><td>第1四半期　営業利益</td><td>25</td><td>7</td><td>248</td></tr>
+            <tr class="accent"><td>第1四半期　営業利益率</td><td>4.3</td><td>1.4</td><td>7.6</td></tr>
+            <tr><td>通期予想　売上高</td><td>2,420</td><td>2,150</td><td>14,020</td></tr>
+            <tr><td>通期予想　営業利益</td><td>85</td><td>82</td><td>1,020</td></tr>
+            <tr><td>通期予想　営業利益率</td><td>3.5</td><td>3.8</td><td>7.3</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>ゼンショー</b>　第1四半期の営業利益 前年同期比＋57.5%。前年の同じ時期は全店休業の直後</li>
+        <li><b>ゼンショーの予想修正</b>　5月の期初予想 920億円 → 8月に 1,020億円へ上方修正</li>
+        <li><b>松屋</b>　六厘舎の通期連結を含む予想。売上＋16.5%、営業利益＋8.0%</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>1杯の損益</h2>
+      <p class="sub">並盛1杯を百分率P/Lで分解。価格500円は例示。1節で調べた価格に置き換え。</p>
+
+      <div class="formula">1杯の営業利益 ＝ 並盛価格（税抜）× 営業利益率</div>
+
+      <div class="tw">
+        <table>
+          <caption>500円の内訳　例示・連結の比率を適用　円</caption>
+          <thead><tr><th>項目</th><th>吉野家HD</th><th>松屋フーズHD</th><th>ゼンショーHD</th></tr></thead>
+          <tbody>
+            <tr><td>原価　食材</td><td>190</td><td>184</td><td>228</td></tr>
+            <tr><td>販管費　人件費・家賃など</td><td>292</td><td>295</td><td>239</td></tr>
+            <tr class="accent"><td>営業利益</td><td>18</td><td>21</td><td>32</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table>
+          <caption>自分の数字</caption>
+          <thead><tr><th>項目</th><th>吉野家</th><th>松屋</th><th>すき家</th><th>単位</th></tr></thead>
+          <tbody>
+            <tr><td>並盛価格　税抜（税込 ÷ 1.1）</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">円</td></tr>
+            <tr><td>適用する営業利益率　4節のセグメント</td><td>5.1</td><td>4.1</td><td>3.0</td><td class="u">%</td></tr>
+            <tr><td>1杯の営業利益</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">円</td></tr>
+            <tr><td>1か月の自分の利用で会社に残る利益</td><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="u">円</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>営業利益1円の重み</b>　吉野家の国内事業で年76億円の利益 ＝ 1杯25円なら約3億杯分</li>
+        <li><b>値上げ10円の効果</b>　客数が同じなら、10円はほぼそのまま営業利益に加算</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>判定</h2>
+      <p class="sub">「一番儲かっている」は物差しで答えが変わる。</p>
+
+      <div class="tw">
+        <table class="mix">
+          <caption>物差し別の1位</caption>
+          <thead><tr><th>物差し</th><th>1位</th><th>数値</th><th>見えること</th></tr></thead>
+          <tbody>
+            <tr><td>利益の額　連結営業利益</td><td>ゼンショー</td><td>814億円</td><td>規模で圧勝。2位の約10倍</td></tr>
+            <tr><td>利益率　連結営業利益率</td><td>ゼンショー</td><td>6.4%</td><td>販管費率の低さ</td></tr>
+            <tr class="accent"><td>牛丼事業の利益率　2026年度</td><td>吉野家</td><td>5.1%</td><td>すき家は休業・混入の年に3.0%</td></tr>
+            <tr><td>牛丼事業の利益率　2025年度</td><td>すき家</td><td>8.3%</td><td>平時はすき家が最上位</td></tr>
+            <tr><td>株主から見た効率　ROE</td><td>ゼンショー</td><td>15.8%</td><td>利益率×レバレッジ</td></tr>
+            <tr class="accent"><td>伸び　営業利益の前年比</td><td>松屋</td><td>＋72.3%</td><td>既存店の好調と六厘舎の連結</td></tr>
+            <tr><td>株主の5年リターン　TSR</td><td>ゼンショー</td><td>333</td><td>市場の評価も最上位</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>会社として</b>　ゼンショーが額・率・ROE・TSRの4つで1位</li>
+        <li><b>牛丼の店として</b>　直近の1年は吉野家。ただし、すき家の落ち込みは一時的な事故の影響を含む</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 11 ============ -->
+  <section>
+    <div class="num">11</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">本資料の数値と電卓を使用。1問5分。</p>
+
+      <ul class="steps">
+        <li>吉野家HDの営業利益率を算出。売上高 2,257億円、営業利益 81億円</li>
+        <li>ゼンショーHDの販管費率が吉野家HDと同じ58.4%だった場合の営業利益を算出。原価率は45.7%のまま</li>
+        <li>すき家のセグメント利益が2025年3月期の利益率8.3%を保っていた場合の2026年3月期の利益を算出。差額を「事故のコスト」の上限として記入</li>
+        <li>松屋フーズHDのROEを、総資産回転率が前期末の1.48回（売上 1,542億円 ÷ 総資産 1,042億円）だった場合で再計算。他の要素は表の値</li>
+        <li>自分が経営者なら3社のどれに投資するか決定。根拠となる指標を2つ、1行で記入</li>
+      </ul>
+
+      <details>
+        <summary>解答例　本資料の数値</summary>
+        <p>1　81 ÷ 2,257 ＝ 3.6%
+2　100 − 45.7 − 58.4 ＝ −4.1%。12,641 × −4.1% ≒ −518億円。販管費率の差 10.5ポイントが約1,330億円の差
+3　3,145 × 8.3% ≒ 261億円。261 − 93 ＝ 約168億円
+4　2.05% × 1.48 × 2.45 ≒ 7.4%（表の積 6.6%から＋0.8ポイント）
+5　解答なし。例　ROEとTSR、または牛丼事業の利益率と直近の回復</p>
+      </details>
+
+      <h3>調べる</h3>
+      <ul>
+        <li><b>EDINETで</b>　ゼンショーHD 2026年3月期 有価証券報告書。セグメント情報からグローバルすき家の利益が減った理由の記述を抜き出し</li>
+        <li><b>月次データで</b>　3社の既存店売上高（客数・客単価）を直近6か月分記入。値上げと客数の関係を比較</li>
+        <li><b>店舗で</b>　1節の価格・みそ汁の扱い・セルフレジの有無を記録。人件費（販管費）の差との関係を推定</li>
+        <li><b>AIで</b>　「牛丼チェーンで一番儲かっている会社」を質問。回答の物差しと数値を本資料と照合</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 12 ============ -->
+  <section>
+    <div class="num">12</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>株式会社吉野家ホールディングス　2026年2月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100Y5NR">EDINET S100Y5NR</a>。売上高 225,667百万円、営業利益 8,089百万円、当期純利益 4,665百万円、総資産 124,824百万円、ROE 7.1%、株主総利回り 151.2%。セグメント「吉野家」売上高 150,190百万円・利益 7,623百万円</li>
+        <li>株式会社吉野家ホールディングス　2025年2月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100VT1A">EDINET S100VT1A</a>。セグメント「吉野家」売上高 136,796百万円・利益 7,790百万円</li>
+        <li>株式会社松屋フーズホールディングス　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YJ71">EDINET S100YJ71</a>。売上高 184,474百万円、営業利益 7,594百万円、当期純利益 3,772百万円、総資産 140,787百万円、ROE 7.3%、株主総利回り 166.3%</li>
+        <li>株式会社ゼンショーホールディングス　2026年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100YKA9">EDINET S100YKA9</a>。売上高 1,264,053百万円、営業利益 81,440百万円、当期純利益 45,812百万円、総資産 960,362百万円、ROE 15.8%、株主総利回り 332.7%。グローバルすき家 売上高 314,454百万円・利益 9,317百万円</li>
+        <li>株式会社ゼンショーホールディングス　2025年3月期 有価証券報告書　<a href="https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100W4UE">EDINET S100W4UE</a>。グローバルすき家 売上高 295,757百万円・利益 24,508百万円</li>
+        <li>各社 2027年度 第1四半期決算短信　吉野家HD 2026年7月8日、松屋フーズHD 2026年8月14日、<a href="https://www.zensho.co.jp/jp/ir/resource/pdf/20260807zensho_all.pdf">ゼンショーHD 2026年8月7日</a></li>
+        <li>松屋フーズHD　松富士（六厘舎）の株式取得　2025年12月15日契約　<a href="https://www.matsuyafoods-holdings.co.jp/">matsuyafoods-holdings.co.jp</a></li>
+        <li>すき家の全店休業（2025年3月31日〜4月4日）　<a href="https://www.cnn.co.jp/business/35231221.html">CNN.co.jp</a>・<a href="https://president.jp/articles/-/93948">PRESIDENT Online</a></li>
+        <li>EDINET DB（株式会社Cabocia）　<a href="https://edinetdb.jp/">edinetdb.jp</a>。上記有価証券報告書・決算短信の取得、時価総額・PER・PBR（決算期末の株価による）。2026年10月8日</li>
+        <li>百分率P/L、ROEの3要素、1杯の損益（500円）、演習の解答は本資料による計算・例示。2022〜2024年度の数値は各年度の有価証券報告書</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y02-4nen-1005.html"><b>← 前の資料</b>利回り・割引現在価値とAIへの業務依頼</a>
+    <a href="b03-hikaku.html"><b>関連</b>同業比較と異業種比較</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+
+<script>
+/* =========================================================================
+   LC — 授業資料用チャート（SVG生成・外部ライブラリ非依存）
+   LC.lines / LC.bars / LC.hbars / LC.stack(host, cfg) / LC.fmt(n,d)
+   色は --s1..--s4 のみ。CSS変数参照のためダークモードに自動追従。
+   ========================================================================= */
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt(X(d[1])+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+
+  /* ---- 帯グラフ：構成比（1行＝1社、合計を100として区切る） ----
+     rows:[{name, segs:[[区分, 値, 色, 文字色], ...]}]。値は%。 */
+  function stack(h,cfg){
+    var P={l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:96, r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:12, t:cfg.pad&&cfg.pad.t!==undefined?cfg.pad.t:24, b:8};
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var band=ph/cfg.rows.length, bh=cfg.bh||30;
+    [0,25,50,75,100].forEach(function(v){
+      var x=P.l+v/100*pw;
+      s.appendChild(el("line",{x1:x,y1:P.t-4,x2:x,y2:P.t+ph,"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(x,P.t-8,v+"%","tk"));
+    });
+    cfg.rows.forEach(function(row,i){
+      var cy=P.t+band*i+band/2, tot=0, x=P.l;
+      row.segs.forEach(function(g){ tot+=g[1]; });
+      s.appendChild(txt(P.l-10,cy+4,row.name,"el","end"));
+      row.segs.forEach(function(g){
+        var w=g[1]/tot*pw;
+        var r=el("rect",{x:x,y:cy-bh/2,width:Math.max(1,w-1.5),height:bh,rx:3,fill:g[2]});
+        hover(r,row.name+"　"+g[0]+"　"+fmt(g[1],1)+"%");
+        s.appendChild(r);
+        if(w>44){
+          var t=txt(x+w/2,cy+4,fmt(g[1],1),"vl");
+          t.style.fill=g[3]||"#fff";
+          t.style.pointerEvents="none";
+          s.appendChild(t);
+        }
+        x+=w;
+      });
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,stack:stack,fmt:fmt,legend:legend};
+})();
+
+/* ===== LC 追加：第4回で使う図形 =====
+   LC.gbars  … グループ縦棒（系列2〜4本・負値可）
+   LC.wf     … ウォーターフォール（利益の段階を積み上げ）
+   LC.scatter… 散布図（2指標の位置関係） */
+(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){ var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"}); t.textContent=s; return t; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(n,s){ n.addEventListener("mousemove",function(e){ showTip(e,s); }); n.addEventListener("mouseleave",hideTip); }
+  function mount(h,cfg){
+    var n=typeof h==="string"?document.querySelector(h):h; if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function P(p){ p=p||{}; return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?26:p.t, b:p.b===undefined?34:p.b}; }
+  function yaxis(s,cfg,p){
+    var pw=cfg.w-p.l-p.r, ph=cfg.h-p.t-p.b, lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return p.t+(hi-v)/(hi-lo)*ph; };
+    cfg.y.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:p.l,y1:Y(v),x2:p.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(p.l-8,Y(v)+3.5,(cfg.y.fmt||LC.fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  LC.gbars=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.groups.length, n=cfg.series.length, bw=cfg.bw||22, gap=4;
+    var tot=n*bw+(n-1)*gap, base=A.Y(0), d=cfg.digits===undefined?1:cfg.digits;
+    cfg.groups.forEach(function(g,i){
+      var cx=p.l+band*i+band/2;
+      g[1].forEach(function(v,j){
+        var x=cx-tot/2+j*(bw+gap), y=A.Y(v), up=v>=0;
+        var r=el("rect",{x:x,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:cfg.series[j].color});
+        hover(r,g[0]+"　"+cfg.series[j].name+"　"+LC.fmt(v,d)+(cfg.unit||""));
+        s.appendChild(r);
+        s.appendChild(txt(x+bw/2,up?y-6:y+14,LC.fmt(v,d),"vl"));
+      });
+      s.appendChild(txt(cx,cfg.h-p.b+18,g[0],"tk"));
+    });
+    if(cfg.legend) LC.legend(cfg.legend,cfg.series.map(function(o){ return {name:o.name,color:o.color,square:true}; }));
+  };
+
+  LC.wf=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), band=A.pw/cfg.steps.length, bw=cfg.bw||46, cum=0, prev=null, d=cfg.digits===undefined?1:cfg.digits;
+    cfg.steps.forEach(function(o,i){
+      var cx=p.l+band*i+band/2, a, b;
+      if(o.total){ a=0; b=o.v; cum=o.v; } else { a=cum; b=cum+o.v; cum=b; }
+      var top=A.Y(Math.max(a,b)), bot=A.Y(Math.min(a,b));
+      var col=o.total?(o.v<0?"var(--pop)":"var(--s2)"):(o.v>=0?"var(--s3)":"var(--pop)");
+      if(prev!==null) s.appendChild(el("line",{x1:prev.x,y1:A.Y(prev.v),x2:cx-bw/2,y2:A.Y(prev.v),"class":"gl","stroke-dasharray":"3 3"}));
+      var r=el("rect",{x:cx-bw/2,y:top,width:bw,height:Math.max(1.5,bot-top),rx:2,fill:col});
+      var lab=(o.total?"":(o.v>=0?"＋":""))+LC.fmt(o.v,d);
+      hover(r,o.name+"　"+lab+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(cx,top-7,lab,"vl"));
+      s.appendChild(txt(cx,cfg.h-p.b+18,o.name,"tk"));
+      prev={x:cx+bw/2,v:cum};
+    });
+    if(cfg.ref){
+      var y=A.Y(cfg.ref.v);
+      s.appendChild(el("line",{x1:p.l,y1:y,x2:p.l+A.pw,y2:y,stroke:"var(--s1)","stroke-width":1.5,"stroke-dasharray":"6 4"}));
+      s.appendChild(txt(p.l+6,y-6,cfg.ref.label,"el","start"));
+    }
+  };
+
+  LC.scatter=function(h,cfg){
+    var p=P(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,p), x0=cfg.x.min||0, x1=cfg.x.max;
+    var X=function(v){ return p.l+(v-x0)/(x1-x0)*A.pw; };
+    cfg.x.ticks.forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:p.t,x2:X(v),y2:p.t+A.ph,"class":v===x0?"ax":"gl"}));
+      s.appendChild(txt(X(v),cfg.h-p.b+18,(cfg.x.fmt||LC.fmt)(v),"tk"));
+    });
+    if(cfg.x.label) s.appendChild(txt(p.l+A.pw,cfg.h-4,cfg.x.label,"tk","end"));
+    if(cfg.y.label) s.appendChild(txt(p.l,p.t-12,cfg.y.label,"tk","start"));
+    cfg.points.forEach(function(o){
+      var c=el("circle",{cx:X(o.x),cy:A.Y(o.y),r:8,fill:o.color,stroke:"var(--surface)","stroke-width":2});
+      hover(c,o.name+"　"+cfg.tip(o));
+      s.appendChild(c);
+      s.appendChild(txt(X(o.x)+(o.left?-13:13),A.Y(o.y)+4,o.name,"el",o.left?"end":"start"));
+    });
+  };
+})();
+
+
+/* ===== 図 ===== 数値は各社の有価証券報告書（EDINET）。2026/10/4取得 */
+
+/* ===== 図 ===== 数値は各社の有価証券報告書・決算短信（EDINET DB経由）。2026/10/8取得 */
+
+var YO="var(--s2)", MA="var(--s1)", ZE="var(--s3)", E4="var(--s4)", GR="var(--axis)";
+
+/* 2節　規模 */
+LC.hbars("#c-rev",{
+  w:720,h:150,max:720,alt:"売上高。ゼンショーHD 12,641億円、吉野家HD 2,257億円、松屋フーズHD 1,845億円",
+  pad:{l:120,r:80,t:22,b:8},bh:22,
+  x:{min:0,max:14000,ticks:[0,3500,7000,10500,14000]},unit:"億円",digits:0,
+  data:[["ゼンショーHD",12641,ZE],["吉野家HD",2257,YO],["松屋フーズHD",1845,MA]]
+});
+LC.hbars("#c-oi",{
+  w:720,h:150,max:720,alt:"営業利益。ゼンショーHD 814億円、吉野家HD 81億円、松屋フーズHD 76億円",
+  pad:{l:120,r:80,t:22,b:8},bh:22,
+  x:{min:0,max:900,ticks:[0,300,600,900]},unit:"億円",digits:0,
+  data:[["ゼンショーHD",814,ZE],["吉野家HD",81,YO],["松屋フーズHD",76,MA]]
+});
+
+/* 3節　百分率P/L */
+LC.stack("#c-pl",{
+  w:720,h:170,max:720,alt:"売上高100の内訳。吉野家 原価38.0 販管費58.4 営業利益3.6。松屋 36.8 59.0 4.1。ゼンショー 45.7 47.9 6.4",
+  pad:{l:110},bh:30,
+  rows:[
+    {name:"吉野家HD",segs:[["原価",38.0,"var(--s1)"],["販管費",58.4,E4,"#141019"],["営業利益",3.6,"var(--s3)"]]},
+    {name:"松屋フーズHD",segs:[["原価",36.8,"var(--s1)"],["販管費",59.0,E4,"#141019"],["営業利益",4.1,"var(--s3)"]]},
+    {name:"ゼンショーHD",segs:[["原価",45.7,"var(--s1)"],["販管費",47.9,E4,"#141019"],["営業利益",6.4,"var(--s3)"]]}
+  ]
+});
+LC.legend("#lg-pl",[
+  {name:"原価",color:"var(--s1)",square:true},{name:"販管費",color:E4,square:true},{name:"営業利益",color:"var(--s3)",square:true}
+]);
+
+/* 4節　牛丼事業 */
+LC.hbars("#c-seg",{
+  w:720,h:230,max:720,alt:"事業別の営業利益率。すき家2025年3月期8.3%、吉野家国内2025年2月期5.7%、吉野家国内2026年2月期5.1%、松屋全社2026年3月期4.1%、すき家2026年3月期3.0%",
+  pad:{l:230,r:60,t:22,b:8},bh:18,
+  x:{min:0,max:10,ticks:[0,2.5,5,7.5,10],fmt:function(v){return LC.fmt(v,1);}},unit:"%",digits:1,
+  data:[
+    ["すき家　2025年3月期",8.3,GR],["吉野家　2025年2月期",5.7,GR],
+    ["吉野家　2026年2月期",5.1,YO],["松屋（全社）　2026年3月期",4.1,MA],["すき家　2026年3月期",3.0,ZE]
+  ]
+});
+
+/* 5節　推移 */
+LC.lines("#c-trend",{
+  w:720,h:300,pad:{l:52,r:100,t:16,b:34},alt:"営業利益率の推移。吉野家1.5→3.6%、松屋−4.4→4.1%、ゼンショー1.4→6.4%",
+  x:{min:2022,max:2026,ticks:[2022,2023,2024,2025,2026]},
+  y:{min:-6,max:8,ticks:[-6,-4,-2,0,2,4,6,8]},
+  series:[
+    {name:"ゼンショーHD",color:ZE,points:[[2022,1.4],[2023,2.8],[2024,5.6],[2025,6.6],[2026,6.4]],label:"ゼンショー 6.4%"},
+    {name:"松屋フーズHD",color:MA,points:[[2022,-4.4],[2023,1.4],[2024,4.2],[2025,2.9],[2026,4.1]],label:"松屋 4.1%"},
+    {name:"吉野家HD",color:YO,points:[[2022,1.5],[2023,2.0],[2024,4.3],[2025,3.6],[2026,3.6]],label:"吉野家 3.6%"}
+  ],
+  tip:function(o,p){ return o.name+"　"+p[0]+"年度　"+LC.fmt(p[1],1)+"%"; },
+  legend:"#lg-trend"
+});
+/* 末尾ラベルの重なりを回避 */
+document.querySelectorAll("#c-trend text.el").forEach(function(t){
+  var y=parseFloat(t.getAttribute("y"));
+  if(t.textContent.indexOf("松屋")===0) t.setAttribute("y",y-6);
+  if(t.textContent.indexOf("吉野家")===0) t.setAttribute("y",y+8);
+});
+
+/* 6節　ROE */
+LC.bars("#c-roe",{
+  w:720,h:240,pad:{l:56,r:16,t:26,b:34},max:560,alt:"ROE。吉野家HD 7.1%、松屋フーズHD 7.3%、ゼンショーHD 15.8%",
+  y:{min:0,max:20,ticks:[0,5,10,15,20]},unit:"%",digits:1,bw:72,
+  data:[["吉野家HD",7.1,YO],["松屋フーズHD",7.3,MA],["ゼンショーHD",15.8,ZE]]
+});
+
+/* 7節　TSR */
+LC.hbars("#c-tsr",{
+  w:720,h:150,max:720,alt:"株主総利回り 5年前＝100。ゼンショーHD 333、松屋フーズHD 166、吉野家HD 151",
+  pad:{l:120,r:60,t:22,b:8},bh:22,
+  x:{min:0,max:400,ticks:[0,100,200,300,400]},digits:0,
+  data:[["ゼンショーHD",333,ZE],["松屋フーズHD",166,MA],["吉野家HD",151,YO]]
+});
+
+/* 8節　直近 */
+LC.gbars("#c-fc",{
+  w:720,h:260,max:620,alt:"営業利益率。前期実績 吉野家3.6% 松屋4.1% ゼンショー6.4%。今期予想 3.5% 3.8% 7.3%",
+  y:{min:0,max:8,ticks:[0,2,4,6,8]},bw:48,unit:"%",digits:1,
+  series:[{name:"前期実績",color:GR},{name:"今期の会社予想",color:"var(--s1)"}],
+  legend:"#lg-fc",
+  groups:[["吉野家HD",[3.6,3.5]],["松屋フーズHD",[4.1,3.8]],["ゼンショーHD",[6.4,7.3]]]
+});
+</script>
+</body>
+</html>
