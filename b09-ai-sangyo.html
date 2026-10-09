@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="イノベーションプロジェクト 授業資料。AI産業の14層の市場地図、儲かっている層、日米比較、消える仕事・伸びる仕事、一人起業、身を置くポジションを図解する（2026年10月時点）。">
+<title>AI産業の市場地図</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap">
+<style>
+/* Layout: pop lecture zine. Sticker cards with thick ink outlines + offset shadows, big Dela Gothic numbers, one column with grids that collapse on phones. US = blue, Japan = pink throughout. */
+:root{
+  --bg:#f2f5ff; --paper:#ffffff; --ink:#1c1a3a; --muted:#5b5878; --hair:#d8d9ef; --shadow:#1c1a3a;
+  --pink:#e23d7a; --blue:#3d5afe; --mint:#0f9e8f; --orange:#e07a10; --yellow:#ffd23f; --on-yellow:#1c1a3a;
+  --pink-soft:#ffe1ec; --blue-soft:#e3e8ff; --mint-soft:#d6f4f0; --yellow-soft:#fff3bf; --orange-soft:#ffe9d3;
+  --f-pop:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;
+  --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#14132a; --paper:#201e3d; --ink:#f1efff; --muted:#b5b2d4; --hair:#3a3762; --shadow:#000000;
+  --pink:#e8508a; --blue:#6f7ff5; --mint:#1fa595; --orange:#cc7a18; --yellow:#f0c23a;
+  --pink-soft:#46203a; --blue-soft:#262b5e; --mint-soft:#143a3a; --yellow-soft:#3c3317; --orange-soft:#3e2a14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#14132a; --paper:#201e3d; --ink:#f1efff; --muted:#b5b2d4; --hair:#3a3762; --shadow:#000000;
+  --pink:#e8508a; --blue:#6f7ff5; --mint:#1fa595; --orange:#cc7a18; --yellow:#f0c23a;
+  --pink-soft:#46203a; --blue-soft:#262b5e; --mint-soft:#143a3a; --yellow-soft:#3c3317; --orange-soft:#3e2a14; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-weight:500;font-size:16px;line-height:1.7;padding-inline:16px;padding-block:0 72px;
+  background-image:radial-gradient(var(--hair) 1.2px,transparent 1.2px);background-size:22px 22px}
+.wrap{max-width:1080px;margin:0 auto}
+a{color:var(--blue);font-weight:700;text-underline-offset:3px}
+a:focus-visible,summary:focus-visible{outline:3px solid var(--pink);outline-offset:2px;border-radius:4px}
+h1,h2,h3{margin:0;text-wrap:balance;line-height:1.3}
+h2{font-family:var(--f-pop);font-weight:400;font-size:clamp(1.5rem,4vw,2.3rem)}
+h3{font-family:var(--f-body);font-weight:800;font-size:1.15rem;display:flex;align-items:center;gap:10px}
+h3::before{content:"";width:14px;height:14px;border-radius:4px;background:var(--yellow);border:2px solid var(--ink);flex:none;transform:rotate(45deg)}
+p{margin:.5rem 0}
+.big{font-family:var(--f-pop);font-weight:400;line-height:1.05;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.src{font-size:.76rem;color:var(--muted);margin-top:10px;line-height:1.6}
+.src a{font-weight:500}
+
+/* sticker card */
+.card{background:var(--paper);border:2.5px solid var(--ink);border-radius:18px;box-shadow:5px 5px 0 var(--shadow);padding:18px 20px;min-width:0}
+.card.pink{background:var(--pink-soft)} .card.blue{background:var(--blue-soft)} .card.mint{background:var(--mint-soft)} .card.yellow{background:var(--yellow-soft)} .card.orange{background:var(--orange-soft)}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:18px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:16px}
+.stack-gap{display:grid;gap:22px;margin-top:22px}
+
+/* hero */
+header.hero{padding-block:36px 30px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;align-items:center}
+@media (max-width:760px){header.hero{grid-template-columns:minmax(0,1fr)}}
+.tagline{display:inline-flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-block;font-size:.78rem;font-weight:800;padding:4px 12px;border-radius:999px;border:2px solid var(--ink);background:var(--paper);white-space:nowrap}
+.chip.y{background:var(--yellow);color:var(--on-yellow);border-color:var(--on-yellow)}
+h1{font-family:var(--f-pop);font-weight:400;font-size:clamp(2rem,6.4vw,3.6rem);margin-top:16px;line-height:1.2}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,var(--yellow) 62%);padding-inline:2px;color:var(--ink)}
+.hero .sub{font-size:1.1rem;font-weight:700;margin-top:14px}
+.hero-ill{width:100%;max-width:500px;justify-self:center}
+.stickers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px;margin-block:8px 10px}
+.sticker{position:relative}
+.sticker .big{font-size:clamp(2.4rem,6vw,3.3rem);display:block}
+.sticker .lbl{font-weight:800;font-size:.95rem;margin-top:6px}
+.sticker .cap{font-size:.8rem;color:var(--muted)}
+.sticker:nth-child(1){transform:rotate(-1.2deg)} .sticker:nth-child(2){transform:rotate(.8deg)} .sticker:nth-child(3){transform:rotate(-.6deg)} .sticker:nth-child(4){transform:rotate(1.1deg)}
+.c-pink{color:var(--pink)} .c-blue{color:var(--blue)} .c-mint{color:var(--mint)} .c-orange{color:var(--orange)}
+
+/* nav */
+nav.lec-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;margin-inline:-16px;padding-inline:16px;background:var(--bg);border-bottom:2.5px solid var(--ink)}
+nav.lec-nav ol{list-style:none;margin:0 auto;padding:10px 0;display:flex;gap:8px;overflow-x:auto;max-width:1080px}
+nav.lec-nav a{display:block;white-space:nowrap;text-decoration:none;color:var(--ink);font-size:.85rem;font-weight:800;padding:6px 14px;border:2px solid var(--ink);border-radius:999px;background:var(--paper)}
+nav.lec-nav a:hover{background:var(--yellow);color:var(--on-yellow)}
+nav.lec-nav a.on{background:var(--ink);color:var(--bg)}
+
+/* lecture head */
+section.lec{padding-block:64px 8px;scroll-margin-top:64px}
+.lec-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.lec-no{font-family:var(--f-pop);font-size:2rem;width:76px;height:76px;flex:none;border-radius:50%;display:grid;place-items:center;border:3px solid var(--ink);box-shadow:4px 4px 0 var(--shadow);color:#fff}
+.lec-head .kick{font-size:.8rem;font-weight:800;color:var(--muted);letter-spacing:.06em}
+.bubble{position:relative;margin:26px 0 8px;display:flex;align-items:center;gap:14px;max-width:760px}
+.bubble svg{flex:none;width:56px;height:56px}
+.bubble .say{position:relative;background:var(--yellow);color:var(--on-yellow);border:2.5px solid var(--ink);border-radius:18px;padding:12px 18px;font-weight:800;font-size:1.05rem;box-shadow:4px 4px 0 var(--shadow)}
+.bubble .say::before{content:"";position:absolute;left:-12px;top:50%;width:18px;height:18px;background:var(--yellow);border-left:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateY(-50%) rotate(45deg)}
+.bubble .say small{display:block;font-size:.72rem;letter-spacing:.08em;opacity:.75}
+
+/* points list (体言止め bullets) */
+ul.pts{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+ul.pts li{position:relative;padding-left:26px;font-weight:700}
+ul.pts li::before{content:"";position:absolute;left:4px;top:.55em;width:11px;height:11px;border-radius:50%;background:var(--pink);border:2px solid var(--ink)}
+ul.pts li span{font-weight:500;color:var(--muted)}
+
+/* source tags */
+.t{display:inline-block;font-size:.66rem;line-height:1;padding:3px 6px;border-radius:5px;vertical-align:.15em;margin-inline:2px;font-weight:800;white-space:nowrap;border:1.5px solid currentColor}
+.t1{color:var(--mint)} .t2{color:var(--blue)} .t3{color:var(--muted);border-style:dashed} .tx{color:var(--orange)} .tv{color:var(--pink)}
+
+/* tables */
+.tbl{overflow-x:auto;border:2.5px solid var(--ink);border-radius:16px;background:var(--paper);box-shadow:5px 5px 0 var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;line-height:1.55}
+th,td{text-align:left;vertical-align:middle;padding:10px 12px;border-bottom:1.5px solid var(--hair)}
+th{background:var(--ink);color:var(--bg);font-weight:800;font-size:.8rem;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:800}
+tr.band td{background:var(--yellow-soft);font-weight:800;font-size:.78rem;letter-spacing:.08em}
+.pill{display:inline-block;font-size:.74rem;font-weight:800;padding:3px 10px;border-radius:999px;white-space:nowrap;border:2px solid var(--ink)}
+.p-hi{background:var(--mint-soft)} .p-mid{background:var(--blue-soft)} .p-lo{background:var(--pink-soft)} .p-na{background:var(--paper);color:var(--muted);border-color:var(--hair)}
+
+/* html bar charts */
+.ctitle{font-weight:800;font-size:1rem}
+.ctitle small{display:block;font-weight:500;font-size:.78rem;color:var(--muted)}
+.hb{display:grid;gap:9px;margin-top:14px}
+.hb .r{display:grid;grid-template-columns:minmax(0,9.5em) minmax(0,1fr) 6.2em;align-items:center;gap:10px;border-radius:8px;padding:2px 4px}
+.hb .r:hover{background:var(--yellow-soft)}
+.hb .lb{font-size:.84rem;font-weight:700;text-align:right;line-height:1.3}
+.hb .tr{position:relative;height:22px}
+.hb .zero{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink)}
+.hb .fl{position:absolute;top:0;bottom:0;border:2px solid var(--ink);min-width:4px}
+.hb .fl.pos{border-radius:0 7px 7px 0} .hb .fl.neg{border-radius:7px 0 0 7px}
+.hb .v{font-weight:800;font-size:.86rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+@media (max-width:520px){.hb .r{grid-template-columns:minmax(0,1fr) 5.4em}.hb .lb{grid-column:1/-1;text-align:left}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.8rem;font-weight:700;margin-top:12px}
+.legend i{display:inline-block;width:13px;height:13px;border-radius:4px;border:2px solid var(--ink);margin-right:6px;vertical-align:-2px}
+
+svg text{font-family:var(--f-body);fill:var(--ink);font-weight:700}
+svg .mut{fill:var(--muted)}
+svg .ink-s{stroke:var(--ink)}
+svg .ink-f{fill:var(--ink)}
+svg .paper-f{fill:var(--paper)}
+.svgbox{overflow-x:auto}
+.svgbox svg{display:block;width:100%;height:auto}
+
+#tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:var(--bg);font-size:.8rem;font-weight:700;line-height:1.5;padding:7px 11px;border-radius:10px;max-width:260px;opacity:0;transition:opacity .1s}
+#tip.on{opacity:1}
+
+/* special pieces */
+.chain{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:12px;margin-top:16px}
+.chain .node{text-align:center;font-size:.78rem;font-weight:800;line-height:1.3}
+.chain .ic{width:64px;height:64px;margin:0 auto 6px;border:2.5px solid var(--ink);border-radius:16px;display:grid;place-items:center;box-shadow:3px 3px 0 var(--shadow)}
+.chain .ic svg{width:38px;height:38px}
+.chain .grp{grid-column:1/-1;font-size:.74rem;font-weight:800;letter-spacing:.1em;color:var(--muted);border-bottom:2px dashed var(--hair);padding-bottom:2px;margin-top:4px}
+.bigstat{display:flex;flex-direction:column;gap:2px}
+.bigstat .big{font-size:clamp(2.2rem,6vw,3.2rem)}
+.bigstat .lbl{font-weight:800}
+.bigstat .cap{font-size:.8rem;color:var(--muted)}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:12px;align-items:center;text-align:center}
+.vs .mid{font-family:var(--f-pop);font-size:1.4rem;color:var(--muted)}
+.callout{border:2.5px dashed var(--orange);background:var(--orange-soft);border-radius:16px;padding:14px 18px;font-size:.9rem}
+.callout b{color:var(--orange)}
+.slogan{font-family:var(--f-pop);font-size:clamp(1.5rem,4.6vw,2.4rem);text-align:center;line-height:1.35;padding:26px 12px}
+.slogan em{font-style:normal;color:var(--pink)}
+.donut{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px}
+.donut svg{width:120px;height:120px}
+.donut b{font-weight:800;font-size:.9rem}
+.timeline{display:grid;gap:12px;margin-top:12px}
+.timeline .ev{display:grid;grid-template-columns:5.6em minmax(0,1fr);gap:12px;align-items:start}
+.timeline .when{font-family:var(--f-pop);font-size:.9rem;background:var(--ink);color:var(--bg);border-radius:8px;text-align:center;padding:4px 0}
+.waffle{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;max-width:330px}
+.waffle i{aspect-ratio:1;border-radius:50%;border:1.5px solid var(--ink)}
+.pos-card .k{font-family:var(--f-pop);font-size:1.6rem;line-height:1}
+.pos-card h4{margin:6px 0 4px;font-size:1.05rem;font-weight:800}
+.avoid{border-style:dashed}
+footer{margin-top:56px;font-size:.8rem;color:var(--muted)}
+details summary{cursor:pointer;font-weight:800;font-size:.85rem;margin-top:12px}
+@media (max-width:560px){body{font-size:15px}.lec-no{width:60px;height:60px;font-size:1.6rem}.card{padding:16px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}.sticker{transform:none!important}}
+/* page frame & footer nav (standalone) */
+body{margin:0}
+.nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:40px}
+.nav a{display:block;text-decoration:none;color:var(--ink);background:var(--paper);border:2.5px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--shadow);padding:12px 16px;font-weight:700}
+.nav a b{display:block;font-size:.76rem;color:var(--muted)}
+.nav a:hover{background:var(--yellow-soft)}
+@media print{nav.lec-nav{position:static}.card,figure,.tbl,table{break-inside:avoid}body{background-image:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-wafer" viewBox="0 0 40 40"><circle cx="20" cy="20" r="16" fill="none" stroke="currentColor" stroke-width="3"/><path d="M10 14h20M8 20h24M10 26h20M14 9v22M20 5v30M26 9v22" stroke="currentColor" stroke-width="1.6"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 40 40"><circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="3"/><path d="M20 4v6M20 30v6M4 20h6M30 20h6M8.7 8.7l4.2 4.2M27.1 27.1l4.2 4.2M8.7 31.3l4.2-4.2M27.1 12.9l4.2-4.2" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-chip" viewBox="0 0 40 40"><rect x="10" y="10" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><rect x="16" y="16" width="8" height="8" fill="currentColor"/><path d="M15 4v6M20 4v6M25 4v6M15 30v6M20 30v6M25 30v6M4 15h6M4 20h6M4 25h6M30 15h6M30 20h6M30 25h6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-fab" viewBox="0 0 40 40"><path d="M4 34V18l9 6v-6l9 6v-6l9 6V8h5v26z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></symbol>
+    <symbol id="i-mem" viewBox="0 0 40 40"><rect x="7" y="6" width="26" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><rect x="7" y="16.5" width="26" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><rect x="7" y="27" width="26" height="7" rx="2" fill="currentColor"/></symbol>
+    <symbol id="i-rack" viewBox="0 0 40 40"><rect x="8" y="4" width="24" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M8 14h24M8 24h24" stroke="currentColor" stroke-width="3"/><circle cx="26" cy="9" r="1.8" fill="currentColor"/><circle cx="26" cy="19" r="1.8" fill="currentColor"/><circle cx="26" cy="29" r="1.8" fill="currentColor"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 40 40"><path d="M23 3L9 23h10l-3 14 15-21H20z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-cloud" viewBox="0 0 40 40"><path d="M11 31a7 7 0 0 1-1-14 10 10 0 0 1 19-3 8.5 8.5 0 0 1 1 17z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></symbol>
+    <symbol id="i-brain" viewBox="0 0 40 40"><circle cx="20" cy="9" r="4" fill="currentColor"/><circle cx="8" cy="22" r="4" fill="currentColor"/><circle cx="32" cy="22" r="4" fill="currentColor"/><circle cx="20" cy="33" r="4" fill="currentColor"/><path d="M20 9L8 22l12 11 12-11zM8 22h24M20 9v24" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
+    <symbol id="i-tool" viewBox="0 0 40 40"><path d="M25 5a8 8 0 0 0-7 11L6 28a3.5 3.5 0 0 0 5 5l12-12a8 8 0 0 0 11-7l-5 3-4-1-1-4 5-3z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 40 40"><rect x="11" y="3" width="18" height="34" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 12h10M15 18h10M15 24h6" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></symbol>
+    <symbol id="i-brief" viewBox="0 0 40 40"><rect x="5" y="12" width="30" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="3"/><path d="M14 12V8h12v4M5 21h30" stroke="currentColor" stroke-width="3"/></symbol>
+    <symbol id="face" viewBox="0 0 56 56"><circle cx="28" cy="28" r="25" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.5"/><path d="M8 22c4-14 36-18 40 0-8-4-30-6-40 0z" fill="var(--ink)"/><circle cx="20" cy="30" r="2.6" fill="var(--ink)"/><circle cx="36" cy="30" r="2.6" fill="var(--ink)"/><path d="M22 39q6 4 12 0" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/><circle cx="15" cy="36" r="3" fill="var(--pink)" opacity=".45"/><circle cx="41" cy="36" r="3" fill="var(--pink)" opacity=".45"/></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+<header class="hero">
+  <div>
+    <div class="tagline"><span class="chip y">AI産業リサーチ</span><span class="chip">2026年10月時点</span><span class="chip">全6回</span></div>
+    <h1>利益は<em>「土台」</em>に、<br>仕事は<em>「現場」</em>に。</h1>
+    <p class="sub">AI時代、自分はどこに身を置く？　解像度を上げるための産業地図。</p>
+  </div>
+  <svg class="hero-ill" viewBox="0 0 530 340" role="img" aria-label="アプリ・モデル、クラウド・電力、半導体の3層が積み重なるイラスト">
+    <!-- slabs -->
+    <g stroke="var(--ink)" stroke-width="3" stroke-linejoin="round">
+      <path d="M60 250l160 60 160-60-160-60z" fill="var(--blue)"/>
+      <path d="M60 250v22l160 60v-22z" fill="var(--blue)" opacity=".7"/>
+      <path d="M380 250v22l-160 60v-22z" fill="var(--blue)" opacity=".85"/>
+      <path d="M80 180l140 52 140-52-140-52z" fill="var(--mint)"/>
+      <path d="M80 180v20l140 52v-20z" fill="var(--mint)" opacity=".7"/>
+      <path d="M360 180v20l-140 52v-20z" fill="var(--mint)" opacity=".85"/>
+      <path d="M100 112l120 44 120-44-120-44z" fill="var(--pink)"/>
+      <path d="M100 112v18l120 44v-18z" fill="var(--pink)" opacity=".7"/>
+      <path d="M340 112v18l-120 44v-18z" fill="var(--pink)" opacity=".85"/>
+    </g>
+    <!-- coins on bottom slab -->
+    <g stroke="var(--ink)" stroke-width="2.5">
+      <ellipse cx="300" cy="262" rx="20" ry="8" fill="var(--yellow)"/><ellipse cx="300" cy="254" rx="20" ry="8" fill="var(--yellow)"/><ellipse cx="300" cy="246" rx="20" ry="8" fill="var(--yellow)"/><ellipse cx="300" cy="238" rx="20" ry="8" fill="var(--yellow)"/>
+      <ellipse cx="335" cy="250" rx="16" ry="6.5" fill="var(--yellow)"/><ellipse cx="335" cy="243" rx="16" ry="6.5" fill="var(--yellow)"/>
+    </g>
+    <!-- chip on bottom -->
+    <g transform="translate(118 228)" stroke="var(--ink)" stroke-width="2.5"><rect width="44" height="28" rx="5" fill="var(--paper)"/><rect x="14" y="8" width="16" height="12" fill="var(--ink)"/></g>
+    <!-- cloud mid -->
+    <path d="M170 176a12 12 0 0 1-2-24 17 17 0 0 1 32-5 14 14 0 0 1 2 29z" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.5"/>
+    <path d="M276 150l-12 18h9l-3 13 13-19h-9z" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2"/>
+    <!-- sparkle top -->
+    <path d="M220 60l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" fill="var(--yellow)" stroke="var(--ink)" stroke-width="2.5"/>
+    <!-- people near top & side -->
+    <g stroke="var(--ink)" stroke-width="2.5"><circle cx="160" cy="88" r="9" fill="var(--paper)"/><path d="M147 112q13-18 26 0" fill="var(--paper)"/><circle cx="282" cy="88" r="9" fill="var(--paper)"/><path d="M269 112q13-18 26 0" fill="var(--paper)"/></g>
+    <g font-size="15">
+      <text x="372" y="96">アプリ・モデル</text>
+      <text x="380" y="166">クラウド・電力</text>
+      <text x="392" y="236">半導体</text>
+    </g>
+    <g font-size="12" class="mut"><text x="10" y="320">利益はいちばん下に集まる</text></g>
+  </svg>
+</header>
+
+<div class="stickers">
+  <div class="card sticker blue"><span class="big c-blue">66%</span><div class="lbl">NVIDIAの営業利益率</div><div class="cap">2026年5〜7月期・営業利益637億ドル</div></div>
+  <div class="card sticker pink"><span class="big c-pink">200倍</span><div class="lbl">日本：装置 vs AI SaaS</div><div class="cap">営業利益 約1.4兆円 vs 約60億円</div></div>
+  <div class="card sticker yellow"><span class="big">−19%</span><div class="lbl">22〜25歳の雇用</div><div class="cap">米国のAI曝露職種。原因は採用減</div></div>
+  <div class="card sticker mint"><span class="big c-mint">61倍</span><div class="lbl">上位10% vs 中央値</div><div class="cap">単独創業者の売上差（Stripe）</div></div>
+</div>
+<p class="src">出典の質 <span class="t t1">一次</span>企業IR・政府統計 <span class="t t2">報道</span>主要紙 <span class="t t3">二次</span>検索要約・推計 <span class="t tx">矛盾</span>資料間で食い違い <span class="t tv">要検証</span>授業前に原典確認</p>
+
+<nav class="lec-nav" aria-label="講義回">
+  <ol>
+    <li><a href="#l1">01 14の層</a></li>
+    <li><a href="#l2">02 どこが儲かる</a></li>
+    <li><a href="#l3">03 日本と米国</a></li>
+    <li><a href="#l4">04 消える・伸びる仕事</a></li>
+    <li><a href="#l5">05 一人でやる仕事</a></li>
+    <li><a href="#l6">06 どこに身を置く</a></li>
+    <li><a href="#appx">付録</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 01 ============ -->
+<section class="lec" id="l1">
+  <div class="lec-head"><div class="lec-no" style="background:var(--blue)">01</div><div><div class="kick">問い1・2・4｜会社・サービス／サプライチェーン／市場地図</div><h2>AIは14層のサプライチェーン</h2></div></div>
+  <div class="bubble"><svg viewBox="0 0 56 56"><use href="#face"/></svg><div class="say"><small>学生への問い</small>ChatGPTに1回質問。裏で動いている会社は何社？</div></div>
+
+  <div class="card" style="margin-top:22px">
+    <div class="ctitle">材料からアプリまで、ひとつながり<small>どの層が欠けても最先端AIは動かない</small></div>
+    <div class="chain">
+      <div class="grp">土台（ハードウェア）</div>
+      <div class="node"><div class="ic" style="background:var(--blue-soft);color:var(--blue)"><svg><use href="#i-wafer"/></svg></div>材料</div>
+      <div class="node"><div class="ic" style="background:var(--blue-soft);color:var(--blue)"><svg><use href="#i-gear"/></svg></div>製造装置</div>
+      <div class="node"><div class="ic" style="background:var(--blue-soft);color:var(--blue)"><svg><use href="#i-chip"/></svg></div>チップ設計</div>
+      <div class="node"><div class="ic" style="background:var(--blue-soft);color:var(--blue)"><svg><use href="#i-fab"/></svg></div>受託製造</div>
+      <div class="node"><div class="ic" style="background:var(--blue-soft);color:var(--blue)"><svg><use href="#i-mem"/></svg></div>メモリ(HBM)</div>
+      <div class="node"><div class="ic" style="background:var(--blue-soft);color:var(--blue)"><svg><use href="#i-rack"/></svg></div>サーバー</div>
+      <div class="grp">計算資源（インフラ）</div>
+      <div class="node"><div class="ic" style="background:var(--mint-soft);color:var(--mint)"><svg><use href="#i-bolt"/></svg></div>DC・電力</div>
+      <div class="node"><div class="ic" style="background:var(--mint-soft);color:var(--mint)"><svg><use href="#i-cloud"/></svg></div>クラウド</div>
+      <div class="grp">知能（ソフトウェア）</div>
+      <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-brain"/></svg></div>基盤モデル</div>
+      <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-tool"/></svg></div>開発ツール</div>
+      <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-phone"/></svg></div>アプリ</div>
+      <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-brief"/></svg></div>SI・コンサル</div>
+    </div>
+  </div>
+
+  <div class="stack-gap">
+    <div class="tbl">
+      <table style="min-width:760px">
+        <thead><tr><th>層</th><th>米国・海外の代表企業</th><th>日本の代表企業</th><th>収益性</th></tr></thead>
+        <tbody>
+          <tr class="band"><td colspan="4">土台（ハードウェア）</td></tr>
+          <tr><td>材料</td><td>—</td><td>信越化学、SUMCO、JSR、レゾナック</td><td><span class="pill p-na">未確認</span></td></tr>
+          <tr><td>製造装置</td><td>ASML、Applied Materials、Lam、KLA</td><td>東京エレクトロン、レーザーテック、ディスコ</td><td><span class="pill p-hi">高い</span></td></tr>
+          <tr><td>検査・パッケージ</td><td>ASE、TSMC CoWoS</td><td>アドバンテスト、ディスコ</td><td><span class="pill p-hi">非常に高い</span></td></tr>
+          <tr><td>チップ設計</td><td>NVIDIA、AMD、Broadcom、Arm</td><td>（Armはソフトバンクグループ傘下）</td><td><span class="pill p-hi">非常に高い</span></td></tr>
+          <tr><td>受託製造</td><td>TSMC、Samsung、Intel</td><td>Rapidus（量産前）</td><td><span class="pill p-hi">非常に高い</span></td></tr>
+          <tr><td>メモリ（HBM）</td><td>SK hynix、Samsung、Micron</td><td>（キオクシアは未調査）</td><td><span class="pill p-hi">2026年最高</span></td></tr>
+          <tr><td>サーバー・NW</td><td>Super Micro、Dell、HPE、Foxconn、Arista</td><td>—</td><td><span class="pill p-na">未確認</span></td></tr>
+          <tr class="band"><td colspan="4">計算資源（インフラ）</td></tr>
+          <tr><td>DC・電力</td><td>Vertiv、Schneider、Equinix</td><td>NTT、KDDI、電力会社</td><td><span class="pill p-na">電力が制約</span></td></tr>
+          <tr><td>クラウド</td><td>AWS、Azure、Google Cloud、Oracle</td><td>KDDI、ソフトバンク、GMO</td><td><span class="pill p-mid">高い</span></td></tr>
+          <tr><td>GPUクラウド</td><td>CoreWeave、Nebius</td><td>さくらインターネット</td><td><span class="pill p-lo">赤字〜均衡</span></td></tr>
+          <tr class="band"><td colspan="4">知能（ソフトウェア）</td></tr>
+          <tr><td>基盤モデル</td><td>OpenAI、Anthropic、Google DeepMind、Meta、xAI、Mistral、DeepSeek</td><td>NTT（tsuzumi 2）、SB Intuitions、NEC、富士通、PFN、Sakana AI</td><td><span class="pill p-lo">赤字が中心</span></td></tr>
+          <tr><td>データ・開発ツール</td><td>Databricks、Scale AI、LangChain、Pinecone、Hugging Face</td><td>—</td><td><span class="pill p-mid">二極化</span></td></tr>
+          <tr><td>アプリ</td><td>Cursor、GitHub Copilot、Replit、Lovable、Perplexity、ElevenLabs、Midjourney</td><td>PKSHA、HEROZ、AI inside</td><td><span class="pill p-lo">粗利が低い</span></td></tr>
+          <tr><td>業界特化・SI・コンサル</td><td>Harvey、Abridge、Sierra、Salesforce、ServiceNow、Accenture、IBM</td><td>富士通、NEC、NRI、サイバーエージェント</td><td><span class="pill p-hi">安定黒字</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">カオスマップの「見え方」と「利益」は逆<small>概念図：会社の数は上の層、利益は下の層に偏る</small></div>
+        <div class="svgbox"><svg viewBox="0 0 420 250" role="img" aria-label="会社の数は上ほど多く、利益は下ほど大きい逆ピラミッド図">
+          <g stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round">
+            <path d="M20 40h170L105 220z" fill="var(--pink)"/>
+            <path d="M315 40L230 220h170z" fill="var(--blue)"/>
+          </g>
+          <g font-size="12">
+            <text x="105" y="28" text-anchor="middle">カオスマップの会社数</text>
+            <text x="315" y="28" text-anchor="middle">利益</text>
+            <text x="105" y="74" text-anchor="middle" fill="#fff">アプリ・SaaS</text>
+            <text x="105" y="150" text-anchor="middle" fill="#fff" font-size="10">モデル</text>
+            <text x="315" y="206" text-anchor="middle" fill="#fff">半導体・メモリ</text>
+            <text x="315" y="140" text-anchor="middle" fill="#fff" font-size="10">クラウド</text>
+          </g>
+          <g font-size="11" class="mut"><text x="210" y="62" text-anchor="middle">上</text><text x="210" y="214" text-anchor="middle">下</text></g>
+          <path d="M210 72v124" stroke="var(--muted)" stroke-width="2" stroke-dasharray="4 4"/>
+        </svg></div>
+      </div>
+      <div class="card">
+        <div class="ctitle">主なカオスマップ・市場地図</div>
+        <ul class="pts">
+          <li>FirstMark MAD 2025 <span>約1,150ロゴ、「エージェント」区分を新設</span></li>
+          <li>CB Insights AI 100 2026 <span>4万社超から100社、「フィジカルAI」が独立</span></li>
+          <li>a16z 消費者向けTop100 第7版 <span>新顔は過去最少の11製品</span></li>
+          <li>AIsmiley 生成AI業務変革マップ <span>200製品超（2026年2月）</span></li>
+          <li>シード マーケ生成AIマップ <span>14カテゴリ・283サービス</span></li>
+          <li>AI Market AIエージェントマップ <span>103社・15カテゴリ</span></li>
+        </ul>
+        <p class="src"><a href="https://firstmark.com/story/bubble-build-the-2025-mad-machine-learning-ai-data-landscape/">FirstMark</a>・<a href="https://www.cbinsights.com/research/report/artificial-intelligence-top-startups-2026/">CB Insights</a>・<a href="https://a16z.com/100-gen-ai-apps-7/">a16z</a>・<a href="https://aismiley.co.jp/company_news/generativeai-business-transformation-chaosmap/">AIsmiley</a>・<a href="https://prtimes.jp/main/html/rd/p/000000008.000087532.html">シード</a>・<a href="https://ai-market.jp/whitepaper/ai-agent_caosmap2025/">AI Market</a></p>
+      </div>
+    </div>
+
+    <div class="card yellow">
+      <div class="g2" style="align-items:center">
+        <div class="bigstat"><span class="big c-pink">約20倍</span><span class="lbl">土台に流れ込むお金 ÷ アプリに払われるお金</span><span class="cap">米国企業の生成AI支出370億ドル vs 大手4社の設備投資 約7,000億〜7,250億ドル</span></div>
+        <div>
+          <div class="ctitle">お金の流れ<small>単位：億ドル</small></div>
+          <div class="hb" id="ch-flow"></div>
+        </div>
+      </div>
+      <p class="src"><a href="https://menlovc.com/perspective/2025-the-state-of-generative-ai-in-the-enterprise/">Menlo Ventures</a>（アプリ190・モデルAPI125・その他55）／<a href="https://finance.yahoo.com/sectors/technology/articles/hyperscalers-hit-700-billion-2026-111243744.html">Yahoo Finance</a>（Amazon・Microsoft・Alphabet・Meta）</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section class="lec" id="l2">
+  <div class="lec-head"><div class="lec-no" style="background:var(--mint)">02</div><div><div class="kick">問い3｜各業態のどこが儲かっているか</div><h2>儲かるのは半導体とメモリ</h2></div></div>
+  <div class="bubble"><svg viewBox="0 0 56 56"><use href="#face"/></svg><div class="say"><small>学生への問い</small>「需要がある」＝「利益が出る」？</div></div>
+
+  <div class="stack-gap">
+    <div class="g3">
+      <div class="card"><div class="bigstat"><span class="big c-blue">637<small style="font-size:.45em">億ドル</small></span><span class="lbl">NVIDIAの営業利益（1四半期）</span><span class="cap">売上962億ドル・前年比+106% <span class="t t3">二次</span></span></div></div>
+      <div class="card"><div class="bigstat"><span class="big c-mint">76%</span><span class="lbl">SK hynixの営業利益率</span><span class="cap">2026年4〜6月期・HBM不足で価格上昇 <span class="t t2">報道</span></span></div></div>
+      <div class="card"><div class="bigstat"><span class="big c-orange">1.51<small style="font-size:.45em">兆ドル</small></span><span class="lbl">2026年の世界半導体市場</span><span class="cap">前年比+90%、うちメモリ8,000億ドル超（WSTS）</span></div></div>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">層ごとの営業利益率<small>直近の四半期または通期。マイナスは営業赤字。カーソルを合わせると詳細</small></div>
+      <div class="hb" id="ch-margin"></div>
+      <div class="legend" id="lg-margin"></div>
+      <p class="src"><a href="https://www.upi.com/Top_News/World-News/2026/07/29/SK-hynix-posts-record-profit-for-fifth-straight-quarter/8961785364730/">UPI</a>・<a href="https://pulse2.com/nvidia-operating-income-jumps-124-to-63-7-billion-as-revenue-doubles-and-q3-outlook-hits-108-billion/">Pulse2</a>・<a href="https://www.sec.gov/Archives/edgar/data/0001046179/000104617926000451/a2q26e_withguidancexfinal.htm">TSMC 6-K</a>・<a href="https://www.sec.gov/Archives/edgar/data/0001730168/000173016826000076/avgo-08022026x8kxex99.htm">Broadcom 8-K</a>・<a href="https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Second-Quarter-Results/default.aspx">Amazon IR</a>・<a href="https://www.sec.gov/Archives/edgar/data/0001652044/000165204426000066/googexhibit991q22026.htm">Alphabet 8-K</a>・<a href="https://investors.coreweave.com/news/news-details/2026/CoreWeave-Reports-Strong-Second-Quarter-2026-Results/default.aspx">CoreWeave IR</a>・EDINET</p>
+    </div>
+
+    <div class="g2">
+      <div class="card pink"><div class="ctitle">受注は山盛り、でも赤字</div>
+        <div class="vs" style="margin-top:12px"><div><div class="big" style="font-size:1.9rem">1,040<small style="font-size:.5em">億ドル</small></div><div class="cap muted" style="font-size:.8rem">CoreWeave 受注残</div></div><div class="mid">→</div><div><div class="big c-pink" style="font-size:1.9rem">▲6.26<small style="font-size:.5em">億ドル</small></div><div class="muted" style="font-size:.8rem">純損失（4〜6月期）</div></div></div>
+      </div>
+      <div class="card pink"><div class="ctitle">巨額受注、でも現金は流出</div>
+        <div class="vs" style="margin-top:12px"><div><div class="big" style="font-size:1.9rem">6,640<small style="font-size:.5em">億ドル</small></div><div class="muted" style="font-size:.8rem">Oracle 受注残（RPO）</div></div><div class="mid">→</div><div><div class="big c-pink" style="font-size:1.9rem">▲50<small style="font-size:.5em">億ドル</small></div><div class="muted" style="font-size:.8rem">FCF・200億ドル増資</div></div></div>
+      </div>
+    </div>
+
+    <h3>モデル企業：売上急増、黒字はまだ</h3>
+    <div class="tbl">
+      <table style="min-width:600px">
+        <thead><tr><th></th><th>Anthropic</th><th>OpenAI</th></tr></thead>
+        <tbody>
+          <tr><td>年換算売上</td><td>650億ドル（2026年7月末）</td><td>約500億ドル <span class="t tx">矛盾</span></td></tr>
+          <tr><td>直近の収支</td><td>4〜6月期 売上115億ドル超・調整後営業黒字</td><td>1〜3月期 売上57億ドル・現金37億ドル消費</td></tr>
+          <tr><td>2025年</td><td>営業損失80億ドル超 <span class="t t3">二次</span></td><td>売上131億ドル・現金消費 約80億ドル</td></tr>
+          <tr><td>企業価値</td><td>1兆ドル近く</td><td>8,520億ドル</td></tr>
+          <tr><td>利用者</td><td>—</td><td>ChatGPT 週9億人超・有料5,000万人超</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>要注意：</b>OpenAIの年換算売上は10月8日に約500億ドルと報道。9月の約680億ドルはパートナー経由売上の総額計上。報道当日、NVIDIA・Oracle・CoreWeaveの株価が下落。授業では「500億〜650億ドル規模」と幅で提示。<span class="src">（<a href="https://techcrunch.com/2026/10/08/openais-revenue-is-reportedly-20-billion-less-than-previously-projected/">TechCrunch</a>・<a href="https://www.cnbc.com/2026/08/17/anthropic-says-annualized-revenue-climbed-to-65-billion-in-july.html">CNBC</a>）</span></div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">お金がぐるぐる回る「循環取引」<small>半導体企業の売上の一部は、自らの出資が原資</small></div>
+        <div class="svgbox"><svg viewBox="0 0 400 270" role="img" aria-label="NVIDIAがOpenAIに出資し、OpenAIがNVIDIAのチップを買う循環を示す図">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--ink)"/></marker></defs>
+          <g fill="none" stroke="var(--ink)" stroke-width="2.5" marker-end="url(#ar)">
+            <path d="M150 70Q200 30 248 70"/>
+            <path d="M250 112Q200 152 152 112"/>
+            <path d="M300 130Q320 175 290 200"/>
+            <path d="M110 200Q80 175 100 130"/>
+          </g>
+          <g stroke="var(--ink)" stroke-width="2.5">
+            <rect x="40" y="70" width="110" height="52" rx="14" fill="var(--blue)"/>
+            <rect x="250" y="70" width="110" height="52" rx="14" fill="var(--pink)"/>
+            <rect x="140" y="200" width="150" height="52" rx="14" fill="var(--yellow)"/>
+          </g>
+          <g text-anchor="middle" font-size="14"><text x="95" y="101" fill="#fff">NVIDIA</text><text x="305" y="101" fill="#fff">OpenAI</text><text x="215" y="224" fill="#1c1a3a">AMD・Oracle</text><text x="215" y="242" fill="#1c1a3a" font-size="11">CoreWeave</text></g>
+          <g font-size="11" text-anchor="middle"><text x="200" y="30">最大1,000億ドル出資</text><text x="200" y="160">チップを購入</text><text x="352" y="180" text-anchor="start">計算資源</text><text x="45" y="180" text-anchor="end"></text></g>
+          <g font-size="10.5" class="mut"><text x="12" y="168">株式取得権</text><text x="12" y="182">（AMD最大約10%）</text></g>
+        </svg></div>
+      </div>
+      <div class="card">
+        <div class="ctitle">ディベート：バブルか、本物か？</div>
+        <div class="g2" style="gap:12px;margin-top:10px">
+          <div><div class="pill p-lo">懸念</div><ul class="pts"><li>設備投資 約7,250億ドル</li><li>モデル2社の売上 年1,000億ドル強</li><li>売上の定義のブレ</li></ul></div>
+          <div><div class="pill p-hi">反証</div><p style="font-size:.84rem;font-weight:700;margin-top:8px">クラウド売上の伸び（前年比）</p><div class="hb" id="ch-cloud"></div></div>
+        </div>
+        <p class="src"><a href="https://www.futuriom.com/articles/news/tearing-apart-oracles-openai-deals/2025/09">Futuriom</a>・<a href="https://qz.com/amazon-q2-2026-earnings-aws-cloud-growth-073026">Quartz</a>・<a href="https://aa.com.tr/en/science-technology/microsoft-beats-quarterly-revenue-estimates-as-azure-growth-accelerates/4013210">Anadolu</a></p>
+      </div>
+    </div>
+
+    <h3>アプリ層：史上最速の成長、薄い粗利</h3>
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">主なAIアプリの年換算売上（ARR）<small>単位：億ドル。未上場企業は推計 <span class="t t3">二次</span></small></div>
+        <div class="hb" id="ch-arr"></div>
+        <p class="src">Claude Code・Cursorは2026年2月時点。Cursorは約600億ドルでSpaceX/xAIが買収合意。<a href="https://venturebeat.com/technology/anthropic-says-it-hit-a-30-billion-revenue-run-rate-after-crazy-80x-growth">VentureBeat</a>・<a href="https://en.wikipedia.org/wiki/Anysphere">Wikipedia</a>・<a href="https://www.forbes.com/sites/rashishrivastava/2026/06/05/ai-coding-startup-lovable-in-talks-to-raise-funding-at-a-12-billion-valuation/">Forbes</a></p>
+      </div>
+      <div class="card">
+        <div class="ctitle">粗利率：AIアプリはSaaSの半分以下<small>売上の多くがモデル企業へのトークン料金に</small></div>
+        <div class="g3" style="gap:10px;margin-top:12px" id="donuts"></div>
+        <p class="src"><a href="https://www.bvp.com/assets/uploads/2025/08/Final_PDF_State_of_AI_2025_slides_Bessemer_Venture_Partners.pdf">Bessemer</a>・ICONIQ（<a href="https://www.softwareseni.com/why-ai-gross-margins-are-so-much-lower-than-saas-and-what-that-means-for-your-business/">要約</a>）</p>
+      </div>
+    </div>
+
+    <div class="g3">
+      <div class="card mint"><div class="bigstat"><span class="big c-mint">30M+</span><span class="lbl">Microsoft 365 Copilot 有料席</span><span class="cap">ただし法人席全体の約7%</span></div></div>
+      <div class="card blue"><div class="bigstat"><span class="big c-blue">70<small style="font-size:.45em">億ドル超</small></span><span class="lbl">Databricks 年換算売上</span><span class="cap">+80%・FCF黒字。薄いツールは買収・吸収</span></div></div>
+      <div class="card yellow"><div class="bigstat"><span class="big">125<small style="font-size:.45em">億ドル超</small></span><span class="lbl">IBMの生成AI累計受注</span><span class="cap">約8割がコンサル。Accentureは約115億ドル</span></div></div>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">料金の単位が「人」から「仕事」へ<small>AIの価格が、置き換える人件費を基準に</small></div>
+      <div class="vs" style="margin-top:14px">
+        <div><div class="pill p-na">これまで</div><div class="big" style="font-size:1.6rem;margin-top:8px">月額 × 人数</div><div class="muted" style="font-size:.82rem">1席いくら</div></div>
+        <div class="mid">→</div>
+        <div><div class="pill p-hi">これから</div><div class="big c-mint" style="font-size:1.6rem;margin-top:8px">$0.99 / 1件解決</div><div class="muted" style="font-size:.82rem">Intercom Fin。Agentforceは$2/会話</div></div>
+      </div>
+      <p style="text-align:center;font-weight:800;margin-top:14px">同じ性能のAI利用料：年 <span class="big c-pink" style="font-size:1.6rem">約1/13</span> ペースで低下 → 利用量はそれ以上に増加</p>
+      <p class="src"><a href="https://epoch.ai/publications/the-plunging-price-of-thought">Epoch AI</a>・<a href="https://www.intercom.com/learning-center/ai-customer-service-agent-pricing-comparison">Intercom</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 ============ -->
+<section class="lec" id="l3">
+  <div class="lec-head"><div class="lec-no" style="background:var(--pink)">03</div><div><div class="kick">問い6｜日本は？アメリカは？</div><h2>日本：装置で勝ち、資本で負け</h2></div></div>
+  <div class="bubble"><svg viewBox="0 0 56 56"><use href="#face"/></svg><div class="say"><small>学生への問い</small>日本企業はAIのどの層で稼いでいる？</div></div>
+
+  <div class="stack-gap">
+    <div class="card">
+      <div class="g2" style="align-items:center">
+        <div>
+          <div class="ctitle">営業利益の大きさ（円の面積で比較）<small>2026年3月期（レーザーテックは6月期）、EDINET <span class="t t1">一次</span></small></div>
+          <div class="svgbox"><svg viewBox="0 0 380 270" role="img" aria-label="装置メーカー4社の営業利益約1.4兆円と上場AI SaaS 3社の約60億円を面積で比べた円">
+            <circle cx="140" cy="135" r="122" fill="var(--blue)" stroke="var(--ink)" stroke-width="3"/>
+            <circle cx="320" cy="200" r="8" fill="var(--pink)" stroke="var(--ink)" stroke-width="2.5"/>
+            <path d="M318 190Q312 120 290 110" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="4 3"/>
+            <g text-anchor="middle"><text x="140" y="120" font-size="15" fill="#fff">装置メーカー4社</text><text x="140" y="160" font-size="30" fill="#fff" style="font-family:'Dela Gothic One',sans-serif;font-weight:400">約1.4兆円</text></g>
+            <g><text x="282" y="80" font-size="12">AI SaaS 3社</text><text x="282" y="100" font-size="16" style="font-family:'Dela Gothic One',sans-serif;font-weight:400" fill="var(--pink)">約60億円</text></g>
+          </svg></div>
+        </div>
+        <div class="bigstat"><span class="big c-pink" style="font-size:clamp(3rem,9vw,5rem)">200倍超</span><span class="lbl">「金を掘る人」より「ツルハシを売る人」</span><span class="cap">東京エレクトロン・アドバンテスト・ディスコ・レーザーテック vs PKSHA・HEROZ・AI inside</span></div>
+      </div>
+    </div>
+
+    <div class="tbl">
+      <table style="min-width:640px">
+        <thead><tr><th>企業</th><th>層</th><th style="text-align:right">売上</th><th style="text-align:right">営業利益</th><th style="text-align:right">利益率</th></tr></thead>
+        <tbody>
+          <tr><td>東京エレクトロン</td><td>製造装置</td><td class="n">2兆4,435億円</td><td class="n">6,249億円</td><td class="n">約26%</td></tr>
+          <tr><td>アドバンテスト</td><td>検査装置</td><td class="n">1兆1,286億円</td><td class="n">4,991億円</td><td class="n">約44%</td></tr>
+          <tr><td>ディスコ</td><td>切断・研削装置</td><td class="n">—</td><td class="n">—</td><td class="n">約42%</td></tr>
+          <tr><td>レーザーテック</td><td>検査装置</td><td class="n">—</td><td class="n">—</td><td class="n">約46%</td></tr>
+          <tr><td>NTT</td><td>通信・DC</td><td class="n">—</td><td class="n">1兆7,062億円</td><td class="n">—</td></tr>
+          <tr><td>KDDI</td><td>通信・DC</td><td class="n">—</td><td class="n">1兆991億円</td><td class="n">—</td></tr>
+          <tr><td>ソフトバンクグループ</td><td>投資（OpenAIに300億ドル）</td><td class="n">—</td><td class="n">純利益5兆23億円</td><td class="n">—</td></tr>
+          <tr><td>PKSHA Technology</td><td>AIアプリ</td><td class="n">217.7億円</td><td class="n">52.9億円</td><td class="n">約24%</td></tr>
+          <tr><td>HEROZ／AI inside</td><td>AIアプリ</td><td class="n">—</td><td class="n">5.2億円／3.1億円</td><td class="n">—</td></tr>
+          <tr><td>さくらインターネット</td><td>GPUクラウド</td><td class="n">353億円</td><td class="n" style="color:var(--pink)">▲4億円</td><td class="n" style="color:var(--pink)">赤字</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="src">国産LLM：tsuzumi 2・Sarashina・cotomi・Takane・PLaMo（デジタル庁「源内」選定）。最高評価のスタートアップはSakana AI（約4,000億円）。<a href="https://gamebiz.jp/news/409799">gamebiz</a>・<a href="https://aibusiness.com/foundation-models/japan-ai-model-maker-ups-valuation-latest-funding-round">AI Business</a></p>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">ユニコーン数（2026年1月）<small>1つの丸 = 10社</small></div>
+        <div style="display:grid;gap:14px;margin-top:12px">
+          <div><div style="font-weight:800"><span class="c-blue">米国 750社</span></div><div class="waffle" id="wf-us"></div></div>
+          <div><div style="font-weight:800"><span class="c-pink">日本 8社</span></div><div class="waffle" id="wf-jp"></div></div>
+        </div>
+        <p class="src"><a href="https://www.newscoda.com/articles/japan-startup-venture-capital-2026/">NewsCoda</a> <span class="t t3">二次</span></p>
+      </div>
+      <div class="card">
+        <div class="ctitle">新たに資金調達したAI企業（2025年）</div>
+        <div class="hb" id="ch-aico"></div>
+        <div class="bigstat" style="margin-top:18px"><span class="big c-blue" style="font-size:2.2rem">2,859<small style="font-size:.45em">億ドル</small></span><span class="lbl">米国の民間AI投資（2025年）</span><span class="cap">日本は不明（桁違いに小さい）</span></div>
+        <p class="src"><a href="https://www.soumu.go.jp/johotsusintokei/whitepaper/ja/r08/html/nd219200.html">総務省 R8白書</a>・<a href="https://hai.stanford.edu/ai-index/2026-ai-index-report/economy">Stanford HAI</a></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">使っているか、変わったか<small>米国（青）と日本（ピンク）の比較。単位：%</small></div>
+      <div class="svgbox" id="dumbbell"></div>
+      <div class="legend"><span><i style="background:var(--blue)"></i>米国</span><span><i style="background:var(--pink)"></i>日本</span></div>
+      <p class="src"><a href="https://internet.watch.impress.co.jp/docs/news/2127686.html">総務省白書（INTERNET Watch）</a>・<a href="https://www.pwc.com/jp/ja/knowledge/thoughtleadership/generative-ai-survey2026.html">PwC Japan</a>・<a href="https://www.advertimes.com/20260729/article552212/">AdverTimes</a>・<a href="https://dxmagazine.jp/news/statistics-surveys/2623ytoda/">DX Magazine</a>（日本9%／ASCIIは10% <span class="t tx">矛盾</span>）</p>
+    </div>
+
+    <div class="card yellow slogan">使っている。<br>でも、<em>変わっていない。</em></div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">国策は「供給側」を支援</div>
+        <div class="timeline">
+          <div class="ev"><div class="when">2025.6</div><div><b>AI推進法</b> 公布。罰則なしのソフトロー</div></div>
+          <div class="ev"><div class="when">2025.12</div><div><b>人工知能基本計画</b> 閣議決定</div></div>
+          <div class="ev"><div class="when">継続</div><div><b>GENIAC</b> 計算資源の利用料を補助</div></div>
+          <div class="ev"><div class="when">累計</div><div><b>Rapidus</b> 研究開発支援 約2兆3,540億円</div></div>
+          <div class="ev"><div class="when">新</div><div><b>ワット・ビット連携</b> 電力の余る地域へDC誘致</div></div>
+        </div>
+        <p class="src"><a href="https://www.whitecase.com/sites/default/files/2026-04/japan-first-ai-legislation-becomes-law.pdf">White &amp; Case</a>・<a href="https://www.meti.go.jp/press/2025/07/20250715001/20250715001.html">経産省</a>・<a href="https://eetimes.itmedia.co.jp/ee/articles/2604/13/news082_2.html">EE Times Japan</a>・<a href="https://www8.cao.go.jp/kisei-kaikaku/kisei/meeting/wg/2501_06ai/260515/ai10_0104.pdf">内閣府</a></p>
+      </div>
+      <div style="display:grid;gap:20px">
+        <div class="card pink"><div class="bigstat"><span class="big c-pink">1,100<small style="font-size:.45em">万人</small></span><span class="lbl">2040年の労働供給不足（日本）</span><span class="cap">AIは「仕事を奪う」より「足りない人手を補う」。米国との最大の違い（<a href="https://president.jp/articles/-/78889">リクルートワークス研究所</a>）</span></div></div>
+        <div class="card">
+          <div class="ctitle">国内AI市場（IDC Japan）<small>単位：兆円 <span class="t t3">二次</span></small></div>
+          <div class="hb" id="ch-idc"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section class="lec" id="l4">
+  <div class="lec-head"><div class="lec-no" style="background:var(--orange)">04</div><div><div class="kick">問い7・8｜失われる仕事／伸びている仕事</div><h2>消えるのは「仕事」より「入口」</h2></div></div>
+  <div class="bubble"><svg viewBox="0 0 56 56"><use href="#face"/></svg><div class="say"><small>学生への問い</small>「49%の仕事が消える」は本当に起きた？</div></div>
+
+  <div class="stack-gap">
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">よく聞く数字 ＝「曝露度」<small>技術的に置き換え可能な割合。失業の実数ではない</small></div>
+        <div class="g2" style="gap:14px;margin-top:12px">
+          <div class="bigstat"><span class="big muted" style="font-size:2rem">3億人</span><span class="cap">Goldman Sachs（2023）</span></div>
+          <div class="bigstat"><span class="big muted" style="font-size:2rem">40%</span><span class="cap">IMF：世界の雇用（先進国60%）</span></div>
+          <div class="bigstat"><span class="big muted" style="font-size:2rem">49%</span><span class="cap">NRI×オズボーン（2015・日本）</span></div>
+          <div class="bigstat"><span class="big c-mint" style="font-size:2rem">+7,800万</span><span class="cap">WEF：2030年までの純増</span></div>
+        </div>
+        <p class="src"><a href="https://vancouverisland.ctvnews.ca/business/article/300-million-jobs-could-be-affected-by-latest-wave-of-ai-says-goldman-sachs">CTV</a>・<a href="https://news.abs-cbn.com/business/01/15/24/ai-to-impact-60-pct-of-advanced-economy-jobs-imf">IMF/AFP</a>・<a href="https://www.nri.com/jp/media/journal/20170503.html">NRI</a>・<a href="https://www.weforum.org/publications/the-future-of-jobs-report-2025/in-full/2-jobs-outlook/">WEF</a></p>
+      </div>
+      <div class="card orange">
+        <div class="ctitle">実データで見えた変化<small>スタンフォード「Canaries」研究・ADP給与データ（2026年8月改訂）</small></div>
+        <div class="g2" style="align-items:center;gap:8px">
+          <div class="bigstat"><span class="big c-pink" style="font-size:clamp(3rem,9vw,4.4rem)">−19%</span><span class="lbl">AI曝露職種の22〜25歳</span><span class="cap">原因は解雇でなく採用減。ベテランは減らず <span class="t t3">二次</span><span class="t tv">要検証</span></span></div>
+          <svg viewBox="0 0 160 200" role="img" aria-label="下の段が抜けたはしごのイラスト。新人の入口が消えていることを表す" style="max-width:170px;justify-self:center">
+            <g stroke="var(--ink)" stroke-width="4" stroke-linecap="round">
+              <path d="M40 10v185M120 10v185"/>
+              <path d="M40 30h80M40 60h80M40 90h80M40 120h80"/>
+            </g>
+            <g stroke="var(--pink)" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 7"><path d="M40 150h80M40 180h80"/></g>
+            <circle cx="80" cy="18" r="9" fill="var(--blue)" stroke="var(--ink)" stroke-width="2.5"/>
+            <text x="128" y="34" font-size="11">ベテラン</text>
+            <text x="128" y="170" font-size="11" fill="var(--pink)">新人の入口</text>
+          </svg>
+        </div>
+        <p class="src"><a href="https://aiweekly.co/alerts/stanfords-brynjolfsson-study-entry-level-employment-in-ai-exposed-jobs-now-19">AI Weekly</a></p>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">「AIが理由」の人員削減発表（米国）<small>単位：人。企業が挙げた理由の集計。「AIウォッシング」批判あり</small></div>
+        <div class="hb" id="ch-layoff"></div>
+        <ul class="pts" style="margin-top:14px"><li>Salesforce <span>サポート部門 約9,000人 → 約5,000人</span></li><li>Klarna <span>人員約40%減 → 品質低下で一部再雇用</span></li></ul>
+        <p class="src">Challenger, Gray &amp; Christmas（<a href="https://www.krqe.com/news/national/companies-name-ai-as-top-reason-for-job-cuts-for-second-straight-month-analysis/amp/">KRQE</a>）<span class="t t3">二次</span>・<a href="https://www.nbcnews.com/business/business-news/salesforce-ceo-confirms-4000-layoffs-need-less-heads-ai-rcna228703">NBC</a>・<a href="https://www.aljazeera.com/economy/2025/9/3/salesforce-lays-off-thousands-despite-strong-earnings-report">Al Jazeera</a></p>
+      </div>
+      <div class="card">
+        <div class="ctitle">日本2040年：失業でなく「ミスマッチ」<small>経産省 就業構造推計（2026年3月改訂・暫定）単位：万人 <span class="t tv">要検証</span></small></div>
+        <div class="hb" id="ch-meti"></div>
+        <div class="legend"><span><i style="background:var(--orange)"></i>余剰</span><span><i style="background:var(--blue)"></i>不足</span></div>
+        <p class="src"><a href="https://blogs.itmedia.co.jp/taps/2026/08/2040437ai339----.html">ITmedia</a>。みずほ銀行はコンタクトセンターに生成AI導入で通話時間 約20%短縮（<a href="https://newswitch.jp/keyword/detail/4060">Newswitch</a>）</p>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">AIとの重なり（Microsoft・会話20万件分析）</div>
+        <div style="margin-top:10px"><div class="pill p-lo">大きい</div><p style="font-weight:700">通訳・翻訳／歴史家／営業／カスタマーサービス／ライター</p></div>
+        <div style="margin-top:10px"><div class="pill p-hi">小さい</div><p style="font-weight:700">人と身体的に接する仕事</p></div>
+        <p class="src"><a href="https://wjla.com/news/nation-world/interpreter-historian-top-list-of-40-jobs-with-high-ai-overlap-microsoft-report">WJLA</a></p>
+      </div>
+      <div class="card">
+        <div class="ctitle">AIの使われ方：補うか、任せるか<small>Anthropic Economic Index（%）<span class="t t3">二次</span></small></div>
+        <div class="hb" id="ch-aug"></div>
+        <p style="font-weight:800;margin-top:12px">雇用を守るのは、経験で身につく<span class="c-pink">暗黙知</span>。</p>
+        <p class="src"><a href="https://www.anthropic.com/research/the-anthropic-economic-index">Anthropic</a></p>
+      </div>
+    </div>
+
+    <h3>伸びている仕事</h3>
+    <div class="g2">
+      <div class="card yellow"><div class="bigstat"><span class="big c-pink" style="font-size:clamp(3rem,9vw,4.6rem)">+62%</span><span class="lbl">AIスキルの賃金プレミアム</span><span class="cap">PwC AI Jobs Barometer 2026（27か国・10億件超の求人）<span class="t tx">前年値に矛盾</span></span></div></div>
+      <div class="card">
+        <div class="ctitle">求人の伸び<small>単位：%</small></div>
+        <div class="hb" id="ch-pwc"></div>
+        <p style="font-weight:800;margin-top:10px">専門家型の職種：求人の伸び<span class="c-pink">2倍</span>・賃金の伸び<span class="c-pink">42%速い</span></p>
+        <p class="src"><a href="https://www.pwc.com/gx/en/news-room/press-releases/2026/pwc-2026-ai-jobs-barometer.html">PwC</a></p>
+      </div>
+    </div>
+
+    <div class="g4">
+      <div class="card"><div class="chain" style="margin:0;display:block"><div class="ic" style="background:var(--pink-soft);color:var(--pink);margin:0"><svg><use href="#i-brief"/></svg></div></div><h4 style="margin:12px 0 4px;font-weight:800">FDE（現場実装エンジニア）</h4><span class="big c-pink" style="font-size:1.8rem">需要 ≫ 供給</span><p style="font-size:.84rem">求人+350%〜+5,230%、候補者は約+50% <span class="t t3">二次</span></p></div>
+      <div class="card"><div class="chain" style="margin:0;display:block"><div class="ic" style="background:var(--blue-soft);color:var(--blue);margin:0"><svg><use href="#i-brain"/></svg></div></div><h4 style="margin:12px 0 4px;font-weight:800">AI・機械学習エンジニア</h4><span class="big c-blue" style="font-size:1.8rem">$134K〜</span><p style="font-size:.84rem">米国の初任給。最先端ラボは総報酬60万〜79.5万ドル</p></div>
+      <div class="card"><div class="chain" style="margin:0;display:block"><div class="ic" style="background:var(--mint-soft);color:var(--mint);margin:0"><svg><use href="#i-tool"/></svg></div></div><h4 style="margin:12px 0 4px;font-weight:800">専門家によるAI訓練</h4><span class="big c-mint" style="font-size:1.8rem">$95/時</span><p style="font-size:.84rem">Mercor平均。一般ラベル付けの約10倍</p></div>
+      <div class="card"><div class="chain" style="margin:0;display:block"><div class="ic" style="background:var(--orange-soft);color:var(--orange);margin:0"><svg><use href="#i-bolt"/></svg></div></div><h4 style="margin:12px 0 4px;font-weight:800">電気工事士などの技能職</h4><span class="big c-orange" style="font-size:1.8rem">+13万人</span><p style="font-size:.84rem">米国AIインフラで追加必要（McKinsey）</p></div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">「AIの訓練」の時給：専門知識で10倍差<small>単位：ドル／時</small></div>
+        <div class="hb" id="ch-wage"></div>
+        <p class="src"><a href="https://news.bensbites.com/posts/56252-a-profile-of-mercor-which-pays-2m-per-day-to-30k-experts-training-ai-models-at-95-per-hour-on-average-with-roles-like-radiologists-earning-up-to-375hour">Ben's Bites/FT</a>・<a href="https://sacra.com/c/surge-ai">Sacra</a></p>
+      </div>
+      <div class="card">
+        <div class="ctitle">日本のAIエンジニアの年収<small>単位：万円</small></div>
+        <div class="hb" id="ch-jpwage"></div>
+        <p style="font-weight:800;margin-top:10px">生成AI関連求人：<span class="big c-pink" style="font-size:1.6rem">約24倍</span>（2023.4→2024.6、doda）</p>
+        <p class="src"><a href="https://paiza.jp/works/knowledge/article-g-ai-engineer-income-kn">job tag（paiza）</a>・<a href="https://www.morganmckinley.com/jp/salary-guide/data/ai-engineer-commercial-businesses/tokyo">Morgan McKinley</a>・<a href="https://www.alc.co.jp/job-change/?p=10800">alc</a>・<a href="https://codezine.jp/article/detail/20132">CodeZine</a></p>
+      </div>
+    </div>
+    <div class="card mint slogan" style="font-size:clamp(1.2rem,3.6vw,1.9rem)">報酬が集まるのは、<em>動くものを納品できる人</em>。</div>
+  </div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section class="lec" id="l5">
+  <div class="lec-head"><div class="lec-no" style="background:var(--blue)">05</div><div><div class="kick">問い5｜一人でやる仕事は増えるのか</div><h2>一人起業：数は増加、稼ぎは集中</h2></div></div>
+  <div class="bubble"><svg viewBox="0 0 56 56"><use href="#face"/></svg><div class="say"><small>学生への問い</small>「一人で10億ドル企業」は生まれる？</div></div>
+
+  <div class="stack-gap">
+    <div class="g3">
+      <div class="card blue"><div class="bigstat"><span class="big c-blue">36.3%</span><span class="lbl">単独創業者の比率</span><span class="cap">2019年23.7% → 2025年上半期（Carta）<span class="t t3">二次</span></span></div></div>
+      <div class="card mint"><div class="bigstat"><span class="big c-mint">2<small style="font-size:.45em">人</small></span><span class="lbl">YC 2026夏バッチのチーム人数中央値</span><span class="cap">236社 <span class="t t3">二次</span></span></div></div>
+      <div class="card pink"><div class="bigstat"><span class="big c-pink">0<small style="font-size:.45em">社</small></span><span class="lbl">確認できた「一人で10億ドル企業」</span><span class="cap">2026年10月時点</span></div></div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="ctitle">新ユニコーンの平均従業員数<small>単位：人（PitchBook・Bloomberg）</small></div>
+        <div class="hb" id="ch-unic"></div>
+        <p class="src"><a href="https://www.bloomberg.com/opinion/articles/2026-04-16/to-make-a-tech-unicorn-mix-a-few-workers-with-some-ai-hype">Bloomberg</a></p>
+      </div>
+      <div class="card">
+        <div class="ctitle">従業員1人あたりARR<small>単位：万ドル</small></div>
+        <div class="hb" id="ch-rpe"></div>
+        <p class="src"><a href="https://ecosistemastartup.com/?p=67019">Lovable（146人・ARR約4億ドル）</a>・<a href="https://www.saastr.com/the-new-rule-500k-arr-per-employee-is-the-new-200k/">SaaStr</a></p>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card yellow">
+        <div class="ctitle">べき乗則：上位10%と中央値<small>単独創業者の最初の半年の売上（Stripe）<span class="t t3">二次</span></small></div>
+        <div class="svgbox"><svg viewBox="0 0 360 230" role="img" aria-label="上位10%の売上が中央値の約61倍であることを示す棒">
+          <line x1="40" y1="200" x2="340" y2="200" stroke="var(--ink)" stroke-width="2.5"/>
+          <rect x="70" y="20" width="90" height="180" rx="8" fill="var(--pink)" stroke="var(--ink)" stroke-width="2.5"/>
+          <rect x="220" y="197" width="90" height="3" fill="var(--blue)" stroke="var(--ink)" stroke-width="1.5"/>
+          <g text-anchor="middle"><text x="115" y="110" font-size="28" fill="#fff" style="font-family:'Dela Gothic One',sans-serif;font-weight:400">61</text><text x="115" y="220" font-size="12">上位10%</text><text x="265" y="220" font-size="12">中央値</text><text x="265" y="185" font-size="20" style="font-family:'Dela Gothic One',sans-serif;font-weight:400">1</text></g>
+          <g font-size="11" class="mut"><text x="190" y="60">2025年：上位 +19%</text><text x="190" y="78">　　　　中央値 −23%</text></g>
+        </svg></div>
+        <p class="src"><a href="https://www.plushcap.com/companies/stripe/blog/summaries/2026/05">Stripe要約</a>。単独創業者は2024年設立の30%、資金調達額は14.7%（<a href="https://carta.com/uk/en/data/solo-founders-report/">Carta</a>）</p>
+      </div>
+      <div class="card">
+        <div class="ctitle">神話チェック</div>
+        <div class="tbl" style="box-shadow:none;margin-top:10px">
+          <table>
+            <thead><tr><th>よく聞く話</th><th>実際</th></tr></thead>
+            <tbody>
+              <tr><td>Base44は一人で8,000万ドル売却</td><td>実は6〜8人のチーム</td></tr>
+              <tr><td>一人で10億ドル企業が出る</td><td>実例なし（2026年10月）</td></tr>
+              <tr><td>AIで誰でも起業家に</td><td>成果は上位に集中</td></tr>
+              <tr><td>実在する成功例</td><td><b>極小チーム</b>（Gamma 約50人でARR約1億ドル）</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="src"><a href="https://techcrunch.com/2025/06/18/6-month-old-solo-owned-vibe-coder-base44-sells-to-wix-for-80m-cash">TechCrunch</a>・<a href="https://fortune.com/2024/02/04/sam-altman-one-person-unicorn-silicon-valley-founder-myth">Fortune</a></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">フリーランスへの影響：明暗くっきり<small>単位：%（Upwork上の変化）</small></div>
+      <div class="hb" id="ch-free"></div>
+      <p style="font-weight:800;margin-top:10px">「AIでできないと証明できなければ人を増やさない」（Shopify・Duolingo）→ 最初に削られるのは業務委託</p>
+      <p class="src"><a href="https://olin.washu.edu/about/news-and-media/news/2023/08/study-ai-tools-cause-a-decline-in-freelance-work-and-incomeat-least-in-the-short-run.php">WashU Olin</a>・<a href="https://www.diw.de/de/diw_01.c.906828.de/publikationen/externe_referierte_aufsaetze/2025_0010/who_is_ai_replacing__the_impact_of_generative_ai_on_online_freelancing_platforms.html">DIW</a>・<a href="https://investors.upwork.com/news-releases/news-release-details/upwork-study-finds-1-4-us-skilled-knowledge-workers-now-work">Upwork</a>・<a href="https://fortune.com/2025/04/08/shopify-ceo-ai-automation-no-new-hires-tech-jobs/">Fortune</a></p>
+    </div>
+
+    <h3>日本の「一人で働く」</h3>
+    <div class="g4">
+      <div class="card"><div class="bigstat"><span class="big c-pink" style="font-size:1.9rem">15.7<small style="font-size:.5em">万社</small></span><span class="lbl">新設法人（2025年）</span><span class="cap">3年連続最多・約3割が合同会社</span></div></div>
+      <div class="card"><div class="bigstat"><span class="big c-blue" style="font-size:1.9rem">332<small style="font-size:.5em">万人</small></span><span class="lbl">副業者（2022年）</span><span class="cap">就業者の5.0%</span></div></div>
+      <div class="card"><div class="bigstat"><span class="big c-mint" style="font-size:1.9rem">54.6%</span><span class="lbl">副業を認める企業</span><span class="cap">2026年調査</span></div></div>
+      <div class="card"><div class="bigstat"><span class="big c-orange" style="font-size:1.9rem">32%</span><span class="lbl">収入に満足のフリーランス</span><span class="cap">人口は1,577万→1,303万人（2021→2024）</span></div></div>
+    </div>
+    <p class="src"><a href="https://www.tsr-net.co.jp/data/detail/1202828_1527.html">東京商工リサーチ</a>・<a href="https://www.dlri.co.jp/report/macro/265707.html">第一生命経済研究所</a>・<a href="https://mirai-works.co.jp/wp-content/uploads/2026/08/mirai-works_20260828_3.pdf">みらいワークス</a>・<a href="https://atmarkit.itmedia.co.jp/ait/articles/2503/26/news082.html">ランサーズ（@IT）</a>。フリーランス新法（2024年11月施行）で小学館・光文社・共同通信などに勧告</p>
+  </div>
+</section>
+
+<!-- ============ 06 ============ -->
+<section class="lec" id="l6">
+  <div class="lec-head"><div class="lec-no" style="background:var(--pink)">06</div><div><div class="kick">まとめ｜自分はどこに身を置くか</div><h2>身を置くべき4つのポジション</h2></div></div>
+  <div class="bubble"><svg viewBox="0 0 56 56"><use href="#face"/></svg><div class="say"><small>学生への問い</small>自分の将来の仕事、マニュアル化できるのは何割？</div></div>
+
+  <div class="stack-gap">
+    <div class="card">
+      <div class="ctitle">「利益の地図」×「雇用の地図」<small>概念図：第1〜5回のデータからの整理</small></div>
+      <div class="svgbox"><svg viewBox="0 0 640 400" role="img" aria-label="横軸に利益の集まりやすさ、縦軸に雇用の伸びをとった4象限の図">
+        <rect x="80" y="20" width="520" height="320" rx="16" fill="var(--paper)" stroke="var(--ink)" stroke-width="2.5"/>
+        <rect x="340" y="20" width="260" height="160" rx="0" fill="var(--mint-soft)"/>
+        <rect x="80" y="180" width="260" height="160" fill="var(--pink-soft)"/>
+        <rect x="80" y="20" width="520" height="320" rx="16" fill="none" stroke="var(--ink)" stroke-width="2.5"/>
+        <path d="M340 20v320M80 180h520" stroke="var(--ink)" stroke-width="1.5" stroke-dasharray="5 5"/>
+        <g font-size="12"><text x="340" y="370" text-anchor="middle">利益が集まりやすい →</text><text x="40" y="180" text-anchor="middle" transform="rotate(-90 40 180)">雇用が伸びる →</text></g>
+        <g stroke="var(--ink)" stroke-width="2.5">
+          <circle cx="500" cy="70" r="40" fill="var(--yellow)"/>
+          <circle cx="250" cy="80" r="40" fill="var(--blue)"/>
+          <circle cx="520" cy="230" r="40" fill="var(--mint)"/>
+          <circle cx="400" cy="140" r="30" fill="var(--orange)"/>
+          <circle cx="170" cy="270" r="40" fill="var(--paper)" stroke-dasharray="6 5"/>
+        </g>
+        <g text-anchor="middle" font-size="13">
+          <text x="500" y="67" fill="#1c1a3a">A AI×専門</text><text x="500" y="84" fill="#1c1a3a" font-size="10">賃金↑求人↑</text>
+          <text x="250" y="77" fill="#fff">B 実装</text><text x="250" y="94" fill="#fff" font-size="10">FDE・コンサル</text>
+          <text x="520" y="227" fill="#fff">C 土台</text><text x="520" y="244" fill="#fff" font-size="10">装置・電力</text>
+          <text x="400" y="138" fill="#fff" font-size="12">D 極小</text><text x="400" y="152" fill="#fff" font-size="9">チーム</text>
+          <text x="170" y="267" fill="var(--pink)">避ける</text><text x="170" y="284" font-size="10" class="mut">定型業務の入口</text>
+        </g>
+      </svg></div>
+    </div>
+
+    <div class="g2">
+      <div class="card yellow pos-card"><div class="k">A</div><h4>AI × 専門分野</h4><ul class="pts"><li>会計・金融・医療・法律 × AI</li><li>求人の伸び2倍・賃金の伸び42%速い</li><li>Harvey 110億ドル・Abridge 53億ドル</li></ul></div>
+      <div class="card blue pos-card"><div class="k c-blue">B</div><h4>AIを現場に実装</h4><ul class="pts"><li>FDE・ソリューションエンジニア・AIコンサル</li><li>Accenture・IBMの受注は積み上がり</li><li>「使っているが変わっていない」日本こそ需要大</li></ul></div>
+      <div class="card mint pos-card"><div class="k c-mint">C</div><h4>土台の層</h4><ul class="pts"><li>半導体装置・材料・DC・電力・電気工事</li><li>日本企業が世界トップ級、利益率40%超</li><li>地味だが利益と雇用の両方が確か</li></ul></div>
+      <div class="card orange pos-card"><div class="k c-orange">D</div><h4>極小チーム・副業で挑戦</h4><ul class="pts"><li>作るコストは激減</li><li>希少なのは集客・信頼・業界知識</li><li>まずは会社員＋副業で試す</li></ul></div>
+    </div>
+    <div class="card avoid pos-card" style="border-color:var(--pink)"><div class="k c-pink">×</div><h4>避けたい：形式知だけで完結する定型業務の入口</h4><p style="font-weight:700">基本的な文章作成・翻訳・データ入力・単純なコーディング・一次対応サポート。</p><p>対策：インターン・公開/納品した作品・専門資格など、<b>「成果を出せる証拠」</b>を学生のうちに。</p></div>
+
+    <div class="card yellow slogan">利益は<em>「土台」</em>に、仕事は<em>「現場」</em>に。<br><span style="font-size:.6em">二つの地図が重なる場所を探せ。</span></div>
+  </div>
+</section>
+
+<!-- ============ 付録 ============ -->
+<section class="lec" id="appx">
+  <div class="lec-head"><div class="lec-no" style="background:var(--ink);color:var(--bg)">!</div><div><div class="kick">教員向け</div><h2>授業前に確認したい数字</h2></div></div>
+  <p class="muted" style="margin-top:12px">一部の一次サイト（総務省・IDC・PwC・Stanford・Carta・Stripe等）に直接アクセスできず。以下は原典確認を推奨。</p>
+  <div class="tbl" style="margin-top:14px">
+    <table style="min-width:700px">
+      <thead><tr><th>項目</th><th>問題点</th><th>対応</th></tr></thead>
+      <tbody>
+        <tr><td>OpenAIの年換算売上（500億 vs 680億ドル）</td><td><span class="t tx">矛盾</span> 総額・純額の違い</td><td>「500億〜650億ドル規模」と幅で</td></tr>
+        <tr><td>Anthropicの2025年売上（約100億 vs 約46億ドル）</td><td><span class="t tx">矛盾</span> S-1未公開</td><td>S-1公開後に差し替え</td></tr>
+        <tr><td>Anthropicの企業価値（3,800億 vs 9,650億ドル）</td><td>調達時期とトラッカー推計</td><td>「1兆ドル近く」と表現</td></tr>
+        <tr><td>NVIDIA・Micronの決算数値</td><td><span class="t t3">二次</span></td><td>各社IRで確認</td></tr>
+        <tr><td>東京エレクトロン 2026年4〜6月期</td><td><span class="t tv">要検証</span> AI要約が出所</td><td>決算短信で確認</td></tr>
+        <tr><td>NRIの営業利益582億円</td><td><span class="t tv">データ不備</span></td><td>使用しない</td></tr>
+        <tr><td>Microsoft 2027年度設備投資</td><td><span class="t tx">矛盾</span> 2,550億〜2,600億 vs 約1,750億ドル</td><td>4社合計で提示</td></tr>
+        <tr><td>Alphabet・Metaの2026年設備投資</td><td><span class="t tx">矛盾</span> 資料により幅</td><td>10-Qで確認</td></tr>
+        <tr><td>スタンフォード研究 −19%（前年値13%か15%か）</td><td><span class="t t3">二次</span></td><td>2026年8月改訂版の原論文</td></tr>
+        <tr><td>Challenger 2026年上半期のAI理由削減数</td><td><span class="t t3">二次</span></td><td>レポート原文</td></tr>
+        <tr><td>PwC 賃金プレミアム62%（前年値）</td><td><span class="t tx">矛盾</span></td><td>PwC原文</td></tr>
+        <tr><td>Stripe Atlas 単独創業者63%（2026年Q2）</td><td><span class="t tv">要検証</span> 日付と四半期が不整合</td><td>本ページでは不使用</td></tr>
+        <tr><td>YC 2026夏バッチ 中央値2人</td><td><span class="t t3">二次</span></td><td>YC公式ディレクトリ</td></tr>
+        <tr><td>経産省2040年推計</td><td><span class="t t3">二次</span> 暫定値</td><td>経産省原資料</td></tr>
+        <tr><td>Stanford AI Index 2,859億ドル</td><td>1,090億ドルとする記事あり</td><td>HAI原典PDF</td></tr>
+        <tr><td>未上場企業のARR（Cursor・Lovable等）</td><td><span class="t t3">二次</span></td><td>「推計」と明記</td></tr>
+        <tr><td>国内カオスマップの掲載企業</td><td>原文未取得</td><td>公開元から画像入手</td></tr>
+        <tr><td>材料・サーバー・電力企業の2026年数値</td><td>未取得</td><td>社名のみ</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <footer>数値は2026年10月9日時点の入手情報。出典は各図表下のリンク。投資判断を目的としたものではありません。</footer>
+  <nav class="nav" aria-label="資料の移動">
+    <a href="b08-konbini.html"><b>← 前の資料</b>コンビニ3社の稼ぐ力</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+</section>
+</div>
+
+<div id="tip" role="tooltip"></div>
+
+<script>
+(function(){
+  var tip=document.getElementById("tip");
+  function bindTip(el,html){
+    el.addEventListener("mousemove",function(e){tip.innerHTML=html;tip.classList.add("on");
+      var x=e.clientX+14,y=e.clientY+14;if(x>window.innerWidth-270)x=e.clientX-270;tip.style.left=x+"px";tip.style.top=y+"px";});
+    el.addEventListener("mouseleave",function(){tip.classList.remove("on")});
+  }
+  // rows: [label, value, colorVar, display, tipText]
+  function hbar(id,rows,o){
+    o=o||{};var host=document.getElementById(id);if(!host)return;
+    var vals=rows.map(function(r){return r[1]});
+    var mn=Math.min(0,o.min!=null?o.min:Math.min.apply(null,vals)), mx=o.max!=null?o.max:Math.max.apply(null,vals);
+    var span=mx-mn||1, z=(0-mn)/span*100;
+    rows.forEach(function(r){
+      var d=document.createElement("div");d.className="r";
+      var v=r[1], left=v>=0?z:(v-mn)/span*100, w=Math.abs(v)/span*100;
+      d.innerHTML='<div class="lb">'+r[0]+'</div><div class="tr">'+(mn<0?'<div class="zero" style="left:calc('+z+'% - 1px)"></div>':'')+
+        '<div class="fl '+(v>=0?'pos':'neg')+'" style="left:'+left+'%;width:'+w+'%;background:var('+r[2]+')"></div></div><div class="v">'+r[3]+'</div>';
+      host.appendChild(d);
+      bindTip(d,"<b>"+r[0]+"</b><br>"+(r[4]||r[3]));
+    });
+  }
+
+  hbar("ch-flow",[
+    ["米企業の生成AI支出 2025",370,"--pink","370","Menlo Ventures推計。アプリ190・モデルAPI125・その他55"],
+    ["大手4社の設備投資 2025",4100,"--blue","約4,100","Amazon・Microsoft・Alphabet・Meta"],
+    ["大手4社の設備投資 2026",7250,"--blue","約7,250","見込み：約7,000〜7,250億ドル"]
+  ]);
+
+  var G={chip:["--blue","チップ・メモリ・ファウンドリ"],jp:["--pink","日本の装置メーカー"],cloud:["--mint","クラウド"],gpu:["--orange","GPUクラウド"]};
+  var M=[["SK hynix","chip",76,"2026年4〜6月期"],["NVIDIA","chip",66,"2026年5〜7月期"],["TSMC","chip",60.3,"2026年4〜6月期"],["Broadcom","chip",54,"2026年5〜7月期"],
+    ["アドバンテスト","jp",52,"2026年4〜6月期"],["レーザーテック","jp",46,"2026年6月期"],["ディスコ","jp",42,"2026年3月期"],["AWS","cloud",39.4,"2026年4〜6月期"],
+    ["Google Cloud","cloud",35.6,"2026年4〜6月期"],["東京エレクトロン","jp",26,"2026年3月期"],["さくらインターネット","gpu",-1.1,"2026年3月期"],["CoreWeave","gpu",-1.9,"2026年4〜6月期（GAAP）"]];
+  hbar("ch-margin",M.map(function(m){return [m[0],m[2],G[m[1]][0],m[2]+"%",G[m[1]][1]+"<br>営業利益率 "+m[2]+"%（"+m[3]+"）"]}),{min:-10,max:80});
+  var lg=document.getElementById("lg-margin");
+  Object.keys(G).forEach(function(k){var s=document.createElement("span");s.innerHTML='<i style="background:var('+G[k][0]+')"></i>'+G[k][1];lg.appendChild(s)});
+
+  hbar("ch-cloud",[["Google Cloud",82,"--mint","+82%"],["Azure",43,"--mint","+43%"],["AWS",37,"--mint","+37%"]],{max:90});
+  hbar("ch-arr",[["Claude Code",25,"--pink","25+","年換算25億ドル超（2026年2月）"],["Cursor",20,"--pink","約20","ARR約20億ドル（2026年2月）"],["Lovable",5,"--blue","5+","ARR5億ドル超（2026年6月）"],["ElevenLabs",5,"--blue","5+","ARR5億ドル超"],["Midjourney",2,"--blue","2+","外部資金なし・黒字"]]);
+  hbar("ch-aico",[["米国",1953,"--blue","1,953社"],["日本",56,"--pink","56社","世界10位"]]);
+  hbar("ch-idc",[["2025年",2.37,"--pink","2.37"],["2029年予測",6.89,"--pink","6.89","年率36%成長の予測"]]);
+  hbar("ch-layoff",[["2025年 通年",54836,"--orange","54,836"],["2026年 1〜6月",101743,"--orange","101,743","5月単月で全削減の40%"]]);
+  hbar("ch-meti",[["事務職",440,"--orange","+440 余剰"],["AI・ロボット専門職",-340,"--blue","−340 不足"],["現場の働き手",-260,"--blue","−260 不足"]],{min:-450,max:450});
+  hbar("ch-aug",[["Claude.ai：補う（拡張）",52,"--mint","52%"],["Claude.ai：任せる（自動化）",45,"--orange","45%"],["企業API：任せる",77,"--orange","約77%"]],{max:100});
+  hbar("ch-pwc",[["AIスキル要求の求人",69,"--pink","+69%"],["全求人",9,"--blue","+9%"]]);
+  hbar("ch-wage",[["一般ラベル付け",25,"--blue","$8〜25","時給8〜25ドル"],["Mercor 専門家平均",95,"--mint","$95"],["放射線科医（最大）",375,"--pink","$375"]]);
+  hbar("ch-jpwage",[["平均（job tag）",629,"--blue","629"],["東京 事業会社 基本給",1000,"--pink","約1,000"],["上限の目安",2000,"--pink","約2,000"]]);
+  hbar("ch-unic",[["2023年",1128,"--blue","1,128"],["2025年",544,"--blue","544"],["2026年 年初来",323,"--pink","323"]]);
+  hbar("ch-rpe",[["従来SaaSの目安",20,"--blue","20"],["Gamma",200,"--mint","約200","約50人でARR約1億ドル"],["Lovable",270,"--pink","約270","146人でARR約4億ドル"]]);
+  hbar("ch-free",[["ライティング系 月収",-5.2,"--orange","−5.2%","ChatGPT登場後"],["画像系 月収",-9.4,"--orange","−9.4%","画像生成AI登場後"],["自動化しやすい求人",-21,"--orange","−21%","8か月で（DIW）"],["AI関連の取引額",60,"--mint","+60%","2024年（Upwork）"]],{min:-25,max:65});
+
+  // donuts
+  var dn=document.getElementById("donuts");
+  [["急成長AIアプリ",25,"--pink"],["AI製品平均 2026見込",52,"--orange"],["上位SaaS",80,"--blue"]].forEach(function(d){
+    var r=44,c=2*Math.PI*r,len=c*d[1]/100;
+    var w=document.createElement("div");w.className="donut";
+    w.innerHTML='<svg viewBox="0 0 120 120" role="img" aria-label="'+d[0]+' 粗利率'+d[1]+'%"><circle cx="60" cy="60" r="'+r+'" fill="none" stroke="var(--hair)" stroke-width="16"/>'+
+      '<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="var('+d[2]+')" stroke-width="16" stroke-dasharray="'+len+' '+c+'" transform="rotate(-90 60 60)"/>'+
+      '<circle cx="60" cy="60" r="'+(r+8)+'" fill="none" stroke="var(--ink)" stroke-width="2"/><circle cx="60" cy="60" r="'+(r-8)+'" fill="none" stroke="var(--ink)" stroke-width="2"/>'+
+      '<text x="60" y="68" text-anchor="middle" font-size="22" style="font-family:\'Dela Gothic One\',sans-serif;font-weight:400">'+d[1]+'%</text></svg><b>'+d[0]+'</b>';
+    dn.appendChild(w);
+  });
+
+  // waffles
+  function waffle(id,n,color){var h=document.getElementById(id);for(var i=0;i<n;i++){var e=document.createElement("i");e.style.background="var("+color+")";h.appendChild(e)}}
+  waffle("wf-us",75,"--blue");
+  (function(){var h=document.getElementById("wf-jp");var e=document.createElement("i");e.style.background="conic-gradient(var(--pink) 0 80%, transparent 80% 100%)";h.appendChild(e)})();
+
+  // dumbbell
+  (function(){
+    var rows=[["個人の生成AI利用経験",75.6,58.8],["企業の生成AI活用・推進",90,87],["効果が期待を大きく上回る",38,9],["業務変革の組織的取組なし",1.4,27]];
+    var W=640,L=200,R=40,top=24,rh=46,H=top+rows.length*rh+24, x=function(v){return L+v/100*(W-L-R)};
+    var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="日米の生成AI活用指標の比較" style="min-width:520px">';
+    [0,25,50,75,100].forEach(function(t){s+='<line x1="'+x(t)+'" x2="'+x(t)+'" y1="10" y2="'+(H-24)+'" stroke="var(--hair)" stroke-width="1.5"/><text x="'+x(t)+'" y="'+(H-6)+'" text-anchor="middle" font-size="11" class="mut">'+t+'</text>'});
+    rows.forEach(function(r,i){var y=top+i*rh+12;
+      s+='<text x="'+(L-12)+'" y="'+(y+4)+'" text-anchor="end" font-size="13">'+r[0]+'</text>';
+      s+='<line x1="'+x(r[1])+'" x2="'+x(r[2])+'" y1="'+y+'" y2="'+y+'" stroke="var(--ink)" stroke-width="3"/>';
+      var uL=r[1]>=r[2];
+      s+='<circle cx="'+x(r[1])+'" cy="'+y+'" r="9" fill="var(--blue)" stroke="var(--ink)" stroke-width="2.5"/>';
+      s+='<circle cx="'+x(r[2])+'" cy="'+y+'" r="9" fill="var(--pink)" stroke="var(--ink)" stroke-width="2.5"/>';
+      s+='<text x="'+(x(r[1])+(uL?14:-14))+'" y="'+(y-12)+'" text-anchor="'+(uL?"start":"end")+'" font-size="12" fill="var(--blue)">'+r[1]+'</text>';
+      s+='<text x="'+(x(r[2])+(uL?-14:14))+'" y="'+(y-12)+'" text-anchor="'+(uL?"end":"start")+'" font-size="12" fill="var(--pink)">'+r[2]+'</text>';
+    });
+    document.getElementById("dumbbell").innerHTML=s+'</svg>';
+  })();
+
+  // nav highlight
+  var links=[].slice.call(document.querySelectorAll("nav.lec-nav a"));
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)})}})},{rootMargin:"-30% 0px -60% 0px"});
+    document.querySelectorAll("section.lec").forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+</body>
+</html>
