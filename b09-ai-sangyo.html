@@ -166,6 +166,11 @@ footer{margin-top:56px;font-size:.8rem;color:var(--muted)}
 details summary{cursor:pointer;font-weight:800;font-size:.85rem;margin-top:12px}
 @media (max-width:560px){body{font-size:15px}.lec-no{width:60px;height:60px;font-size:1.6rem}.card{padding:16px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}.sticker{transform:none!important}}
+.video-wrap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:24px;align-items:center}
+.video-frame{position:relative;width:100%;max-width:300px;aspect-ratio:9/16;border:2.5px solid var(--ink);border-radius:16px;overflow:hidden;background:var(--ink);box-shadow:4px 4px 0 var(--shadow);justify-self:center}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+@media (max-width:640px){.video-wrap{grid-template-columns:minmax(0,1fr)}}
+@media print{.video-frame{display:none}}
 /* page frame & footer nav (standalone) */
 body{margin:0}
 .nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:40px}
@@ -281,6 +286,24 @@ body{margin:0}
       <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-tool"/></svg></div>開発ツール</div>
       <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-phone"/></svg></div>アプリ</div>
       <div class="node"><div class="ic" style="background:var(--pink-soft);color:var(--pink)"><svg><use href="#i-brief"/></svg></div>SI・コンサル</div>
+    </div>
+  </div>
+
+  <div class="card video-card" style="margin-top:22px">
+    <div class="video-wrap">
+      <div class="video-frame">
+        <iframe src="https://www.youtube-nocookie.com/embed/46E_izVyxak" title="サプライチェーン解説動画（YouTubeショート）" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="video-side">
+        <span class="chip y">動画</span>
+        <div class="ctitle" style="margin-top:10px">サプライチェーン解説（YouTubeショート）<small>上の14層の図と照らし合わせて視聴</small></div>
+        <ul class="pts">
+          <li>登場する会社・製品 <span>14層のどこに位置するか</span></li>
+          <li>ボトルネック <span>どの層が足りないとAIが止まるか</span></li>
+          <li>日本企業 <span>どの層に登場するか</span></li>
+        </ul>
+        <p class="src">再生されない場合　<a href="https://youtube.com/shorts/46E_izVyxak">YouTubeで開く</a></p>
+      </div>
     </div>
   </div>
 
