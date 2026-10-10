@@ -24,6 +24,7 @@
 | 資料13 | コンビニ3社の稼ぐ力 | `b08-konbini.html` |
 | 資料14 | AI産業の市場地図 | `b09-ai-sangyo.html` |
 | 資料15 | AIの物理層講義 | `b10-butsuri.html` |
+| 資料16 | 職場AI活用マップ 2026 | `b11-shokuba.html` |
 
 ## 仕様
 
