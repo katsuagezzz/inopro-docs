@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 授業資料。プロンプトが戻るまでの物理的な経路、学習と推論、半導体・チップ・メモリ・データセンター、AIを支える企業と職種を図解する。">
+<title>AIの物理層講義</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@400;700;800&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: ポップな講義ノート。太線＋ずらし影のカード、章ごとに色が変わる丸バッジ */
+:root{
+  --bg:#F2F5FF; --surface:#FFFFFF; --ink:#1E1B3A; --muted:#5C5980; --line:#D9DDF2; --shadow:#1E1B3A;
+  --accent:#FF4F81; --accent-soft:#FFE3EC; --blue:#3366FF; --blue-soft:#E1E8FF; --teal:#00A884; --teal-soft:#D6F7EC;
+  --yellow:#FFC93C; --yellow-soft:#FFF2C7; --purple:#8A5CFF; --purple-soft:#ECE4FF;
+  --si:#C9D3FF; --wafer:#B8C6FF; --wafer-die:#8FA3FF; --die:#2A2550; --die-core:#4B44A0; --die-text:#FFFFFF;
+  --dope:#FFB3C8; --oxide:#FFFFFF; --metal:#5B5785; --substrate:#00A884; --interposer:#A3ABD3;
+  --rack:#2A2550; --led:#FFC93C; --board:#00A884; --cold:#3366FF; --hot:#FF4F81;
+  --f-pop:"Dela Gothic One","M PLUS Rounded 1c","Hiragino Sans",sans-serif;
+  --f-display:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans",sans-serif;
+  --f-body:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Hiragino Sans","Meiryo",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#15142B; --surface:#221F42; --ink:#F2F0FF; --muted:#ABA7D6; --line:#38345F; --shadow:#000000;
+  --accent:#FF6B97; --accent-soft:#4A2238; --blue:#7B9BFF; --blue-soft:#232C5A; --teal:#3DDBB0; --teal-soft:#173D37;
+  --yellow:#FFD45C; --yellow-soft:#3F3520; --purple:#A988FF; --purple-soft:#33285C;
+  --si:#3A3C6E; --wafer:#4A4F8C; --wafer-die:#6F7BD6; --die:#0E0C20; --die-core:#3A3480; --die-text:#F2F0FF;
+  --dope:#B05A7A; --oxide:#7E7AA8; --metal:#A8A4D0; --substrate:#118C6E; --interposer:#575E8C;
+  --rack:#0E0C20; --led:#FFD45C; --board:#118C6E; --cold:#7B9BFF; --hot:#FF6B97; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#15142B; --surface:#221F42; --ink:#F2F0FF; --muted:#ABA7D6; --line:#38345F; --shadow:#000000;
+  --accent:#FF6B97; --accent-soft:#4A2238; --blue:#7B9BFF; --blue-soft:#232C5A; --teal:#3DDBB0; --teal-soft:#173D37;
+  --yellow:#FFD45C; --yellow-soft:#3F3520; --purple:#A988FF; --purple-soft:#33285C;
+  --si:#3A3C6E; --wafer:#4A4F8C; --wafer-die:#6F7BD6; --die:#0E0C20; --die-core:#3A3480; --die-text:#F2F0FF;
+  --dope:#B05A7A; --oxide:#7E7AA8; --metal:#A8A4D0; --substrate:#118C6E; --interposer:#575E8C;
+  --rack:#0E0C20; --led:#FFD45C; --board:#118C6E; --cold:#7B9BFF; --hot:#FF6B97; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.8;margin:0;
+  background-image:radial-gradient(var(--line) 1.2px,transparent 1.2px);background-size:22px 22px}
+.wrap{max-width:1060px;margin:0 auto;padding-inline:20px;padding-block:32px 72px}
+h1,h2,h3{font-family:var(--f-display);font-weight:800;text-wrap:balance;margin:0;line-height:1.35}
+h1{font-family:var(--f-pop);font-weight:400;font-size:clamp(28px,5.2vw,48px);line-height:1.3}
+h2{font-size:clamp(22px,3.4vw,30px)}
+h3{font-size:18px}
+p{margin:0}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+.hero{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center;
+  padding:32px;background:var(--surface);border:3px solid var(--ink);border-radius:28px;box-shadow:8px 8px 0 var(--shadow)}
+.hero::before{content:"";position:absolute;width:220px;height:220px;border-radius:50%;background:var(--yellow);right:-60px;top:-80px;opacity:.9}
+.hero::after{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:var(--accent-soft);left:-40px;bottom:-50px}
+.hero > *{position:relative;z-index:1}
+.hero h1 .hl{background:linear-gradient(transparent 62%,var(--yellow) 62%)}
+.eyebrow{display:inline-block;font-size:13px;letter-spacing:.06em;color:#FFFFFF;background:var(--accent);font-weight:800;margin-bottom:14px;padding:4px 14px;border-radius:999px;border:2px solid var(--ink)}
+.hero .sub{color:var(--muted);margin-top:14px;font-size:17px;font-weight:700}
+.goal{display:grid;gap:8px;margin-top:22px;padding:0;list-style:none}
+.goal li{display:flex;gap:10px;align-items:baseline;font-weight:700}
+.goal li::before{content:"";flex:0 0 12px;height:12px;border-radius:50%;background:var(--blue);border:2px solid var(--ink);transform:translateY(1px)}
+.goal li:nth-child(2)::before{background:var(--accent)}
+.goal li:nth-child(3)::before{background:var(--yellow)}
+.hero svg{width:100%;height:auto;max-width:100%;transform:rotate(3deg)}
+
+.toc{display:flex;flex-wrap:wrap;gap:10px;margin-block:28px 8px}
+.toc a{font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;border:2px solid var(--ink);background:var(--surface);padding:5px 14px;border-radius:999px;box-shadow:3px 3px 0 var(--shadow);transition:transform .12s,box-shadow .12s}
+.toc a:nth-child(4n+1){background:var(--accent-soft)}
+.toc a:nth-child(4n+2){background:var(--blue-soft)}
+.toc a:nth-child(4n+3){background:var(--yellow-soft)}
+.toc a:nth-child(4n){background:var(--teal-soft)}
+.toc a:hover,.toc a:focus-visible{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--shadow);outline:none}
+
+.chap{padding-block:56px 8px;display:grid;gap:24px}
+.chap-head{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:center}
+.chap-no{font-family:var(--f-pop);font-size:24px;line-height:1;color:#FFFFFF;grid-row:span 2;width:68px;height:68px;border-radius:50%;
+  display:grid;place-items:center;background:var(--accent);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--shadow);transform:rotate(-8deg)}
+.chap:nth-of-type(4n+2) .chap-no{background:var(--blue)}
+.chap:nth-of-type(4n+3) .chap-no{background:var(--yellow);color:var(--ink)}
+.chap:nth-of-type(4n) .chap-no{background:var(--teal)}
+.chap-lead{color:var(--muted);font-size:15px;font-weight:700}
+
+.fig{background:var(--surface);border:2px solid var(--ink);border-radius:20px;padding:20px;min-width:0;box-shadow:5px 5px 0 var(--shadow)}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption,.cap{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.65}
+.fig h3{margin-bottom:8px}
+.g4 .fig h3{display:inline-block;margin-top:6px;padding:2px 12px;border-radius:999px;background:var(--yellow-soft);font-size:16px}
+.scroll{overflow-x:auto}
+.scroll svg{min-width:640px}
+figure{margin:0}
+
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.g3 .fig:nth-child(1){background:var(--accent-soft)}
+.g3 .fig:nth-child(2){background:var(--teal-soft)}
+.g3 .fig:nth-child(3){background:var(--blue-soft)}
+
+.points{display:grid;gap:6px;padding:0;margin:0;list-style:none}
+.points li{padding-left:22px;position:relative}
+.points li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--ink)}
+
+.tbl{overflow-x:auto;background:var(--surface);border:2px solid var(--ink);border-radius:20px;box-shadow:5px 5px 0 var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+th,td{padding:11px 16px;text-align:left;vertical-align:top;border-bottom:2px dashed var(--line)}
+thead th{font-family:var(--f-display);font-size:13.5px;color:var(--ink);background:var(--yellow-soft);font-weight:800;border-bottom:2px solid var(--ink)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--bg)}
+td.num{font-family:var(--f-mono);color:var(--accent);font-weight:700;white-space:nowrap}
+td strong{font-weight:800}
+
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.kpi{background:var(--surface);border:2px solid var(--ink);border-radius:20px;padding:18px;box-shadow:5px 5px 0 var(--shadow)}
+.kpi:nth-child(1){background:var(--accent-soft)}
+.kpi:nth-child(2){background:var(--blue-soft)}
+.kpi:nth-child(3){background:var(--yellow-soft)}
+.kpi .v{font-family:var(--f-pop);font-size:26px;color:var(--ink);line-height:1.25}
+.kpi .l{font-size:13px;color:var(--muted);margin-top:6px;font-weight:700}
+
+.calc{display:flex;flex-wrap:wrap;align-items:center;gap:14px;justify-content:center}
+.vec{display:flex;gap:5px}
+.vec span,.mat span{font-family:var(--f-mono);font-weight:700;font-size:15px;display:grid;place-items:center;min-width:54px;height:40px;border-radius:10px;border:2px solid var(--ink)}
+.vec.in span{background:var(--blue-soft);color:var(--ink)}
+.vec.out span{background:var(--teal-soft);color:var(--ink)}
+.mat{display:grid;grid-template-columns:repeat(2,auto);gap:5px}
+.mat span{background:var(--accent-soft);color:var(--ink)}
+.op{font-family:var(--f-pop);font-size:26px;color:var(--accent)}
+.calc-label{font-size:12px;color:var(--muted);text-align:center;margin-top:6px;font-weight:700}
+.calc-col{display:grid;justify-items:center}
+.formula{font-family:var(--f-mono);font-size:13.5px;color:var(--muted);text-align:center;margin-top:14px;line-height:1.9;overflow-wrap:anywhere}
+
+.layers{display:grid;gap:6px;max-width:520px;margin:0 auto}
+.layer{display:flex;justify-content:space-between;gap:12px;padding:9px 16px;border-radius:999px;font-size:14px;font-weight:700;border:2px solid var(--ink)}
+.layer.io{background:var(--bg)}
+.layer.w{background:var(--accent-soft);color:var(--ink)}
+.layer.out{background:var(--teal-soft);color:var(--ink)}
+.layer.dots{justify-content:center;color:var(--muted);font-size:13px;padding:2px;border:none}
+.down{text-align:center;color:var(--accent);font-size:14px;line-height:1;font-weight:800}
+
+.chain{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.chain .node{flex:1 1 120px;background:var(--surface);border:2px solid var(--ink);border-radius:16px;padding:10px 12px;min-width:0;box-shadow:3px 3px 0 var(--shadow)}
+.chain .node:nth-of-type(3n+1){background:var(--blue-soft)}
+.chain .node:nth-of-type(3n+2){background:var(--teal-soft)}
+.chain .node:nth-of-type(3n){background:var(--purple-soft)}
+.chain .node b{display:block;font-family:var(--f-display);font-weight:800;font-size:15px}
+.chain .node small{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:2px}
+.chain .node.hl{background:var(--yellow);color:#1E1B3A}
+.chain .node.hl small{color:#1E1B3A}
+.chain .arw{align-self:center;color:var(--accent);font-weight:800}
+
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.flow .st{flex:1 1 150px;background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:14px;min-width:0;box-shadow:4px 4px 0 var(--shadow)}
+.flow .st .k{display:inline-block;font-family:var(--f-mono);font-weight:700;font-size:11.5px;color:#FFFFFF;background:var(--blue);padding:1px 10px;border-radius:999px}
+.flow .st:nth-of-type(2) .k{background:var(--accent)}
+.flow .st:nth-of-type(3) .k{background:var(--teal)}
+.flow .st:nth-of-type(4) .k{background:var(--purple)}
+.flow .st b{display:block;font-family:var(--f-display);font-weight:800;font-size:17px;margin-block:6px 4px}
+.flow .st small{display:block;font-size:13px;color:var(--muted);line-height:1.6}
+.flow .arw{align-self:center;color:var(--accent);font-weight:800}
+
+.tag{display:inline-block;font-size:11.5px;font-weight:700;padding:1px 10px;border-radius:999px;margin:2px 4px 2px 0;white-space:nowrap;border:1.5px solid var(--ink)}
+.tag.bun{background:var(--blue-soft);color:var(--ink)}
+.tag.ri{background:var(--teal-soft);color:var(--ink)}
+
+.q{display:grid;gap:14px;counter-reset:q;padding:0;margin:0}
+.q li{list-style:none;background:var(--surface);border:2px solid var(--ink);border-radius:18px;padding:16px 18px 16px 72px;position:relative;counter-increment:q;box-shadow:4px 4px 0 var(--shadow);font-weight:700}
+.q li::before{content:"Q" counter(q);position:absolute;left:16px;top:12px;font-family:var(--f-pop);color:#FFFFFF;background:var(--accent);font-size:15px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--ink)}
+.q li:nth-child(2)::before{background:var(--blue)}
+.q li:nth-child(3)::before{background:var(--teal)}
+.q li:nth-child(4)::before{background:var(--purple)}
+
+.note{font-size:12.5px;color:var(--muted);background:var(--surface);border:2px dashed var(--line);border-radius:16px;margin-top:56px;padding:14px 18px;line-height:1.7}
+
+/* SVG text */
+.t{fill:var(--ink);font-family:var(--f-body);font-size:14px;font-weight:700}
+.tb{fill:var(--ink);font-family:var(--f-display);font-size:15px;font-weight:800}
+.ts{fill:var(--muted);font-family:var(--f-body);font-size:12px;font-weight:700}
+.tw{fill:var(--die-text);font-family:var(--f-body);font-size:12px;font-weight:700}
+.tn{fill:#FFFFFF;font-family:var(--f-mono);font-size:13px;font-weight:700}
+.ta{fill:var(--accent);font-family:var(--f-body);font-size:12.5px;font-weight:800}
+
+@media (max-width:860px){.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:minmax(0,1fr)}.hero{grid-template-columns:minmax(0,1fr);padding:24px}}
+@media (max-width:560px){.g4,.g2,.kpis{grid-template-columns:minmax(0,1fr)}.chap-no{width:56px;height:56px;font-size:20px}.hero{padding:20px}}
+@media (prefers-reduced-motion:no-preference){.pulse{animation:pl 1.6s ease-in-out infinite}@keyframes pl{50%{opacity:.35}}}
+
+.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.step{background:var(--surface);border:2px solid var(--ink);border-radius:20px;padding:20px;box-shadow:5px 5px 0 var(--shadow);display:flex;flex-direction:column;gap:12px;min-width:0}
+.step-top{display:flex;align-items:center;gap:12px}
+.sn{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-pop);font-size:18px;color:#FFFFFF;background:var(--accent);border:2px solid var(--ink)}
+.step:nth-child(4n+2) .sn{background:var(--blue)}
+.step:nth-child(4n+3) .sn{background:var(--teal)}
+.step:nth-child(4n) .sn{background:var(--purple)}
+.step .points{font-size:15px}
+.ref{font-size:13px;font-weight:800;color:var(--blue)}
+.kotoba{margin-top:auto;background:var(--yellow-soft);border:2px dashed var(--ink);border-radius:14px;padding:12px 14px}
+.kt{display:inline-block;font-size:12px;font-weight:800;color:var(--ink);background:var(--yellow);border:2px solid var(--ink);border-radius:999px;padding:0 10px;margin-bottom:8px}
+.kotoba dl{margin:0;display:grid;gap:6px}
+.kotoba dl div{display:grid;grid-template-columns:minmax(0,7.5em) minmax(0,1fr);gap:8px;font-size:13px;line-height:1.6}
+.kotoba dt{font-weight:800}
+.kotoba dd{margin:0;color:var(--muted)}
+.punch{font-family:var(--f-pop);font-size:clamp(20px,3.2vw,28px);line-height:1.5;text-align:center;background:var(--yellow);color:#1E1B3A;border:3px solid var(--ink);border-radius:24px;padding:24px 16px;box-shadow:6px 6px 0 var(--shadow)}
+@media (max-width:760px){.steps{grid-template-columns:minmax(0,1fr)}.kotoba dl div{grid-template-columns:minmax(0,1fr);gap:0}}
+
+.video{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:stretch}
+.video .embed{grid-column:1/-1;aspect-ratio:16/9;max-width:100%;border:3px solid var(--ink);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--shadow);background:#000}
+.video .embed iframe{width:100%;height:100%;border:0;display:block}
+.video-link{display:flex;gap:16px;align-items:center;text-decoration:none;color:var(--ink);background:var(--accent-soft);border:2px solid var(--ink);border-radius:20px;padding:18px;box-shadow:5px 5px 0 var(--shadow);transition:transform .12s,box-shadow .12s;min-width:0}
+.video-link:hover,.video-link:focus-visible{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--shadow);outline:none}
+.play{flex:0 0 56px;height:56px;border-radius:50%;display:grid;place-items:center;background:#FF0033;color:#FFFFFF;font-size:20px;border:2px solid var(--ink)}
+.vt{display:grid;gap:4px;min-width:0}
+.vt b{font-family:var(--f-display);font-weight:800;font-size:16px;line-height:1.5}
+.vt small{font-size:12.5px;color:var(--muted);line-height:1.55}
+.vt small.u{color:var(--accent);font-weight:800}
+.video .kotoba{margin-top:0}
+@media (max-width:760px){.video{grid-template-columns:minmax(0,1fr)}}
+
+.essay{background:var(--surface);border:2px solid var(--ink);border-radius:24px;padding:clamp(18px,4vw,36px);box-shadow:6px 6px 0 var(--shadow);display:grid;gap:14px;min-width:0}
+.essay > *{max-width:72ch;min-width:0}
+.essay > .tbl,.essay > .kotoba,.essay > .code{max-width:100%}
+.essay h3{font-size:clamp(19px,2.6vw,23px);margin-top:18px;padding:4px 16px;background:var(--blue-soft);border:2px solid var(--ink);border-radius:999px;justify-self:start}
+.essay h4{font-size:17px;margin-top:10px;color:var(--accent)}
+.essay p{line-height:1.95}
+.essay strong{background:linear-gradient(transparent 65%,var(--yellow-soft) 65%)}
+.essay .tbl strong{background:none}
+.essay-lead{font-size:17.5px;font-weight:700}
+.essay-close{font-weight:800;font-size:17px;border-top:2px dashed var(--line);padding-top:16px}
+.olist{margin:0;padding-left:1.4em;display:grid;gap:4px}
+.olist li::marker{color:var(--accent);font-weight:800}
+.code{font-family:var(--f-mono);font-size:13.5px;line-height:1.7;background:var(--bg);border:2px solid var(--ink);border-radius:14px;padding:14px 16px;margin:0;overflow-x:auto;white-space:pre}
+.essay code{font-family:var(--f-mono);font-size:.92em;background:var(--bg);padding:1px 6px;border-radius:6px}
+.essay .kotoba{margin-top:2px}
+.sub-h{font-size:clamp(19px,2.6vw,23px);margin-top:20px}
+.pagenav{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px;margin-top:28px}
+.pagenav a{display:block;text-decoration:none;color:var(--ink);background:var(--surface);border:2px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--shadow);padding:12px 16px;font-weight:700}
+.pagenav a b{display:block;font-size:12px;color:var(--muted)}
+.pagenav a:hover,.pagenav a:focus-visible{background:var(--yellow-soft);outline:none}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <div class="eyebrow">ビジネスとテクノロジー ／ 講義資料</div>
+    <h1><span class="hl">AIはどう動いているか</span><br>物理層から見る産業構造</h1>
+    <p class="sub">チャットの裏側にある機械・部品・会社・仕事。</p>
+    <ul class="goal">
+      <li>プロンプトが戻るまでの物理的な経路の理解</li>
+      <li>半導体・トランジスタ・チップ・メモリの役割の区別</li>
+      <li>AIを支える企業群と職種の把握</li>
+    </ul>
+  </div>
+  <svg viewBox="0 0 360 260" role="img" aria-label="AIチップのパッケージを上から見た図">
+    <rect x="20" y="20" width="320" height="220" rx="10" fill="var(--substrate)"/>
+    <g fill="var(--accent)" opacity=".55">
+      <rect x="30" y="30" width="4" height="200"/><rect x="326" y="30" width="4" height="200"/>
+    </g>
+    <rect x="44" y="40" width="272" height="180" rx="4" fill="var(--interposer)"/>
+    <rect x="120" y="58" width="120" height="144" rx="3" fill="var(--die)"/>
+    <g fill="var(--die-core)">
+      <rect x="130" y="68" width="22" height="22"/><rect x="157" y="68" width="22" height="22"/><rect x="184" y="68" width="22" height="22"/><rect x="211" y="68" width="22" height="22"/>
+      <rect x="130" y="95" width="22" height="22"/><rect x="157" y="95" width="22" height="22"/><rect x="184" y="95" width="22" height="22"/><rect x="211" y="95" width="22" height="22"/>
+      <rect x="130" y="122" width="22" height="22"/><rect x="157" y="122" width="22" height="22"/><rect x="184" y="122" width="22" height="22"/><rect x="211" y="122" width="22" height="22"/>
+      <rect x="130" y="149" width="22" height="22"/><rect x="157" y="149" width="22" height="22"/><rect x="184" y="149" width="22" height="22"/><rect x="211" y="149" width="22" height="22"/>
+    </g>
+    <text class="tw" x="180" y="192" text-anchor="middle">演算ダイ</text>
+    <g fill="var(--die)">
+      <rect x="56" y="58" width="50" height="42" rx="2"/><rect x="56" y="109" width="50" height="42" rx="2"/><rect x="56" y="160" width="50" height="42" rx="2"/>
+      <rect x="254" y="58" width="50" height="42" rx="2"/><rect x="254" y="109" width="50" height="42" rx="2"/><rect x="254" y="160" width="50" height="42" rx="2"/>
+    </g>
+    <g class="tw" text-anchor="middle"><text x="81" y="83">HBM</text><text x="81" y="134">HBM</text><text x="81" y="185">HBM</text><text x="279" y="83">HBM</text><text x="279" y="134">HBM</text><text x="279" y="185">HBM</text></g>
+  </svg>
+</header>
+
+<nav class="toc" aria-label="目次">
+  <a href="#s1">1 概要と全体の流れ</a><a href="#s2">2 学習と推論</a><a href="#s3">3 推論の6ステップ</a><a href="#s4">4 計算の正体</a><a href="#s5">5 半導体とチップ</a><a href="#s6">6 メモリ</a><a href="#s7">7 データセンター</a><a href="#s8">8 規模の推移</a><a href="#s9">9 知識の獲得</a><a href="#s10">10 関わる企業</a><a href="#s11">11 職種マップ</a><a href="#s12">12 まとめ</a><a href="#s13">13 確認問題</a><a href="#s14">14 用語集</a>
+</nav>
+
+<!-- 1 -->
+<section class="chap" id="s1">
+  <div class="chap-head"><div class="chap-no">01</div><h2>概要：AIはチップの中で何をしているのか</h2><p class="chap-lead">本資料全体の要約。各章はこの文章の詳しい解説。</p></div>
+  <article class="essay">
+<p class="essay-lead">「AIが考えている」と言われる処理は、物理的には<strong>膨大な数の掛け算と足し算を、電気信号として超高速に実行していること</strong>に尽きます。順を追って説明します。</p>
+<h3>前提：「学習」と「推論」は別の工程</h3><p>AIには、知識を<strong>作る</strong>工程と、知識を<strong>使う</strong>工程があります。</p>
+<div class="tbl"><table><thead><tr><th></th><th>学習（Training）</th><th>推論（Inference）</th></tr></thead><tbody><tr><td><strong>いつ</strong></td><td>モデル公開前に、数か月かけて一度</td><td>ユーザーが質問するたびに</td></tr><tr><td><strong>何をする</strong></td><td>大量の文章から「重み」という数値を作る</td><td>完成した重みを使って回答を計算する</td></tr><tr><td><strong>重み</strong></td><td>少しずつ書き換え続ける</td><td><strong>固定</strong>（読み出すだけ）</td></tr></tbody></table></div>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>モデル</dt><dd>AIの本体。中身は、学習で作られた大量の数値（重み）と、それを使った計算手順のセット。</dd></div><div><dt>重み（パラメータ）</dt><dd>AIの本体を構成する一つ一つの数値。詳しくは下の「1. 推論」②で説明。</dd></div></dl></div>
+<h3>1. 推論：チップの中で何が起きているか</h3>
+<h4>① 文字を数字にする</h4><p>コンピューターは文字を直接扱えないので、まず言葉を数字に置き換えます。</p><ol class="olist"><li>プロンプトを「トークン」という小さな単位に切る</li><li>トークンごとに決まった<strong>ID番号</strong>に変換する（例：「猫」＝12345番）</li><li>ID番号を、数千個の数値を1列に並べたもの（<strong>ベクトル</strong>）に置き換える</li></ol><p>ID番号は、そのまま「単語ベクトル表の何行目を読むか」という棚番号として使われます。辞書の索引のような仕組みです。この時点で「言葉」は完全に「数字の並び」になります。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>トークン</dt><dd>AIが文章を扱う最小単位。単語や、文字の断片。日本語ではおおむね1〜数文字。</dd></div><div><dt>ベクトル</dt><dd>数値を1列に並べたもの。例：[0.5, −1.0, 2.0]。実際のAIでは数千〜1万個以上の数値が並ぶ。</dd></div><div><dt>次元</dt><dd>ベクトルに並んでいる数値の個数。「数千次元」＝数千個の数値の列。</dd></div></dl></div>
+<h4>② 重みはチップのすぐ横のメモリに置かれている</h4><p>AIの本体は、<strong>数千億個の数値（重み）</strong>の巨大な集まりです。</p><p>重みとは、<code>0.0213, -0.4471, 1.0832 …</code> のような小数一つ一つのことです。それぞれが「入力の数値をどれくらい強く次へ伝えるか」を表す、<strong>ツマミの目盛り</strong>のような役割を持っています。大きい値なら強く伝え、0に近ければほぼ無視、マイナスなら逆向きに効かせます。</p><p>1つの重みは、メモリ上では1〜2バイトの0と1の並びとして記録されています。重みが1000億個あれば、それだけで約100〜200GBになります。</p><p>この重みは、計算を担当する<strong>AIチップ</strong>（GPUやTPU）のすぐ横にある高速メモリ（<strong>HBM</strong>）に置かれています。1つのチップには収まりきらないので、複数のチップに分けて載せ、チップ同士を専用の高速配線（NVLinkなど）でつないでいます。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>半導体</dt><dd>シリコン（ケイ素）のように、条件次第で電気を通したり通さなかったりする素材。</dd></div><div><dt>トランジスタ</dt><dd>半導体で作った電気のスイッチ。電圧をかけるとオン（1）、かけないとオフ（0）。</dd></div><div><dt>チップ</dt><dd>シリコンの板の上に、トランジスタを数百億個作り込んだもの。計算担当の「工場」。</dd></div><div><dt>GPU / TPU</dt><dd>AIの計算に向いたチップの種類。GPUはNVIDIAなど、TPUはGoogleが設計。</dd></div><div><dt>メモリ</dt><dd>データを記憶する半導体。トランジスタと小さなコンデンサの組で0/1を記憶する。番地（住所）付きで数値を保管する「倉庫」。判断はしない。</dd></div><div><dt>HBM</dt><dd>High Bandwidth Memory（広帯域メモリ）。メモリチップを縦に積み重ね、AIチップのすぐ横に置いた高速メモリ。</dd></div><div><dt>NVLink</dt><dd>NVIDIA製チップ同士をつなぐ高速配線。</dd></div></dl></div>
+<h4>③ 計算の正体は「ベクトル × 行列」</h4><p>推論の中心は、<strong>入力のベクトルと、重みを並べた表（行列）を掛け合わせる</strong>計算です。</p><ul class="points"><li><strong>ベクトル</strong>＝数値の列</li><li><strong>行列</strong>＝数値を縦横の表に並べたもの（中の数値一つ一つが重み）</li></ul><p>小さな例で見ると、こうなります。</p>
+<pre class="code">入力ベクトル（「猫」）  [ 0.5, -1.0, 2.0 ]
+
+重み行列（6個の重み）    列1    列2
+                 行1 [  0.2    1.0 ]
+                 行2 [  0.4   -0.5 ]
+                 行3 [  0.1    0.3 ]
+
+出力1 = 0.5×0.2 + (-1.0)×0.4 + 2.0×0.1 = -0.1
+出力2 = 0.5×1.0 + (-1.0)×(-0.5) + 2.0×0.3 = 1.6
+
+→ 新しいベクトル [ -0.1, 1.6 ]</pre>
+<p>やっていることは<strong>掛けて、足す</strong>だけです。これを<strong>積和演算</strong>と呼びます。実際のAIでは、行列1つが8,000×8,000（約6,400万個の重み）といった規模になります。</p><p>この計算を<strong>何十層も重ねます</strong>。ただし同じ計算のやり直しではなく、<strong>ある層の出力を次の層の入力にして、別の重みで計算する</strong>リレー形式です。</p>
+<pre class="code">入力ベクトル
+  ↓ × 第1層の重み行列
+  ↓ × 第2層の重み行列（別の数値）
+  ⋮  （数十〜100層前後）
+  ↓ × 最終層の重み行列
+最終ベクトル → 次のトークンの確率へ</pre>
+<p>同じ形の作業台が何十台も並んだ生産ラインで、台ごとに別々の調整がされているイメージです。浅い層は「単語の形や品詞」のような単純な特徴を、深い層ほど「文脈」や「話の意図」のような抽象的な特徴を扱う傾向があります。</p><p>各層の中では、主に2種類の計算をしています。</p><ul class="points"><li><strong>アテンション</strong>：文中のどの単語がどの単語と関係が深いかを数値で計算する</li><li><strong>フィードフォワード</strong>：その情報を変換・加工する</li></ul><p>チップの中には、積和演算だけに特化した回路が何万個も並んでいて、同時に動きます。物理的には、トランジスタというスイッチが毎秒数十億回オン・オフを切り替え、電圧の変化として数値が流れていきます。「意味を理解している」回路があるわけではなく、ひたすら算数です。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>行列</dt><dd>数値を縦横の表に並べたもの。AIでは中身がすべて重み。</dd></div><div><dt>積和演算</dt><dd>掛け算（積）と足し算（和）をセットで行う計算。AIチップの基本動作。</dd></div><div><dt>層（レイヤー）</dt><dd>同じ形の計算のまとまり。これを何十段も積み重ねる。</dd></div><div><dt>Transformer</dt><dd>アテンションとフィードフォワードを持つ層を何十段も重ねる、現在の生成AIの基本構造の名前。</dd></div><div><dt>数千億個になる理由</dt><dd>1行列が数千万〜数億個 × 1層に行列が数個 × 数十〜100層。</dd></div></dl></div>
+<h4>④ 出力は「次の1トークンの確率」</h4><p>全層を通り抜けると、最後に「次に来るトークンは何か」の<strong>確率</strong>が出ます（例：「は」60%、「が」25%…）。そこから1つを選び、入力の末尾に加えて、また第1層から計算し直します。これを回答が終わるまで繰り返します。</p><p>回答の「終わり」も特別ではありません。選択肢の中に「ここで終わり」を意味する特殊なトークンがあり、答え切ったと計算されるとその確率が高くなって、生成が止まります。</p><p>回答が1文字ずつ流れるように表示されるのは、実際に1トークンずつ計算しているからです。回答が500トークンなら、全層の計算を500回繰り返します。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>確率分布</dt><dd>「次に来る候補」それぞれの可能性を%で並べたもの。</dd></div><div><dt>ストリーミング</dt><dd>出来上がった部分から順に画面に表示する方式。</dd></div></dl></div>
+<h4>⑤ 速さを決めるのは「計算」より「運搬」</h4><p>各層の計算では、入力が何であっても<strong>その層の重みを全部</strong>メモリから読み出して使います。「猫だからこの重み」と選ぶのではなく、同じ全重みに違う入力を通すことで結果が変わる仕組みです。</p><p>そのため、1トークン出すたびに巨大な重みをメモリからチップへ運ぶ必要があります。推論の速さは、チップの計算能力よりも、<strong>メモリからチップへデータを運ぶ速さ（帯域）</strong>で決まることが多いのです。工場（チップ）の作業が速くても、倉庫（メモリ）からの搬入が遅ければ全体は遅くなる、という関係です。HBMが高価で、半導体業界で取り合いになっているのはこのためです。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>ボトルネック</dt><dd>全体の速さを決めてしまう、一番遅い部分。瓶の首が細いと中身が出にくいことから。</dd></div><div><dt>帯域</dt><dd>一度に運べるデータの量。道路の車線の数のようなもの。</dd></div></dl></div>
+<h4>⑥ データセンターは「電力と熱」の施設</h4><p>AIチップとメモリを載せたサーバーを何千台も並べた建物が<strong>データセンター</strong>です。物理的に見ると、電気を受け取り、計算をし、使った電気をすべて熱として吐き出す施設です。</p><p>チップは小さな面積で大量に発熱するため、送風で冷やす<strong>空冷</strong>から、冷たい液体を流して冷やす<strong>液冷</strong>への移行が進んでいます。AIデータセンターの立地が、電力と冷却水を確保できるかで決まるのはこのためです。</p><p>なお、Anthropicは自社でチップを作っておらず、GoogleのTPU、AWSのTrainium、NVIDIAのGPUといった複数のチップを、クラウド事業者のデータセンター経由で使っています。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>サーバー</dt><dd>データセンターに置かれる業務用コンピューター。AI用は1台にAIチップを8個前後搭載。</dd></div><div><dt>クラウド事業者</dt><dd>データセンターの計算能力を貸し出す会社。AWS（Amazon）、Google Cloud、Microsoft Azureなど。</dd></div><div><dt>Trainium</dt><dd>AWSが設計したAI用チップ。</dd></div></dl></div>
+<h3>2. 学習：知識はどうやって「獲得」されるか</h3>
+<h4>① 材料となるデータ</h4><p>Anthropicが公表している学習データの主な出所は次のとおりです。</p><ul class="points"><li>公開されているウェブ上の文章（自社の収集プログラムで集め、サイト側の拒否設定は尊重する方針）</li><li>ライセンス契約で得たデータ</li><li>学習への利用を許可したユーザーの会話データ</li><li>AI自身が生成した<strong>合成データ</strong></li></ul>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>クローラ</dt><dd>ウェブページを自動で巡回して文章を集めるプログラム。</dd></div><div><dt>合成データ</dt><dd>人が書いたものではなく、AIが作った練習用の文章や問題。</dd></div></dl></div>
+<h4>② 事前学習：「次の単語当て」を何兆回も</h4><p>文章の途中までを見せて、次の単語を予測させます。外れたら、どの重みがどれくらい外れの原因になったかを逆算し、数千億個の重み（ツマミ）を<strong>ほんの少しずつ</strong>修正します。これを数兆トークン分、数万個のチップを数か月動かし続けて繰り返します。</p><p>「次の単語を当てる」だけの訓練ですが、それを極限まで上手くやろうとすると、文法・事実・論理・文脈の読み方まで、重みの中に表現せざるを得なくなります。これが大規模言語モデルの面白いところです。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>事前学習</dt><dd>大量の文章で、言葉の基礎を身につけさせる最初の学習。</dd></div><div><dt>誤差逆伝播</dt><dd>予測の外れ（誤差）を出口側から入口側へさかのぼって計算し、各重みの直し方を決める方法。</dd></div></dl></div>
+<h4>③ 知識は「データベース」ではなく「重み」の中にある</h4><p>ここが一番誤解されやすい点です。学習が終わると、元の文章データは推論では使いません。知識は<strong>数千億個の数値の中に、分散した形で圧縮されて</strong>残っています。辞書を引いているのではなく、重みを通した計算の結果として、答えが毎回「組み立て直される」イメージです。</p><p>だからこそ、次の性質が生まれます。</p><ul class="points"><li>学習した時点より後の出来事は知らない（知識の締め切りがある）</li><li>もっともらしいが間違った答えを作ることがある（<strong>ハルシネーション</strong>）</li></ul><p>最新情報が必要なときにウェブ検索を併用するのは、この限界を補うためです。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>データベース</dt><dd>情報をそのままの形で保管し、検索して取り出す仕組み。AIの重みはこれとは違う。</dd></div><div><dt>ハルシネーション</dt><dd>AIが事実と違う内容を、もっともらしく作ってしまう現象。「幻覚」の意。</dd></div></dl></div>
+<h4>④ 事後学習：振る舞いを整える</h4><p>事前学習だけでは「文章の続きを書く機械」にすぎません。そこで次の工程で、「役に立つ・正確・安全」な回答になる確率が高くなるように、重みをさらに調整します。</p><ul class="points"><li>人間の評価者が「この回答とこの回答、どちらが良いか」を比べたデータを使う</li><li>Anthropicの場合は、文章化した原則（<strong>Constitution＝憲法</strong>）に照らした評価も使う</li><li>公開前に、大量のテスト問題や安全性の検査で基準を満たしているか確認する</li></ul><p>つまり「良い回答」の基準は、利用時にその場で審査しているのではなく、<strong>学習の段階で重みに作り込まれています</strong>。ただし生物兵器など危険性の高い分野では、回答とは別のAI（分類器）が並行して入出力を監視し、問題があれば遮断する仕組みも使っています。</p>
+<div class="kotoba"><div class="kt">ことば</div><dl><div><dt>事後学習</dt><dd>事前学習の後に、振る舞いや回答の質を整える学習。</dd></div><div><dt>分類器</dt><dd>入力が「問題あり／なし」などのどれに当たるかを判定する、別のAI。</dd></div></dl></div>
+<h4>⑤ 会話中は学習しない</h4><p>推論中は重みが固定されているので、会話の内容でAI自体が賢くなることはありません。会話の流れを覚えているように見えるのは、それまでのやり取りを<strong>毎回まるごと入力に含めて</strong>、最初から計算し直しているからです。</p>
+<h3>まとめ</h3><div class="tbl"><table><thead><tr><th></th><th>正体</th><th>役割</th></tr></thead><tbody><tr><td><strong>半導体</strong></td><td>電気の通り方を制御できる素材</td><td>すべての土台</td></tr><tr><td><strong>トランジスタ</strong></td><td>半導体製のスイッチ</td><td>0と1を作る最小部品</td></tr><tr><td><strong>チップ</strong></td><td>トランジスタ数百億個の集合</td><td>計算する（工場）</td></tr><tr><td><strong>メモリ（HBM）</strong></td><td>トランジスタ＋コンデンサの集合</td><td>重みを番地付きで保管（倉庫）</td></tr><tr><td><strong>重み</strong></td><td>数千億個の小数</td><td>AIの知識と判断基準の実体</td></tr><tr><td><strong>データセンター</strong></td><td>サーバーを並べた建物</td><td>電力を受け、計算し、熱を出す</td></tr></tbody></table></div>
+<ul class="points"><li><strong>学習</strong>＝大量の文章を使って、数千億個のツマミ（重み）を何か月もかけて調整する工程</li><li><strong>推論</strong>＝調整済みのツマミに入力の数値を通し、「ベクトル×行列」を何十層も重ねて「次の1語」を出す作業の繰り返し</li><li><strong>物理層</strong>では、そのすべてがメモリとチップの間のデータの運搬、トランジスタのオン・オフ、そして大量の電力と熱</li></ul>
+<p class="essay-close">「AIは考えているのではなく、圧縮された知識を算数で解凍している」という言い方が、物理的な実態にかなり近いと思います。</p>
+</article>
+  <h3 class="sub-h">プロンプトが戻ってくるまで</h3>
+  <p class="chap-lead">入力から回答表示までの物理的な経路。往復で数秒〜数十秒。</p>
+  <figure class="fig scroll">
+    <svg viewBox="0 0 1000 380" role="img" aria-label="端末から通信網、データセンター、サーバーラック、GPUサーバー、AIチップへと進み、回答が同じ経路で戻る図">
+      <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5L1 9" fill="none" stroke="context-stroke" stroke-width="1.6"/></marker></defs>
+      <g class="tn" text-anchor="middle" dominant-baseline="central">
+        <circle cx="82" cy="34" r="15" stroke="var(--ink)" stroke-width="2" fill="var(--accent)"/><text x="82" y="34">1</text>
+        <circle cx="245" cy="34" r="15" stroke="var(--ink)" stroke-width="2" fill="var(--blue)"/><text x="245" y="34">2</text>
+        <circle cx="415" cy="34" r="15" stroke="var(--ink)" stroke-width="2" fill="var(--teal)"/><text x="415" y="34">3</text>
+        <circle cx="585" cy="34" r="15" stroke="var(--ink)" stroke-width="2" fill="var(--purple)"/><text x="585" y="34">4</text>
+        <circle cx="755" cy="34" r="15" stroke="var(--ink)" stroke-width="2" fill="var(--accent)"/><text x="755" y="34">5</text>
+        <circle cx="920" cy="34" r="15" stroke="var(--ink)" stroke-width="2" fill="var(--blue)"/><text x="920" y="34">6</text>
+      </g>
+      <rect x="60" y="66" width="44" height="90" rx="8" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/>
+      <rect x="65" y="76" width="34" height="64" rx="2" fill="var(--blue-soft)"/>
+      <rect x="69" y="84" width="22" height="6" rx="3" fill="var(--blue)"/><rect x="73" y="96" width="22" height="6" rx="3" fill="var(--accent)" opacity=".7"/><rect x="69" y="108" width="18" height="6" rx="3" fill="var(--blue)"/>
+      <circle cx="82" cy="148" r="3" fill="var(--ink)"/>
+      <circle cx="245" cy="111" r="42" fill="var(--si)" stroke="var(--ink)" stroke-width="1.2"/>
+      <circle cx="245" cy="111" r="30" fill="var(--surface)"/>
+      <g fill="var(--blue)"><circle cx="245" cy="111" r="6"/><circle cx="231" cy="102" r="5"/><circle cx="259" cy="102" r="5"/><circle cx="231" cy="120" r="5"/><circle cx="259" cy="120" r="5"/><circle cx="245" cy="93" r="5"/><circle cx="245" cy="129" r="5"/></g>
+      <rect x="372" y="76" width="18" height="12" fill="var(--muted)"/><rect x="396" y="76" width="18" height="12" fill="var(--muted)"/><rect x="440" y="76" width="18" height="12" fill="var(--muted)"/>
+      <rect x="360" y="88" width="110" height="72" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.5"/>
+      <g stroke="var(--line)" stroke-width="1.5"><line x1="370" y1="104" x2="460" y2="104"/><line x1="370" y1="118" x2="460" y2="118"/><line x1="370" y1="132" x2="460" y2="132"/><line x1="370" y1="146" x2="460" y2="146"/></g>
+      <rect x="560" y="58" width="50" height="112" rx="3" fill="var(--rack)"/>
+      <g stroke="var(--die-core)" stroke-width="1"><line x1="564" y1="70" x2="606" y2="70"/><line x1="564" y1="82" x2="606" y2="82"/><line x1="564" y1="94" x2="606" y2="94"/><line x1="564" y1="106" x2="606" y2="106"/><line x1="564" y1="118" x2="606" y2="118"/><line x1="564" y1="130" x2="606" y2="130"/><line x1="564" y1="142" x2="606" y2="142"/><line x1="564" y1="154" x2="606" y2="154"/></g>
+      <g fill="var(--led)" class="pulse"><circle cx="600" cy="76" r="2"/><circle cx="600" cy="100" r="2"/><circle cx="600" cy="124" r="2"/><circle cx="600" cy="148" r="2"/></g>
+      <rect x="705" y="78" width="100" height="70" rx="3" fill="var(--board)"/>
+      <g fill="var(--die)"><rect x="713" y="86" width="18" height="22"/><rect x="736" y="86" width="18" height="22"/><rect x="759" y="86" width="18" height="22"/><rect x="782" y="86" width="18" height="22"/><rect x="713" y="118" width="18" height="22"/><rect x="736" y="118" width="18" height="22"/><rect x="759" y="118" width="18" height="22"/><rect x="782" y="118" width="18" height="22"/></g>
+      <rect x="865" y="72" width="110" height="84" rx="4" fill="var(--substrate)"/>
+      <rect x="895" y="88" width="50" height="52" fill="var(--die)"/>
+      <g fill="var(--die-core)"><rect x="873" y="86" width="16" height="16"/><rect x="873" y="106" width="16" height="16"/><rect x="873" y="126" width="16" height="16"/><rect x="951" y="86" width="16" height="16"/><rect x="951" y="106" width="16" height="16"/><rect x="951" y="126" width="16" height="16"/></g>
+      <g text-anchor="middle">
+        <text class="tb" x="82" y="200">端末</text><text class="ts" x="82" y="220">文字を入力・送信</text>
+        <text class="tb" x="245" y="200">通信網</text><text class="ts" x="245" y="220">光ファイバー・海底ケーブル</text>
+        <text class="tb" x="415" y="200">データセンター</text><text class="ts" x="415" y="220">クラウド事業者の拠点</text>
+        <text class="tb" x="585" y="200">サーバーラック</text><text class="ts" x="585" y="220">サーバーを縦に収納</text>
+        <text class="tb" x="755" y="200">AIサーバー</text><text class="ts" x="755" y="220">AIチップを8個前後搭載</text>
+        <text class="tb" x="920" y="200">AIチップ＋HBM</text><text class="ts" x="920" y="220">行列計算を実行</text>
+      </g>
+      <line x1="40" y1="276" x2="958" y2="276" stroke="var(--blue)" stroke-width="2" marker-end="url(#ah)"/>
+      <text class="t" x="40" y="262" fill="var(--blue)" style="fill:var(--blue)">行き：プロンプト（文字 → トークン番号）</text>
+      <line x1="958" y1="326" x2="42" y2="326" stroke="var(--teal)" stroke-width="2" marker-end="url(#ah)"/>
+      <text class="t" x="40" y="352" style="fill:var(--teal)">帰り：回答（1トークンずつ順次表示＝ストリーミング）</text>
+    </svg>
+  </figure>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>段階</th><th>モノ</th><th>作業</th><th>時間の目安</th></tr></thead>
+      <tbody>
+        <tr><td><strong>入力</strong></td><td>スマホ・PC</td><td>プロンプト入力、送信</td><td class="num">—</td></tr>
+        <tr><td><strong>送信</strong></td><td>通信網、光ファイバー、海底ケーブル</td><td>データを光信号で伝送</td><td class="num">0.1秒前後</td></tr>
+        <tr><td><strong>受付</strong></td><td>サーバーのCPU</td><td>認証、文字をトークン（ID番号）に変換</td><td class="num">ごく短時間</td></tr>
+        <tr><td><strong>計算</strong></td><td>AIチップ（GPU・TPU・Trainium）＋HBM</td><td>全層で「ベクトル×重み行列」、次の1トークンを決定</td><td class="num">1トークン数十ms</td></tr>
+        <tr><td><strong>反復</strong></td><td>同上</td><td>終了トークンが出るまで繰り返し</td><td class="num">回答の長さ次第</td></tr>
+        <tr><td><strong>返信</strong></td><td>サーバー → 通信網 → 端末</td><td>トークンを文字に戻し、順次表示</td><td class="num">0.1秒前後</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="chap" id="s2">
+  <div class="chap-head"><div class="chap-no">02</div><h2>学習と推論は別工程</h2><p class="chap-lead">知識を作る工程と、使う工程。</p></div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th></th><th>学習（Training）</th><th>推論（Inference）</th></tr></thead>
+      <tbody>
+        <tr><td><strong>時期</strong></td><td>モデル公開前、数か月</td><td>ユーザーの質問ごと</td></tr>
+        <tr><td><strong>作業</strong></td><td>大量の文章から「重み」を作る</td><td>完成した重みで回答を計算</td></tr>
+        <tr><td><strong>重み</strong></td><td>少しずつ書き換え</td><td>固定（読み出すだけ）</td></tr>
+        <tr><td><strong>設備</strong></td><td>数万個規模のチップを連結</td><td>1回答あたり数個〜数十個のチップ</td></tr>
+        <tr><td><strong>費用構造</strong></td><td>一度に巨額の投資</td><td>利用量に比例して継続発生</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- inference -->
+<section class="chap" id="s3">
+  <div class="chap-head"><div class="chap-no">03</div><h2>推論：チップの中で起きること</h2><p class="chap-lead">質問1回ごとに走る6ステップ。物理的には掛け算と足し算の繰り返し。</p></div>
+  <div class="steps">
+<article class="step"><div class="step-top"><span class="sn">1</span><h3>文字を数字にする</h3></div><ul class="points"><li>プロンプトを「トークン」に分割</li><li>トークンごとにID番号へ変換（例：「猫」＝12345番）</li><li>ID番号＝単語ベクトル表の行番号。辞書の索引と同じ仕組み</li><li>該当する行の数値の列（ベクトル）を取り出し</li><li>この時点で、言葉は完全に数字の並び</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>トークン</dt><dd>AIが文章を扱う最小単位。単語や文字の断片。日本語ではおおむね1〜数文字</dd></div><div><dt>ベクトル</dt><dd>数値を1列に並べたもの。例：[0.5, −1.0, 2.0]。実物は数千〜1万個以上</dd></div><div><dt>次元</dt><dd>ベクトルに並ぶ数値の個数。「数千次元」＝数千個の数値の列</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">2</span><h3>重みはチップ横のメモリに</h3></div><ul class="points"><li>AIの本体＝数千億個の数値（重み）</li><li>重み＝0.0213、−0.4471のような小数1つ1つ</li><li>役割＝ツマミの目盛り。大きい値→強く伝える、0付近→ほぼ無視、マイナス→逆向き</li><li>1個＝1〜2バイト。1000億個で約100〜200GB</li><li>置き場＝AIチップのすぐ横の高速メモリ（HBM）</li><li>1チップに収まらず複数チップに分割。チップ間は高速配線（NVLinkなど）</li></ul><p class="ref">→ 詳しくは「05 半導体とチップ」「06 メモリ」</p><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>半導体</dt><dd>条件次第で電気を通したり通さなかったりする素材。シリコン（ケイ素）</dd></div><div><dt>トランジスタ</dt><dd>半導体製の電気のスイッチ。電圧あり→オン（1）、なし→オフ（0）</dd></div><div><dt>チップ</dt><dd>トランジスタを数百億個作り込んだシリコンの板。計算担当の「工場」</dd></div><div><dt>GPU / TPU</dt><dd>AI計算向きのチップ。GPUはNVIDIAなど、TPUはGoogleが設計</dd></div><div><dt>メモリ</dt><dd>記憶用の半導体。番地付きで数値を保管する「倉庫」。判断はしない</dd></div><div><dt>HBM</dt><dd>広帯域メモリ。メモリチップを縦に積み、AIチップの横に置いた高速メモリ</dd></div><div><dt>NVLink</dt><dd>NVIDIA製チップ同士をつなぐ高速配線</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">3</span><h3>ベクトル×行列を何十層も</h3></div><ul class="points"><li>計算の中心＝入力ベクトル×重み行列</li><li>中身は「掛けて、足す」だけ＝積和演算</li><li>層＝出力を次の層の入力にするリレー。層ごとに別の重み</li><li>浅い層＝単語の形・品詞、深い層＝文脈・話の意図</li><li>各層の2つの計算：アテンション（単語同士の関係の深さ）、フィードフォワード（情報の変換・加工）</li><li>積和演算専用の回路が数万個、同時に動作</li><li>物理的には毎秒数十億回のトランジスタのオン・オフ。「理解する回路」はなし</li></ul><p class="ref">→ 計算例は「04 計算の正体」</p><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>行列</dt><dd>数値を縦横の表に並べたもの。AIでは中身がすべて重み</dd></div><div><dt>積和演算</dt><dd>掛け算（積）と足し算（和）のセット。AIチップの基本動作</dd></div><div><dt>層（レイヤー）</dt><dd>同じ形の計算のまとまり。数十〜100段前後を積み重ね</dd></div><div><dt>Transformer</dt><dd>アテンションとフィードフォワードの層を重ねる、生成AIの基本構造の名前</dd></div><div><dt>数千億個の理由</dt><dd>1行列が数千万〜数億個 × 1層に数個 × 数十〜100層</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">4</span><h3>出力は次の1トークンの確率</h3></div><ul class="points"><li>最終層の出力＝次のトークンの確率（「は」60%、「が」25%…）</li><li>1つを選び、入力の末尾に追加 → 第1層から再計算</li><li>回答の終わり＝「終了」を意味する特殊トークン。これも計算で予測</li><li>1文字ずつ表示される理由＝1トークンずつ計算しているため</li><li>500トークンの回答＝全層の計算を500回</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>確率分布</dt><dd>次に来る候補それぞれの可能性を%で並べたもの</dd></div><div><dt>ストリーミング</dt><dd>出来上がった部分から順に画面へ表示する方式</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">5</span><h3>速さを決めるのは「運搬」</h3></div><ul class="points"><li>各層は入力にかかわらず、その層の重みを全部読み出し</li><li>「猫だからこの重み」という選択はなし。同じ重みに違う入力→違う結果</li><li>1トークンごとに巨大な重みをメモリ → チップへ運搬</li><li>速さの決め手＝計算能力より運搬速度（帯域）</li><li>工場が速くても、倉庫からの搬入が遅ければ全体が遅い</li><li>HBMが高価で、取り合いになる理由</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>ボトルネック</dt><dd>全体の速さを決める一番遅い部分。瓶の細い首が語源</dd></div><div><dt>帯域</dt><dd>一度に運べるデータの量。道路の車線数のようなもの</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">6</span><h3>データセンター＝電力と熱</h3></div><ul class="points"><li>AIサーバーを何千台も並べた建物</li><li>電気を受け取り、計算し、すべて熱として排出</li><li>冷却方式：空冷 → 液冷へ移行</li><li>立地の条件＝電力と冷却水の確保</li><li>Anthropic：自社チップなし。Google TPU、AWS Trainium、NVIDIA GPUをクラウド事業者のデータセンター経由で利用</li></ul><p class="ref">→ 詳しくは「07 データセンター」</p><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>サーバー</dt><dd>データセンターの業務用コンピューター。AI用は1台にAIチップ8個前後</dd></div><div><dt>クラウド事業者</dt><dd>計算能力を貸し出す会社。AWS、Google Cloud、Microsoft Azureなど</dd></div><div><dt>Trainium</dt><dd>AWSが設計したAI用チップ</dd></div></dl></div></article>
+  </div>
+</section>
+
+
+<!-- 3 -->
+<section class="chap" id="s4">
+  <div class="chap-head"><div class="chap-no">04</div><h2>計算の正体は掛け算と足し算</h2><p class="chap-lead">「理解する回路」は存在しない。数値の積和演算の繰り返し。</p></div>
+  <div class="g2">
+    <figure class="fig">
+      <h3>ベクトル × 行列</h3>
+      <div class="calc">
+        <div class="calc-col"><div class="vec in"><span>0.5</span><span>−1.0</span><span>2.0</span></div><div class="calc-label">入力ベクトル（「猫」）</div></div>
+        <div class="op">×</div>
+        <div class="calc-col"><div class="mat"><span>0.2</span><span>1.0</span><span>0.4</span><span>−0.5</span><span>0.1</span><span>0.3</span></div><div class="calc-label">重み行列（6個の重み）</div></div>
+        <div class="op">=</div>
+        <div class="calc-col"><div class="vec out"><span>−0.1</span><span>1.6</span></div><div class="calc-label">出力ベクトル</div></div>
+      </div>
+      <p class="formula">0.5×0.2 + (−1.0)×0.4 + 2.0×0.1 = −0.1<br>0.5×1.0 + (−1.0)×(−0.5) + 2.0×0.3 = 1.6</p>
+      <figcaption>ベクトル＝数値の列。行列＝数値の表。重み＝表の中の数値1つ1つ。</figcaption>
+    </figure>
+    <figure class="fig">
+      <h3>層のリレー</h3>
+      <div class="layers">
+        <div class="layer io"><span>入力ベクトル</span><span class="mono">トークン</span></div>
+        <div class="down">↓</div>
+        <div class="layer w"><span>第1層</span><span>重み行列A</span></div>
+        <div class="down">↓</div>
+        <div class="layer w"><span>第2層</span><span>重み行列B（別の数値）</span></div>
+        <div class="layer dots">⋮　数十〜100層前後　⋮</div>
+        <div class="layer w"><span>最終層</span><span>重み行列（別の数値）</span></div>
+        <div class="down">↓</div>
+        <div class="layer out"><span>次のトークンの確率</span><span class="mono">「は」60%</span></div>
+      </div>
+      <figcaption>各層の出力が次の層の入力。層ごとに重みが違う。</figcaption>
+    </figure>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="v">数千億個</div><div class="l">大規模モデルの重みの数（目安）</div></div>
+    <div class="kpi"><div class="v">8,000×8,000</div><div class="l">行列1つの大きさの例（約6,400万個の重み）</div></div>
+    <div class="kpi"><div class="v">1トークンごと</div><div class="l">全層を最初から最後まで計算</div></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="chap" id="s5">
+  <div class="chap-head"><div class="chap-no">05</div><h2>半導体・トランジスタ・チップ</h2><p class="chap-lead">素材 → スイッチ → 集合体 → 製品。大きさの順。</p></div>
+  <div class="g4">
+    <figure class="fig">
+      <svg viewBox="0 0 260 210" role="img" aria-label="シリコンウェハー">
+        <defs>
+          <pattern id="dies" width="16" height="16" patternUnits="userSpaceOnUse"><rect x="1" y="1" width="14" height="14" fill="var(--wafer-die)"/></pattern>
+          <clipPath id="wc"><circle cx="130" cy="100" r="82"/></clipPath>
+        </defs>
+        <circle cx="130" cy="100" r="88" fill="var(--wafer)"/>
+        <rect x="40" y="10" width="180" height="180" fill="url(#dies)" clip-path="url(#wc)"/>
+        <rect x="113" y="81" width="14" height="14" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+        <path d="M124 187 a6 6 0 0 0 12 0" fill="var(--surface)"/>
+        <text class="ta" x="130" y="206" text-anchor="middle">枠＝チップ1個分</text>
+      </svg>
+      <h3>シリコンウェハー</h3>
+      <figcaption>素材＝半導体（シリコン）。直径300mmの円盤。1枚から大型AIチップ数十個。</figcaption>
+    </figure>
+    <figure class="fig">
+      <svg viewBox="0 0 260 210" role="img" aria-label="チップ（ダイ）の上面">
+        <rect x="40" y="15" width="180" height="180" rx="3" fill="var(--die)"/>
+        <rect x="48" y="23" width="164" height="164" fill="none" stroke="var(--accent)" stroke-width="1.2" stroke-dasharray="3 3" opacity=".8"/>
+        <g fill="var(--die-core)">
+          <rect x="58" y="33" width="30" height="30"/><rect x="94" y="33" width="30" height="30"/><rect x="130" y="33" width="30" height="30"/><rect x="166" y="33" width="30" height="30"/>
+          <rect x="58" y="69" width="30" height="30"/><rect x="94" y="69" width="30" height="30"/><rect x="130" y="69" width="30" height="30"/><rect x="166" y="69" width="30" height="30"/>
+          <rect x="58" y="105" width="30" height="30"/><rect x="94" y="105" width="30" height="30"/><rect x="130" y="105" width="30" height="30"/><rect x="166" y="105" width="30" height="30"/>
+        </g>
+        <rect x="58" y="143" width="138" height="34" fill="var(--interposer)"/>
+        <text class="tw" x="127" y="164" text-anchor="middle">メモリ接続・通信回路</text>
+      </svg>
+      <h3>チップ（ダイ）</h3>
+      <figcaption>ウェハーから切り出した1枚。数cm角。四角＝積和演算の回路の集まり。数百億個のトランジスタ。</figcaption>
+    </figure>
+    <figure class="fig">
+      <svg viewBox="0 0 260 210" role="img" aria-label="トランジスタの断面概念図">
+        <rect x="10" y="112" width="240" height="78" fill="var(--si)"/>
+        <rect x="30" y="112" width="60" height="30" rx="4" fill="var(--dope)"/>
+        <rect x="170" y="112" width="60" height="30" rx="4" fill="var(--dope)"/>
+        <rect x="90" y="104" width="80" height="8" fill="var(--oxide)" stroke="var(--muted)" stroke-width=".6"/>
+        <rect x="96" y="74" width="68" height="30" rx="2" fill="var(--metal)"/>
+        <g stroke="var(--ink)" stroke-width="2"><line x1="60" y1="112" x2="60" y2="60"/><line x1="130" y1="74" x2="130" y2="60"/><line x1="200" y1="112" x2="200" y2="60"/></g>
+        <g class="t" text-anchor="middle"><text x="60" y="50">ソース</text><text x="130" y="50">ゲート</text><text x="200" y="50">ドレイン</text></g>
+        <line x1="96" y1="124" x2="160" y2="124" stroke="var(--accent)" stroke-width="2" marker-end="url(#ah)"/>
+        <text class="ta" x="130" y="160" text-anchor="middle">電流の通り道（チャネル）</text>
+        <text class="ts" x="130" y="182" text-anchor="middle">シリコン基板</text>
+      </svg>
+      <h3>トランジスタ</h3>
+      <figcaption>半導体で作った電気のスイッチ。ゲートに電圧→電流ON（1）、なし→OFF（0）。大きさ数nm〜数十nm。概念図。</figcaption>
+    </figure>
+    <figure class="fig">
+      <svg viewBox="0 0 260 210" role="img" aria-label="AIアクセラレータのパッケージ上面">
+        <rect x="12" y="30" width="236" height="150" rx="6" fill="var(--substrate)"/>
+        <rect x="26" y="44" width="208" height="122" rx="3" fill="var(--interposer)"/>
+        <rect x="86" y="54" width="88" height="102" rx="2" fill="var(--die)"/>
+        <text class="tw" x="130" y="109" text-anchor="middle">演算ダイ</text>
+        <g fill="var(--die)"><rect x="34" y="54" width="44" height="30"/><rect x="34" y="90" width="44" height="30"/><rect x="34" y="126" width="44" height="30"/><rect x="182" y="54" width="44" height="30"/><rect x="182" y="90" width="44" height="30"/><rect x="182" y="126" width="44" height="30"/></g>
+        <g class="tw" text-anchor="middle"><text x="56" y="73">HBM</text><text x="56" y="109">HBM</text><text x="56" y="145">HBM</text><text x="204" y="73">HBM</text><text x="204" y="109">HBM</text><text x="204" y="145">HBM</text></g>
+        <text class="ts" x="130" y="200" text-anchor="middle">緑＝パッケージ基板</text>
+      </svg>
+      <h3>AIチップ（製品）</h3>
+      <figcaption>演算ダイとメモリ（HBM）を1つの基板に実装。この単位でサーバーに搭載。</figcaption>
+    </figure>
+  </div>
+  <figure class="fig scroll">
+    <h3>ウェハー・ダイ・チップ・パッケージの違い</h3>
+    <svg viewBox="0 0 900 260" role="img" aria-label="ウェハーを切り分けてダイにし、基板に実装してパッケージにする流れ">
+      <defs>
+        <pattern id="dies2" width="14" height="14" patternUnits="userSpaceOnUse"><rect x="1" y="1" width="12" height="12" fill="var(--wafer-die)"/></pattern>
+        <clipPath id="wc2"><circle cx="150" cy="95" r="70"/></clipPath>
+      </defs>
+      <circle cx="150" cy="95" r="76" fill="var(--wafer)" stroke="var(--ink)" stroke-width="2"/>
+      <rect x="70" y="15" width="160" height="160" fill="url(#dies2)" clip-path="url(#wc2)"/>
+      <rect x="141" y="85" width="12" height="12" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+      <line x1="245" y1="95" x2="335" y2="95" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ah)"/>
+      <text class="ta" x="290" y="80" text-anchor="middle">切り分け</text>
+      <text class="ts" x="290" y="118" text-anchor="middle">ダイシング</text>
+      <rect x="360" y="40" width="110" height="110" rx="3" fill="var(--die)" stroke="var(--ink)" stroke-width="2"/>
+      <g fill="var(--die-core)"><rect x="372" y="52" width="26" height="26"/><rect x="402" y="52" width="26" height="26"/><rect x="432" y="52" width="26" height="26"/><rect x="372" y="82" width="26" height="26"/><rect x="402" y="82" width="26" height="26"/><rect x="432" y="82" width="26" height="26"/><rect x="372" y="112" width="26" height="26"/><rect x="402" y="112" width="26" height="26"/><rect x="432" y="112" width="26" height="26"/></g>
+      <line x1="495" y1="95" x2="585" y2="95" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ah)"/>
+      <text class="ta" x="540" y="80" text-anchor="middle">組み立て</text>
+      <text class="ts" x="540" y="118" text-anchor="middle">パッケージング</text>
+      <rect x="610" y="30" width="230" height="130" rx="8" fill="var(--substrate)" stroke="var(--ink)" stroke-width="2"/>
+      <rect x="622" y="42" width="206" height="106" rx="3" fill="var(--interposer)"/>
+      <rect x="690" y="52" width="70" height="86" fill="var(--die)"/>
+      <g fill="var(--die)"><rect x="632" y="52" width="48" height="26"/><rect x="632" y="84" width="48" height="26"/><rect x="632" y="116" width="48" height="22"/><rect x="770" y="52" width="48" height="26"/><rect x="770" y="84" width="48" height="26"/><rect x="770" y="116" width="48" height="22"/></g>
+      <text class="tw" x="725" y="99" text-anchor="middle">ダイ</text>
+      <g text-anchor="middle">
+        <text class="tb" x="150" y="192">ウェハー</text><text class="ts" x="150" y="212">直径300mmの円盤</text>
+        <text class="tb" x="415" y="192">ダイ</text><text class="ts" x="415" y="212">切り出した1枚・数cm角</text>
+        <text class="tb" x="725" y="192">パッケージ</text><text class="ts" x="725" y="212">基板に実装した製品</text>
+      </g>
+      <path d="M360 228 V236 H840 V228" fill="none" stroke="var(--accent)" stroke-width="2"/>
+      <text class="ta" x="600" y="254" text-anchor="middle">日常会話の「チップ」はこの範囲</text>
+    </svg>
+  </figure>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>呼び方</th><th>指すもの</th><th>大きさ</th><th>板チョコでたとえると</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ウェハー</strong></td><td>回路を作り込むシリコンの円盤。同じ回路が数十〜数百個並ぶ</td><td class="num">直径300mm</td><td>板チョコ1枚</td></tr>
+        <tr><td><strong>ダイ</strong></td><td>ウェハーから切り出した1枚。トランジスタが作り込まれた本体</td><td class="num">数cm角</td><td>割った1かけ</td></tr>
+        <tr><td><strong>チップ</strong></td><td>日常ではダイとほぼ同じ意味。完成品全体を指すことも</td><td class="num">—</td><td>1かけ〜商品の総称</td></tr>
+        <tr><td><strong>パッケージ</strong></td><td>ダイ（＋HBMなど）を基板に載せ、配線・保護した製品</td><td class="num">数cm〜10cm角程度</td><td>包装した商品</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="points">
+    <li>語源：die＝サイコロ（dice）の単数形。円盤を四角く切り分ける形から</li>
+    <li>演算ダイ＝計算回路のダイ。メモリダイ＝記憶回路のダイ</li>
+    <li>HBM＝メモリダイを縦に積み重ねたもの。1つのパッケージに計算用と記憶用のダイが同居</li>
+  </ul>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>用語</th><th>正体</th><th>たとえ</th></tr></thead>
+      <tbody>
+        <tr><td><strong>半導体</strong></td><td>電気の通り方を制御できる素材（シリコン）</td><td>材木</td></tr>
+        <tr><td><strong>トランジスタ</strong></td><td>半導体製のスイッチ。0と1を作る最小部品</td><td>電灯のスイッチ</td></tr>
+        <tr><td><strong>ウェハー</strong></td><td>回路を作り込むシリコンの円盤。直径300mm</td><td class="num">05</td></tr><tr><td><strong>チップ（ダイ）</strong></td><td>トランジスタ数百億個の集合</td><td>スイッチを敷き詰めた工場の床</td></tr>
+        <tr><td><strong>パッケージ</strong></td><td>ダイ＋メモリを基板に実装した製品</td><td>完成した工場の建物</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="video">
+    <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/FI7gdh4zehY" title="Why Nvidia’s Blackwell Chip Is Key to the Next Stage of AI（Bloomberg News）" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <a class="video-link" href="https://youtu.be/FI7gdh4zehY" target="_blank" rel="noopener">
+      <span class="play" aria-hidden="true">▶</span>
+      <span class="vt"><b>動画：NVIDIAのAIチップ「Blackwell」はなぜ重要か</b><small>Why Nvidia’s Blackwell Chip Is Key to the Next Stage of AI（Bloomberg News）英語・字幕の自動翻訳を利用</small><small class="u">YouTubeで開く ↗</small></span>
+    </a>
+    <div class="kotoba"><div class="kt">視聴ポイント</div><ul class="points"><li>Blackwell＝08章グラフのB200（約2,080億トランジスタ）</li><li>演算ダイ2枚を1つのパッケージに実装</li><li>演算ダイの横に並ぶHBM（06章）</li><li>実物のウェハー・ダイ・パッケージの見た目</li></ul></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="chap" id="s6">
+  <div class="chap-head"><div class="chap-no">06</div><h2>メモリ：重みの倉庫</h2><p class="chap-lead">チップ＝工場、メモリ＝倉庫。どちらも半導体。</p></div>
+  <figure class="fig scroll">
+    <svg viewBox="0 0 680 260" role="img" aria-label="HBMの断面図。DRAMチップを積層し、インターポーザ上で演算ダイと接続">
+      <rect x="30" y="206" width="500" height="16" fill="var(--interposer)"/>
+      <rect x="20" y="222" width="520" height="18" fill="var(--substrate)"/>
+      <rect x="60" y="150" width="190" height="56" rx="2" fill="var(--die)"/>
+      <text class="tw" x="155" y="183" text-anchor="middle">演算ダイ（工場）</text>
+      <rect x="340" y="190" width="150" height="16" fill="var(--die-core)"/>
+      <g fill="var(--die)">
+        <rect x="340" y="176" width="150" height="11"/><rect x="340" y="162" width="150" height="11"/><rect x="340" y="148" width="150" height="11"/><rect x="340" y="134" width="150" height="11"/>
+        <rect x="340" y="120" width="150" height="11"/><rect x="340" y="106" width="150" height="11"/><rect x="340" y="92" width="150" height="11"/><rect x="340" y="78" width="150" height="11"/>
+      </g>
+      <g stroke="var(--accent)" stroke-width="1.5"><line x1="370" y1="78" x2="370" y2="206"/><line x1="400" y1="78" x2="400" y2="206"/><line x1="430" y1="78" x2="430" y2="206"/><line x1="460" y1="78" x2="460" y2="206"/></g>
+      <line x1="254" y1="196" x2="334" y2="196" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ah)" marker-start="url(#ah)"/>
+      <text class="ta" x="294" y="140" text-anchor="middle">高速転送</text>
+      <text class="ts" x="294" y="158" text-anchor="middle">重みを運ぶ</text>
+      <g stroke="var(--muted)" stroke-width=".8" stroke-dasharray="3 3"><line x1="492" y1="100" x2="540" y2="70"/><line x1="462" y1="150" x2="540" y2="130"/><line x1="492" y1="198" x2="540" y2="190"/><line x1="530" y1="214" x2="540" y2="236"/></g>
+      <text class="t" x="546" y="74">DRAMを8〜12層</text>
+      <text class="t" x="546" y="134">貫通電極（TSV）</text>
+      <text class="t" x="546" y="194">ベースダイ</text>
+      <text class="ts" x="546" y="244">インターポーザ</text>
+      <text class="tb" x="415" y="62" text-anchor="middle">HBM（倉庫）</text>
+    </svg>
+    <figcaption>HBM＝High Bandwidth Memory。DRAMチップを縦に積み、演算ダイのすぐ横に置くことで転送距離を短縮。概念図。</figcaption>
+  </figure>
+  <div class="g3">
+    <div class="fig"><h3>チップ（工場）</h3><ul class="points"><li>計算担当</li><li>積和演算回路が数万個</li><li>同時並行で動作</li></ul></div>
+    <div class="fig"><h3>メモリ（倉庫）</h3><ul class="points"><li>記憶担当</li><li>番地付きで数値を保管</li><li>判断機能なし</li></ul></div>
+    <div class="fig"><h3>プログラム（手順書）</h3><ul class="points"><li>どの番地を読むかを指示</li><li>チップ上で実行</li><li>手順書自体もメモリに保存</li></ul></div>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>論点</th><th>実態</th></tr></thead>
+      <tbody>
+        <tr><td><strong>入口</strong></td><td>トークンID＝表の行番号。「猫」ID 12345 → 12345行目のベクトルを読む</td></tr>
+        <tr><td><strong>各層</strong></td><td>入力にかかわらず、その層の重みを全部読み出して計算</td></tr>
+        <tr><td><strong>ボトルネック</strong></td><td>計算速度より、メモリから運ぶ速度（帯域）</td></tr>
+        <tr><td><strong>結果</strong></td><td>HBMの需要急増、メモリ企業の業績拡大</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="chap" id="s7">
+  <div class="chap-head"><div class="chap-no">07</div><h2>データセンター：電力と熱の施設</h2><p class="chap-lead">電気を受け取り、計算し、すべて熱として排出。</p></div>
+  <figure class="fig scroll">
+    <svg viewBox="0 0 1000 350" role="img" aria-label="データセンターの断面。送電線から受電し、ラック列で計算、屋上の冷却設備で排熱、光ファイバーで通信">
+      <line x1="20" y1="300" x2="980" y2="300" stroke="var(--muted)" stroke-width="1.5"/>
+      <g stroke="var(--ink)" stroke-width="1.6" fill="none"><path d="M70 300 L90 120 L110 300"/><path d="M78 230 L102 230 M82 190 L98 190 M86 150 L94 150"/><path d="M70 130 L110 130"/></g>
+      <path d="M110 130 Q190 150 250 160" stroke="var(--accent)" stroke-width="1.6" fill="none"/>
+      <rect x="150" y="240" width="70" height="60" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.4"/>
+      <path d="M175 252 l-8 16 h10 l-6 16" stroke="var(--accent)" stroke-width="2" fill="none"/>
+      <line x1="220" y1="270" x2="250" y2="270" stroke="var(--accent)" stroke-width="2"/>
+      <rect x="250" y="120" width="560" height="180" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.6"/>
+      <g fill="var(--rack)">
+        <rect x="290" y="180" width="46" height="112"/><rect x="366" y="180" width="46" height="112"/><rect x="442" y="180" width="46" height="112"/>
+        <rect x="518" y="180" width="46" height="112"/><rect x="594" y="180" width="46" height="112"/><rect x="670" y="180" width="46" height="112"/>
+      </g>
+      <g fill="var(--led)" class="pulse"><circle cx="328" cy="196" r="2"/><circle cx="404" cy="214" r="2"/><circle cx="480" cy="232" r="2"/><circle cx="556" cy="200" r="2"/><circle cx="632" cy="250" r="2"/><circle cx="708" cy="220" r="2"/></g>
+      <path d="M270 162 H760 V100" stroke="var(--cold)" stroke-width="3" fill="none"/>
+      <path d="M270 150 H740 V100" stroke="var(--hot)" stroke-width="3" fill="none"/>
+      <g stroke="var(--cold)" stroke-width="2"><line x1="313" y1="162" x2="313" y2="180"/><line x1="389" y1="162" x2="389" y2="180"/><line x1="465" y1="162" x2="465" y2="180"/><line x1="541" y1="162" x2="541" y2="180"/><line x1="617" y1="162" x2="617" y2="180"/><line x1="693" y1="162" x2="693" y2="180"/></g>
+      <rect x="700" y="72" width="90" height="28" fill="var(--surface)" stroke="var(--ink)" stroke-width="1.4"/>
+      <circle cx="725" cy="86" r="9" fill="none" stroke="var(--ink)"/><circle cx="765" cy="86" r="9" fill="none" stroke="var(--ink)"/>
+      <path d="M720 64 q5 -10 0 -18 M745 64 q5 -10 0 -18 M770 64 q5 -10 0 -18" stroke="var(--hot)" stroke-width="1.4" fill="none"/>
+      <path d="M810 290 H970" stroke="var(--blue)" stroke-width="3" stroke-dasharray="8 5"/>
+      <g text-anchor="middle">
+        <text class="tb" x="135" y="96">電力</text><text class="ts" x="135" y="114">送電網から高圧受電</text>
+        <text class="ts" x="185" y="320">受変電設備</text>
+        <text class="tb" x="500" y="330" style="fill:var(--ink)">サーバーラック列</text>
+        <text class="tb" x="870" y="80">冷却</text><text class="ts" x="870" y="98">液冷・冷却塔・空調</text>
+        <text class="tb" x="890" y="250">通信</text><text class="ts" x="890" y="270">光ファイバー</text>
+      </g>
+      <g class="ts"><text x="268" y="142" style="fill:var(--hot)">温水（熱を回収）</text><text x="430" y="142" style="fill:var(--cold)">冷水（チップを冷却）</text></g>
+    </svg>
+  </figure>
+  <div class="video">
+    <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/gf6fvx8YCqg" title="石狩データセンターの内部（テレビ大阪ニュース）" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <a class="video-link" href="https://youtu.be/gf6fvx8YCqg" target="_blank" rel="noopener">
+      <span class="play" aria-hidden="true">▶</span>
+      <span class="vt"><b>動画：さくらインターネット 石狩データセンターの内部</b><small>NVIDIAのGPU2000台！石狩データセンターの内部は…注目企業「さくらインターネット」とは（大阪NEWS【テレビ大阪ニュース】）</small><small class="u">YouTubeで開く ↗</small></span>
+    </a>
+    <div class="kotoba"><div class="kt">視聴ポイント</div><ul class="points"><li>上の断面図のどの部分が映っているか</li><li>ラック・配線・冷却設備の実物</li><li>なぜ北海道・石狩に建てるのか（電力・気候・土地）</li><li>日本のクラウド事業者の例（10章の企業表）</li></ul></div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="v">数十〜100kW超</div><div class="l">AI向けラック1台の消費電力（目安）</div></div>
+    <div class="kpi"><div class="v">数kW〜10kW</div><div class="l">従来型サーバーラック1台（目安）</div></div>
+    <div class="kpi"><div class="v">空冷 → 液冷</div><div class="l">高発熱化による冷却方式の移行</div></div>
+  </div>
+  <ul class="points">
+    <li>立地条件＝電力確保、冷却、通信回線、土地</li>
+    <li>Anthropicは自社でチップを作らず、クラウド事業者のデータセンターを利用</li>
+    <li>使用チップ：Google TPU、AWS Trainium、NVIDIA GPU（公開情報ベース）</li>
+  </ul>
+</section>
+
+<!-- 7 -->
+<section class="chap" id="s8">
+  <div class="chap-head"><div class="chap-no">08</div><h2>1チップあたりのトランジスタ数</h2><p class="chap-lead">50年で約1億倍。対数目盛り。</p></div>
+  <figure class="fig scroll">
+    <svg viewBox="0 0 900 400" role="img" aria-label="チップ1個あたりのトランジスタ数の推移を対数目盛りで示す横棒グラフ">
+      <g stroke="var(--line)"><line x1="200" y1="20" x2="200" y2="350"/><line x1="400" y1="20" x2="400" y2="350"/><line x1="600" y1="20" x2="600" y2="350"/><line x1="800" y1="20" x2="800" y2="350"/></g>
+      <g class="ts" text-anchor="middle"><text x="200" y="372">1千</text><text x="400" y="372">100万</text><text x="600" y="372">10億</text><text x="800" y="372">1兆</text></g>
+      <g class="t" text-anchor="end">
+        <text x="188" y="45">1971 Intel 4004</text><text x="188" y="85">1993 Pentium</text><text x="188" y="125">2000 Pentium 4</text><text x="188" y="165">2006 Core 2 Duo</text>
+        <text x="188" y="205">2017 NVIDIA V100</text><text x="188" y="245">2020 NVIDIA A100</text><text x="188" y="285">2022 NVIDIA H100</text><text x="188" y="325">2024 NVIDIA B200</text>
+      </g>
+      <g fill="var(--blue)">
+        <rect x="200" y="32" width="8" height="20"/><rect x="200" y="72" width="164" height="20"/><rect x="200" y="112" width="238" height="20"/><rect x="200" y="152" width="302" height="20"/>
+      </g>
+      <g fill="var(--accent)">
+        <rect x="200" y="192" width="429" height="20"/><rect x="200" y="232" width="461" height="20"/><rect x="200" y="272" width="474" height="20"/><rect x="200" y="312" width="504" height="20"/>
+      </g>
+      <g class="ts">
+        <text x="216" y="47">約2,300</text><text x="372" y="87">約310万</text><text x="446" y="127">約4,200万</text><text x="510" y="167">約2.9億</text>
+        <text x="637" y="207">約211億</text><text x="669" y="247">約542億</text><text x="682" y="287">約800億</text><text x="712" y="327">約2,080億</text>
+      </g>
+      <rect x="610" y="26" width="12" height="12" fill="var(--blue)"/><text class="ts" x="628" y="37">PC向けCPU</text>
+      <rect x="720" y="26" width="12" height="12" fill="var(--accent)"/><text class="ts" x="738" y="37">AI向けGPU</text>
+    </svg>
+    <figcaption>各社公表値に基づく概数。B200は2枚のダイの合計。</figcaption>
+  </figure>
+</section>
+
+<!-- 8 -->
+<section class="chap" id="s9">
+  <div class="chap-head"><div class="chap-no">09</div><h2>知識の獲得＝学習</h2><p class="chap-lead">データベースではなく、重みの中に圧縮して保存。</p></div>
+  <div class="steps">
+<article class="step"><div class="step-top"><span class="sn">1</span><h3>材料となるデータ</h3></div><ul class="points"><li>公開ウェブの文章（収集プログラムで収集、サイト側の拒否設定を尊重）</li><li>ライセンス契約で得たデータ</li><li>学習への利用を許可したユーザーの会話</li><li>AI自身が作った合成データ</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>クローラ</dt><dd>ウェブページを自動で巡回し、文章を集めるプログラム</dd></div><div><dt>合成データ</dt><dd>人ではなくAIが作った練習用の文章や問題</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">2</span><h3>事前学習：次の単語当て</h3></div><ul class="points"><li>文章の途中まで見せ、次の単語を予測</li><li>外れたら、原因となった重みを逆算し、少しずつ修正</li><li>数兆トークン分、数万個のチップで数か月</li><li>単語当てを極めると、文法・事実・論理・文脈まで重みに表現</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>事前学習</dt><dd>大量の文章で言葉の基礎を身につける最初の学習</dd></div><div><dt>誤差逆伝播</dt><dd>予測の外れを出口側から入口側へさかのぼり、各重みの直し方を決める方法</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">3</span><h3>知識は重みの中に</h3></div><ul class="points"><li>学習後、元の文章は推論で使わない</li><li>知識＝数千億個の数値に分散・圧縮して保存</li><li>辞書引きではなく、計算で毎回組み立て直し</li><li>結果：知識の締め切り、ハルシネーション</li><li>補う手段＝ウェブ検索の併用</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>データベース</dt><dd>情報をそのまま保管し、検索して取り出す仕組み。AIの重みとは別物</dd></div><div><dt>ハルシネーション</dt><dd>事実と違う内容を、もっともらしく作ってしまう現象。「幻覚」の意</dd></div></dl></div></article>
+<article class="step"><div class="step-top"><span class="sn">4</span><h3>事後学習：振る舞いの調整</h3></div><ul class="points"><li>事前学習のみ＝文章の続きを書く機械</li><li>人間の評価者による「どちらの回答が良いか」の比較データ</li><li>Anthropic：文章化した原則（Constitution＝憲法）による評価</li><li>公開前のテスト問題、安全性検査</li><li>良い回答の基準＝学習時に重みへ作り込み</li><li>危険性の高い分野：別のAI（分類器）が並行して監視・遮断</li></ul><div class="kotoba"><div class="kt">ことば</div><dl><div><dt>事後学習</dt><dd>事前学習の後、回答の質や振る舞いを整える学習</dd></div><div><dt>分類器</dt><dd>入力が「問題あり／なし」のどれに当たるかを判定する別のAI</dd></div></dl></div></article>
+</div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>性質</th><th>理由</th></tr></thead>
+      <tbody>
+        <tr><td><strong>知識の締め切り</strong></td><td>学習後の出来事は重みに含まれない</td></tr>
+        <tr><td><strong>もっともらしい誤り</strong></td><td>辞書を引くのではなく、計算で答えを再構成</td></tr>
+        <tr><td><strong>会話中は賢くならない</strong></td><td>推論中は重みが固定。会話の記憶は毎回の入力に含めて再計算</td></tr>
+        <tr><td><strong>「回答の終わり」</strong></td><td>終了を意味する特殊トークンも、計算で予測</td></tr>
+        <tr><td><strong>品質の基準</strong></td><td>学習時に重みへ作り込み。危険分野は別の分類器で並行監視</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="chap" id="s10">
+  <div class="chap-head"><div class="chap-no">10</div><h2>AIを支える企業のつながり</h2><p class="chap-lead">上流の素材から、下流の利用企業まで。</p></div>
+  <div class="chain" aria-label="バリューチェーン">
+    <div class="node"><b>素材</b><small>ウェハー・薬品・基板材料</small></div><div class="arw">→</div>
+    <div class="node"><b>製造装置</b><small>露光・成膜・検査</small></div><div class="arw">→</div>
+    <div class="node"><b>製造</b><small>受託生産（ファウンドリ）</small></div><div class="arw">→</div>
+    <div class="node"><b>チップ設計</b><small>GPU・独自チップ</small></div><div class="arw">→</div>
+    <div class="node"><b>メモリ</b><small>HBM・DRAM</small></div><div class="arw">→</div>
+    <div class="node"><b>DC・設備</b><small>電力・冷却・建設</small></div><div class="arw">→</div>
+    <div class="node"><b>クラウド</b><small>計算資源の貸し出し</small></div><div class="arw">→</div>
+    <div class="node hl"><b>AIモデル</b><small>Anthropicなど</small></div><div class="arw">→</div>
+    <div class="node"><b>利用</b><small>企業・個人</small></div>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>領域</th><th>役割</th><th>主な海外企業</th><th>主な日本企業</th></tr></thead>
+      <tbody>
+        <tr><td><strong>素材</strong></td><td>シリコンウェハー、フォトレジスト、パッケージ基板・絶縁材</td><td>—</td><td>信越化学、SUMCO、JSR、東京応化、レゾナック、イビデン、味の素（ABFフィルム）</td></tr>
+        <tr><td><strong>製造装置</strong></td><td>回路の焼き付け、成膜、洗浄、切断、検査</td><td>ASML、Applied Materials、Lam Research</td><td>東京エレクトロン、SCREEN、ディスコ、アドバンテスト、レーザーテック</td></tr>
+        <tr><td><strong>製造</strong></td><td>設計図をもとにチップを生産</td><td>TSMC、Samsung</td><td>ラピダス（量産準備）</td></tr>
+        <tr><td><strong>チップ設計</strong></td><td>AI向け演算チップの設計</td><td>NVIDIA、AMD、Google（TPU）、AWS（Trainium）</td><td>—</td></tr>
+        <tr><td><strong>メモリ</strong></td><td>HBM・DRAM（重みの置き場）、NAND（データ保存）</td><td>SK hynix、Samsung、Micron</td><td>キオクシア（NAND）</td></tr>
+        <tr><td><strong>DC・設備</strong></td><td>電力、冷却、建設、サーバー組立</td><td>Vertiv、Schneider Electric、Supermicro</td><td>電力各社、ダイキン工業、ゼネコン各社</td></tr>
+        <tr><td><strong>通信</strong></td><td>光ファイバー、海底ケーブル</td><td>—</td><td>NTT、KDDI、古河電工、住友電工、フジクラ</td></tr>
+        <tr><td><strong>クラウド</strong></td><td>データセンターの計算資源を貸し出し</td><td>AWS、Google Cloud、Microsoft Azure</td><td>さくらインターネット、ソフトバンク</td></tr>
+        <tr><td><strong>AIモデル</strong></td><td>基盤モデルの開発・提供</td><td>Anthropic、OpenAI、Google</td><td>Sakana AI、Preferred Networks など</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="video">
+    <div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/1jjXcJhcgsc" title="10分でわかるAIサプライチェーンの全体像（All About マネー）" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <a class="video-link" href="https://youtu.be/1jjXcJhcgsc" target="_blank" rel="noopener">
+      <span class="play" aria-hidden="true">▶</span>
+      <span class="vt"><b>動画：10分でわかるAIサプライチェーンの全体像</b><small>半導体銘柄はなぜ高騰したのか？ 10分でわかるAIサプライチェーンの全体像【AIゴールドラッシュ時代に儲けるのは誰だ!?】（All About マネー【プロと学ぶお金のキホン】）</small><small class="u">YouTubeで開く ↗</small></span>
+    </a>
+    <div class="kotoba"><div class="kt">視聴ポイント</div><ul class="points"><li>上のバリューチェーン図のどの段階の企業か</li><li>AI需要が増えると、なぜ株価・業績が上がるのか</li><li>「儲けるのは誰か」を自分の言葉で説明</li><li>動画は投資の解説。銘柄推奨ではなく産業構造の理解に活用</li></ul></div>
+  </div>
+  <ul class="points">
+    <li>日本企業の強み＝素材と製造装置</li>
+    <li>AI投資の拡大 → 上流企業へ波及する構造</li>
+    <li>企業名は代表例。業績・シェアは年ごとに変動</li>
+  </ul>
+</section>
+
+<!-- 10 -->
+<section class="chap" id="s11">
+  <div class="chap-head"><div class="chap-no">11</div><h2>職種マップ</h2><p class="chap-lead">技術職だけではない。各層にビジネス職。</p></div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>領域</th><th>職種の例</th><th>求められる力</th><th>入口</th></tr></thead>
+      <tbody>
+        <tr><td><strong>半導体・素材</strong></td><td>技術営業、調達、生産管理、海外営業</td><td>製品知識、交渉、語学、需給予測</td><td><span class="tag bun">文系可</span><span class="tag ri">理系</span></td></tr>
+        <tr><td><strong>製造装置</strong></td><td>フィールドエンジニア、営業、サプライチェーン</td><td>顧客対応、物流・在庫管理</td><td><span class="tag bun">文系可</span><span class="tag ri">理系</span></td></tr>
+        <tr><td><strong>データセンター</strong></td><td>施設運営、電気・空調設備、用地・不動産開発</td><td>設備管理、電力契約、不動産</td><td><span class="tag bun">文系可</span><span class="tag ri">理系</span></td></tr>
+        <tr><td><strong>クラウド</strong></td><td>営業、カスタマーサクセス、ソリューション設計</td><td>顧客課題の理解、料金設計</td><td><span class="tag bun">文系可</span><span class="tag ri">理系</span></td></tr>
+        <tr><td><strong>AIモデル</strong></td><td>研究、エンジニア、評価・データ作成、安全性</td><td>数学、プログラミング、言語能力</td><td><span class="tag ri">理系中心</span></td></tr>
+        <tr><td><strong>AI活用</strong></td><td>プロダクト企画、導入コンサル、業務改革</td><td>業務理解、要件定義、変革推進</td><td><span class="tag bun">文系可</span></td></tr>
+        <tr><td><strong>法務・政策</strong></td><td>著作権、個人情報、輸出規制、政策渉外</td><td>法律知識、文書作成、利害調整</td><td><span class="tag bun">文系中心</span></td></tr>
+        <tr><td><strong>財務・投資</strong></td><td>設備投資分析、IR、証券アナリスト</td><td>会計、企業分析、業界構造の理解</td><td><span class="tag bun">文系中心</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="g2">
+    <div class="fig"><h3>業界研究の視点</h3><ul class="points"><li>その企業はチェーンのどこか</li><li>AI需要が増えると売上が増える仕組みか</li><li>代替される危険はあるか</li></ul></div>
+    <div class="fig"><h3>どの職種でも共通</h3><ul class="points"><li>AIの仕組みの基礎理解</li><li>AIを使った業務の設計</li><li>数字と構造で説明する力</li></ul></div>
+  </div>
+</section>
+
+
+<!-- summary -->
+<section class="chap" id="s12">
+  <div class="chap-head"><div class="chap-no">12</div><h2>まとめ</h2><p class="chap-lead">部品・数値・工程の関係を1枚で。</p></div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th></th><th>正体</th><th>役割</th></tr></thead>
+      <tbody>
+        <tr><td><strong>半導体</strong></td><td>電気の通り方を制御できる素材</td><td>すべての土台</td></tr>
+        <tr><td><strong>トランジスタ</strong></td><td>半導体製のスイッチ</td><td>0と1を作る最小部品</td></tr>
+        <tr><td><strong>チップ</strong></td><td>トランジスタ数百億個の集合</td><td>計算する（工場）</td></tr>
+        <tr><td><strong>メモリ（HBM）</strong></td><td>トランジスタ＋コンデンサの集合</td><td>重みを番地付きで保管（倉庫）</td></tr>
+        <tr><td><strong>重み</strong></td><td>数千億個の小数</td><td>AIの知識と判断基準の実体</td></tr>
+        <tr><td><strong>データセンター</strong></td><td>AIサーバーを並べた建物</td><td>電力を受け、計算し、熱を出す</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="g3">
+    <div class="fig"><h3>学習</h3><p>大量の文章で、数千億個のツマミ（重み）を数か月かけて調整する工程。</p></div>
+    <div class="fig"><h3>推論</h3><p>調整済みの重みに入力の数値を通し、ベクトル×行列を何十層も重ねて「次の1語」を出す作業の繰り返し。</p></div>
+    <div class="fig"><h3>物理層</h3><p>メモリとチップ間のデータ運搬、トランジスタのオン・オフ、大量の電力と熱。</p></div>
+  </div>
+  <p class="punch">AIは考えているのではなく、<br>圧縮された知識を算数で解凍している。</p>
+</section>
+
+<!-- 11 -->
+<section class="chap" id="s13">
+  <div class="chap-head"><div class="chap-no">13</div><h2>確認問題</h2><p class="chap-lead">グループ討議用。</p></div>
+  <ol class="q">
+    <li>AIへの質問が1日あたり2倍になった場合、売上が増えそうな企業をバリューチェーンから3社選び、理由を説明せよ。</li>
+    <li>「AIの回答速度は、計算能力よりメモリの速度で決まる」理由を、工場と倉庫のたとえで説明せよ。</li>
+    <li>日本企業が素材・装置に強いことは、AI時代の日本経済にとって強みか弱みか。両面から論じよ。</li>
+    <li>自分が関心のある職種は、この産業構造のどこに位置するか。AIの普及で仕事の中身はどう変わるか。</li>
+  </ol>
+</section>
+
+
+<!-- glossary -->
+<section class="chap" id="s14">
+  <div class="chap-head"><div class="chap-no">14</div><h2>用語集</h2><p class="chap-lead">本資料に出てくる用語。右列は主な掲載章。</p></div>
+  <div class="tbl"><table><thead><tr><th>用語</th><th>意味</th><th>章</th></tr></thead><tbody><tr><td><strong>半導体</strong></td><td>条件次第で電気を通したり通さなかったりする素材。シリコン（ケイ素）</td><td class="num">05</td></tr><tr><td><strong>トランジスタ</strong></td><td>半導体製の電気のスイッチ。オン＝1、オフ＝0</td><td class="num">05</td></tr><tr><td><strong>チップ（ダイ）</strong></td><td>ウェハーから切り出した1枚。語源はサイコロ（die）</td><td class="num">05</td></tr><tr><td><strong>パッケージ</strong></td><td>演算ダイとメモリを1つの基板に実装した製品</td><td class="num">05</td></tr><tr><td><strong>GPU / TPU / Trainium</strong></td><td>AI計算向きのチップ。設計はNVIDIA / Google / AWS</td><td class="num">03・05</td></tr><tr><td><strong>メモリ</strong></td><td>記憶用の半導体。番地付きで数値を保管。判断はしない</td><td class="num">06</td></tr><tr><td><strong>HBM</strong></td><td>広帯域メモリ。積層したメモリをAIチップの横に配置</td><td class="num">06</td></tr><tr><td><strong>帯域</strong></td><td>一度に運べるデータの量</td><td class="num">03・06</td></tr><tr><td><strong>ボトルネック</strong></td><td>全体の速さを決める一番遅い部分</td><td class="num">03・06</td></tr><tr><td><strong>NVLink</strong></td><td>NVIDIA製チップ同士をつなぐ高速配線</td><td class="num">03</td></tr><tr><td><strong>サーバー</strong></td><td>データセンターの業務用コンピューター</td><td class="num">01・07</td></tr><tr><td><strong>データセンター</strong></td><td>サーバーを大量に並べた建物。電力と熱の施設</td><td class="num">07</td></tr><tr><td><strong>クラウド事業者</strong></td><td>計算能力を貸し出す会社。AWS、Google Cloud、Azureなど</td><td class="num">07・10</td></tr><tr><td><strong>モデル</strong></td><td>AIの本体。重みと計算手順のセット</td><td class="num">02</td></tr><tr><td><strong>重み（パラメータ）</strong></td><td>モデルを構成する数値1つ1つ。ツマミの目盛り</td><td class="num">03・04</td></tr><tr><td><strong>トークン</strong></td><td>AIが文章を扱う最小単位。単語や文字の断片</td><td class="num">03</td></tr><tr><td><strong>ベクトル</strong></td><td>数値を1列に並べたもの</td><td class="num">03・04</td></tr><tr><td><strong>次元</strong></td><td>ベクトルに並ぶ数値の個数</td><td class="num">03</td></tr><tr><td><strong>行列</strong></td><td>数値を縦横の表に並べたもの</td><td class="num">04</td></tr><tr><td><strong>積和演算</strong></td><td>掛け算と足し算のセット。AIチップの基本動作</td><td class="num">04</td></tr><tr><td><strong>層（レイヤー）</strong></td><td>同じ形の計算のまとまり。数十〜100段前後</td><td class="num">04</td></tr><tr><td><strong>Transformer</strong></td><td>層を何十段も重ねる生成AIの基本構造</td><td class="num">03</td></tr><tr><td><strong>アテンション</strong></td><td>単語同士の関係の深さを数値で計算する処理</td><td class="num">03</td></tr><tr><td><strong>フィードフォワード</strong></td><td>情報を変換・加工する処理</td><td class="num">03</td></tr><tr><td><strong>確率分布</strong></td><td>次に来る候補それぞれの可能性を%で並べたもの</td><td class="num">03</td></tr><tr><td><strong>ストリーミング</strong></td><td>出来上がった部分から順に表示する方式</td><td class="num">01・03</td></tr><tr><td><strong>学習 / 推論</strong></td><td>重みを作る工程 / 重みを使って回答を計算する工程</td><td class="num">02</td></tr><tr><td><strong>事前学習</strong></td><td>次の単語当てで言葉の基礎を身につける学習</td><td class="num">09</td></tr><tr><td><strong>誤差逆伝播</strong></td><td>予測の外れから各重みの直し方を逆算する方法</td><td class="num">09</td></tr><tr><td><strong>事後学習</strong></td><td>回答の質や振る舞いを整える学習</td><td class="num">09</td></tr><tr><td><strong>Constitution</strong></td><td>Anthropicが文章化したAIの行動原則</td><td class="num">09</td></tr><tr><td><strong>分類器</strong></td><td>入出力の問題あり／なしを判定する別のAI</td><td class="num">09</td></tr><tr><td><strong>クローラ</strong></td><td>ウェブを自動巡回して文章を集めるプログラム</td><td class="num">09</td></tr><tr><td><strong>合成データ</strong></td><td>AIが作った練習用の文章や問題</td><td class="num">09</td></tr><tr><td><strong>ハルシネーション</strong></td><td>事実と違う内容をもっともらしく作る現象</td><td class="num">09</td></tr></tbody></table></div>
+</section>
+
+<p class="note">数値は2026年時点の公開情報に基づく概数・目安。Claudeを含む個別AIモデルの内部構成（重みの数・層数など）は非公開。図は理解のための概念図であり、実物の寸法比とは異なる。企業名は各領域の代表例。</p>
+
+<nav class="pagenav" aria-label="資料の移動">
+  <a href="b09-ai-sangyo.html"><b>← 前の資料</b>AI産業の市場地図</a>
+  <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+</nav>
+
+</div>
+
+</body>
+</html>
