@@ -20,11 +20,12 @@
 | 資料09 | マッチングと金融 | `b06-kinyu.html` |
 | 資料10 | B/S・P/LとAIへの業務依頼（2年・10/5 講義要点） | `y01-2nen-1005.html` |
 | 資料11 | 利回り・割引現在価値とAIへの業務依頼（4年・10/5 講義要点） | `y02-4nen-1005.html` |
-| 資料12 | 牛丼3社の稼ぐ力 | `b07-gyudon.html` |
-| 資料13 | コンビニ3社の稼ぐ力 | `b08-konbini.html` |
-| 資料14 | AI産業の市場地図 | `b09-ai-sangyo.html` |
-| 資料15 | AIの物理層講義 | `b10-butsuri.html` |
-| 資料16 | 職場AI活用マップ 2026 | `b11-shokuba.html` |
+| 資料12 | ROE・5つの利益と株式投資（4年・Day9 10/19） | `d09-4nen-1019.html` |
+| 資料13 | 牛丼3社の稼ぐ力 | `b07-gyudon.html` |
+| 資料14 | コンビニ3社の稼ぐ力 | `b08-konbini.html` |
+| 資料15 | AI産業の市場地図 | `b09-ai-sangyo.html` |
+| 資料16 | AIの物理層講義 | `b10-butsuri.html` |
+| 資料17 | 職場AI活用マップ 2026 | `b11-shokuba.html` |
 
 ## 仕様
 
