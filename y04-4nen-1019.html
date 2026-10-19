@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（4年・2026年10月19日）。担当銘柄とGoogle フォーム、業種と証券コード、ROE、労働と資本、AIエージェントへの仕事の頼み方と注意点。質問集つき。">
+<title>ROE・担当銘柄とAIエージェント</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">4年イノプロ　Day9　2026年10月19日　講義要点</div>
+    <h1>ROE・担当銘柄と<em>AIエージェント</em></h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>担当銘柄・業種と証券コード・ROE・労働と資本</dd></div>
+      <div><dt>後半</dt><dd>AIエージェント（Claude Code・Codex）・注意点</dd></div>
+      <div><dt>提出</dt><dd>Google フォームに担当銘柄の決算の数字</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（担当銘柄・ROE・労働と資本）、後半 秋山（AIエージェント）。録音は担当銘柄の説明から。</p>
+      <ul>
+        <li><b>担当銘柄</b>　1人1社。決算の数字（静的）をGoogle フォームへ。来週から毎週の株価（動的）</li>
+        <li><b>ROE</b>　純利益 ÷ 自己資本。儲かっていても投資先としてよいとは限らない</li>
+        <li><b>労働の限界</b>　時間と空間の制約。賃金は勤め先の売上からしか来ない</li>
+        <li><b>株主の上がり</b>　社員にならなくても、その会社のビジネスの上がりを配当・株価で得る</li>
+        <li><b>AIエージェント</b>　副操縦士（コパイロット）から自動操縦（オートパイロット）へ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>担当銘柄とGoogle フォーム</h2>
+      <p class="sub">Day9資料の節6。担当表はGoogle Classroomで配布。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>静的データと動的データ</caption>
+          <thead><tr><th>種類</th><th>例</th><th>入力</th><th>調べ方</th></tr></thead>
+          <tbody>
+            <tr><td>静的データ</td><td>売上高・営業利益・純利益・自己資本・ROE</td><td>今回のフォーム（授業中または後で）</td><td>社名とAIで検索</td></tr>
+            <tr class="accent"><td>動的データ</td><td>株価</td><td>来週から週1回</td><td>終値。米国株は時差あり</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>授業の第2部</b>　1週間の出来事（イベント）が担当銘柄の株価にどう効いたかを毎週体感</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>業種と証券コード</h2>
+      <p class="sub">担当表の列の意味。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>担当表の見方</caption>
+          <thead><tr><th>列</th><th>中身</th><th>例</th></tr></thead>
+          <tbody>
+            <tr><td>業種</td><td>日本株は東証33業種。業種全体で株価が動くこともある</td><td>電気機器　日立・ソニー・キーエンス</td></tr>
+            <tr><td>コード</td><td>日本は数字4桁の証券コード、米国はアルファベットのティッカー</td><td>6501 日立製作所、AAPL アップル</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><b>ROEとの関係</b>　日立は儲かっている、でも投資先としては別問題、という見方。利益の額ではなく、自己資本に対する比率（ROE）で判断。</div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>ROE</h2>
+      <p class="sub">Return on Equity　自己資本利益率。詳細は資料「ROE・5つの利益と株式投資」。</p>
+      <div class="formula">ROE（自己資本利益率）＝ 当期純利益 ÷ 自己資本 × 100
+          分子　当期純利益　P/Lの一番下　＝ 経営者の1年の働きの結果
+          分母　自己資本　　B/Sの右下　　＝ 出資者（株主）が出した元手</div>
+      <ul>
+        <li><b>高い方がよい</b>　出資者にとって。同じ元手で多く稼ぐ会社ほど、配当の原資が大きい</li>
+        <li><b>比率で見る理由</b>　絶対額では投資先として比べにくい。比率なら業種を問わず比較可能</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>労働と資本</h2>
+      <p class="sub">知らない会社を調べるねらい。お金が大きく動く場所に身を置く。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>収入の入口</caption>
+          <thead><tr><th>入口</th><th>源</th><th>制約</th></tr></thead>
+          <tbody>
+            <tr><td>賃金</td><td>勤め先の売上</td><td>時間と空間。1社分しか知らない</td></tr>
+            <tr><td>昇進・経営</td><td>勤め先の利益</td><td>一部の人だけ</td></tr>
+            <tr class="accent"><td>配当・株価</td><td>投資先の会社のビジネス</td><td>会社を選べる。働かなくても複利で増える</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>例</b>　トヨタの社員でなくても、トヨタのビジネスで儲かった分の上がりを株主として得る</li>
+        <li><b>AI時代</b>　1社で働き続けるだけでなく、市場・会社という箱に関わり、賃金以外の収入源も持つ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>AIエージェント</h2>
+      <p class="sub">後半　秋山。前回の補足。デモは架空の食品会社の採用担当のメール対応。12件中、下書き作成と要確認4件の振り分けまで自動。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>チャットとAIエージェント</caption>
+          <thead><tr><th></th><th>チャットのAI</th><th>AIエージェント</th></tr></thead>
+          <tbody>
+            <tr><td>たとえ</td><td>質問に答えてくれる先輩</td><td>指示書を渡せば最後までやる新入社員</td></tr>
+            <tr class="accent"><td>できること</td><td>質問への回答・文章の作成</td><td>ファイルを読む・書く・実行する。仕事を完了まで進める</td></tr>
+            <tr><td>授業の例</td><td>Gemini・NotebookLM</td><td>Claude Code・Codex</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tw">
+        <table class="txt">
+          <caption>メール対応の比較　前回（無料ツール）と今回（AIエージェント）</caption>
+          <thead><tr><th>工程</th><th>前回</th><th>今回</th></tr></thead>
+          <tbody>
+            <tr><td>メールを集める</td><td>Gemini が Gmail を一覧化 → 人が貼り付け</td><td>Claude が Gmail を直接読む（コネクタ）</td></tr>
+            <tr><td>返信案を作る</td><td>NotebookLM のルールから作成 → 人がスプレッドシートへ</td><td>フォルダ内のルールを Claude が読んで作成</td></tr>
+            <tr><td>下書きを入れる</td><td>GAS のボタンで Gmail へ</td><td>Claude が Gmail の下書きへ直接</td></tr>
+            <tr class="accent"><td>人の作業</td><td>ツール間のコピー＆貼り付け</td><td>下書きの確認と送信だけ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tw">
+        <table class="txt">
+          <caption>AIエージェントに渡すファイル　中身はすべて日本語のテキスト（.md）</caption>
+          <thead><tr><th>ファイル</th><th>役割</th><th>メール対応の例</th></tr></thead>
+          <tbody>
+            <tr><td>CLAUDE.md（Codex は AGENTS.md）</td><td>最初に必ず読む地図とルール。どこに何があるか、絶対にやらないこと</td><td>日程表・名簿・手順書の置き場所。送信はしない</td></tr>
+            <tr><td>SKILL.md</td><td>1つの仕事の手順書</td><td>メールを集める → 種別を判断 → 候補日と返信を決める → 下書き → 名簿を更新</td></tr>
+            <tr><td>ナレッジ・データ</td><td>参照する資料</td><td>説明会のルールと返信例、日程・定員、参加者名簿、対応記録</td></tr>
+            <tr><td>スクリプト</td><td>毎回同じ結果が要る機械的な処理（Python など）</td><td>集計・転記など、ぶれてはいけない計算</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>注意点</h2>
+      <p class="sub">自動化できる範囲が広いぶん、人が決める所を残す。</p>
+      <ul>
+        <li><b>人の確認を残す作業</b>　送信・購入・削除など取り返しのつかない操作。最初は下書きで止める</li>
+        <li><b>任せる範囲の広げ方</b>　100件、200件と下書きを確認して問題がなければ、自動送信を検討</li>
+        <li><b>誤送信</b>　気づかないうちに大量に、または送ってはいけない相手・内容を送る危険</li>
+        <li><b>セキュリティ</b>　AIがメールを読むことの脆弱性（メールに仕込まれた指示に従ってしまう等）は議論中</li>
+        <li><b>ハードル</b>　指示書は日本語のテキスト。講師は文系・非エンジニア。ツールはすでにそろっている</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業で出た問いと、授業の内容から作った復習の問い。着地点は授業での説明。</p>
+      <div class="q"><span class="qn">授業の問い</span>Claude Code・Codex を使っている人はいるか。（教室で約20人中1人ほど）</div>
+      <details><summary>着地点</summary><p>ほとんどの人はチャットで使っている。
+チャットとAIエージェントでは、仕事の上でできることに大きな差がある。</p></details>
+      <div class="q"><span class="qn">授業の問い</span>.md（マークダウン）を聞いたことがあるか。（ちらほら）</div>
+      <details><summary>着地点</summary><p>見出しと箇条書きだけの日本語のテキストファイル。メモアプリやWordで文章を書くのと同じ感覚。
+AIエージェントへの指示書（CLAUDE.md・SKILL.md）はこの形式。</p></details>
+      <div class="q"><span class="qn">復習の問い</span>日立は儲かっているが、投資先としてはダメ、とはどういう状態か。</div>
+      <details><summary>着地点</summary><p>利益の額は大きいが、自己資本に対する比率（ROE）が低い状態。
+出したお金に対する戻りが小さいため、投資家から見ると魅力が下がる。</p></details>
+      <div class="q"><span class="qn">復習の問い</span>労働収入の2つの制約は何か。</div>
+      <details><summary>着地点</summary><p>時間と空間。働ける時間には上限があり、勤めた1社のことしか知らず、賃金はその会社の売上からしか来ない。</p></details>
+      <div class="q"><span class="qn">復習の問い</span>CLAUDE.md（AGENTS.md）と SKILL.md の役割の違いは何か。</div>
+      <details><summary>着地点</summary><p>CLAUDE.md　フォルダで最初に必ず読む地図とルール。どこに何があるか、やってはいけないこと。
+SKILL.md　1つの仕事の手順書。この順番で、何を使ってやるか。</p></details>
+      <div class="q"><span class="qn">復習の問い</span>AIエージェントに任せる仕事のうち、人が最後に確認すべきなのはどれか。</div>
+      <details><summary>着地点</summary><p>取り返しのつかない操作。送信・購入・削除など。
+デモでもメールは下書きで止め、人が読んで送信ボタンを押す流れ。</p></details>
+      <div class="q"><span class="qn">来週から考える問い</span>今週の出来事のうち、自分の担当銘柄の株価に最も効いたのはどれか。</div>
+      <details><summary>着地点</summary><p>授業では答えを出さず、毎週の株価で確かめる問い。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>出典</h2>
+      <p class="sub"></p>
+      <ul class="src">
+        <li>本資料　2026年10月19日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約。前半は録音の途中から</li>
+        <li>日本取引所グループ　東証33業種　<a href="https://www.jpx.co.jp/">jpx.co.jp</a></li>
+        <li>メール対応のデモの会社・学生・説明会は授業用の架空の設定</li>
+        <li>Anthropic　Claude Code　<a href="https://docs.anthropic.com/claude-code">docs.anthropic.com/claude-code</a>／OpenAI　Codex　<a href="https://openai.com/codex/">openai.com/codex</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y03-2nen-1019.html"><b>← 前の資料</b>ROEとAIエージェント</a>
+    <a href="d09-4nen-1019.html"><b>関連</b>ROE・5つの利益と株式投資</a>
+    <a href="s02-yougo.html"><b>経済用語</b>経済用語辞典</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>

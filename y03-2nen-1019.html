@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（2年・2026年10月19日）。後期の組み立て、担当銘柄、ROE、負債と純資産、4つの視点、AIエージェントへの仕事の頼み方。質問集つき。">
+<title>ROEとAIエージェント</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB　2026年10月19日　講義要点</div>
+    <h1>ROEと<em>AIエージェント</em></h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>後期の組み立て・担当銘柄・ROE・4つの視点</dd></div>
+      <div><dt>後半</dt><dd>AIエージェント（Claude Code・Codex）・指示書ファイル</dd></div>
+      <div><dt>提出</dt><dd>Google フォームに担当銘柄の決算の数字</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（後期の組み立て・担当銘柄・ROE）、後半 秋山（AIエージェント）。</p>
+      <ul>
+        <li><b>後期のゴール</b>　P/L・B/Sの知識を前提に、数字を掛け合わせた指標（ROEなど）に慣れる</li>
+        <li><b>担当銘柄</b>　1人1社。決算の数字（静的）と毎週の株価（動的）を追う</li>
+        <li><b>ROE</b>　純利益 ÷ 自己資本。出資したお金がいくら返ってくるかの比率</li>
+        <li><b>視点</b>　消費者・従業員の視点に、経営者と資本家・投資家の視点を足す</li>
+        <li><b>AIエージェント</b>　質問に答えるだけでなく、指示書どおりに仕事を完了まで進める</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>後期の組み立て</h2>
+      <p class="sub">残り約10回。株価のチェックは1月末まで毎週。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>後期にやること</caption>
+          <thead><tr><th>柱</th><th>内容</th><th>担当</th></tr></thead>
+          <tbody>
+            <tr><td>指標に慣れる</td><td>ROE・○○率など、P/LとB/Sを掛け合わせた数字の意味を理解し、会話で使える</td><td>志村</td></tr>
+            <tr class="accent"><td>担当銘柄の分析</td><td>1人1社。同業・異業種の会社と指標で比較</td><td>志村</td></tr>
+            <tr><td>世の中との紐づけ</td><td>選挙・戦争などの出来事が、担当銘柄の株価にどう効くかを毎週体感</td><td>志村</td></tr>
+            <tr><td>AIで分析</td><td>銘柄の比較・株価の調べ方をAIで行う手法</td><td>秋山（来週から）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note"><b>提出</b>　Google フォームに担当銘柄の決算の数字を入力。期限は授業の翌日〜翌々日。株価は来週から毎週。</div>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>担当銘柄を追う理由</h2>
+      <p class="sub">株価を「世の中の出来事への評価」を映すKPI（指標）として使う。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>担当銘柄をきっかけにしたい3つのこと</caption>
+          <thead><tr><th>テーマ</th><th>ねらい</th></tr></thead>
+          <tbody>
+            <tr><td>就職</td><td>会社を指標で比較する目を持つ</td></tr>
+            <tr><td>資産づくり</td><td>労働収入とは別に金融資産を作る。小額で始めやすいのが株</td></tr>
+            <tr><td>世の中への関心</td><td>遠い出来事を自分の担当銘柄の株価と結びつけ、自分ごとにする</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tw">
+        <table class="txt">
+          <caption>静的データと動的データ</caption>
+          <thead><tr><th>種類</th><th>例</th><th>更新</th><th>調べ方</th></tr></thead>
+          <tbody>
+            <tr><td>静的データ</td><td>売上高・営業利益・純利益・自己資本・ROE</td><td>決算ごと（年1回など）</td><td>AI・決算資料で誰でも取得</td></tr>
+            <tr class="accent"><td>動的データ</td><td>株価</td><td>毎日</td><td>証券コード・ティッカーで検索。米国株は時差あり</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>ROE</h2>
+      <p class="sub">Return on Equity　自己資本利益率。今日覚える指標。</p>
+      <div class="formula">ROE（自己資本利益率）＝ 当期純利益 ÷ 自己資本 × 100
+          分子　当期純利益　P/Lの一番下　＝ 経営者の1年の働きの結果
+          分母　自己資本　　B/Sの右下　　＝ 出資者（株主）が出した元手</div>
+      <div class="tw">
+        <table class="txt">
+          <caption>営業利益率とROEの違い</caption>
+          <thead><tr><th></th><th>営業利益率</th><th>ROE</th></tr></thead>
+          <tbody>
+            <tr><td>式</td><td>営業利益 ÷ 売上高</td><td>純利益 ÷ 自己資本</td></tr>
+            <tr><td>使う表</td><td>P/Lだけ</td><td>P/LとB/S</td></tr>
+            <tr class="accent"><td>誰の視点</td><td>経営者・従業員（本業のもうけ、給料の源）</td><td>出資者・投資家（出したお金の戻り）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>高い方がよい</b>　出資者にとって。同じ元手で多く稼ぐ会社ほど、配当の原資が大きい</li>
+        <li><b>比率で見る理由</b>　売上高40兆円・10兆円などの絶対額では、投資先として比べにくい。比率なら業種を問わず比較可能</li>
+        <li><b>例</b>　売上高10億円でも純利益1,000円なら、経営者としてはすごくても投資家には配当の原資がほぼない</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>B/Sの右側</h2>
+      <p class="sub">負債と純資産。同じお金でも返す義務と見返りが違う。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>負債と純資産　例　負債10億円・純資産1億円</caption>
+          <thead><tr><th></th><th>負債（他人資本）</th><th>純資産（自己資本）</th></tr></thead>
+          <tbody>
+            <tr><td>出す人</td><td>銀行など</td><td>株主（出資者）</td></tr>
+            <tr class="accent"><td>返済</td><td>あり。利息も払う</td><td>なし</td></tr>
+            <tr><td>見返り</td><td>利息</td><td>配当。代わりに議決権（支配権）を渡す</td></tr>
+            <tr><td>ROEでは</td><td>使わない</td><td>分母</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>P/L</b>　経営者の1年の働きの結果。最後に残るのが純利益</li>
+        <li><b>B/S右下</b>　出資者が出した種銭。これを元手にビジネスをした結果がP/L</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>4つの視点</h2>
+      <p class="sub">今までは消費者の視点。ここからは経営者と資本家・投資家の視点も。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>視点と見る数字</caption>
+          <thead><tr><th>視点</th><th>関心</th><th>見る数字</th></tr></thead>
+          <tbody>
+            <tr><td>消費者</td><td>商品・サービス</td><td>価格・品質</td></tr>
+            <tr><td>従業員</td><td>給料・安定</td><td>売上高・営業利益率</td></tr>
+            <tr><td>経営者</td><td>本業で稼ぐ</td><td>P/L（売上・営業利益・純利益）</td></tr>
+            <tr class="accent"><td>資本家・投資家</td><td>出したお金の戻り</td><td>ROE・配当・株価</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>銘柄の調べ方</h2>
+      <p class="sub">担当表はGoogle Classroomで配布。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>証券コードとティッカー</caption>
+          <thead><tr><th>市場</th><th>識別子</th><th>例</th></tr></thead>
+          <tbody>
+            <tr><td>東証（日本）</td><td>証券コード　数字4桁</td><td>8306 三菱UFJフィナンシャル・グループ</td></tr>
+            <tr><td>米国</td><td>ティッカー　アルファベット</td><td>NFLX ネットフリックス、GOOGL アルファベット</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>検索</b>　コードや社名で Yahoo!ファイナンスなど。決算の数字はAIでも取得</li>
+        <li><b>株価</b>　授業中の値でも終値でも可。米国株は日本時間の深夜〜早朝に取引</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>AIエージェント</h2>
+      <p class="sub">後半　秋山。前回（無料ツールの組合せ）の補足。デモは架空の食品会社の採用担当のメール対応。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>チャットとAIエージェント</caption>
+          <thead><tr><th></th><th>チャットのAI</th><th>AIエージェント</th></tr></thead>
+          <tbody>
+            <tr><td>たとえ</td><td>質問に答えてくれる先輩</td><td>指示書を渡せば最後までやる新入社員</td></tr>
+            <tr class="accent"><td>できること</td><td>質問への回答・文章の作成</td><td>ファイルを読む・書く・実行する。仕事を完了まで進める</td></tr>
+            <tr><td>授業の例</td><td>Gemini・NotebookLM</td><td>Claude Code・Codex</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tw">
+        <table class="txt">
+          <caption>メール対応の比較　前回（無料ツール）と今回（AIエージェント）</caption>
+          <thead><tr><th>工程</th><th>前回</th><th>今回</th></tr></thead>
+          <tbody>
+            <tr><td>メールを集める</td><td>Gemini が Gmail を一覧化 → 人が貼り付け</td><td>Claude が Gmail を直接読む（コネクタ）</td></tr>
+            <tr><td>返信案を作る</td><td>NotebookLM のルールから作成 → 人がスプレッドシートへ</td><td>フォルダ内のルールを Claude が読んで作成</td></tr>
+            <tr><td>下書きを入れる</td><td>GAS のボタンで Gmail へ</td><td>Claude が Gmail の下書きへ直接</td></tr>
+            <tr class="accent"><td>人の作業</td><td>ツール間のコピー＆貼り付け</td><td>下書きの確認と送信だけ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tw">
+        <table class="txt">
+          <caption>AIエージェントに渡すファイル　中身はすべて日本語のテキスト（.md）</caption>
+          <thead><tr><th>ファイル</th><th>役割</th><th>メール対応の例</th></tr></thead>
+          <tbody>
+            <tr><td>CLAUDE.md（Codex は AGENTS.md）</td><td>最初に必ず読む地図とルール。どこに何があるか、絶対にやらないこと</td><td>日程表・名簿・手順書の置き場所。送信はしない</td></tr>
+            <tr><td>SKILL.md</td><td>1つの仕事の手順書</td><td>メールを集める → 種別を判断 → 候補日と返信を決める → 下書き → 名簿を更新</td></tr>
+            <tr><td>ナレッジ・データ</td><td>参照する資料</td><td>説明会のルールと返信例、日程・定員、参加者名簿、対応記録</td></tr>
+            <tr><td>スクリプト</td><td>毎回同じ結果が要る機械的な処理（Python など）</td><td>集計・転記など、ぶれてはいけない計算</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>自動化の進め方</h2>
+      <p class="sub">いきなり全部ではなく、小さな手順書（スキル）から。</p>
+      <ul>
+        <li><b>1</b>　仕事で使うデータを1つのフォルダに集める</li>
+        <li><b>2</b>　チャットで1つの作業（例　返信を書く）を頼み、うまくいったら手順書（スキル）に保存</li>
+        <li><b>3</b>　手作業が残る所（例　名簿の更新）に次のスキルを足す</li>
+        <li><b>4</b>　小さなスキルを1つにまとめる → 「未対応のメールに下書き」の一言、または毎朝決まった時刻に自動</li>
+      </ul>
+      <ul>
+        <li><b>人の確認を残す作業</b>　送信・購入・削除など取り返しのつかない操作。最初は下書きで止める</li>
+        <li><b>任せる範囲の広げ方</b>　100件、200件と下書きを確認して問題がなければ、自動送信を検討</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>評価</h2>
+      <p class="sub">定期試験。</p>
+      <ul>
+        <li><b>計算</b>　ROEなどの指標を筆算で</li>
+        <li><b>択一</b>　4択の一般常識・教養</li>
+        <li><b>担当銘柄</b>　2月までに分析を共有</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 11 ============ -->
+  <section>
+    <div class="num">11</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業で出た問い。答えが出なかった問いを中心に。着地点は授業での説明。</p>
+      <div class="q"><span class="qn">答えが出なかった問い</span>ROEは高い方がよいとして、それは誰にとって、なぜか。</div>
+      <details><summary>着地点</summary><p>出資者（株主・投資家）にとって。
+ROEは、出資したお金（自己資本）に対して会社が1年でいくら純利益を出したかの比率。
+純利益が配当の原資なので、同じ元手で多く稼ぐ会社ほど出資者の取り分の源が大きい。</p></details>
+      <div class="q"><span class="qn">答えが出なかった問い</span>営業利益率とROEでは、何の視点が違うか。</div>
+      <details><summary>着地点</summary><p>営業利益率はP/Lの中だけの比率（営業利益 ÷ 売上高）。本業のもうけ、経営者・従業員の視点。
+ROEはP/LとB/Sをまたぐ比率（純利益 ÷ 自己資本）。出したお金の戻り、出資者・投資家の視点。</p></details>
+      <div class="q"><span class="qn">答えが出なかった問い</span>負債を別の言葉で言うと何か。負債10億円と純資産1億円は、経営者にとって何が違うか。</div>
+      <details><summary>着地点</summary><p>負債＝他人資本。銀行などから借りたお金で、利息を付けて返す義務がある。
+純資産（自己資本）は返さなくてよい。代わりに配当を払い、議決権を渡している。</p></details>
+      <div class="q"><span class="qn">答えが出なかった問い</span>B/Sの右下（純資産）は誰のお金か。</div>
+      <details><summary>着地点</summary><p>出資者（株主）のお金。会社を始めるための種銭。
+社長が自分で出せば、社長が出資者の立場も持つ。</p></details>
+      <div class="q"><span class="qn">答えが出なかった問い</span>売上高10億円で純利益1,000円の会社は、経営者と投資家それぞれから見てどうか。</div>
+      <details><summary>着地点</summary><p>経営者　売上10億円を上げた働きは大きい。
+投資家　配当の原資は純利益からしか出ないため、ほぼ見返りがない。投資先としてはよくない。</p></details>
+      <div class="q"><span class="qn">授業で答えが出た問い</span>ROEのRは何か。純利益はP/LとB/Sのどちらにあるか。自己資本はどこか。</div>
+      <details><summary>着地点</summary><p>R＝Return（リターン）。E＝Equity（自己資本）。
+純利益　P/Lの一番下。
+自己資本　B/Sの右下（純資産）。</p></details>
+      <div class="q"><span class="qn">授業で答えが出た問い</span>P/Lの純利益は、消費者・経営者・資本家のうち誰の働きの結果か。</div>
+      <details><summary>着地点</summary><p>経営者。売上を上げ、人を雇い、組織を回した1年の結果として最後に残ったお金。</p></details>
+      <div class="q"><span class="qn">来週から考える問い</span>ロシアとウクライナの戦争が終わったら、担当銘柄の株価は上がるか下がるか。</div>
+      <details><summary>着地点</summary><p>授業では答えを出さず、毎週の株価で確かめる問い。
+例として挙がったのはエヌビディア・キオクシア・トヨタ。業種や会社ごとに向きは違う。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 12 ============ -->
+  <section>
+    <div class="num">12</div>
+    <div>
+      <h2>出典</h2>
+      <p class="sub"></p>
+      <ul class="src">
+        <li>本資料　2026年10月19日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約</li>
+        <li>メール対応のデモの会社・学生・説明会は授業用の架空の設定</li>
+        <li>Anthropic　Claude Code　<a href="https://docs.anthropic.com/claude-code">docs.anthropic.com/claude-code</a>／OpenAI　Codex　<a href="https://openai.com/codex/">openai.com/codex</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="b11-shokuba.html"><b>← 前の資料</b>職場AI活用マップ 2026</a>
+    <a href="d09-4nen-1019.html"><b>関連</b>ROE・5つの利益と株式投資</a>
+    <a href="s02-yougo.html"><b>経済用語</b>経済用語辞典</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>
