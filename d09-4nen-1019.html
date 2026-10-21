@@ -275,9 +275,17 @@
   .form-link:hover{filter:brightness(1.08);}
   .form-link:focus-visible{outline:2px solid var(--s1); outline-offset:2px;}
   table.txt th{text-align:left;}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
 </style>
 </head>
 <body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
 <div class="wrap">
 
   <!-- ============ header ============ -->

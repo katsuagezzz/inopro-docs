@@ -273,9 +273,17 @@
   /* 文章主体の表：全列左寄せ */
   table.txt th, table.txt td{text-align:left; white-space:normal;}
   table.txt tbody td{font-family:var(--sans);}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
 </style>
 </head>
 <body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
 <div class="wrap">
 
   <!-- ============ header ============ -->
@@ -921,6 +929,7 @@ var LC=(function(){
       s.appendChild(txt(X(o.x)+(o.left?-13:13),A.Y(o.y)+4,o.name,"el",o.left?"end":"start"));
     });
   };
+})();
 
 /* 5節　複利。数値は例示 */
 LC.lines("#c-fv",{
