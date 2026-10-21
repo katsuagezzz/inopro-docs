@@ -42,34 +42,69 @@
 
   .eyebrow{font-family:var(--mono); font-size:11.5px; letter-spacing:.08em; color:var(--muted);}
   h1{font-size:clamp(24px,4.2vw,34px); font-weight:700; letter-spacing:-.01em; margin:6px 0 18px; line-height:1.25;}
-  .facts{display:flex; flex-wrap:wrap; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin-bottom:40px;}
+  .facts{display:flex; flex-wrap:wrap; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); margin:0 0 30px;}
   .facts div{flex:1 1 140px; padding:11px 14px 11px 0;}
   .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
   .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:500;}
 
-  h2{font-size:13px; font-weight:700; letter-spacing:.02em; margin:0 0 12px;}
+  /* ---------- tabs ---------- */
+  .tabs{display:flex; gap:4px; border-bottom:1px solid var(--axis); margin-bottom:8px;}
+  .tabs button{
+    appearance:none; background:none; border:0; border-bottom:3px solid transparent;
+    margin:0 0 -1px; padding:9px 14px 8px; cursor:pointer;
+    font-family:var(--sans); font-size:14px; font-weight:700; color:var(--muted);
+  }
+  .tabs button:hover{color:var(--ink);}
+  .tabs button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--ink);}
+  .tabs button:focus-visible{outline:2px solid var(--s1); outline-offset:-2px;}
+  .tabs .c{font-family:var(--mono); font-size:11px; font-weight:500; color:var(--muted); margin-left:6px;}
+  .tabs button[aria-selected="true"] .c{color:var(--ink-2);}
 
-  .list{display:flex; flex-direction:column; border-top:1px solid var(--axis);}
+  .panel[hidden]{display:none;}
+  .lede{font-size:13.5px; color:var(--ink-2); margin:16px 0 0;}
+
+  /* ---------- group ---------- */
+  .grp{display:flex; align-items:baseline; gap:10px; margin:30px 0 0; padding-bottom:7px; border-bottom:2px solid var(--ink);}
+  .grp h2{font-size:14px; font-weight:700; letter-spacing:.02em; margin:0;}
+  .grp .n{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+
+  /* ---------- rows ---------- */
+  .list{display:flex; flex-direction:column;}
   .row{
     display:grid; grid-template-columns:46px minmax(0,1fr) auto; align-items:baseline; gap:0 14px;
-    padding:16px 4px; border-bottom:1px solid var(--rule); text-decoration:none; color:var(--ink);
+    padding:15px 4px; border-bottom:1px solid var(--rule); text-decoration:none; color:var(--ink);
   }
   .row:hover{background:var(--surface);}
   .row .n{font-family:var(--mono); font-size:13px; font-weight:700; color:var(--muted);}
+  .row .n.date{font-size:11.5px; letter-spacing:-.01em;}
   .row .t{font-size:16px; font-weight:700; line-height:1.4;}
-  .row .k{font-family:var(--mono); font-size:11.5px; color:var(--ink-2); margin-top:3px; display:block;}
+  .row .k{font-family:var(--mono); font-size:11.5px; color:var(--ink-2); margin-top:4px; display:block;}
   .row .go{font-family:var(--mono); font-size:11.5px; color:var(--s1); white-space:nowrap;}
   .row.pending{color:var(--muted); pointer-events:none;}
   .row.pending .t{font-weight:500;}
   .row.pending .go{color:var(--muted);}
+  .tag{
+    display:inline-block; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.04em;
+    color:var(--ink-2); border:1px solid var(--axis); border-radius:3px; padding:0 5px; margin-right:7px;
+    vertical-align:1px; white-space:nowrap;
+  }
   @media (max-width:560px){
-    .row{grid-template-columns:34px minmax(0,1fr); gap:0 10px;}
+    .row{grid-template-columns:42px minmax(0,1fr); gap:0 10px;}
     .row .go{grid-column:2; margin-top:6px;}
   }
 
   a{color:var(--s1);}
   a:focus-visible{outline:2px solid var(--s1); outline-offset:2px;}
+
+  @media print{
+    .tabs{display:none;}
+    .panel[hidden]{display:block !important;}
+  }
 </style>
+<noscript><style>
+  .tabs{display:none;}
+  .panel[hidden]{display:block !important;}
+</style></noscript>
 </head>
 <body>
 <div class="wrap">
@@ -82,190 +117,262 @@
     <div><dt>毎回の型</dt><dd>ニュース → 道具 → 自分の数字</dd></div>
   </dl>
 
-  <h2>資料</h2>
-  <div class="list">
-
-    <a class="row" href="s02-yougo.html">
-      <span class="n">01</span>
-      <span>
-        <span class="t">経済用語辞典</span>
-        <span class="k">収益性・企業価値・会計・投資と費用・スタートアップ指標・経営・マクロ経済　35語</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="s03-zenki.html">
-      <span class="n">02</span>
-      <span>
-        <span class="t">イノプロA試験振返り</span>
-        <span class="k">2年生・全33項目の正答率・問題・正解と解説</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="s01-shiken.html">
-      <span class="n">03</span>
-      <span>
-        <span class="t">4年イノプロDay1試験の振返り</span>
-        <span class="k">4年生・全33項目の正答率・問題・正解と解説</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b01-kinri.html">
-      <span class="n">04</span>
-      <span>
-        <span class="t">金利と割引現在価値</span>
-        <span class="k">利回り・割引現在価値・生涯賃金</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b02-torihiki.html">
-      <span class="n">05</span>
-      <span>
-        <span class="t">取引とP/L・B/S</span>
-        <span class="k">キャッシュの入口と出口・5つの利益・4象限</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b03-hikaku.html">
-      <span class="n">06</span>
-      <span>
-        <span class="t">同業比較と異業種比較</span>
-        <span class="k">百分率P/L・在庫回転日数・CFの符号・ROE分解</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b04-ranking.html">
-      <span class="n">07</span>
-      <span>
-        <span class="t">ランキングで会社を読む</span>
-        <span class="k">営業利益率・純利益率・配当性向・平均年収・EDINET DB</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b05-kahei.html">
-      <span class="n">08</span>
-      <span>
-        <span class="t">お金は要らなくなるか？ - イーロン・マスクインタビューから</span>
-        <span class="k">お金の使い道・貨幣の3機能・インフレの割り算・購買力平価</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b06-kinyu.html">
-      <span class="n">09</span>
-      <span>
-        <span class="t">マッチングと金融</span>
-        <span class="k">メルカリ・部門別利益・債権残高・金利の式</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="y01-2nen-1005.html">
-      <span class="n">10</span>
-      <span>
-        <span class="t">B/S・P/LとAIへの業務依頼</span>
-        <span class="k">2年・10月5日の講義要点　B/Sの構造・キャッシュの入口・5つの利益・AI活用の5段階</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="y02-4nen-1005.html">
-      <span class="n">11</span>
-      <span>
-        <span class="t">利回り・割引現在価値とAIへの業務依頼</span>
-        <span class="k">4年・10月5日の講義要点　リスクとリターン・利回り・複利・割引現在価値・AI活用の5段階</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="d09-4nen-1019.html">
-      <span class="n">12</span>
-      <span>
-        <span class="t">ROE・5つの利益と株式投資</span>
-        <span class="k">4年・Day9（10月19日）　ROE・5つの利益・キャッシュの3つの入口・空売り・オプション・金利と株価</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b07-gyudon.html">
-      <span class="n">13</span>
-      <span>
-        <span class="t">牛丼3社の稼ぐ力</span>
-        <span class="k">吉野家・松屋・すき家　百分率P/L・セグメント・ROE分解・株主総利回り</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b08-konbini.html">
-      <span class="n">14</span>
-      <span>
-        <span class="t">コンビニ3社の稼ぐ力</span>
-        <span class="k">セブン・ファミマ・ローソン　チェーン全店売上と営業収益・平均日販・セグメント・株価推移</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b09-ai-sangyo.html">
-      <span class="n">15</span>
-      <span>
-        <span class="t">AI産業の市場地図</span>
-        <span class="k">サプライチェーン14層・営業利益率・日米比較・消える仕事と伸びる仕事・一人起業・4つのポジション</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b10-butsuri.html">
-      <span class="n">16</span>
-      <span>
-        <span class="t">AIの物理層講義</span>
-        <span class="k">推論の経路・学習と推論・半導体とチップ・HBM・データセンター・企業と職種</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="b11-shokuba.html">
-      <span class="n">17</span>
-      <span>
-        <span class="t">職場AI活用マップ 2026</span>
-        <span class="k">日本・欧米・中国の職場事例とAIスタートアップ　利用類型・成熟度・業務機能・事例データベース</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="y03-2nen-1019.html">
-      <span class="n">18</span>
-      <span>
-        <span class="t">ROEとAIエージェント</span>
-        <span class="k">2年・10月19日の講義要点　後期の組み立て・担当銘柄・ROE・4つの視点・AIエージェント・質問集</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="y04-4nen-1019.html">
-      <span class="n">19</span>
-      <span>
-        <span class="t">ROE・担当銘柄とAIエージェント</span>
-        <span class="k">4年・10月19日の講義要点　担当銘柄・業種と証券コード・ROE・労働と資本・AIエージェント・質問集</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
-
-    <a class="row" href="d10-4nen-1026.html">
-      <span class="n">20</span>
-      <span>
-        <span class="t">PBR・ROE比較と米国中間選挙</span>
-        <span class="k">4年・Day4（10月26日）　PBR・ROEの3軸比較（同業・異業種・日米）・投資戦略（バフェット・シケモク・清原達郎・チャート）・中間選挙・担当銘柄への影響</span>
-      </span>
-      <span class="go">開く →</span>
-    </a>
+  <div class="tabs" role="tablist" aria-label="資料の種類">
+    <button type="button" role="tab" id="tab-shiryo" aria-controls="panel-shiryo" aria-selected="true">資料<span class="c">16</span></button>
+    <button type="button" role="tab" id="tab-memo" aria-controls="panel-memo" aria-selected="false">講義メモ<span class="c">4</span></button>
   </div>
 
+  <!-- ============ 資料 ============ -->
+  <section class="panel" id="panel-shiryo" role="tabpanel" aria-labelledby="tab-shiryo" tabindex="0">
+
+    <div class="grp"><h2>授業回の資料</h2><span class="n">2件</span></div>
+    <div class="list">
+
+      <a class="row" href="d09-4nen-1019.html">
+        <span class="n">01</span>
+        <span>
+          <span class="t">ROE・5つの利益と株式投資</span>
+          <span class="k"><span class="tag">4年</span>Day9（10月19日）　ROE・5つの利益・キャッシュの3つの入口・空売り・オプション・金利と株価</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="d10-4nen-1026.html">
+        <span class="n">02</span>
+        <span>
+          <span class="t">PBR・ROE比較と米国中間選挙</span>
+          <span class="k"><span class="tag">4年</span>Day4（10月26日）　PBR・ROEの3軸比較（同業・異業種・日米）・投資戦略（バフェット・シケモク・清原達郎・チャート）・中間選挙・担当銘柄への影響</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+    </div>
+
+    <div class="grp"><h2>辞典・試験振返り</h2><span class="n">3件</span></div>
+    <div class="list">
+
+      <a class="row" href="s02-yougo.html">
+        <span class="n">03</span>
+        <span>
+          <span class="t">経済用語辞典</span>
+          <span class="k"><span class="tag">共通</span>収益性・企業価値・会計・投資と費用・スタートアップ指標・経営・マクロ経済　35語</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="s03-zenki.html">
+        <span class="n">04</span>
+        <span>
+          <span class="t">イノプロA試験振返り</span>
+          <span class="k"><span class="tag">2年</span>全33項目の正答率・問題・正解と解説</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="s01-shiken.html">
+        <span class="n">05</span>
+        <span>
+          <span class="t">4年イノプロDay1試験の振返り</span>
+          <span class="k"><span class="tag">4年</span>全33項目の正答率・問題・正解と解説</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+    </div>
+
+    <div class="grp"><h2>道具</h2><span class="n">6件</span></div>
+    <div class="list">
+
+      <a class="row" href="b01-kinri.html">
+        <span class="n">06</span>
+        <span>
+          <span class="t">金利と割引現在価値</span>
+          <span class="k"><span class="tag">共通</span>利回り・割引現在価値・生涯賃金</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b02-torihiki.html">
+        <span class="n">07</span>
+        <span>
+          <span class="t">取引とP/L・B/S</span>
+          <span class="k"><span class="tag">共通</span>キャッシュの入口と出口・5つの利益・4象限</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b03-hikaku.html">
+        <span class="n">08</span>
+        <span>
+          <span class="t">同業比較と異業種比較</span>
+          <span class="k"><span class="tag">共通</span>百分率P/L・在庫回転日数・CFの符号・ROE分解</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b04-ranking.html">
+        <span class="n">09</span>
+        <span>
+          <span class="t">ランキングで会社を読む</span>
+          <span class="k"><span class="tag">共通</span>営業利益率・純利益率・配当性向・平均年収・EDINET DB</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b05-kahei.html">
+        <span class="n">10</span>
+        <span>
+          <span class="t">お金は要らなくなるか？ - イーロン・マスクインタビューから</span>
+          <span class="k"><span class="tag">共通</span>お金の使い道・貨幣の3機能・インフレの割り算・購買力平価</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b06-kinyu.html">
+        <span class="n">11</span>
+        <span>
+          <span class="t">マッチングと金融</span>
+          <span class="k"><span class="tag">共通</span>メルカリ・部門別利益・債権残高・金利の式</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+    </div>
+
+    <div class="grp"><h2>企業・産業の分析</h2><span class="n">5件</span></div>
+    <div class="list">
+
+      <a class="row" href="b07-gyudon.html">
+        <span class="n">12</span>
+        <span>
+          <span class="t">牛丼3社の稼ぐ力</span>
+          <span class="k"><span class="tag">共通</span>吉野家・松屋・すき家　百分率P/L・セグメント・ROE分解・株主総利回り</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b08-konbini.html">
+        <span class="n">13</span>
+        <span>
+          <span class="t">コンビニ3社の稼ぐ力</span>
+          <span class="k"><span class="tag">共通</span>セブン・ファミマ・ローソン　チェーン全店売上と営業収益・平均日販・セグメント・株価推移</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b09-ai-sangyo.html">
+        <span class="n">14</span>
+        <span>
+          <span class="t">AI産業の市場地図</span>
+          <span class="k"><span class="tag">共通</span>サプライチェーン14層・営業利益率・日米比較・消える仕事と伸びる仕事・一人起業・4つのポジション</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b10-butsuri.html">
+        <span class="n">15</span>
+        <span>
+          <span class="t">AIの物理層講義</span>
+          <span class="k"><span class="tag">共通</span>推論の経路・学習と推論・半導体とチップ・HBM・データセンター・企業と職種</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="b11-shokuba.html">
+        <span class="n">16</span>
+        <span>
+          <span class="t">職場AI活用マップ 2026</span>
+          <span class="k"><span class="tag">共通</span>日本・欧米・中国の職場事例とAIスタートアップ　利用類型・成熟度・業務機能・事例データベース</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ============ 講義メモ ============ -->
+  <section class="panel" id="panel-memo" role="tabpanel" aria-labelledby="tab-memo" tabindex="0" hidden>
+
+    <p class="lede">各回の講義の要点。板書・口頭説明・質疑を資料の形に再構成。欠席回の確認と復習用。</p>
+
+    <div class="grp"><h2>2年イノプロ</h2><span class="n">2件</span></div>
+    <div class="list">
+
+      <a class="row" href="y01-2nen-1005.html">
+        <span class="n date">10/5</span>
+        <span>
+          <span class="t">B/S・P/LとAIへの業務依頼</span>
+          <span class="k"><span class="tag">2年</span>B/Sの構造・キャッシュの入口・5つの利益・AI活用の5段階</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="y03-2nen-1019.html">
+        <span class="n date">10/19</span>
+        <span>
+          <span class="t">ROEとAIエージェント</span>
+          <span class="k"><span class="tag">2年</span>後期の組み立て・担当銘柄・ROE・4つの視点・AIエージェント・質問集</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+    </div>
+
+    <div class="grp"><h2>4年イノプロ</h2><span class="n">2件</span></div>
+    <div class="list">
+
+      <a class="row" href="y02-4nen-1005.html">
+        <span class="n date">10/5</span>
+        <span>
+          <span class="t">利回り・割引現在価値とAIへの業務依頼</span>
+          <span class="k"><span class="tag">4年</span>リスクとリターン・利回り・複利・割引現在価値・AI活用の5段階</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+
+      <a class="row" href="y04-4nen-1019.html">
+        <span class="n date">10/19</span>
+        <span>
+          <span class="t">ROE・担当銘柄とAIエージェント</span>
+          <span class="k"><span class="tag">4年</span>担当銘柄・業種と証券コード・ROE・労働と資本・AIエージェント・質問集</span>
+        </span>
+        <span class="go">開く →</span>
+      </a>
+    </div>
+
+  </section>
+
 </div>
+
+<script>
+(function(){
+  "use strict";
+  var tabs = [].slice.call(document.querySelectorAll('[role="tab"]'));
+  var KEY = {shiryo:"tab-shiryo", memo:"tab-memo"};
+
+  function select(tab, focus){
+    tabs.forEach(function(t){
+      var on = (t === tab);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.setAttribute("tabindex", on ? "0" : "-1");
+      document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+
+  tabs.forEach(function(tab, i){
+    tab.addEventListener("click", function(){
+      select(tab, false);
+      var name = (tab.id === KEY.memo) ? "memo" : "shiryo";
+      history.replaceState(null, "", name === "shiryo" ? location.pathname : "#" + name);
+    });
+    tab.addEventListener("keydown", function(e){
+      var d = (e.key === "ArrowRight") ? 1 : (e.key === "ArrowLeft") ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select(tabs[(i + d + tabs.length) % tabs.length], true);
+    });
+  });
+
+  var hash = location.hash.replace("#", "");
+  select(document.getElementById(KEY[hash] || KEY.shiryo), false);
+})();
+</script>
 </body>
 </html>
