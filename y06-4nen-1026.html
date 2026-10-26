@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（4年・2026年10月26日）。時価総額、PBRと1倍割れ、ROEで比較、ファンダメンタルとテクニカル、米国中間選挙、市場分析ダッシュボード、質問集。">
+<title>PBR・投資の2流派と市場分析ダッシュボード</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+</style>
+
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">4年イノプロ　Day4　2026年10月26日　講義要点</div>
+    <h1>PBR・投資の2流派と<em>市場分析ダッシュボード</em></h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>時価総額・PBR・ROEで比較・ファンダメンタルとテクニカル・中間選挙・決算</dd></div>
+      <div><dt>後半</dt><dd>東証プライムの市場分析ダッシュボード</dd></div>
+      <div><dt>提出</dt><dd>銘柄調査のGoogle フォーム</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（PBR・ROE・投資の2流派・中間選挙）、後半 秋山（市場分析ダッシュボード）。</p>
+      <ul>
+        <li><b>時価総額</b>　発行済株式数 × 株価。第三者（市場）から見た会社の値段</li>
+        <li><b>PBR</b>　時価総額 ÷ 純資産。1倍割れなら、会社を丸ごと買って資産を取り出せる計算</li>
+        <li><b>ROEで比較</b>　同業・異業種・日米。投資先と働く場所を選ぶ物差し</li>
+        <li><b>投資の2流派</b>　ファンダメンタル（将来のキャッシュを割り引く）とテクニカル（チャート）</li>
+        <li><b>中間選挙</b>　11月3日。大統領ではなく議会を選ぶ。結果を自分の資産への影響まで考える</li>
+        <li><b>ダッシュボード</b>　東証プライム約1,500銘柄。株価の動きからニュースを逆引き</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>時価総額</h2>
+      <p class="sub">授業ではソニーグループで計算。数値は授業中に調べた値（要確認）。</p>
+      <div class="formula">時価総額 ＝ 発行済株式数 × 株価
+　　　　 ≒ 約59億株 × 4,137円 ≒ 約24兆円</div>
+      <dl class="tiles">
+        <div class="tile t1"><dt>時価総額</dt><dd>約24<span class="u">兆円</span></dd></div>
+        <div class="tile"><dt>売上　2026年3月期</dt><dd>約12<span class="u">兆円</span></dd></div>
+        <div class="tile"><dt>純資産（株主資本）</dt><dd>約8<span class="u">兆円</span></dd></div>
+        <div class="tile t2"><dt>PBR</dt><dd>約3<span class="u">倍</span></dd></div>
+      </dl>
+      <ul>
+        <li><b>売上</b>　経営者の成績（P/L）。会社の中の人の評価</li>
+        <li><b>時価総額</b>　第三者の評価。24兆円払えばソニーの100%オーナー</li>
+        <li><b>利回りで見る</b>　24兆円を払って、毎年いくら戻ってくるか。歌舞伎町のアパートと同じ考え方</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>PBR</h2>
+      <p class="sub">P＝プライス（株価）、B＝ブックバリュー。分母は B/S 右下の純資産（株主のお金。返さなくてよい）。</p>
+      <div class="formula">PBR ＝ 時価総額 ÷ 純資産 ＝ 株価 ÷ 1株当たり純資産
+ROE ＝ P/L と B/S の比較　　　PBR ＝ 株式市場 と B/S の比較</div>
+      <ul>
+        <li><b>目安</b>　2倍以上は期待が高い。1倍未満は割安の可能性（授業でAIに聞いた答え）</li>
+        <li><b>ソニーの例</b>　株主が入れた約8兆円が、市場で約24兆円に評価。市場が「儲かりそうな箱」と見ている状態</li>
+      </ul>
+      <h3>1倍割れで起きること</h3>
+      <p class="sub">時価総額が純資産より小さい ＝ 会社の持ち物より安く、会社を丸ごと買える。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>会社を100%買った株主の3つの選択</caption>
+          <thead><tr><th>選択</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>① 継続</td><td>社長を見つけて事業を続け、毎年の配当を受け取る</td></tr>
+            <tr><td>② 売却</td><td>経営権ごと第三者に売る</td></tr>
+            <tr class="accent"><td>③ 取り出す</td><td>工場・不動産・子会社株を売り、現金を配当で株主に出させる。会社は貯金箱の扱い</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>バイアウトファンド</b>　③を専門にする会社。いわゆるハゲタカファンド（小説『ハゲタカ』）</li>
+        <li><b>狙われる会社</b>　儲けた現金を投資に回さず持ち続ける日本の中小メーカー。投資家から見ると「発展していない」</li>
+        <li><b>株価への影響</b>　PBRが低すぎると買い手が集まり、株価が上がるという予測が立つ</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>ROEで比較する</h2>
+      <p class="sub">今週の課題。ROEは率なので、規模の違う会社どうしでも比べられる。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>比較の3軸</caption>
+          <thead><tr><th>軸</th><th>例</th><th>分かること</th></tr></thead>
+          <tbody>
+            <tr><td>同じ市場</td><td>トヨタ ↔ ホンダ</td><td>車に投資するなら、どの会社が効率よく配当をくれそうか</td></tr>
+            <tr><td>違う市場</td><td>自動車 ↔ 商社・食品</td><td>どのビジネスがお金の効率がよいか</td></tr>
+            <tr><td>国</td><td>日本 ↔ 米国</td><td>どちらの国に投資する・身を置くか</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>業種の差</b>　情報・通信業やサービス業のROEは、メーカーの多くより大きく高い（Day4資料 節2の図）</li>
+        <li><b>働く人として</b>　お金がスムーズに流れている場所（会社・業界・国）に身を置く</li>
+        <li><b>AIの時代</b>　数字はAIで誰でも出せる。覚えるのは比べ方の枠組み</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>投資の2流派</h2>
+      <p class="sub">前提は「株価は誰にも分からない」。戦争や災害は予測できない。その中でリスクを少しでも減らす方法。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>ファンダメンタルとテクニカル</caption>
+          <thead><tr><th>観点</th><th>ファンダメンタル</th><th>テクニカル</th></tr></thead>
+          <tbody>
+            <tr><td>見るもの</td><td>会社が将来生むキャッシュ、今持っている現金、時価総額</td><td>株価の上げ下げ（チャート）</td></tr>
+            <tr class="accent"><td>株価の理論</td><td>将来の利益を金利で割り引いた合計（割引現在価値）</td><td>経験則・格言（例　3日続落の翌日は反発）</td></tr>
+            <tr><td>道具</td><td>ROE・PBR・PER</td><td>移動平均線（200日線など）</td></tr>
+            <tr><td>代表</td><td>バフェット・シケモク・清原達郎</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="formula">1年後の100円の現在価値 ＝ 100円 ÷ (1 ＋ 金利)
+株価（理論値） ＝ 将来の各年の利益を、それぞれ現在価値に割り引いた合計</div>
+      <ul>
+        <li><b>ビジネスの基本</b>　お金には時間の価値（金利）がある。等価交換。量が増えれば価格は下がる</li>
+        <li><b>キャッシュが一番</b>　ファンダメンタルは、会社の持つ現金と時価総額を比べる。現金より時価総額が安ければ買い</li>
+        <li><b>参考図書</b>　清原達郎の著書は図書館に紙の本を入れてある</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>米国中間選挙</h2>
+      <p class="sub">11月3日（火）投票。大統領の4年の任期の中間（2年目）に、議会の議員を選ぶ選挙。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>大統領と総理大臣</caption>
+          <thead><tr><th>項目</th><th>米国の大統領</th><th>日本の総理大臣</th></tr></thead>
+          <tbody>
+            <tr><td>選ばれ方</td><td>国民の選挙で選ぶ（議員である必要はない）</td><td>国会議員の中から、国会の多数決で選ぶ</td></tr>
+            <tr><td>議会の選挙との関係</td><td>中間選挙で負けても大統領のまま</td><td>解散総選挙で自分が落選すれば総理ではなくなる</td></tr>
+            <tr><td>同じ型の国</td><td>フランス・韓国</td><td>英国</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>方向を決める選挙</b>　共和党（トランプ・規制緩和・AI推進）か、民主党（弱い立場への配慮・規制）か。勝った側で政策が変わる（授業での大まかな整理）</li>
+        <li><b>情勢</b>　議席の見通し・州別の上院地図・接戦7州は Day4資料 節4</li>
+        <li><b>決算</b>　今週は米国企業の7〜9月期決算が集中。テスラは1週間で約＋5%、メタは決算後に下落（Day4資料 節5）</li>
+      </ul>
+      <ul class="steps">
+        <li>ニュースに関心を持つ。素通りしない</li>
+        <li>そのニュースが自分の資産（担当銘柄）にプラスかマイナスかを考える</li>
+        <li>予想と結果を照合し、当たり外れを繰り返す</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>今週の課題</h2>
+      <p class="sub">銘柄調査のGoogle フォーム（Day4資料 節4にリンク）。練習なので厳密でなくてよい。</p>
+      <ul class="steps">
+        <li>担当銘柄の終値を記入。米国株は日本時間の翌朝に出る終値</li>
+        <li>ROEを競合1社・違う業種の1社と比較</li>
+        <li>次回までに株価が上がるか下がるかを予想し、理由を記入</li>
+      </ul>
+      <p class="sub">ROEなどはロジックを覚えればよい。上がるか下がるか、買いか売りかはAIは教えてくれない。</p>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>市場分析ダッシュボード</h2>
+      <p class="sub">後半 秋山。東証プライム約1,500銘柄。Claude で2〜3時間で作成、資料は Notion（Classroom で配布）。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>タブと使い方</caption>
+          <thead><tr><th>タブ</th><th>見えるもの</th><th>授業での例</th></tr></thead>
+          <tbody>
+            <tr><td>今週の相場</td><td>TOPIX・日経平均と、上昇した銘柄の割合</td><td>上昇銘柄は約30%。指数と割合のずれで、一部銘柄の急落・急騰を確認</td></tr>
+            <tr class="accent"><td>業種比較</td><td>33業種の1週間・1か月の騰落。点線＝市場全体</td><td>今週 −2.8%。銀行業が大きく下落 → 長期金利の低下、日銀の利上げ見送り</td></tr>
+            <tr><td>ニュースとイベント</td><td>今週のニュースと業種別の動き</td><td>メタ・テスラの決算、AI投資懸念の再燃</td></tr>
+            <tr><td>業種内の分布</td><td>1点＝1社。線より上は影響が小さく、下は大きい</td><td>—</td></tr>
+            <tr><td>感応度</td><td>円安・原油・米国債利回り・半導体指数と業種の関係</td><td>ガラス・土石製品は半導体指数と連動</td></tr>
+            <tr><td>シナリオ</td><td>中間選挙の結果ごとの業種別の動きの予測</td><td>共和党が両院維持／民主党が両院奪還／結果確定の遅れ</td></tr>
+            <tr><td>手法のレンズ</td><td>投資の本の手法で今週の候補を表示</td><td>うねり型・暴落時の高配当バリュー型（今週は該当なし）</td></tr>
+            <tr><td>個別チェック</td><td>証券コードで日足・週足2年分とAI用プロンプト</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>うねり型</b>　レジスタンスライン（上げ止まり）とサポートライン（下げ止まり）の間を往復する銘柄を、下の線の近くで買う。テクニカルの一種</li>
+        <li><b>数字と中身</b>　パーク24は数字では買いの位置。ただし10月23日に会員の免許証データの問題で特別損失55億円。数字だけで決めず決算を確認</li>
+        <li><b>暴落時の高配当バリュー型</b>　本来の価値より大きく下がった高配当の大型株を買う。ファンダメンタル寄り</li>
+        <li><b>作り方</b>　雑な依頼から段階的に。見たい数字・競合3社を出し続けるダッシュボードを自分の担当銘柄で作れる</li>
+        <li><b>本の手法の実践</b>　投資の本のノウハウをAIに渡せば、売買の合図をAIが出す仕組みを作れる</li>
+      </ul>
+      <p class="sub">授業で名前の出た銘柄は手法の説明の例。投資の推奨ではない。</p>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業中に答えが出なかった・止まった問いを中心に。着地点は閉じてある。</p>
+
+      <div class="q"><span class="qn">授業の問い</span>自己資本（純資産）は P/L と B/S のどこにあるか。どんな性格のお金か。（答えが止まった）</div>
+      <details><summary>着地点</summary><p>B/S の右下。株主から入れてもらったお金と利益の積み上げで、経営者は返さなくてよい。
+B/S の右上の負債は、銀行など債権者から借りたお金で返す必要がある。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>時価総額を自己資本で割ると、投資家は何が分かるか。（答えが出ず、AIで調べた）</div>
+      <details><summary>着地点</summary><p>株主が入れたお金（純資産）を、市場が何倍に評価しているか。
+ソニーは約8兆円が約24兆円で約3倍。1倍未満なら、会社の持ち物より安く丸ごと買える。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>ソニーの時価総額が7兆円（純資産より下）まで下がったら得か。100%オーナーになったら何をするか。（答えが出ず）</div>
+      <details><summary>着地点</summary><p>得。選択は3つ。①事業を続けて配当を受け取る ②経営権ごと売る ③工場・不動産・子会社株を売り、現金を配当で出させる。
+③を専門にするのがバイアウトファンド。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>将来の100円と今の100円はどちらが価値があるか。1年後の100円は今いくらか。（計算式が出なかった）</div>
+      <details><summary>着地点</summary><p>今の100円。1年後の100円の現在価値 ＝ 100円 ÷ (1 ＋ 金利)。
+金利4%なら 100 ÷ 1.04 ≒ 96.2円。ファンダメンタルの株価の理論の土台。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>中間選挙の結果で、トランプは大統領でなくなることがあるか。（答えが分かれた）</div>
+      <details><summary>着地点</summary><p>ない。中間選挙で選ぶのは議会（下院全435議席・上院の約3分の1）。大統領は改選されない。
+変わるのは議会の多数派。ねじれれば法案が通りにくくなる。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>総理大臣と大統領は何が違うか。（「支持率」「選ばれ方」まで）</div>
+      <details><summary>着地点</summary><p>選ばれ方。総理大臣は国会議員の中から国会の多数決で選ぶ（議院内閣制）。
+大統領は国民の選挙で選び、議員である必要はない（大統領制）。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>中間選挙は何の「中間」か。</div>
+      <details><summary>着地点</summary><p>大統領の4年の任期の中間。大統領選の2年後に行う。</p></details>
+
+      <div class="q"><span class="qn">復習の問い</span>ROEとPBRは、それぞれ何と何を比べているか。</div>
+      <details><summary>着地点</summary><p>ROE　P/L（純利益）と B/S（自己資本）
+PBR　株式市場（時価総額）と B/S（純資産）</p></details>
+
+      <div class="q"><span class="qn">復習の問い</span>ガラス・土石製品の業種は、なぜ米国の半導体指数と連動しやすいか。</div>
+      <details><summary>着地点</summary><p>業種名はガラス・土石だが、中に半導体工場やハイテク機器向けの部材を作る会社が含まれるため。</p></details>
+
+      <div class="q"><span class="qn">来週から考える問い</span>11月3日の中間選挙の結果で、自分の担当銘柄の株価は上がるか、下がるか。</div>
+      <details><summary>着地点</summary><p>授業では答えを出さず、次回以降の株価で確かめる問い。予想と理由は銘柄調査のフォームへ。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>本資料　2026年10月26日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約</li>
+        <li>ソニーグループの発行済株式数・株価・売上・純資産は授業中に調べた値（要確認）。有価証券報告書は EDINET　<a href="https://disclosure2.edinet-fsa.go.jp/">disclosure2.edinet-fsa.go.jp</a></li>
+        <li>ダッシュボードの株価データは Yahoo Finance、上場銘柄は日本取引所グループの一覧　<a href="https://www.jpx.co.jp/">jpx.co.jp</a>。パーク24の特別損失は授業でAIが要約した同社の発表</li>
+        <li>真山仁『ハゲタカ』（講談社）／清原達郎『わが投資術 市場は誰に微笑むか』（講談社、2024年）</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y04-4nen-1019.html"><b>← 前の資料</b>ROE・担当銘柄とAIエージェント</a>
+    <a href="d10-4nen-1026.html"><b>関連</b>PBR・ROE比較と米国中間選挙（4年 Day4資料）</a>
+    <a href="s02-yougo.html#pbr"><b>経済用語</b>経済用語辞典　PBR</a>
+    <a href="index.html#memo"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>
