@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="2年イノプロB・4年イノプロ 2026年11月2日 授業資料。経済用語PER、Anthropicの上場申請書（S-1）と担当銘柄への影響、上がる・下がる・動かないで儲ける取引、空売りの仕組み。">
+<title>PER・Anthropicの上場申請と空売り</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(5) .num{background:var(--ink);}
+  section:nth-of-type(9) .num{background:var(--s4);}
+  section:nth-of-type(10) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  td.l{text-align:left; font-family:var(--sans);}
+  .form-link{display:inline-block; margin:0 0 22px; padding:11px 18px; background:var(--pop); color:#fff; font-weight:700; font-size:14px; text-decoration:none; border-radius:999px;}
+  .form-link:hover{filter:brightness(1.08);}
+  .form-link:focus-visible{outline:2px solid var(--s1); outline-offset:2px;}
+  table.txt th{text-align:left;}
+  table.wrap td.l{white-space:normal; min-width:120px;}
+  .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
+  table.form{font-size:12.5px;}
+  table.form th,table.form td{padding:8px 7px;}
+  table.form tbody td:first-child{min-width:0;}
+  details{margin:0 0 20px;}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+
+  /* ===== 中間選挙の議席図・地図（Cook Political Report の評価色。両モード共通） ===== */
+  figure.elx .sx{overflow-x:auto;}
+  figure.elx .sx svg{min-width:600px;}
+  .elx .st{stroke:var(--surface); stroke-width:1;}
+  .elx .r-SR{fill:#b2182b;} .elx .r-LiR{fill:#d6604d;} .elx .r-LeR{fill:#f4a582;} .elx .r-T{fill:#f2c94c;}
+  .elx .r-LeD{fill:#92c5de;} .elx .r-LiD{fill:#4393c3;} .elx .r-SD{fill:#2166ac;}
+  .elx .p-D{fill:#2166ac;} .elx .p-R{fill:#b2182b;} .elx .p-V{fill:var(--rule);} .elx .p-I{fill:#8a94a6;}
+  .elx .n-RR{fill:#f2dede;} .elx .n-DD{fill:#dde7f3;} .elx .n-RD{fill:#e9e4ef;}
+  .elx .sl{font-size:11px; font-weight:800; fill:#1d2330;} .elx .sl.w{fill:#fff;} .elx .sl.tu{font-size:12.5px;}
+  .elx .sl.nl,.elx .sl.cl{fill:var(--ink-2);} .elx .pd{font-size:8.5px; font-weight:700;}
+  .elx .lead{stroke:var(--muted); stroke-width:.8; fill:none;}
+  .elx .bl{font-size:11.5px; font-weight:800; fill:#1d2330;} .elx .bl.w{fill:#fff;} .elx .bl.nn{fill:var(--ink-2);}
+  .elx .lab{font-size:12.5px; font-weight:700; fill:var(--ink);}
+  .elx .tc{font-size:11.5px; fill:var(--muted);}
+  .elx .mj{stroke:var(--ink); stroke-width:1.5; stroke-dasharray:5 4; fill:none;}
+  .clg{display:flex; flex-wrap:wrap; gap:6px 14px; padding:10px 2px 0; font-size:12px; color:var(--ink-2);}
+  .clg span{display:inline-flex; align-items:center; gap:5px;}
+  .clg i{display:inline-block; width:13px; height:13px; border-radius:3px; border:1px solid var(--ring);}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .elx .n-RR{fill:#4a3036;} :root:not([data-theme="light"]) .elx .n-DD{fill:#2a3850;} :root:not([data-theme="light"]) .elx .n-RD{fill:#3a3346;} }
+  :root[data-theme="dark"] .elx .n-RR{fill:#4a3036;} :root[data-theme="dark"] .elx .n-DD{fill:#2a3850;} :root[data-theme="dark"] .elx .n-RD{fill:#3a3346;}
+</style>
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB・4年イノプロ　2026年11月2日　90分</div>
+    <h1>PER・Anthropicの上場申請と<em>空売り</em></h1>
+    <dl class="facts">
+      <div><dt>経済用語</dt><dd>PER</dd></div>
+      <div><dt>マクロニュース</dt><dd>Anthropic の上場申請書（S-1）</dd></div>
+      <div><dt>ワーク</dt><dd>担当銘柄へのプラス・マイナス</dd></div>
+      <div><dt>株式投資</dt><dd>上がる・下がる・動かない／空売りの仕組み</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 PER ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>PER<span class="h2s">　-　経済用語</span></h2>
+      <p class="sub">株価収益率。株価が1株当たり純利益の何倍か。前回のPBR・ROEと1本の式でつながる。</p>
+
+      <div class="formula">PER ＝ 株価 ÷ EPS（1株当たり純利益）＝ 時価総額 ÷ 当期純利益
+PBR ＝ PER × ROE
+益回り ＝ 1 ÷ PER　　　株価に対する利益の利回り</div>
+
+      <dl class="tiles">
+        <div class="tile"><dt>ソニーG　時価総額</dt><dd>約24<span class="u">兆円</span></dd></div>
+        <div class="tile"><dt>当期純利益　2026年3月期</dt><dd>約1.03<span class="u">兆円</span></dd></div>
+        <div class="tile t1"><dt>PER</dt><dd>約23<span class="u">倍</span></dd></div>
+        <div class="tile"><dt>益回り</dt><dd>約4.3<span class="u">%</span></dd></div>
+      </dl>
+      <p class="sub">10/26の授業で調べた時価総額と、Day3フォームの純利益から計算（例示）。PER 23倍 × ROE 12.7% ≒ PBR 2.9倍。</p>
+
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>3つの指標の比べるもの</caption>
+          <thead><tr><th>指標</th><th>分子</th><th>分母</th><th>比べるもの</th><th>読み方</th></tr></thead>
+          <tbody>
+            <tr><td>ROE</td><td class="l">当期純利益</td><td class="l">自己資本</td><td class="l">P/L と B/S</td><td class="l">株主のお金で何%稼いだか</td></tr>
+            <tr><td>PBR</td><td class="l">時価総額</td><td class="l">純資産</td><td class="l">株式市場 と B/S</td><td class="l">純資産の何倍で売られているか</td></tr>
+            <tr class="accent"><td>PER</td><td class="l">時価総額</td><td class="l">当期純利益</td><td class="l">株式市場 と P/L</td><td class="l">今の利益の何年分で会社を丸ごと買えるか</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>何年分</b>　PER 23倍 ＝ 今の利益が続けば、23年分の利益で会社を丸ごと買える値段</li>
+        <li><b>高いPER</b>　利益が今後大きく伸びるという市場の期待。期待が外れると株価の下落も大きい</li>
+        <li><b>益回りと金利</b>　益回り4.3%と国債の利回りを比較。株のリスクに見合う差があるか</li>
+        <li><b>赤字の会社</b>　純利益がマイナスならPERは出ない。売上で割るPSR（時価総額 ÷ 売上）で比較（節2のAnthropic）</li>
+        <li><b>比べ方</b>　ROEと同じく、同業・異業種・日米で比較。業種によって普通の水準が違う</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 Anthropic ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>Anthropicの上場申請書<span class="h2s">　-　マクロニュース</span></h2>
+      <p class="sub">2026年10月26日、AI企業 Anthropic（Claude の開発元）が米国証券取引委員会（SEC）に Form S-1 を公開。S-1 は米国で上場する会社の登録届出書。日本の有価証券届出書にあたる。</p>
+
+      <h3>実物　売上と損失</h3>
+      <dl class="tiles">
+        <div class="tile t1"><dt>売上　2026年1〜6月</dt><dd>162.9<span class="u">億ドル</span></dd></div>
+        <div class="tile"><dt>前年同期</dt><dd>11.6<span class="u">億ドル 約14倍</span></dd></div>
+        <div class="tile t2"><dt>営業損失　2025年12月期</dt><dd>80.6<span class="u">億ドル</span></dd></div>
+        <div class="tile"><dt>現金と短期投資　6月末</dt><dd>約1,317<span class="u">億ドル</span></dd></div>
+      </dl>
+      <figure>
+        <div class="ctitle"><span>売上と営業損益　億ドル</span><span>S-1　2026年上半期の営業損益は報道値</span></div>
+        <div id="c-ant"></div>
+      </figure>
+      <ul>
+        <li><b>2025年</b>　売上45.9億ドルに対し営業損失80.6億ドル。計算資源（GPU・データセンター）の費用 73.3億ドル</li>
+        <li><b>2026年1〜6月</b>　売上162.9億ドル、営業損失 約6.9億ドル（報道）。売上の伸びが費用の伸びを上回り、損失が縮小</li>
+        <li><b>純損失 807億ドル（1〜6月）</b>　うち約724億ドルは転換社債など「将来株に換わる約束」の評価替え。現金は出ていない</li>
+        <li><b>営業キャッシュフロー</b>　1〜6月は約＋39億ドル（報道）。P/Lの損失とキャッシュフローは別に読む</li>
+      </ul>
+
+      <h3>上場の条件</h3>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>S-1 と報道からわかること</caption>
+          <thead><tr><th>項目</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td>市場・ティッカー</td><td class="l">ナスダック、「ANT」。主幹事はゴールドマン・サックスとモルガン・スタンレー</td></tr>
+            <tr><td>時期</td><td class="l">11月中旬との報道（11/16の週、または11/19〜20）</td></tr>
+            <tr><td>未定</td><td class="l">売り出す株数・価格の幅・評価額は空欄</td></tr>
+            <tr><td>会社の形</td><td class="l">公益法人（PBC）。株主の利益と「人類の長期的な利益のための先進的AIの責任ある開発」を比べて判断できる</td></tr>
+            <tr class="accent"><td>株の種類</td><td class="l">上場するのはクラスA。議決権の50.1%は創業者のクラスF（1株）、取締役の過半数は長期利益信託（クラスT）が選ぶ。Amazon・Google は議決権のないクラスNで各5%超</td></tr>
+            <tr><td>顧客</td><td class="l">年10万ドル以上払う顧客 11,900社超（1年前 950社超）。売上の48%は AWS・Google Cloud・Azure 経由（報道）</td></tr>
+            <tr><td>支払いの約束</td><td class="l">計算資源・データセンターの将来の最低支払額 約4,170億ドル（1〜20年）。Google 1,100億ドル超、Amazon 1,100億ドル、Microsoft 約310億ドル（報道）</td></tr>
+            <tr><td>リスク</td><td class="l">計算資源の不足、著作権訴訟、AIの悪用・制御喪失、米政府との関係</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>所有と支配の分離</b>　お金を出す人（クラスA）と、会社を決める人（創業者・信託）が別。10/26の授業の「100%買えば支配できる」が成り立たない会社</li>
+        <li><b>PERが出ない</b>　赤字のため。売上で割るPSRや売上の伸び率で評価される</li>
+      </ul>
+
+      <h3>担当銘柄への影響</h3>
+      <p class="sub">Anthropic の上場は、担当銘柄にプラスか、マイナスか、関係ないか。関係の経路と方向は候補（例示）。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>担当銘柄と Anthropic の関係</caption>
+          <thead><tr><th>担当銘柄</th><th>関係</th><th>方向の候補</th><th>理由</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>アマゾン</td><td class="l">株主（クラスN）・AWSで計算資源を提供・Claude を販売</td><td>＋</td><td class="l">支払いの約束1,100億ドル＝AWSの売上。上場で保有株に時価がつく</td></tr>
+            <tr class="accent"><td>アルファベット</td><td class="l">株主（クラスN）・Google Cloud のTPUを提供</td><td>＋／−</td><td class="l">計算資源の売上は＋。Gemini と競合する点は−</td></tr>
+            <tr><td>マイクロソフト</td><td class="l">Azure で計算資源を提供。OpenAI の大株主</td><td>＋／−</td><td class="l">Azure の売上は＋。OpenAI と競合する点は−</td></tr>
+            <tr><td>エヌビディア</td><td class="l">GPU（計算資源）を売る側</td><td>＋</td><td class="l">上場で調達した資金が計算資源に向かう</td></tr>
+            <tr><td>東京エレクトロン・キーエンス</td><td class="l">半導体の製造装置・工場の自動化</td><td>＋</td><td class="l">AI向け半導体の増産が装置の需要に</td></tr>
+            <tr><td>ソフトバンクグループ</td><td class="l">OpenAI の大株主</td><td>＋／−</td><td class="l">AI企業の上場の値段が OpenAI の評価の目安に。競合が上場で資金を得る点は−</td></tr>
+            <tr><td>メタ・テスラ</td><td class="l">自社でAIモデルを開発（Llama、xAI）</td><td>−／0</td><td class="l">競合の資金力が増す。巨額の上場が投資家の資金を吸い寄せる</td></tr>
+            <tr><td>三菱UFJ FG</td><td class="l">主幹事モルガン・スタンレーの大株主</td><td>＋（小）</td><td class="l">史上最大級の上場の引受手数料</td></tr>
+            <tr><td>日立・三井不動産</td><td class="l">データセンターの電力設備・建設</td><td>＋（間接）</td><td class="l">AI向けデータセンター投資の拡大</td></tr>
+            <tr><td>リクルート</td><td class="l">求人・人材サービス</td><td>−（間接）</td><td class="l">AIが仕事を代替すると求人の形が変わる</td></tr>
+            <tr><td>その他（食品・小売・自動車など）</td><td class="l">AIの利用者</td><td>0</td><td class="l">直接の関係は小さい。AIで業務が効率化すれば長期で＋</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="steps">
+        <li>自分の担当銘柄と Anthropic の関係を、上の表またはAIで確認</li>
+        <li>方向を＋・−・0から1つ選ぶ</li>
+        <li>理由を1〜2行。お金の流れ（誰の売上・誰の費用か）で説明</li>
+        <li>上場日（11月中旬）の前後で担当銘柄の株価を確認し、予想と照合</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 株式投資 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>上がる・下がる・動かない<span class="h2s">　-　株式投資</span></h2>
+      <p class="sub">株価がどちらに動いても、動かなくても、利益の出る取引がある。</p>
+
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>局面別の取引</caption>
+          <thead><tr><th>局面</th><th>取引</th><th>利益の源泉</th><th>最大損失</th></tr></thead>
+          <tbody>
+            <tr><td>上がる</td><td class="l">現物買い（ロング）</td><td class="l">売値 − 買値</td><td class="l">購入額</td></tr>
+            <tr class="accent"><td>下がる</td><td class="l">空売り（ショート）</td><td class="l">売値 − 買戻し値</td><td class="l">上限なし</td></tr>
+            <tr><td>動かない</td><td class="l">オプションの売り</td><td class="l">受け取るプレミアム</td><td class="l">大きく動くと拡大</td></tr>
+            <tr><td>動かない</td><td class="l">ロング・ショート（同業の1社を買い、1社を空売り）</td><td class="l">2社の差。市場全体の上げ下げは打ち消し</td><td class="l">差が逆に開いた分</td></tr>
+            <tr><td>動かない</td><td class="l">株を貸す（貸株）・配当</td><td class="l">貸株料・配当</td><td class="l">株価の下落分</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <figure>
+        <div class="ctitle"><span>満期の損益　万円</span><span>100株・取引時の株価1,000円・オプションのプレミアム計100円　例示</span></div>
+        <div id="c-pay3"></div>
+        <div class="legend" id="lg-pay3"></div>
+      </figure>
+      <p class="sub">オプションの売り＝行使価格1,000円のコールとプットを両方売る取引（ストラドルの売り）。株価が動かなければプレミアムがそのまま利益。</p>
+
+      <h3>空売りの仕組み</h3>
+      <p class="sub">持っていない株を借りて先に売り、後で買い戻して返す。日本では信用取引の一種。</p>
+      <ul class="steps">
+        <li>証券会社から株を借りる（信用取引の口座が必要。担保として委託保証金を預ける）</li>
+        <li>借りた株を市場で売る。例　1,000円 × 100株 ＝ 10万円を受け取る</li>
+        <li>株価が下がるのを待つ。借りている間は貸株料（品貸料）を払う</li>
+        <li>市場で買い戻す。例　800円 × 100株 ＝ 8万円</li>
+        <li>買い戻した株を返す。差額2万円 − 貸株料 ＝ 利益</li>
+      </ul>
+      <div class="formula">空売りの損益 ＝（売った価格 − 買い戻した価格）× 株数 − 貸株料など
+例　（1,000円 − 800円）× 100株 ＝ ＋2万円
+逆　（1,000円 − 1,500円）× 100株 ＝ −5万円　株価に上限がないため損失にも上限なし</div>
+
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>現物買いと空売り</caption>
+          <thead><tr><th>項目</th><th>現物買い</th><th>空売り</th></tr></thead>
+          <tbody>
+            <tr><td>順番</td><td class="l">買う → 売る</td><td class="l">借りて売る → 買い戻して返す</td></tr>
+            <tr><td>儲かる局面</td><td class="l">株価が上がる</td><td class="l">株価が下がる</td></tr>
+            <tr><td>最大利益</td><td class="l">上限なし</td><td class="l">売った金額まで（株価は0円より下がらない）</td></tr>
+            <tr class="accent"><td>最大損失</td><td class="l">購入額まで</td><td class="l">上限なし</td></tr>
+            <tr><td>配当</td><td class="l">受け取る</td><td class="l">配当相当額を払う</td></tr>
+            <tr><td>期限</td><td class="l">なし</td><td class="l">制度信用取引は6か月以内に返済</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li><b>踏み上げ</b>　空売りが多い銘柄が上がると、損失を止めるための買い戻しが集中し、さらに上がる。2021年のゲームストップ</li>
+        <li><b>追加保証金（追証）</b>　株価が上がって損失が膨らむと、担保の追加を求められる</li>
+        <li><b>逆日歩</b>　貸す株が足りなくなると、空売りした側が追加の費用を払う</li>
+        <li><b>価格規制</b>　前日の終値から10%以上下がった銘柄は、直近の価格以下での空売りが禁止（51単元超の注文）</li>
+        <li><b>市場での役割</b>　割高な株を売る人がいることで、株価が行き過ぎにくくなる。不正会計を見つけて空売りする投資家もいる</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 演習 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>演習</h2>
+      <p class="sub">担当銘柄で。数値はAIで取得し、決算資料・株価サイトで照合。</p>
+      <ul class="steps">
+        <li>担当銘柄のPERを調べ、同業1社と比較。高い（低い）理由を1行</li>
+        <li>PER × ROE を計算し、PBRと一致するか検算</li>
+        <li>Anthropic の上場が担当銘柄に＋・−・0のどれかを選び、理由を1〜2行</li>
+        <li>担当銘柄を100株空売りした場合を想定。来週の終値で損益を計算</li>
+        <li>空売りの最大損失に上限がない理由を、現物買いと比べて1行で説明</li>
+      </ul>
+      <details>
+        <summary>解答の例</summary>
+        <p>PER × ROE ＝（時価総額 ÷ 純利益）×（純利益 ÷ 自己資本）＝ 時価総額 ÷ 自己資本 ＝ PBR
+空売りの最大損失　株価は上限なく上がりうるため、買い戻す価格にも上限がない。現物買いの損失は株価が0円になったときの購入額まで。</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ 5 出典 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>Anthropic, PBC　Form S-1　2026年10月26日　<a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm">sec.gov</a>／Anthropic　発表　<a href="https://www.anthropic.com/news/s1-sec">anthropic.com</a></li>
+        <li>CNBC　Anthropic IPO live updates: AI S-1 filing　2026年10月26日　<a href="https://www.cnbc.com/2026/10/26/anthropic-ipo-live-updates-ai-s-1-filing.html">cnbc.com</a></li>
+        <li>日本取引所グループ　信用取引・空売り規制の解説　<a href="https://www.jpx.co.jp/">jpx.co.jp</a>（価格規制の条件は要確認）</li>
+        <li>節2は志村ゼミ 後期 第5回（2026年10月27日）資料 §4 を元に再構成。2026年上半期の営業損益・営業キャッシュフロー・販売経路・支払いの約束・上場時期は報道値。支払いの約束は報道により4,170億〜5,420億ドルの幅</li>
+        <li>節1のソニーグループの数値は10/26の授業で調べた時価総額と Day3 フォームの記入値からの計算（例示）。節2の担当銘柄への影響、節3の損益の図・数値例は本資料の整理（例示）。投資の推奨ではない</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="d11-2nen-1026.html"><b>← 前の資料　2年</b>PBR・ROE比較と米国中間選挙</a>
+    <a href="d10-4nen-1026.html"><b>← 前の資料　4年</b>PBR・ROE比較と米国中間選挙</a>
+    <a href="s02-yougo.html#per"><b>経済用語</b>経済用語辞典　PER</a>
+    <a href="index.html"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+
+<script>
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt((d[1]<0?X(0):X(d[1]))+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,fmt:fmt,legend:legend};
+})();
+
+LC.bars("#c-ant",{
+  w:620,h:300,pad:{l:58,r:14,t:26,b:38},alt:"Anthropicの売上と営業損益。2025年 売上45.9億ドル・営業損益−80.6億ドル、2026年1〜6月 売上162.9億ドル・営業損益約−6.9億ドル",max:620,bw:44,
+  y:{min:-100,max:180,ticks:[-100,-50,0,50,100,150]},
+  digits:1,unit:"",
+  data:[["2025年 売上",45.9],["2025年 営業損益",-80.6,"var(--s2)"],["2026上期 売上",162.9],["2026上期 営業損益",-6.9,"var(--s2)"]],
+  tip:function(d){ return d[0]+"　"+LC.fmt(d[1],1)+"億ドル"; }
+});
+
+(function(){
+  var xs=[]; for(var p=600;p<=1400;p+=50) xs.push(p);
+  function s(f){ return xs.map(function(p){ return [p,f(p)]; }); }
+  LC.lines("#c-pay3",{
+    w:720,h:320,pad:{l:52,r:120,t:14,b:34},alt:"満期の損益。現物買いは株価が上がるほど利益、空売りは下がるほど利益、オプションの売りは株価が1,000円付近で最大1万円の利益",
+    x:{min:600,max:1400,ticks:[600,800,1000,1200,1400],unit:"円"},
+    y:{min:-4,max:4,ticks:[-4,-2,0,2,4]},
+    every:2,
+    series:[
+      {name:"現物買い",color:"var(--s1)",points:s(function(p){return (p-1000)/100;}),label:"現物買い"},
+      {name:"空売り",color:"var(--s2)",points:s(function(p){return (1000-p)/100;}),label:"空売り"},
+      {name:"オプションの売り",color:"var(--s3)",points:s(function(p){return (100-Math.abs(p-1000))/100;}),label:"オプション売り"}
+    ],
+    tip:function(o,p){ return o.name+"　株価"+p[0]+"円　"+(p[1]>0?"＋":"")+LC.fmt(p[1],1)+"万円"; },
+    legend:"#lg-pay3"
+  });
+})();
+
+</script>
+</body>
+</html>
