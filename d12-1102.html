@@ -311,6 +311,19 @@
   .clg i{display:inline-block; width:13px; height:13px; border-radius:3px; border:1px solid var(--ring);}
   @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .elx .n-RR{fill:#4a3036;} :root:not([data-theme="light"]) .elx .n-DD{fill:#2a3850;} :root:not([data-theme="light"]) .elx .n-RD{fill:#3a3346;} }
   :root[data-theme="dark"] .elx .n-RR{fill:#4a3036;} :root[data-theme="dark"] .elx .n-DD{fill:#2a3850;} :root[data-theme="dark"] .elx .n-RD{fill:#3a3346;}
+
+  /* ===== ビジネスモデルの流れ図 ===== */
+  .bm{display:grid; grid-template-columns:1fr 28px 1.15fr 28px 1fr; gap:6px; align-items:stretch; margin:0 0 10px;}
+  .bm .col{display:flex; flex-direction:column; gap:6px;}
+  .bm .hd{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.04em; text-align:center;}
+  .bm .bx{background:var(--surface); border:2px solid var(--ring); border-radius:12px; padding:9px 11px; font-size:12.5px; line-height:1.5;}
+  .bm .bx b{display:block; font-size:13px;}
+  .bm .bx small{color:var(--ink-2);}
+  .bm .in{border-color:var(--s1);} .bm .in b{color:var(--s1);}
+  .bm .me{border-color:var(--pop); background:var(--fill-in);} .bm .me b{color:var(--pop);}
+  .bm .out{border-color:var(--s2);} .bm .out b{color:var(--s2);}
+  .bm .ar{display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--muted);}
+  @media (max-width:640px){ .bm{grid-template-columns:1fr;} .bm .ar{transform:rotate(90deg); height:22px;} }
 </style>
 </head>
 <body>
@@ -323,7 +336,7 @@
     <h1>PER・Anthropicの上場申請と<em>空売り</em></h1>
     <dl class="facts">
       <div><dt>経済用語</dt><dd>PER</dd></div>
-      <div><dt>マクロニュース</dt><dd>Anthropic の上場申請書（S-1）</dd></div>
+      <div><dt>マクロニュース</dt><dd>Anthropic の上場申請書（S-1）・ビジネスモデル・他社比較</dd></div>
       <div><dt>ワーク</dt><dd>担当銘柄へのプラス・マイナス</dd></div>
       <div><dt>株式投資</dt><dd>上がる・下がる・動かない／空売りの仕組み</dd></div>
     </dl>
@@ -393,6 +406,100 @@ PBR ＝ PER × ROE
         <li><b>2026年1〜6月</b>　売上162.9億ドル、営業損失 約6.9億ドル（報道）。売上の伸びが費用の伸びを上回り、損失が縮小</li>
         <li><b>純損失 807億ドル（1〜6月）</b>　うち約724億ドルは転換社債など「将来株に換わる約束」の評価替え。現金は出ていない</li>
         <li><b>営業キャッシュフロー</b>　1〜6月は約＋39億ドル（報道）。P/Lの損失とキャッシュフローは別に読む</li>
+      </ul>
+
+      <h3>ビジネスモデル</h3>
+      <p class="sub">AIの「知能」を、使った量（トークン）や月額で売る。売上の入口は3つ、最大の費用は計算資源。</p>
+      <div class="bm">
+        <div class="col">
+          <div class="hd">誰が払うか</div>
+          <div class="bx in"><b>企業・開発者</b>APIで自社の製品に組み込む。使った量（トークン）で課金<br><small>例　Cursor などのAIアプリ、社内システム</small></div>
+          <div class="bx in"><b>企業の社員</b>法人契約（Claude for Enterprise）・Claude Code<br><small>年10万ドル以上の顧客 11,900社超</small></div>
+          <div class="bx in"><b>個人</b>月額の Pro・Max<br><small>無料版もあり</small></div>
+        </div>
+        <div class="ar">→</div>
+        <div class="col">
+          <div class="hd">Anthropic</div>
+          <div class="bx me"><b>売るもの</b>Claude（基盤モデル）の利用</div>
+          <div class="bx me"><b>売り方</b>直販と、クラウド経由（AWS・Google Cloud・Azure）。1〜6月の売上の48%がクラウド経由（報道）</div>
+          <div class="bx me"><b>伸び方</b>売上継続率 約900%。同じ顧客が1年で約9倍使う（Pro・Max除く）</div>
+        </div>
+        <div class="ar">→</div>
+        <div class="col">
+          <div class="hd">誰に払うか</div>
+          <div class="bx out"><b>クラウド・チップ</b>Google（TPU）・Amazon（Trainium）・Microsoft・NVIDIA<br><small>2025年の計算資源費 73.3億ドル ＞ 売上 45.9億ドル</small></div>
+          <div class="bx out"><b>データセンター</b>将来の最低支払額 約4,170億ドル（1〜20年、報道）</div>
+          <div class="bx out"><b>人・研究</b>研究者・エンジニア、安全性の研究</div>
+        </div>
+      </div>
+      <ul>
+        <li><b>稼ぐ式</b>　売上 ＝ 顧客数 × 1社あたりの利用量 × 単価。単価は年々下がるが、利用量がそれ以上に増える</li>
+        <li><b>損益の分かれ目</b>　売上の伸びが計算資源の費用の伸びを上回るかどうか。2026年上半期に営業損失が大きく縮小</li>
+        <li><b>クラウドとの関係</b>　Amazon・Google は「株主」「計算資源の売り手」「販売経路」「競合（自社モデル）」を同時に兼ねる</li>
+        <li><b>料金の単位</b>　「1人いくら」から「1件の仕事いくら」へ。AIの値段が、置き換える人件費を基準に決まり始めている</li>
+      </ul>
+
+      <h3>AIサプライチェーンでの位置</h3>
+      <p class="sub">AIは材料からアプリまで14層のつながり。Anthropic は「知能（基盤モデル）」の層。詳細は資料「AI産業の市場地図」。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>層と代表企業、Anthropic とのお金の向き</caption>
+          <thead><tr><th>大分類</th><th>層</th><th>代表企業（担当銘柄は太字）</th><th>収益性</th><th>Anthropic とのお金</th></tr></thead>
+          <tbody>
+            <tr><td>土台</td><td class="l">材料・製造装置</td><td class="l">ASML、<b>東京エレクトロン</b>、信越化学</td><td class="l">高い</td><td class="l">間接に受け取る</td></tr>
+            <tr><td>土台</td><td class="l">チップ設計・受託製造・メモリ</td><td class="l"><b>エヌビディア</b>、TSMC、SK hynix、Arm（<b>ソフトバンクG</b>傘下）</td><td class="l">非常に高い</td><td class="l">受け取る（チップ）</td></tr>
+            <tr><td>計算資源</td><td class="l">データセンター・電力</td><td class="l">Vertiv、Equinix、<b>日立</b>、NTT</td><td class="l">電力が制約</td><td class="l">受け取る（4,170億ドルの約束）</td></tr>
+            <tr><td>計算資源</td><td class="l">クラウド</td><td class="l"><b>アマゾン</b>（AWS）、<b>アルファベット</b>（Google Cloud）、<b>マイクロソフト</b>（Azure）</td><td class="l">高い</td><td class="l">受け取る＋販売経路</td></tr>
+            <tr class="accent"><td>知能</td><td class="l">基盤モデル</td><td class="l"><b>Anthropic</b>、OpenAI、Google DeepMind、<b>メタ</b>、xAI</td><td class="l">赤字が中心</td><td class="l">ここ</td></tr>
+            <tr><td>知能</td><td class="l">アプリ・開発ツール</td><td class="l">Cursor、GitHub Copilot、Perplexity</td><td class="l">粗利が低い</td><td class="l">払う（トークン料金）</td></tr>
+            <tr><td>知能</td><td class="l">業界特化・SI・コンサル</td><td class="l">Salesforce、Accenture、IBM、<b>日立</b></td><td class="l">安定黒字</td><td class="l">払う／組み込んで売る</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>利益の偏り</b>　会社の数は上の層（アプリ）に多く、利益は下の層（半導体・メモリ・クラウド）に偏る</li>
+        <li><b>お金の流れ</b>　大手4社の設備投資 約7,000億ドル超に対し、企業のAI支出は約370億ドル。土台に流れるお金は約20倍</li>
+        <li><b>Anthropic の位置</b>　下の層に払い、上の層から受け取る。上下の両方と取引する真ん中の層</li>
+      </ul>
+
+      <h3>他社比較</h3>
+      <p class="sub">同じAIでも、モデルを作る会社・貸す会社・チップを売る会社で損益が逆。単位は億ドル。</p>
+      <div class="tw">
+        <table>
+          <caption>売上と営業損益　億ドル</caption>
+          <thead><tr><th>会社</th><th>層</th><th>2025年 売上</th><th>2025年 営業損益</th><th>直近 売上</th><th>直近 営業損益</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>Anthropic（上場申請中）</td><td>モデル</td><td>45.9</td><td>−80.6</td><td>162.9</td><td>約−6.9</td></tr>
+            <tr><td>OpenAI（非上場）</td><td>モデル</td><td>130.7</td><td>−209.2</td><td>約124</td><td>約−216</td></tr>
+            <tr><td>xAI（SpaceXの部門）</td><td>モデル</td><td>32.0</td><td>−63.6</td><td>75.6</td><td>＋4.3</td></tr>
+            <tr><td>Google Cloud（アルファベット）</td><td>クラウド</td><td>約587</td><td>＋139</td><td>247.7</td><td>＋88.1</td></tr>
+            <tr><td>AWS（アマゾン）</td><td>クラウド</td><td>1,287</td><td>＋456</td><td>422</td><td>＋166</td></tr>
+            <tr><td>エヌビディア（全社）</td><td>チップ</td><td>2,159</td><td>＋1,304</td><td>962</td><td>＋637</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub">「直近」は Anthropic・OpenAI が2026年1〜6月、それ以外は四半期（3か月）で期間がそろわない。OpenAI は流出した投資家向け資料の報道値。xAI の直近は X・Cursor の売上を含む。エヌビディアの2025年欄は2026年1月期。クラウドはAI以外も含む部門の値。</p>
+      <figure>
+        <div class="ctitle"><span>2025年の営業利益率　%</span><span>営業損益 ÷ 売上</span></div>
+        <div id="c-margin"></div>
+      </figure>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>モデル企業の稼ぎ方の違い</caption>
+          <thead><tr><th>会社</th><th>主な客</th><th>主な稼ぎ方</th><th>計算資源</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>Anthropic</td><td class="l">企業・開発者</td><td class="l">API・法人契約・Claude Code</td><td class="l">Google・Amazon・Microsoft から借りる</td></tr>
+            <tr><td>OpenAI</td><td class="l">個人（ChatGPT 週9億人超）と企業</td><td class="l">個人の月額課金・API</td><td class="l">Microsoft・Oracle など。自前のデータセンター計画</td></tr>
+            <tr><td>Google（Gemini）</td><td class="l">検索・Android・Workspace の利用者</td><td class="l">広告・クラウドと一体</td><td class="l">自前（TPU・データセンター）</td></tr>
+            <tr><td>メタ（Llama）</td><td class="l">SNSの利用者</td><td class="l">モデルは無料公開。広告で回収</td><td class="l">自前</td></tr>
+            <tr><td>xAI（Grok）</td><td class="l">X の利用者・企業</td><td class="l">X の課金・API</td><td class="l">自前（SpaceX の資金）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>専業か兼業か</b>　Anthropic・OpenAI はモデルの売上がほぼすべて。Google・メタは本業（広告）の稼ぎでAIの費用をまかなう</li>
+        <li><b>Anthropic と OpenAI</b>　売上は近い規模でも、OpenAI の営業損失が大きい（会計の基準はそろわない）</li>
+        <li><b>評価の物差し</b>　赤字のためPERは出ない。売上の伸び・売上継続率・損失の縮み方で評価</li>
       </ul>
 
       <h3>上場の条件</h3>
@@ -543,6 +650,7 @@ PBR ＝ PER × ROE
         <li>Anthropic, PBC　Form S-1　2026年10月26日　<a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm">sec.gov</a>／Anthropic　発表　<a href="https://www.anthropic.com/news/s1-sec">anthropic.com</a></li>
         <li>CNBC　Anthropic IPO live updates: AI S-1 filing　2026年10月26日　<a href="https://www.cnbc.com/2026/10/26/anthropic-ipo-live-updates-ai-s-1-filing.html">cnbc.com</a></li>
         <li>日本取引所グループ　信用取引・空売り規制の解説　<a href="https://www.jpx.co.jp/">jpx.co.jp</a>（価格規制の条件は要確認）</li>
+        <li>AIサプライチェーン・層ごとの収益性・お金の流れは本サイトの資料「<a href="b09-ai-sangyo.html">AI産業の市場地図</a>」（Menlo Ventures・各社決算ほか）。他社比較は各社の決算（Alphabet・Amazon・NVIDIA・SpaceX の S-1）と報道</li>
         <li>節2は志村ゼミ 後期 第5回（2026年10月27日）資料 §4 を元に再構成。2026年上半期の営業損益・営業キャッシュフロー・販売経路・支払いの約束・上場時期は報道値。支払いの約束は報道により4,170億〜5,420億ドルの幅</li>
         <li>節1のソニーグループの数値は10/26の授業で調べた時価総額と Day3 フォームの記入値からの計算（例示）。節2の担当銘柄への影響、節3の損益の図・数値例は本資料の整理（例示）。投資の推奨ではない</li>
       </ul>
@@ -709,6 +817,16 @@ var LC=(function(){
 
   return {lines:lines,bars:bars,hbars:hbars,fmt:fmt,legend:legend};
 })();
+
+
+LC.hbars("#c-margin",{
+  w:620,h:250,pad:{l:150,r:70,t:24},alt:"2025年の営業利益率。エヌビディア約60%、AWS約35%、Google Cloud約24%、OpenAI約−160%、Anthropic約−176%、xAI約−199%",max:620,bh:18,
+  x:{min:-200,max:80,ticks:[-200,-100,0,50]},
+  digits:0,unit:"%",
+  valueFmt:function(v){ return (v>0?"＋":"")+LC.fmt(v,0)+"%"; },
+  data:[["エヌビディア",60.4,"var(--s3)"],["AWS",35.4,"var(--s3)"],["Google Cloud",23.7,"var(--s3)"],["OpenAI",-160.1,"var(--s2)"],["Anthropic",-175.6,"var(--s2)"],["xAI",-198.8,"var(--s2)"]],
+  tip:function(d){ return d[0]+"　営業利益率 "+LC.fmt(d[1],1)+"%"; }
+});
 
 LC.bars("#c-ant",{
   w:620,h:300,pad:{l:58,r:14,t:26,b:38},alt:"Anthropicの売上と営業損益。2025年 売上45.9億ドル・営業損益−80.6億ドル、2026年1〜6月 売上162.9億ドル・営業損益約−6.9億ドル",max:620,bw:44,
