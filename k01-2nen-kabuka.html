@@ -368,6 +368,13 @@
         <li><b>答え合わせ</b>　次週予測は、翌週の終値が記入されたら「当たり・外れ」を判定</li>
         <li><b>比べる相手</b>　同じ期間の指数（日本株は日経平均・TOPIX、米国株はS&amp;P500）と比べて、銘柄固有の動きか市場全体の動きかを判断</li>
       </ul>
+      <div class="tw">
+        <table>
+          <caption>参考　指数</caption>
+          <thead><tr><th>指数</th><th>単位</th><th>10月19日</th><th>10月26日</th></tr></thead>
+          <tbody><tr><td>日経平均</td><td class="u">円</td><td>64,916.70</td><td>62,189.65</td></tr><tr><td>ダウ平均</td><td class="u">ドル</td><td>51,966.03</td><td>52,361.58</td></tr><tr><td>NASDAQ</td><td class="u">ドル</td><td>26,430.89</td><td>26,169.38</td></tr></tbody>
+        </table>
+      </div>
 
     </div>
   </section>
@@ -424,6 +431,7 @@
       <h2>出典</h2>
       <ul class="src">
         <li>2年イノプロB 集計スプレッドシート「株価推移」タブ（Google フォームの回答）　2026年10月30日取得</li>
+        <li>指数（日経平均・ダウ平均・NASDAQ）は4年イノプロ 財務分析 回答「株価推移」タブの値</li>
         <li>担当銘柄の割り振りは授業で配布した担当企業一覧。氏名は掲載しない</li>
       </ul>
     </div>
@@ -590,11 +598,11 @@ var LC=(function(){
 })();
 
 LC.hbars("#c-chg",{
-  w:640,h:160,pad:{l:200,r:70,t:24},alt:"担当銘柄の株価騰落率",max:640,bh:16,
+  w:640,h:250,pad:{l:200,r:70,t:24},alt:"担当銘柄の株価騰落率",max:640,bh:16,
   x:{min:-15.0,max:5,ticks:[-15.0,0,5]},
   digits:1,unit:"%",
   valueFmt:function(v){ return (v>0?"＋":"")+LC.fmt(v,1)+"%"; },
-  data:[["4661 オリエンタルランド",1.64,"var(--s1)"],["6098 リクルートホールディングス",1.49,"var(--s1)"],["AAPL アップル",0.13,"var(--s1)"],["META メタ・プラットフォームズ",-10.61,"var(--s2)"]]
+  data:[["4661 オリエンタルランド",1.64,"var(--s1)"],["6098 リクルートホールディングス",1.49,"var(--s1)"],["AAPL アップル",0.13,"var(--s1)"],["META メタ・プラットフォームズ",-10.61,"var(--s2)"],["指数 日経平均",-4.20,"var(--muted)"],["指数 ダウ平均",0.76,"var(--muted)"],["指数 NASDAQ",-0.99,"var(--muted)"]]
 });
 LC.legend("#lg-chg",[{name:"次週予測 上がる",color:"var(--s1)",square:true},{name:"次週予測 下がる",color:"var(--s2)",square:true},{name:"予測なし",color:"var(--s4)",square:true},{name:"指数",color:"var(--muted)",square:true}]);
 
