@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="2年イノプロB 2年の記録。担当銘柄の毎週の終値と次週予測（2026年10月30日時点）。">
+<meta name="description" content="2年イノプロB クイズ・株価推移の記録。担当銘柄の毎週の終値と次週予測（2026年10月30日時点）。">
 <title>2年 株価推移</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
@@ -331,8 +331,8 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">2年イノプロB　2年の記録　2026年10月30日時点</div>
-    <h1>担当銘柄の<em>株価推移</em></h1>
+    <div class="eyebrow">2年イノプロB　クイズ・株価推移の記録　2026年10月30日時点</div>
+    <h1>2年 担当銘柄の<em>株価推移</em></h1>
     <dl class="facts">
       <div><dt>対象</dt><dd>2年生の担当銘柄 29銘柄</dd></div>
       <div><dt>記録</dt><dd>毎週月曜の終値と、次週の上がる・下がるの予想</dd></div>
@@ -358,7 +358,7 @@
     <div class="num">2</div>
     <div>
       <h2>騰落率</h2>
-      <p class="sub">10月19日 → 10月26日 の終値。両方の記入がある銘柄のみ。色は次週予測（青＝上がる、橙＝下がる）。</p>
+      <p class="sub">10月19日 → 10月26日 の終値。両方の記入がある銘柄のみ。色は次週予測（青＝上がる、橙＝下がる、黄＝予測なし）。灰色は参考の指数。</p>
       <figure>
         <div class="ctitle"><span>株価の騰落率　%</span><span>4銘柄</span></div>
         <div id="c-chg"></div>
@@ -368,6 +368,7 @@
         <li><b>答え合わせ</b>　次週予測は、翌週の終値が記入されたら「当たり・外れ」を判定</li>
         <li><b>比べる相手</b>　同じ期間の指数（日本株は日経平均・TOPIX、米国株はS&amp;P500）と比べて、銘柄固有の動きか市場全体の動きかを判断</li>
       </ul>
+
     </div>
   </section>
 
@@ -429,8 +430,8 @@
   </section>
 
   <nav class="nav">
-    <a href="k01-2nen-kabuka.html"><b>2年の記録</b>株価推移</a>
-    <a href="k02-2nen-shukei.html"><b>2年の記録</b>集計</a>
+    <a href="k01-2nen-kabuka.html"><b>2年　クイズ・株価推移の記録</b>株価推移</a>
+    <a href="k02-2nen-shukei.html"><b>2年　クイズ・株価推移の記録</b>クイズ集計</a>
     <a href="index.html#kiroku"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
   </nav>
 
@@ -595,7 +596,7 @@ LC.hbars("#c-chg",{
   valueFmt:function(v){ return (v>0?"＋":"")+LC.fmt(v,1)+"%"; },
   data:[["4661 オリエンタルランド",1.64,"var(--s1)"],["6098 リクルートホールディングス",1.49,"var(--s1)"],["AAPL アップル",0.13,"var(--s1)"],["META メタ・プラットフォームズ",-10.61,"var(--s2)"]]
 });
-LC.legend("#lg-chg",[{name:"次週予測 上がる",color:"var(--s1)",square:true},{name:"次週予測 下がる",color:"var(--s2)",square:true},{name:"予測なし",color:"var(--s4)",square:true}]);
+LC.legend("#lg-chg",[{name:"次週予測 上がる",color:"var(--s1)",square:true},{name:"次週予測 下がる",color:"var(--s2)",square:true},{name:"予測なし",color:"var(--s4)",square:true},{name:"指数",color:"var(--muted)",square:true}]);
 
 </script>
 </body>

@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="2年イノプロB 2年の記録。復習クイズの回ごとの提出と得点率（2026年10月30日時点）。">
-<title>2年 集計</title>
+<meta name="description" content="2年イノプロB クイズ・株価推移の記録。復習クイズの回ごとの提出と得点（2026年10月30日時点）。">
+<title>2年 クイズ集計</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
@@ -331,11 +331,11 @@
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">2年イノプロB　2年の記録　2026年10月30日時点</div>
-    <h1>復習クイズの<em>集計</em></h1>
+    <div class="eyebrow">2年イノプロB　クイズ・株価推移の記録　2026年10月30日時点</div>
+    <h1>2年 復習クイズの<em>集計</em></h1>
     <dl class="facts">
       <div><dt>対象</dt><dd>2年生 26人（学籍番号）</dd></div>
-      <div><dt>記録</dt><dd>各回の復習クイズ（Google フォーム）の得点率 %</dd></div>
+      <div><dt>記録</dt><dd>各回の復習クイズ（Google フォーム）の得点 %</dd></div>
       <div><dt>元データ</dt><dd>集計シート「集計」タブ</dd></div>
     </dl>
   </header>
@@ -344,14 +344,14 @@
     <div class="num">1</div>
     <div>
       <h2>回ごとの提出</h2>
-      <p class="sub">2026年10月30日時点。空欄は未提出。点数は満点を100とした得点率。</p>
+      <p class="sub">2026年10月30日時点。—は未提出（未受験）。点数は満点を100とした得点。</p>
       <dl class="tiles">
         <div class="tile"><dt>登録</dt><dd>26<span class="u">人</span></dd></div>
         <div class="tile t1"><dt>全回提出</dt><dd>9<span class="u">人</span></dd></div>
         <div class="tile"><dt>直近（Day4 PBR）の提出</dt><dd>11<span class="u">/ 26</span></dd></div>
       </dl>
       <figure>
-        <div class="ctitle"><span>提出数　人</span><span>回ごと　26人中</span></div>
+        <div class="ctitle"><span>提出数　人</span><span>回ごと　26人中　D＝Day、予＝予習、復＝復習</span></div>
         <div id="c-sub"></div>
       </figure>
       <div class="tw">
@@ -421,8 +421,8 @@
   </section>
 
   <nav class="nav">
-    <a href="k01-2nen-kabuka.html"><b>2年の記録</b>株価推移</a>
-    <a href="k02-2nen-shukei.html"><b>2年の記録</b>集計</a>
+    <a href="k01-2nen-kabuka.html"><b>2年　クイズ・株価推移の記録</b>株価推移</a>
+    <a href="k02-2nen-shukei.html"><b>2年　クイズ・株価推移の記録</b>クイズ集計</a>
     <a href="index.html#kiroku"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
   </nav>
 
@@ -584,7 +584,8 @@ LC.bars("#c-sub",{
   w:560,h:260,pad:{l:44,r:14,t:26,b:38},alt:"回ごとの提出数",max:560,bw:44,
   y:{min:0,max:26,ticks:[0,13,26]},
   unit:"人",
-  data:[["Day1",19],["Day2",17],["Day3 ROE",16],["Day4 PBR",11]]
+  data:[["D1",19],["D2",17],["D3",16],["D4",11]],
+  tip:function(d){ return d[0]+"　"+d[1]+"人"; }
 });
 
 </script>

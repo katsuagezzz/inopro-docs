@@ -7,7 +7,7 @@
 
 一覧　<https://katsuagezzz.github.io/inopro-docs/>
 
-一覧は「資料」「講義メモ」「2年の記録」の3タブ。`#memo`・`#kiroku` 付きのURL（<https://katsuagezzz.github.io/inopro-docs/#memo>）でそれぞれのタブが開く。
+一覧は「資料」「講義メモ」「クイズ・株価推移の記録」の3タブ。`#memo`・`#kiroku` 付きのURL（<https://katsuagezzz.github.io/inopro-docs/#memo>）でそれぞれのタブが開く。
 各資料はページ上端の `← 資料一覧` と末尾の一覧リンクから一覧へ戻る。
 
 ### 資料タブ（18本）
@@ -46,14 +46,16 @@
 | 10/19 | 4年 | ROE・担当銘柄とAIエージェント | `y04-4nen-1019.html` |
 | 10/26 | 4年 | PBR・投資の2流派と市場分析ダッシュボード | `y06-4nen-1026.html` |
 
-### 2年の記録タブ（2本）
+### クイズ・株価推移の記録タブ（4本）
 
 Google フォームの回答（集計スプレッドシート）から生成。学籍番号つき・氏名なし。
 
-| 番号 | タイトル | ファイル |
+| 学年 | タイトル | ファイル |
 |---|---|---|
-| 01 | 株価推移 | `k01-2nen-kabuka.html` |
-| 02 | 集計 | `k02-2nen-shukei.html` |
+| 2年 | 株価推移 | `k01-2nen-kabuka.html` |
+| 2年 | クイズ集計 | `k02-2nen-shukei.html` |
+| 4年 | 株価推移 | `k03-4nen-kabuka.html` |
+| 4年 | クイズ集計 | `k04-4nen-shukei.html` |
 
 ## 仕様
 
