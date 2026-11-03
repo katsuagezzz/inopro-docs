@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（4年・2026年11月2日）。サプライチェーン、空売りの仕組み（iPhoneとApple株の例）、株価が急落する要因、うねり投資とAIミニアプリ、質問集、復習クイズ。">
+<title>空売りの仕組みとうねり投資</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--s3);}
+  section:nth-of-type(9) .num{background:var(--ink);}
+  section:nth-of-type(10) .num{background:var(--ink);}
+  .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+</style>
+
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">4年イノプロ　2026年11月2日　講義要点</div>
+    <h1>空売りの仕組みと<em>うねり投資</em></h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>サプライチェーン・上がる／下がる／動かない・空売り（iPhone と Apple株の例）・株価が急落する要因</dd></div>
+      <div><dt>後半</dt><dd>うねり投資とAIミニアプリ</dd></div>
+      <div><dt>提出</dt><dd>復習クイズ・毎週の株価</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（サプライチェーン・空売り・株価の急落）、後半 秋山（うねり投資とAIミニアプリ）。</p>
+      <ul>
+        <li><b>サプライチェーン</b>　製品が消費者に届くまでに関わる会社の連なり。どこに一番お金が貯まるかを調べる</li>
+        <li><b>3つの局面</b>　上がれば買い、下がれば空売り（ショート）、動かなければオプション（次回）</li>
+        <li><b>空売り</b>　持っていない物を借りて先に売り、期日に買い戻して返す。値段の差が利益。「金利と時間」のファイナンス</li>
+        <li><b>株価の急落</b>　炎上 → 客足 → 売上 → 純利益 → 配当の予想 → 売り → 株価下落の連鎖を頭に入れる</li>
+        <li><b>うねり投資</b>　上げ止まりと下げ止まりの間を往復する株を、下で買って上で売る。AIで銘柄探しを自動化</li>
+        <li><b>How より What</b>　やり方（How）はAIで簡単になった。どの手法を選ぶか（What）の目利きが重くなる</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>サプライチェーン</h2>
+      <p class="sub">「この言葉だけは覚えてほしい」。AIの製品が消費者に届くまでに多くの会社が関わり、お金が動く。</p>
+      <ul>
+        <li><b>どこにお金が貯まるか</b>　ROEなどの経済用語とAIツールで調べる。投資先と就職先（どこに身を置くか）の両方に使う</li>
+        <li><b>利益の差</b>　同じAIの会社でも営業利益は極端に違う。その差は株価にも給料にも表れる</li>
+        <li><b>赤字の会社への販売</b>　赤字の会社に物を売ると、代金が払われないかもしれない（未払いのリスク）</li>
+      </ul>
+      <p class="sub">AIの会社の例は<a href="d12-1102.html">11月2日の資料</a> 節2（Anthropic の上場申請書）。</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>空売りの仕組み①　iPhone の例</h2>
+      <p class="sub">株は「ややこしい」ので、身近な物で。定価35万円の iPhone が、フリマアプリでは50万円で売れている。</p>
+      <ul class="steps">
+        <li>iPhone を持っていないAさんが、店から「月末まで借りて、後で返す」約束で1台借りる（11月2日〜月末）</li>
+        <li>借りた iPhone を、欲しいBさんに50万円で売る。Bさんは満足、Aさんの手元には50万円</li>
+        <li>月末に、Aさんは店へ定価35万円を払う。店にとっては35万円で1台売れたのと同じ</li>
+        <li>Aさんに15万円が残る。誰も損をしていない</li>
+      </ul>
+      <div class="formula">50万円 − 35万円 ＝ 15万円</div>
+      <ul>
+        <li><b>期限と負債</b>　受け取った50万円は自由に使えるお金ではない。使い込んで期日に払えなければ、借りた相手への負債が残る</li>
+        <li><b>たとえの限界</b>　この例は物を返す代わりに定価を払う形。株の空売りでは、株そのものを買い戻して返す（節4）</li>
+        <li><b>市場の役割</b>　市場があることで、今の値段と後の値段の違いが表に出る。「質屋と一緒」</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>空売りの仕組み②　Apple株の例</h2>
+      <p class="sub">Apple株 500ドル。Aさんが空売りし、割安と考えるBさんが500ドルで買う。期日は11月30日。</p>
+      <ul class="steps">
+        <li>Aさんは証券会社から株を借りて、Bさんに500ドルで売る</li>
+        <li>今日の時点　Bさんは株を持ち、Aさんは現金500ドルを持つ。株は証券会社が1か月だけ貸した物</li>
+        <li>11月30日に株を返す。証券会社に必要なのは株そのもので、株価がいくらかは関係ない</li>
+        <li>上場株はAさんから買ってもBさんから買っても同じ。返すときは市場で誰からでも買える</li>
+        <li>買い戻しの値段で損益が決まる</li>
+      </ul>
+      <div class="tw">
+        <table>
+          <caption>期日の株価と損益　1株・ドル</caption>
+          <thead><tr><th>11月30日の株価</th><th>買い戻し</th><th>損益</th></tr></thead>
+          <tbody>
+            <tr><td>300</td><td>300</td><td>＋200</td></tr>
+            <tr class="accent"><td>400</td><td>400</td><td>＋100</td></tr>
+            <tr><td>500</td><td>500</td><td>0</td></tr>
+            <tr><td>600</td><td>600</td><td>−100</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub">下がるほど儲かり、上がるほど損をする。株価に上限はないため損失にも上限なし。貸株料・追加保証金などは<a href="d12-1102.html">11月2日の資料</a> 節3。</p>
+      <ul>
+        <li><b>ファイナンスの型</b>　空売りは「金利と時間」の仕組みの1つ。値上がりだけが資産を増やす手段ではない</li>
+        <li><b>下落で儲ける人</b>　下げ相場で利益を出している投資家は多い（小説 黒木亮『カラ売り屋』）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>株価が急落する要因</h2>
+      <p class="sub">学生から出た要因と、志村の補足。「もっと直接的に」と問い直した。</p>
+      <ul>
+        <li><b>業績</b>　P/Lの悪化</li>
+        <li><b>負債</b>　負債が増える。ただし、なぜ増えるか、もっと直接のきっかけを考える</li>
+        <li><b>新規事業への不安</b>　成功しそうにない事業に大きなお金を使うと、投資家が売る</li>
+        <li><b>スキャンダル・異物混入</b>　飲食チェーンの虫の混入、食品への異物混入などで炎上</li>
+      </ul>
+      <div class="formula">炎上 → 客足が落ちる → 売上が落ちる → 純利益が下がる → 配当が減ると投資家が予想 → 株を売る → 株価が下がる</div>
+      <h3>空売りの戦略</h3>
+      <ul>
+        <li><b>時間</b>　下がるのが半年後か、1か月で急落かを考える</li>
+        <li><b>業種への広がり</b>　1社の問題が同じ業種（回転ずし・外食チェーン）に広がるかを考える</li>
+        <li><b>大きな出来事</b>　中間選挙・地震・台風など、誰でも知っている社会の出来事で利益を出す投資家も多い</li>
+        <li><b>やってはいけないこと</b>　株価を下げる目的で事件やうわさを仕掛けるのは犯罪（金融商品取引法の風説の流布・偽計）。授業の例は仕組みの説明</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>うねり投資とAIミニアプリ</h2>
+      <p class="sub">後半 秋山。元にした本は上岡正明『働きながら1億貯める AI株式投資の全手順』。</p>
+      <ul>
+        <li><b>How より What</b>　やり方のハードルはAIで下がった。再現性があり自分に合う手法を選ぶ目利きが重くなる</li>
+        <li><b>うねり投資</b>　何度も上げ止まった価格帯（レジスタンス）と、何度も下げ止まった価格帯（サポート）の間を上下する株を、下で買って上で売ることを繰り返す</li>
+        <li><b>手順</b>　10年分のチャートで同じ価格帯を往復する株を探す → 線を引く → 下がるまで待つ → 決算・ニュースを確認して買う → 待って売る</li>
+        <li><b>銘柄の探し方（本の3つ）</b>　著者がウォッチしている株を見る／AIに聞く／1社ずつ総当たりで見る</li>
+      </ul>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>AIミニアプリの絞り込み</caption>
+          <thead><tr><th>段階</th><th>件数</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>株価を取得</td><td class="l">約1,600銘柄</td><td class="l">日米の株価</td></tr>
+            <tr><td>下落した株</td><td class="l">43銘柄</td><td class="l">簡易レポート</td></tr>
+            <tr><td>有望な株</td><td class="l">4件</td><td class="l">詳細レポート。収益性・持続性・確実性で評価し、リスクも挙げる</td></tr>
+            <tr class="accent"><td>推奨</td><td class="l">1件</td><td class="l">買いの候補。現在値・買いの目安・売りの目安・チャート</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>過去のデータで検証</b>　10年分で勝率73%、平均＋10%程度（授業中の発表。要確認）</li>
+        <li><b>画面</b>　相場全体の確認／保有株の売り時のチェック／買い候補の選定</li>
+        <li><b>費用</b>　1回の株価の処理でAIの利用料がかなりかかる</li>
+        <li><b>本の読ませ方</b>　電子書籍は直接読めないため、内容をAIへの指示の材料として渡した</li>
+      </ul>
+      <p class="sub">授業で名前の出た手法・数値は説明の例。投資の推奨ではない。</p>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業中に答えが出なかった・止まった問いを中心に。着地点は閉じてある。</p>
+
+      <div class="q"><span class="qn">授業の問い</span>AIで調べた空売りの仕組みを説明できるか。（「なんとなく分かる」まで）</div>
+      <details><summary>着地点</summary><p>持っていない物（株）を借りて先に売り、期日に買い戻して返す。売った値段と買い戻した値段の差が損益。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>定価35万円の iPhone がフリマで50万円。儲けたいならどうするか。（約24秒の沈黙）</div>
+      <details><summary>着地点</summary><p>店から借りて50万円で売り、月末に定価35万円を払う。15万円が残る。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>売った直後、Aさんの手元には何が残るか。（答えが出なかった）</div>
+      <details><summary>着地点</summary><p>50万円。ただし月末に35万円を払う義務（負債）も残る。</p></details>
+
+      <div class="q"><span class="qn">学生の質問</span>借りた物が売れなかったら、いつまでも持っていられるのか。</div>
+      <details><summary>着地点</summary><p>持っていられない。必ず期限がある。期日に返せなければ、借りた相手への負債が残る。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>Apple株の空売りで、11月30日に株価がどうなっていればよいか。（答えが不完全）</div>
+      <details><summary>着地点</summary><p>500ドルより下がっていればよい。市場で買い戻して返し、差額が利益。400ドルなら100ドル。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>株価が急に下がる要因は何か。（「負債が増える」まで）</div>
+      <details><summary>着地点</summary><p>業績の悪化、新規事業への不安、スキャンダル、異物混入による炎上。きっかけから株価までの連鎖で考える。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>異物混入が起きると、どうなるか。（答えが出なかった）</div>
+      <details><summary>着地点</summary><p>炎上 → 客足 → 売上 → 純利益 → 配当の予想 → 売り → 株価の下落。</p></details>
+
+      <div class="q"><span class="qn">来週から考える問い</span>株価が動かなくても儲かる取引は何か。</div>
+      <details><summary>着地点</summary><p>オプション。<a href="d13-1109.html">11月9日の資料</a> 節4で扱う。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>復習クイズ</h2>
+      <p class="sub">11月2日 空売り　5問。授業で答えが止まった箇所から出題。Google フォームでも同じ問題を配布。正解は閉じてある。</p>
+
+      <div class="q"><span class="qn">問1</span>空売り（ショート）の手順として正しいものはどれか。</div>
+      <ul>
+        <li>証券会社から株を買う → 値下がりを待つ → 証券会社に株を売り戻す</li>
+        <li>証券会社から株を借りて売る → 期日までに市場で買い戻す → 証券会社に株を返す</li>
+        <li>証券会社からお金を借りて株を買う → 期日に株を売る → お金を返す</li>
+        <li>市場で株を買う → 値上がりしたら売る → 差額を証券会社に払う</li>
+      </ul>
+      <details><summary>正解</summary><p>証券会社から株を借りて売る → 期日までに市場で買い戻す → 証券会社に株を返す
+最初の手持ちはゼロ。返すのは現金ではなく株そのもの。</p></details>
+
+      <div class="q"><span class="qn">問2</span>Apple株を500ドルで空売りした。期日（11月30日）の株価は400ドル。損益はいくらか。</div>
+      <ul>
+        <li>100ドルの損</li>
+        <li>100ドルの得</li>
+        <li>400ドルの得</li>
+        <li>500ドルの得</li>
+      </ul>
+      <details><summary>正解</summary><p>100ドルの得
+売値 500 − 買い戻し 400 ＝ 100。</p></details>
+
+      <div class="q"><span class="qn">問3</span>Apple株を500ドルで空売りした。期日（11月30日）の株価は600ドルに上がっていた。空売りした人はどうなるか。</div>
+      <ul>
+        <li>株価が下がるまで返却を延ばせる</li>
+        <li>受け取った500ドルを返せば終わる</li>
+        <li>600ドルで買い戻して株を返す。100ドルの損</li>
+        <li>証券会社が値上がり分を負担する</li>
+      </ul>
+      <details><summary>正解</summary><p>600ドルで買い戻して株を返す。100ドルの損
+期日に株を返す義務は株価に関係なく残る。上がるほど損が膨らむ。</p></details>
+
+      <div class="q"><span class="qn">問4</span>定価35万円の iPhone が、フリマアプリでは50万円で売れている。店から1台借りて50万円で売り、月末に店へ定価35万円を払った。手元に残る金額はいくらか。</div>
+      <ul>
+        <li>0円</li>
+        <li>15万円</li>
+        <li>35万円</li>
+        <li>50万円</li>
+      </ul>
+      <details><summary>正解</summary><p>15万円
+50万 − 35万。店は定価で売れ、買い手は欲しい物を得て、誰も損をしない。</p></details>
+
+      <div class="q"><span class="qn">問5</span>飲食チェーンで異物混入が発覚し、SNSで炎上した。株価が下がるまでの流れとして正しい順はどれか。</div>
+      <ul>
+        <li>売上減 → 炎上 → 株価下落 → 配当減の予測 → 客足減</li>
+        <li>炎上 → 株価下落 → 客足減 → 売上減 → 純利益減</li>
+        <li>炎上 → 客足減 → 売上減 → 純利益減 → 配当減の予測 → 売り → 株価下落</li>
+        <li>炎上 → 純利益減 → 客足減 → 株価下落 → 売上減</li>
+      </ul>
+      <details><summary>正解</summary><p>炎上 → 客足減 → 売上減 → 純利益減 → 配当減の予測 → 売り → 株価下落
+P/L の上から下へ影響が伝わり、株価は最後。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>本資料　2026年11月2日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約</li>
+        <li>金融庁　金融商品取引法 第158条（風説の流布・偽計等の禁止）　<a href="https://laws.e-gov.go.jp/law/323AC0000000025">e-gov.go.jp</a></li>
+        <li>上岡正明『働きながら1億貯める AI株式投資の全手順』（アスコム、2026年）</li>
+        <li>黒木亮『カラ売り屋』（講談社）</li>
+        <li>iPhone の値段（定価35万円・フリマ50万円）は授業のたとえ（例示）。AIミニアプリの件数・検証の数値は授業中の発表（要確認）</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y06-4nen-1026.html"><b>← 前の資料</b>PBR・投資の2流派と市場分析ダッシュボード</a>
+    <a href="d12-1102.html"><b>関連</b>PER・Anthropicの上場申請と空売り（11月2日の資料）</a>
+    <a href="d13-1109.html"><b>次回</b>バーンレート・ARRとオプション取引</a>
+    <a href="index.html#memo"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>
