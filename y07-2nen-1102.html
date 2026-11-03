@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（2年・2026年11月2日）。PER、AIのお金の流れとAnthropicの上場、株で儲ける3つのパターン、空売りの仕組み、本の投資手法をAIで再現、質問集、復習クイズ。">
+<title>PER・Anthropicの上場と空売り</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--s3);}
+  section:nth-of-type(9) .num{background:var(--s4);}
+  section:nth-of-type(10) .num{background:var(--ink);}
+  .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+</style>
+
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB　2026年11月2日　講義要点</div>
+    <h1>PER・Anthropicの上場と<em>空売り</em></h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>PER・AIのお金の流れとAnthropicの上場・株で儲ける3つのパターン・空売りの仕組み</dd></div>
+      <div><dt>後半</dt><dd>本の投資手法をAIで再現（うねり取り）</dd></div>
+      <div><dt>提出</dt><dd>復習クイズ・株価推移（2つで成績の2割）</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（PER・AIとAnthropic・空売り）、後半 秋山（本の投資手法をAIで再現）。</p>
+      <ul>
+        <li><b>PER</b>　時価総額 ÷ 純利益。経営者が1年で稼いだ利益に、市場が何倍の値段を付けたか。暗記の対象</li>
+        <li><b>3つの指標</b>　初回ROE、先週PBR、今日PER。絶対値ではなく、会社・業種を比べるための物差し</li>
+        <li><b>AIのお金の流れ</b>　半導体の次は、AIサービスの会社に現金が集まるか。Anthropicの上場はその分かれ目</li>
+        <li><b>3つのパターン</b>　上がる＝順張り、横ばい＝オプション、下がる＝空売り</li>
+        <li><b>空売り</b>　持っていない株を借りて先に売り、期日までに市場で買い戻して返す。「腹落ちするまで」</li>
+        <li><b>うねり取り</b>　上限と下限の間を往復する株を、下で買って上で売る。本の手法をAIで自動化</li>
+      </ul>
+      <div class="note"><b>提出物</b>　復習クイズ（Google フォーム）と株価推移（担当銘柄の毎週の株価と予想）。後期15回分を学籍番号で集計し、2つで成績の2割。</div>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>PER<span class="h2s">　-　経済用語</span></h2>
+      <p class="sub">「まず覚えるのはこの単語。暗記です」。P ＝ Price（株価）、E ＝ Earnings（利益）。</p>
+      <div class="formula">PER ＝ 時価総額 ÷ 当期純利益 ＝ 株価 ÷ 1株当たり純利益
+分子 ＝ 市場が付けた値段（コントロールできない）
+分母 ＝ 経営者が1年で稼いだ純利益（努力でコントロールできる）</div>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>3つの指標　何と何を比べるか</caption>
+          <thead><tr><th>指標</th><th>式</th><th>比べるもの</th><th>扱った回</th></tr></thead>
+          <tbody>
+            <tr><td>ROE</td><td class="l">当期純利益 ÷ 自己資本</td><td class="l">株主が出したお金で1年にいくら稼いだか</td><td class="l">10月19日</td></tr>
+            <tr><td>PBR</td><td class="l">時価総額 ÷ 純資産</td><td class="l">株主のお金を、市場が何倍に評価したか</td><td class="l">10月26日</td></tr>
+            <tr class="accent"><td>PER</td><td class="l">時価総額 ÷ 当期純利益</td><td class="l">1年の利益を、市場が何倍に評価したか</td><td class="l">11月2日</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>市場の通知表</b>　P/Lの利益は自分の努力で増やせる。株価は、その会社の製品を使っていない人も売り買いするので動かせない</li>
+        <li><b>働く側の視点</b>　前任者より利益を上げても株価が上がらないことはよくある。自分の頑張りと、他人の評価は別。自分を他人の目で振り返る</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>AIのお金の流れとAnthropicの上場<span class="h2s">　-　マクロニュース</span></h2>
+      <p class="sub">これまで値上がりしたのは半導体。次に現金が集まるのは、半導体を使って商売するAIサービスの会社か。</p>
+      <dl class="tiles">
+        <div class="tile"><dt>Anthropic　売上　2025年</dt><dd>45.9<span class="u">億ドル</span></dd></div>
+        <div class="tile t1"><dt>売上　2026年1〜6月</dt><dd>162.9<span class="u">億ドル 半年で前年の3倍超</span></dd></div>
+      </dl>
+      <ul>
+        <li><b>半導体</b>　代表はTSMC ＝ Taiwan Semiconductor Manufacturing Company（台湾の半導体製造会社）。Semiconductor ＝ 半導体、Manufacturing ＝ 製造</li>
+        <li><b>比べる相手</b>　Anthropic の比較対象は OpenAI。OpenAI の主要株主は Microsoft と日本のソフトバンク。株主を調べる癖を付ける</li>
+        <li><b>連鎖倒産</b>　AIの会社が顧客から現金を受け取れないと、半導体やデータセンターへの支払いができない。支払いを受けられない会社も、その先に払えなくなる</li>
+        <li><b>上場の意味</b>　市場から資金を集め、仕入れ先への支払い・利払い・株主への還元に回す</li>
+        <li><b>担当銘柄への影響</b>　投資家がアップルに置いていた1兆円を OpenAI に移せば、アップル株は売られて下がる。売上が3倍になる会社のほうがROEが伸びると考えるため。半導体の会社なら、もっと売れて株価は上がるかもしれない</li>
+      </ul>
+      <p class="sub">数値は Anthropic の上場申請書（S-1）。詳しくは<a href="d12-1102.html">11月2日の資料</a> 節2。</p>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>株で儲ける3つのパターン<span class="h2s">　-　株式投資</span></h2>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>局面と取引</caption>
+          <thead><tr><th>株価</th><th>取引</th><th>授業の例</th></tr></thead>
+          <tbody>
+            <tr><td>上がる</td><td class="l">順張り（買って値上がりを待つ）</td><td class="l">S&amp;P500の指数を買う。ROE・業績で分析</td></tr>
+            <tr><td>横ばい</td><td class="l">オプション取引</td><td class="l">今日500ドル、1か月で上510・下490、着地505ドル。こうした動きでも利益を狙える</td></tr>
+            <tr class="accent"><td>下がる</td><td class="l">空売り（ショート）</td><td class="l">500ドルから100ドルに下がっても儲けている人がいる</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub">オプションは<a href="d13-1109.html">11月9日の資料</a> 節4で扱う。</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>空売りの仕組み</h2>
+      <p class="sub">板書の例　Apple株 500ドル。11月2日に売り、期日は11月30日。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>登場するもの</caption>
+          <thead><tr><th>要素</th><th>役割</th></tr></thead>
+          <tbody>
+            <tr><td>株</td><td class="l">値段（500ドル）が付いている。上場株は誰から買っても同じ</td></tr>
+            <tr><td>売り手</td><td class="l">自分。最初の手持ちの株はゼロ</td></tr>
+            <tr><td>証券会社</td><td class="l">売り手に株を貸す</td></tr>
+            <tr><td>買い手</td><td class="l">500ドルを払って株を受け取る。売る人がいれば必ず買う人がいる</td></tr>
+            <tr class="accent"><td>時間（期日）</td><td class="l">1か月後に株を返す約束。「ファイナンスは時間が大事」</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul class="steps">
+        <li>証券会社から株を借りて、買い手に500ドルで売る</li>
+        <li>売り手の手元　資産 ＝ 現金500ドル、負債 ＝ 証券会社に株を返す義務（B/Sの右側）</li>
+        <li>買い手の手元　500ドル分の株。お金を払えば同じ価値の物が残る（等価交換）</li>
+        <li>期日（11月30日）に、市場で同じ株を買い戻して証券会社に返す。期日にやることはこれだけ</li>
+        <li>買い戻しが500ドルより安ければ儲かる。400ドルなら100ドル、300ドルなら200ドルが手元に残る</li>
+      </ul>
+      <div class="formula">空売りの損益 ＝ 売った値段 − 買い戻した値段
+500 − 400 ＝ ＋100ドル　　何も持っていないところから、下がった分だけ儲かる
+500 − 600 ＝ −100ドル　　上がれば損。株価に上限がないため損失にも上限なし</div>
+      <p class="sub">上がった場合の損、貸株料・追加保証金などは<a href="d12-1102.html">11月2日の資料</a> 節3。</p>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>ニュースと株価</h2>
+      <ul>
+        <li><b>株価はニュースで動く</b>　地震、首相の辞任、要人の銃撃事件、中間選挙。売上は経営者の努力で動かせるが、株価は動かせない</li>
+        <li><b>情報の速さ</b>　下がるニュースを誰より早く知っていれば、空売りで利益が出る</li>
+        <li><b>空売りのファンド</b>　投資家から集めたお金を増やして返すのが仕事。米国では業績に比べて株価が高すぎる会社を調べ、空売りする</li>
+        <li><b>2つの見つけ方</b>　安すぎる株を見つけて買う（順張り）、高すぎる株を見つけて空売りする</li>
+        <li><b>やってはいけないこと</b>　株価を下げる目的で事件やうわさを仕掛けるのは犯罪（金融商品取引法の風説の流布・偽計）。授業の例は仕組みの説明</li>
+        <li><b>情報はタダ</b>　情報もツールも無料で手に入る。AIを使って調べる</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>本の投資手法をAIで再現</h2>
+      <p class="sub">後半 秋山。情報を集める手間は下がった。大事なのは、どの観点で集め、何をするか。</p>
+      <ul>
+        <li><b>うねり取り</b>　一定の上限と下限の間を上下する株（ボックス相場）を、下限の近くで買い、上限の近くで売ることを繰り返す</li>
+        <li><b>手順</b>　10年分のチャートで同じ価格帯を往復する株を探す → 株ごとに買い・売りの線を引く → その値段になるまで待つ</li>
+        <li><b>ダッシュボード</b>　日米の約1,500〜1,600銘柄の株価を取得（Yahoo! ファイナンス）。ボックス相場かを自動で判定し、箱の中の位置から合図を出す。買い候補約50件に、決算・ニュースのレポートとシナリオを付ける</li>
+        <li><b>例</b>　現在37.6ドル、37ドルで買い・47ドルで売り。うまくいけば＋27%。いつまでに上がるかは出せない（過去のチャートでは3か月程度）</li>
+        <li><b>過去のデータで検証</b>　7年分で取引470回、勝率75%、平均＋14%（数値は文字起こしから。要確認）。損切りのルールを入れると負けが増える結果も</li>
+        <li><b>本をAIに読ませる</b>　電子書籍の丸ごとのテキスト化はAIに断られた。「自分の言葉で学習ノートに再構成して」なら可能だった</li>
+        <li><b>注意</b>　本の曖昧な基準（箱の高さなど）をAIは高めに設定しがち。人が理解して調整する。仕組みを知らないまま外部のサービスとつなぐと、秘密の情報が公開されてしまう事故がよくある</li>
+      </ul>
+      <p class="sub">授業で名前の出た手法・数値は説明の例。投資の推奨ではない。</p>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業中に答えが出なかった・止まった問いを中心に。着地点は閉じてある。</p>
+
+      <div class="q"><span class="qn">授業の問い</span>TSMCは何の略か。（すぐには出ず、調べた）</div>
+      <details><summary>着地点</summary><p>Taiwan Semiconductor Manufacturing Company。台湾の半導体製造会社。世界のAI用半導体の多くを作る。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>OpenAI の主要株主は誰か。（Microsoft の後が続かなかった）</div>
+      <details><summary>着地点</summary><p>Microsoft と日本のソフトバンク。気になる会社は株主を調べる。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>株価が値上がりしなくても儲かる取引は何か。（答えが出なかった）</div>
+      <details><summary>着地点</summary><p>オプション取引。500ドルが1か月後に505ドルのような横ばいでも利益を狙える。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>ショート（空売り）のからくりを説明できるか。（「高く売って安く買う」まで）</div>
+      <details><summary>着地点</summary><p>持っていない株を証券会社から借りて先に売る。期日までに市場で買い戻し、株を返す。売った値段と買い戻した値段の差が損益。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>空売りが成り立つ要素（ファクター）は何か。（「ファクター」の意味で止まった）</div>
+      <details><summary>着地点</summary><p>ファクター ＝ 要素。株（値段）・売り手・買い手・株を貸す証券会社・期日（時間）・株を返す義務。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>売って入る500ドルはどこから来るか。（誘導されて「買った人」）</div>
+      <details><summary>着地点</summary><p>買い手から。売る人がいれば必ず買う人がいる。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>売った直後、売り手の負債は何か。（答えが出なかった）</div>
+      <details><summary>着地点</summary><p>証券会社に株を返す義務。B/Sの右側（負債）。資産は現金500ドル。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>買い手の手元には何が残るか。（「何もない」「わからない」）</div>
+      <details><summary>着地点</summary><p>500ドル分の株。お金を払えば同じ価値の物が残る（等価交換）。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>返す株はどこで手に入れるか。（迷ってから「市場」）</div>
+      <details><summary>着地点</summary><p>市場。上場株は誰から買っても同じ物なので、市場で誰からでも買える。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>期日にApple株がいくらなら儲かるか。</div>
+      <details><summary>着地点</summary><p>500ドルより安ければ儲かる。400ドルなら100ドルの得。下がるほど得が増える。</p></details>
+
+      <div class="q"><span class="qn">来週から考える問い</span>Anthropic が上場したら、自分の担当銘柄の株価は上がるか、下がるか。なぜか。</div>
+      <details><summary>着地点</summary><p>授業では答えを出さず、株価推移で確かめる問い。お金がどこから来て、どこへ移るかで考える。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>復習クイズ</h2>
+      <p class="sub">11月2日 空売り　5問。授業で答えが止まった箇所から出題。Google フォームでも同じ問題を配布。正解は閉じてある。</p>
+
+      <div class="q"><span class="qn">問1</span>持っていないApple株を、証券会社から借りて500ドルで売った（空売り）。売った直後の、売った人のB/S（貸借対照表）として正しいものはどれか。</div>
+      <ul>
+        <li>資産　なし　　負債　なし</li>
+        <li>資産　Apple株　　負債　500ドルの借金</li>
+        <li>資産　現金500ドル　　負債　証券会社に株を返す義務</li>
+        <li>資産　現金500ドル　　負債　なし</li>
+      </ul>
+      <details><summary>正解</summary><p>資産　現金500ドル　　負債　証券会社に株を返す義務
+売った代金500ドルは買った人から入り、資産になる。借りた株は期日に返す義務があり、B/Sの右側（負債）。</p></details>
+
+      <div class="q"><span class="qn">問2</span>空売り（ショート）の手順として正しいものはどれか。</div>
+      <ul>
+        <li>証券会社から株を買う → 値下がりを待つ → 証券会社に株を売り戻す</li>
+        <li>証券会社から株を借りて売る → 期日までに市場で買い戻す → 証券会社に株を返す</li>
+        <li>証券会社からお金を借りて株を買う → 期日に株を売る → お金を返す</li>
+        <li>市場で株を買う → 値上がりしたら売る → 差額を証券会社に払う</li>
+      </ul>
+      <details><summary>正解</summary><p>証券会社から株を借りて売る → 期日までに市場で買い戻す → 証券会社に株を返す
+最初の手持ちはゼロ。返すのは現金ではなく株そのもの。</p></details>
+
+      <div class="q"><span class="qn">問3</span>Apple株を500ドルで空売りした。期日（11月30日）の株価は400ドル。損益はいくらか。</div>
+      <ul>
+        <li>100ドルの損</li>
+        <li>100ドルの得</li>
+        <li>400ドルの得</li>
+        <li>500ドルの得</li>
+      </ul>
+      <details><summary>正解</summary><p>100ドルの得
+売値 500 − 買い戻し 400 ＝ 100。株価が下がるほど儲かる。</p></details>
+
+      <div class="q"><span class="qn">問4</span>空売りした人から、Bさんが株を500ドルで買った。取引の直後、Bさんの手元に残るものはどれか。</div>
+      <ul>
+        <li>何も残らない</li>
+        <li>500ドル分の株</li>
+        <li>500ドルの現金</li>
+        <li>証券会社に株を返す義務</li>
+      </ul>
+      <details><summary>正解</summary><p>500ドル分の株
+お金を払えば同じ価値の物が残る（等価交換）。「株を返す義務」が残るのは空売りした側。</p></details>
+
+      <div class="q"><span class="qn">問5</span>株価が「上がる」「横ばい」「下がる」の各局面で利益を狙う取引の組み合わせとして正しいものはどれか。</div>
+      <ul>
+        <li>上がる＝空売り　横ばい＝順張り　下がる＝オプション</li>
+        <li>上がる＝順張り（買い）　横ばい＝オプション　下がる＝空売り</li>
+        <li>上がる＝オプション　横ばい＝空売り　下がる＝順張り（買い）</li>
+        <li>上がる＝順張り（買い）　横ばい＝空売り　下がる＝オプション</li>
+      </ul>
+      <details><summary>正解</summary><p>上がる＝順張り（買い）　横ばい＝オプション　下がる＝空売り</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>本資料　2026年11月2日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約</li>
+        <li>Anthropic, PBC　Form S-1　2026年10月26日　<a href="https://www.sec.gov/Archives/edgar/data/2130357/000162828026067168/anthropicpbc-sx1.htm">sec.gov</a>。授業中の「前年の売上 約6,000億円」は S-1 の2025年の売上45.9億ドルに相当</li>
+        <li>金融庁　金融商品取引法 第158条（風説の流布・偽計等の禁止）　<a href="https://laws.e-gov.go.jp/law/323AC0000000025">e-gov.go.jp</a></li>
+        <li>上岡正明『働きながら1億貯める AI株式投資の全手順』（アスコム、2026年）。後半のうねり投資の元になった本</li>
+        <li>うねり取りのダッシュボードの株価データは Yahoo! ファイナンス。検証の数値は授業中の発表（要確認）</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y05-2nen-1026.html"><b>← 前の資料</b>PBRと市場分析ダッシュボード</a>
+    <a href="d12-1102.html"><b>関連</b>PER・Anthropicの上場申請と空売り（11月2日の資料）</a>
+    <a href="s02-yougo.html#per"><b>経済用語</b>経済用語辞典　PER</a>
+    <a href="index.html#memo"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>
