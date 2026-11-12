@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（2年・2026年11月9日）。中間選挙を二大政党で分解、政府にできること、政策と業種への影響、業績以外のリスクとJTとロシア、AIで情報を集める・週次AIダッシュボード、質問集、復習クイズ。">
+<title>中間選挙を分解し、自分の資産へ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--s3);}
+  section:nth-of-type(9) .num{background:var(--ink);}
+  section:nth-of-type(10) .num{background:var(--ink);}
+  .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+</style>
+
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB　2026年11月9日　講義要点</div>
+    <h1>中間選挙を分解し、<em>自分の資産</em>へ</h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>ニュースから資産を考える・二大政党と中間選挙・政府にできること・業種への影響・JTとロシア</dd></div>
+      <div><dt>後半</dt><dd>担当銘柄の週次AIダッシュボード</dd></div>
+      <div><dt>提出</dt><dd>復習クイズ（11月10日 12:00まで）・株価推移</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（中間選挙・政策と業種・JTとロシア）、後半 秋山（週次AIダッシュボード）。録音は講義の途中からで、資料節1のバーンレート・ARRなどは<a href="d13-1109.html">11月9日の資料</a>で確認。</p>
+      <ul>
+        <li><b>Y と X</b>　自分の資産（Y）は、ニュースや値段の動き（X ＝ 変数）で増えたり減ったりする。毎日の情報からロジックで方向を考える</li>
+        <li><b>知らないことを知る</b>　中間選挙は「トランプの選挙」ではなく、共和党と民主党の選挙。支持層と税への考え方で分ける</li>
+        <li><b>政府にできること</b>　法律を作ることと、集めた税金の配分。金利は中央銀行が決めるので政治は動かせない</li>
+        <li><b>業種への影響</b>　トランプ政権で伸びたAIと防衛は、前提が変わると業績・株価に影響しうる。推測を事実（株価）で確かめる</li>
+        <li><b>業績以外のリスク</b>　選挙・戦争・天災。JTはロシアの子会社が「管理下」に置かれ、株価が約13%下落</li>
+        <li><b>AIダッシュボード</b>　担当銘柄の1週間の値動きと理由を、AIに毎週まとめさせる</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>中間選挙を分解する</h2>
+      <p class="sub">まず「知らないことを知る」。政党の支持は、お金の損得だけでなく考え方や生き方で決まる。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>米国の二大政党</caption>
+          <thead><tr><th>項目</th><th>共和党</th><th>民主党</th></tr></thead>
+          <tbody>
+            <tr><td>支持層</td><td class="l">富裕層が厚い（「お金持ちの政党」）</td><td class="l">低所得層・移民が厚い</td></tr>
+            <tr class="accent"><td>税と政府</td><td class="l">小さな政府。減税・規制緩和。補助金や年金は少なく、自助努力</td><td class="l">税を多く集め、社会保障や規制で格差を縮める</td></tr>
+            <tr><td>考え方</td><td class="l">保守（コンサバティブ）。リバタリアン（「誰にも支配されない」）も</td><td class="l">リベラル（人権を重視）</td></tr>
+            <tr><td>人物</td><td class="l">トランプ（不動産）、イーロン・マスク</td><td class="l">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>分け方の軸</b>　所得・住む場所・性別・職業。AIに「支持者と税金への考え方を百字で」と聞くと早い</li>
+        <li><b>結果（事実）</b>　民主党が上下両院で過半数。ここから先は推理。税を多く取って広く配る方向へ、法律や予算が動くと考えられる</li>
+        <li><b>補足</b>　大統領は共和党のトランプのまま。法律には大統領の署名が要り、拒否権もある。議会の選挙は2年ごと（下院の任期は2年）で、次は2028年</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>政府にできること</h2>
+      <p class="sub">「自分が大統領なら、国の予算100兆円で格差を縮めるために何をするか」。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>できること・できないこと</caption>
+          <thead><tr><th>手段</th><th>誰が決めるか</th><th>例</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>金利</td><td class="l">中央銀行（米国はFRB、日本は日本銀行）。政治は介入できない</td><td class="l">授業の回答「金利を下げて住宅ローンを楽に」は政府の手段ではない</td></tr>
+            <tr><td>法律</td><td class="l">議会と政府</td><td class="l">規制の強化・緩和、税率の変更</td></tr>
+            <tr><td>税金の配分</td><td class="l">議会と政府（予算）</td><td class="l">一律10万円の給付、生まれた子ども全員への給付、年金、学生支援</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>政治家と起業家</b>　起業家はお金を集めて投資し、利益で返す。政治家は税金を配り、票で返ってくる。次の選挙の一票が大事</li>
+        <li><b>物価</b>　「物価を下げる」も政府が直接はできない。物価は需要と供給、金利で動く</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>政策と業種への影響</h2>
+      <p class="sub">トランプ政権の下で伸びた業種は、前提が変わると影響を受ける。ここは推測として扱い、株価で確かめる。</p>
+      <ul>
+        <li><b>伸びた業種</b>　AI（データセンター・半導体）と防衛（戦争を始めたため）</li>
+        <li><b>超過利潤の可能性</b>　補助金や税の優遇で、本来の実力以上に儲かっていたかもしれない。配当や株価も押し上げられていた可能性</li>
+        <li><b>前提の変化</b>　春なら「1億円あればAIに投資」が正解に見えた。その前提はトランプ政権・AI推進・マスク。議会が民主党になると前提が崩れ、業績や株価が下がるかもしれない → ポートフォリオを見直す</li>
+        <li><b>自分の損得まで</b>　「トランプやばい」で止めず、自分の資産にとってプラスかマイナスかまで落とし込む癖を付ける</li>
+      </ul>
+      <h3>検証</h3>
+      <p class="sub">11月1〜9日の担当銘柄と、日経平均・ダウ・NASDAQの値動きを調べる。推測と事実のトライ・アンド・エラー。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>選挙後の1週間　11月2〜6日</caption>
+          <thead><tr><th>指標</th><th>動き</th></tr></thead>
+          <tbody>
+            <tr><td>S&amp;P500</td><td class="l">週間 −2.7%。11月4日は ＋1.58%、5日は −4.36%</td></tr>
+            <tr><td>ナスダック総合</td><td class="l">週間 −3.4%。11月5日は −5.52%</td></tr>
+            <tr class="accent"><td>日経平均</td><td class="l">週間 約 −9%。11月6日は −3,643円。11月9日は午前に大きく反発</td></tr>
+            <tr><td>半導体株指数</td><td class="l">11月5日 −12.25%（AI・データセンター規制への不安）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="sub">指数全体と個別銘柄は別に確認する。数値は<a href="d13-1109.html">11月9日の資料</a> 節3。</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>業績以外で株価が動く要因</h2>
+      <ul>
+        <li><b>3つの要因</b>　政治（選挙）、突然の戦争、天災・地震。予測できないこともリスクとして頭に入れる</li>
+        <li><b>急落はチャンス</b>　他の人がおびえている時が機会。先週の空売り（株を借りて売り、期日までに買い戻して返す）なら、暴落するほど儲かる。居酒屋の話で終わらせず行動する</li>
+      </ul>
+      <h3>JTとロシア</h3>
+      <ul class="steps">
+        <li>JT（日本たばこ産業）はロシアに子会社と工場を持ち、利益の約4分の1（約25%）をロシアで稼ぐ（授業でAIで調べた値）</li>
+        <li>ロシア政府がその子会社を「管理下」に置いた ＝ 実質的な国有化</li>
+        <li>ロシアで稼いだ現金を、為替を通して日本の本社に戻せなくなる。投資家への還元や再投資に回せない</li>
+        <li>利益が減る → 配当が減る → 将来の配当を割り引いた株価が下がる。株価は約13%下落（授業で調べた値）</li>
+        <li>政治が原因なので長引くリスク。業績への影響は次の決算で分かる</li>
+      </ul>
+      <p>日本は人口が増えず、たばこは広告も打てない。海外で伸ばすのは経営として妥当だった。その海外が政治で止まるのが地政学リスク。</p>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>AIで情報を集める</h2>
+      <p class="sub">インプット（大量の情報）→ 箱 → アウトプット。これまでの箱は人間のアナリスト。推理と事実集めはAIでよい。</p>
+      <ul>
+        <li><b>言葉の壁がない</b>　ロシア語の情報も英語・日本語で集められる。秘密の情報は要らない</li>
+        <li><b>使い捨てのツール</b>　自分の資産やゴールは人それぞれ。中間選挙用、半導体企業の上場用など、その都度作って使い捨ててよい</li>
+        <li><b>費用</b>　有料版は月1万円ぐらい。AIは誰にでも同じ機会をくれる</li>
+      </ul>
+      <h3>週次AIダッシュボード</h3>
+      <p class="sub">後半 秋山。担当銘柄の1週間の値動きと理由を、AIに毎週まとめさせる。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>ダッシュボードの中身</caption>
+          <thead><tr><th>項目</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>値動き</td><td class="l">先週の終値、1か月前と比べた騰落率、チャート</td></tr>
+            <tr><td>理由</td><td class="l">日ごとの変動要因。例　11月2日は決算が良く上昇、翌日は中間選挙で民主党が勝ち半導体関連として下落</td></tr>
+            <tr class="accent"><td>切り口</td><td class="l">政治・経済・金融／業界特有／個別企業の3つ（地政学も入れるとよい）</td></tr>
+            <tr><td>比べる相手</td><td class="l">日本株は日経平均、米国株はS&amp;P500</td></tr>
+            <tr><td>予想</td><td class="l">来週上がるか下がるかの分析</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>作り方</b>　「東京エレクトロンのウィークリーダッシュボードを作って」。データ元に Yahoo! ファイナンスを指定</li>
+        <li><b>情報源の順番</b>　一次情報（会社のIR、銀行の発表、業界団体）→ 新聞。note・X・SNS・動画・掲示板は使わない</li>
+        <li><b>確認</b>　AIは読んだふりをすることがある。出典を都度確かめる。YouTube のリンクは、題名から推測・文字起こしを読む・画面を見る、の3通りで処理される</li>
+        <li><b>関心を覚えさせる</b>　「空売りに興味がある」「情報漏えいした企業を早く知りたい」と伝えておくと、関連の情報を届けてくれるAIもある</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業中に答えが出なかった・止まった問いを中心に。着地点は閉じてある。</p>
+
+      <div class="q"><span class="qn">授業の問い</span>所得で分けると、高所得層と低所得層はそれぞれどちらの党を支持するか。（約30秒の沈黙）</div>
+      <details><summary>着地点</summary><p>高所得層は共和党（減税・小さな政府）、低所得層・移民は民主党（税を集めて広く配る）。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>中間選挙で勝ったのは共和党と民主党のどちらか。（答えが聞き取れず）</div>
+      <details><summary>着地点</summary><p>民主党。上下両院で過半数。大統領は共和党のトランプのまま。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>格差を縮めるために、自分が大統領なら何をするか。（約30秒の沈黙の後「金利を下げる」）</div>
+      <details><summary>着地点</summary><p>金利は中央銀行が決めるので政府は動かせない。政府にできるのは法律を作ることと税金の配分（給付・年金・学生支援など）。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>AIや防衛の会社は補助金をもらっていたか。（「一部はもらっていた気がする」）</div>
+      <details><summary>着地点</summary><p>補助金や税の優遇で、実力以上の利益（超過利潤）が出ていた可能性がある。推測として扱い、決算で確かめる。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>選挙の後、NASDAQなどの指数は下がったか。（「下がっていない」）</div>
+      <details><summary>着地点</summary><p>日によって大きく違う。11月4日は上昇、5日は急落（ナスダック −5.52%）、週間ではS&amp;P500 −2.7%・ナスダック −3.4%。調べる期間で結論が変わるので、日ごとの値動きと個別銘柄も確認する。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>選挙のほかに、株価を急に動かす要因は何か。（「戦争」の後、約20秒の沈黙）</div>
+      <details><summary>着地点</summary><p>天災・地震。予測できないことも、リスクとして頭に入れておく。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>JTがロシアで事業をしているのを知っているか。（知らなかった）</div>
+      <details><summary>着地点</summary><p>ロシアに子会社と工場を持ち、利益の約4分の1をロシアで稼ぐ（授業で調べた値）。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>ロシア政府が子会社を「管理下」に置くと、お金の面で何が起きるか。（答えが出なかった）</div>
+      <details><summary>着地点</summary><p>実質的な国有化。ロシアで稼いだ現金を日本に戻せない → 利益と配当が減る → 株価が下がる（約13%）。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>復習クイズ</h2>
+      <p class="sub">11月9日　6問。Google フォームでも同じ問題を配布（回答期限 11月10日 12:00）。正解は閉じてある。</p>
+
+      <div class="q"><span class="qn">問1</span>中間選挙で民主党が勝利した。その結果、業績や株価に影響を受けやすい業種として、授業と資料で取り上げたものはどれか。</div>
+      <ul>
+        <li>食品・日用品などの生活必需品だけ</li>
+        <li>AI・半導体（データセンター）と防衛</li>
+        <li>どの業種も影響を受けない</li>
+        <li>電力・ガスなどの公益事業だけ</li>
+      </ul>
+      <details><summary>正解</summary><p>AI・半導体（データセンター）と防衛
+AIと防衛はトランプ政権の下で補助金・税制・戦争の追い風を受けて伸びた業種。民主党の議会ではデータセンターへの規制や国防費の審査が強まるとの見方から、選挙後に半導体株は急落（11月5日 半導体株指数 −12.25%）、防衛株も下落した。薬価交渉で製薬にも影響しうる。</p></details>
+
+      <div class="q"><span class="qn">問2</span>米国の二大政党の、支持層と税への考え方の組み合わせとして正しいものはどれか。</div>
+      <ul>
+        <li>共和党＝低所得層・移民が中心、税を多く取り広く配る　民主党＝富裕層が中心、減税と規制緩和</li>
+        <li>共和党＝富裕層が中心、減税と規制緩和（小さな政府）　民主党＝低所得層・移民が中心、税を多く取り広く配る</li>
+        <li>共和党も民主党も、富裕層が中心で減税を目指す</li>
+        <li>共和党も民主党も、低所得層が中心で増税を目指す</li>
+      </ul>
+      <details><summary>正解</summary><p>共和党＝富裕層が中心、減税と規制緩和（小さな政府）　民主党＝低所得層・移民が中心、税を多く取り広く配る
+共和党は自助努力を重んじ、補助金や給付を少なくする代わりに税も少なく（小さな政府）。民主党は社会保障や規制で格差を縮める。民主党が議会で勝つと、税を多く取って広く配る方向の法律が増えると推理できる。</p></details>
+
+      <div class="q"><span class="qn">問3</span>ロシア政府が、JTのロシア子会社を「管理下」に置いた。授業で調べたとき、JTの株価は約13%下がっていた。下がった一番の理由はどれか。</div>
+      <ul>
+        <li>ロシアでのたばこの販売が法律で禁止されたから</li>
+        <li>ロシアで稼いだ現金を日本に戻せなくなり、将来の利益と配当が減ると予想されたから</li>
+        <li>次の決算で赤字が確定したから</li>
+        <li>ロシアの利益は小さいが、会社のイメージが悪くなったから</li>
+      </ul>
+      <details><summary>正解</summary><p>ロシアで稼いだ現金を日本に戻せなくなり、将来の利益と配当が減ると予想されたから
+JTは利益の約4分の1をロシアで稼いでいた（授業で調べた値）。管理下（実質的な国有化）でその現金を本社や投資家に戻せなくなる。利益が減る → 配当が減る → 将来の配当を割り引いた株価が下がる。</p></details>
+
+      <div class="q"><span class="qn">問4</span>手元現金12億円のスタートアップ。このままだとランウェイ（資金が尽きるまで）は8か月。バーンレート（1か月に減る現金）はいくらか。</div>
+      <ul>
+        <li>8,000万円</li>
+        <li>1億5,000万円</li>
+        <li>4億円</li>
+        <li>96億円</li>
+      </ul>
+      <details><summary>正解</summary><p>1億5,000万円
+ランウェイ ＝ 手元現金 ÷ バーンレート なので、バーンレート ＝ 手元現金 ÷ ランウェイ ＝ 12億円 ÷ 8か月 ＝ 1億5,000万円。バーンレートが大きいほど、資金調達を急ぐ必要がある。</p></details>
+
+      <div class="q"><span class="qn">問5</span>「レームダック（lame duck）」の大統領の説明として正しいものはどれか。</div>
+      <ul>
+        <li>選挙で人気が急上昇し、議会も自由に動かせる大統領</li>
+        <li>次の選挙がなく影響力が落ちた大統領。議会を失うと国内の法案は通りにくく、権限の強い外交・軍事に向かいやすい</li>
+        <li>任期の途中で辞任し、副大統領に職務を引き継いだ大統領</li>
+        <li>議会の多数派と同じ政党に属し、法案を自由に通せる大統領</li>
+      </ul>
+      <details><summary>正解</summary><p>次の選挙がなく影響力が落ちた大統領。議会を失うと国内の法案は通りにくく、権限の強い外交・軍事に向かいやすい
+レームダック ＝「足を痛めたアヒル」。2期目の大統領は中間選挙から任期末まで約2年間がこれに当たる。議会を失うと法律は通りにくいが、外交・軍事は大統領の権限が強く議会が日々の判断を止めにくい。論考の筆者は、追い詰められたトランプがイランやキューバで動くことを懸念した。</p></details>
+
+      <div class="q"><span class="qn">問6</span>ランウェイ（資金が尽きるまでの月数）を計算するとき、割る数として使うものはどれか。</div>
+      <ul>
+        <li>1か月の売上</li>
+        <li>P/L（損益計算書）の当期純損失 ÷ 12</li>
+        <li>ネットバーン（1か月に出ていく現金 − 入る現金）</li>
+        <li>ARR（年間経常収益）</li>
+      </ul>
+      <details><summary>正解</summary><p>ネットバーン（1か月に出ていく現金 − 入る現金）
+ランウェイ ＝ 手元現金 ÷ ネットバーン。見るのは実際の現金の増減。Anthropic はP/Lでは巨額の赤字（評価替えの損失は現金が出ない）でも、営業キャッシュフローは黒字だった。</p></details>
+
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>本資料　2026年11月9日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約。録音は講義の途中から</li>
+        <li>選挙後の株価：<a href="d13-1109.html">11月9日の資料</a> 節3の出典（TheStreet・StockTitan・財経新聞ほか）</li>
+        <li>JT のロシア事業の利益の割合・株価の下落率は授業中にAIで調べた値（要確認）。JT の開示は <a href="https://www.jti.co.jp/investors/">jti.co.jp</a></li>
+        <li>下院の任期と選挙：米国下院　<a href="https://www.house.gov/">house.gov</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y07-2nen-1102.html"><b>← 前の資料</b>PER・Anthropicの上場と空売り</a>
+    <a href="d13-1109.html"><b>関連</b>バーンレート・ARRとオプション取引（11月9日の資料）</a>
+    <a href="s02-yougo.html#burn"><b>経済用語</b>経済用語辞典　バーンレート</a>
+    <a href="index.html#memo"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>
