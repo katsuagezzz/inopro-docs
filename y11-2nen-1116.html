@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="イノベーションプロジェクト 講義要点（2年・2026年11月16日）。担当銘柄の1か月、指数と年初来、APECを分解する型、株価を動かすファクター、業種で見るセクターローテーション、AIとお金の未来、AIで講義内容を定着させる、質問集。">
+<meta name="description" content="イノベーションプロジェクト 講義要点（2年・2026年11月16日）。担当銘柄の1か月、指数と年初来、APECを分解する型、株価を動かすファクター、業種で見るセクターローテーション、AIとお金の未来、AIで講義内容を定着させる、質問集、復習クイズ。">
 <title>1か月の値動きと、ニュースを分解する型</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
@@ -94,7 +94,8 @@
   section:nth-of-type(7) .num{background:var(--s2);}
   section:nth-of-type(8) .num{background:var(--s3);}
   section:nth-of-type(9) .num{background:var(--s4);}
-  section:nth-of-type(10) .num{background:var(--ink);}
+  section:nth-of-type(10) .num{background:var(--pop);}
+  section:nth-of-type(11) .num{background:var(--ink);}
   .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
   h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
   .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
@@ -521,6 +522,76 @@
   <!-- ============ 10 ============ -->
   <section>
     <div class="num">10</div>
+    <div>
+      <h2>復習クイズ</h2>
+      <p class="sub">11月16日　6問。Google フォームでも同じ問題を配布（回答期限 11月17日 12:00）。正解は閉じてある。</p>
+
+      <div class="q"><span class="qn">問1</span>10月19日にオリエンタルランドの株を1万円分買った。11月13日までの株価の騰落率は ＋18.3%。11月13日の時点で、この株の価値はおよそいくらか。</div>
+      <ul>
+        <li>約8,170円</li>
+        <li>約10,183円</li>
+        <li>約11,830円</li>
+        <li>約18,300円</li>
+      </ul>
+      <details><summary>正解</summary><p>約11,830円
+1万円 × (1 ＋ 0.183) ＝ 11,830円。同じ1か月で、エヌビディア（−25.0%）なら約7,500円。働かなくても、資産はこれだけ増えたり減ったりする。</p></details>
+
+      <div class="q"><span class="qn">問2</span>大きなニュースが自分の資産にどう効くかを考えるとき、授業で示した「分解する型」の順番として正しいものはどれか。</div>
+      <ul>
+        <li>個別企業 → 国・市場 → 株価 → 業種（セクター）</li>
+        <li>国・市場 → 業種（セクター） → 個別企業（サプライチェーンの位置・競合） → 株価</li>
+        <li>株価 → 個別企業 → 業種（セクター） → 国・市場</li>
+        <li>業種（セクター） → 株価 → 国・市場 → 個別企業</li>
+      </ul>
+      <details><summary>正解</summary><p>国・市場 → 業種（セクター） → 個別企業（サプライチェーンの位置・競合） → 株価
+大きい単位から一段ずつ下げる。例　米国が不調 → お金がアジアへ（国・市場） → 半導体（業種） → TSMC・エヌビディア（会社とその位置・競合） → 今の株価。</p></details>
+
+      <div class="q"><span class="qn">問3</span>半導体のサプライチェーンで、TSMC とエヌビディアの関係として正しいものはどれか。</div>
+      <ul>
+        <li>エヌビディアが TSMC の設計したチップを製造している</li>
+        <li>TSMC がエヌビディアの設計したチップを製造し、エヌビディアがデータセンター向けに販売する</li>
+        <li>TSMC とエヌビディアは同じ会社のグループで、取引はない</li>
+        <li>エヌビディアは TSMC から完成したデータセンターを買っている</li>
+      </ul>
+      <details><summary>正解</summary><p>TSMC がエヌビディアの設計したチップを製造し、エヌビディアがデータセンター向けに販売する
+TSMC は他社が設計した半導体を作る製造専門の会社。エヌビディアは自社で工場を持たず、TSMC に製造を任せる。できたチップはデータセンターに売られ、その先で OpenAI などが使う。</p></details>
+
+      <div class="q"><span class="qn">問4</span>金利が年5%のとき、友達から1万円を借りてビジネスを始める。ファイナンスの面で意味があるのは、1年でいくら以上増やせる場合か。</div>
+      <ul>
+        <li>50円以上</li>
+        <li>500円以上</li>
+        <li>5,000円以上</li>
+        <li>10,500円以上</li>
+      </ul>
+      <details><summary>正解</summary><p>500円以上
+1万円 × 0.05 ＝ 500円が1年の利息。500円以上増やせないなら、借りてまでやる価値は薄い。米国10年国債の利回りは約4.9%（11月中旬）。金利が高い時代は、それだけビジネスを頑張らないといけない。</p></details>
+
+      <div class="q"><span class="qn">問5</span>米国の株式市場（S&amp;P500）を業種別に見たとき、今年1月から10月中旬までで最も上がった業種はどれか。</div>
+      <ul>
+        <li>エネルギー</li>
+        <li>金融</li>
+        <li>通信</li>
+        <li>一般消費財</li>
+      </ul>
+      <details><summary>正解</summary><p>エネルギー
+エネルギーは ＋51.3%（1万円が約1.5倍）。イランとの戦争などで原油が上がった。一方、金融 −0.5%、通信 −5.9%、一般消費財 −6.6%。どの業種を選ぶかで、お金の増え方がこれだけ違う。</p></details>
+
+      <div class="q"><span class="qn">問6</span>ARR（年間経常収益）の計算式として正しいものはどれか。MRR は毎月繰り返し入る売上。</div>
+      <ul>
+        <li>ARR ＝ MRR × 4</li>
+        <li>ARR ＝ MRR × 12</li>
+        <li>ARR ＝ MRR ÷ 12</li>
+        <li>ARR ＝ 1年の売上 − 1年のコスト</li>
+      </ul>
+      <details><summary>正解</summary><p>ARR ＝ MRR × 12
+ARR は、サブスクリプション契約から毎年繰り返し入る売上を年額で表したもの。月額の MRR を12倍する。例　月額1万円 × 500社 ＝ MRR 500万円 → ARR 6,000万円。</p></details>
+
+    </div>
+  </section>
+
+  <!-- ============ 11 ============ -->
+  <section>
+    <div class="num">11</div>
     <div>
       <h2>出典</h2>
       <ul class="src">
