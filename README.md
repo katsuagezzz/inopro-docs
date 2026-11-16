@@ -60,6 +60,7 @@ Google フォームの回答（集計スプレッドシート）から生成。�
 |---|---|---|
 | 2年 | 株価推移 | `k01-2nen-kabuka.html` |
 | 2年 | クイズ集計 | `k02-2nen-shukei.html` |
+| 2年 | 担当銘柄の株価推移（10/19＝100） | `k06-2nen-suii.html` |
 | 4年 | 株価推移 | `k03-4nen-kabuka.html` |
 | 4年 | クイズ集計 | `k04-4nen-shukei.html` |
 | 4年 | 担当銘柄の株価推移（10/19＝100） | `k05-4nen-suii.html` |
