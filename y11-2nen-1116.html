@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="イノベーションプロジェクト 講義要点（2年・2026年11月16日）。担当銘柄の1か月、指数と年初来、APECを分解する型、株価を動かすファクター、業種で見るセクターローテーション、AIとお金の未来、AIで講義内容を定着させる、質問集。">
+<title>1か月の値動きと、ニュースを分解する型</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--s2);}
+  section:nth-of-type(8) .num{background:var(--s3);}
+  section:nth-of-type(9) .num{background:var(--s4);}
+  section:nth-of-type(10) .num{background:var(--ink);}
+  .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  /* 文章主体の表：全列左寄せ */
+  table.txt th, table.txt td{text-align:left; white-space:normal;}
+  table.txt tbody td{font-family:var(--sans);}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+</style>
+
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">2年イノプロB　2026年11月16日　講義要点</div>
+    <h1>1か月の値動きと、<em>ニュースを分解する型</em></h1>
+    <dl class="facts">
+      <div><dt>前半</dt><dd>担当銘柄の1か月・年初来の指数・APECを分解する・株価を動かすファクター・セクター・AIとお金の未来</dd></div>
+      <div><dt>後半</dt><dd>AIで講義内容を定着させる（自分専用の復習アプリ）</dd></div>
+      <div><dt>提出</dt><dd>毎週の終値と次週の予想（学期末まで）</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 1 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>要点</h2>
+      <p class="sub">前半 志村（株価推移・APEC・ファクター・セクター）、後半 秋山（AIで復習アプリを作る）。資料は<a href="d14-1116.html">11月16日の資料</a>と<a href="k06-2nen-suii.html">担当銘柄の株価推移</a>。</p>
+      <ul>
+        <li><b>1か月でこれだけ差がつく</b>　1万円が1万1,800円にも、7,500円にもなる。労働と関係なく資産が増減する体感</li>
+        <li><b>理由を掘る</b>　いつ・何をきっかけに動いたか。会社の業績か、業界か、政治・地政学か</li>
+        <li><b>ニュースを分解する型</b>　国・市場 → 業種（セクター） → 個別企業 → サプライチェーンの位置 → 競合 → 今の株価</li>
+        <li><b>ファクターを覚える</b>　金利・為替・エネルギー・物価。AIに聞くとき「金利も踏まえて」と入れるために覚える</li>
+        <li><b>業種で違う</b>　米国の年初来、エネルギー ＋51%、一般消費財 −7%。読みでお金の増え方が変わる</li>
+        <li><b>AIで定着</b>　網羅的に整理、自分の言葉に書き換え、間違えたところだけ反復</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>担当銘柄の1か月<span class="h2s">　-　体感する</span></h2>
+      <p class="sub">10月19日の終値を100として、11月13日までを比べた（<a href="k06-2nen-suii.html">担当銘柄の株価推移</a>）。29銘柄中 上がった17、下がった12。</p>
+      <dl class="tiles">
+        <div class="tile t1"><dt>オリエンタルランド</dt><dd>＋18.3<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>エヌビディア</dt><dd>−25.0<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>ソフトバンクG</dt><dd>−26.8<span class="u">%</span></dd></div>
+        <div class="tile"><dt>日経平均</dt><dd>−5.8<span class="u">%</span></dd></div>
+      </dl>
+      <ul class="steps">
+        <li>まず体感。1万円を投資していたら、オリエンタルランドは約1万1,800円、エヌビディアは約7,500円。社員でなくても、会社の利益を投資家として受け取れる</li>
+        <li>次に、なぜ評価が高いのか。オリエンタルランドなら 入園料 × 来園者数 ＋ グッズの売上。売上を伸ばし、コストを抑え、純利益が将来も増えると期待されて株価が上がる</li>
+        <li>下がった銘柄は、いつ・何をきっかけに下がったか。会社だけの話か、業界全体か、政治・地政学か（先週のJTとロシア）</li>
+        <li>同じことがまた起きそうか（再現性）。起きそうなら、下がる前に空売り、下がったところで買う、という判断につながる</li>
+      </ul>
+      <ul>
+        <li><b>値動きの違い</b>　トヨタのような大企業は値動きが小さく、業績に沿って動く。テスラは急落した後に戻した</li>
+        <li><b>因果の向き</b>　キーエンスや東京エレクトロンは指数への影響が大きい。「指数が下がったから下がった」のではなく、この会社が下がったから指数が下がった面もある</li>
+        <li><b>共通点を探す</b>　東京エレクトロンとテスラが同じ時期に下がったら、共通項は AI・半導体か。業界（セクター）で何があったかを調べる。共通で説明できない部分は、その会社だけのニュース（エヌビディアのCEO辞任など）</li>
+        <li><b>続ける</b>　毎週の終値と次週の予想を学期末まで。1か月ごとに発表。次の1か月で逆に動くこともある</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>指数と年初来<span class="h2s">　-　インデックス</span></h2>
+      <p class="sub"><a href="d14-1116.html">11月16日の資料</a> 節1。1か月ではなく、今年1月1日からの動き。</p>
+      <ul>
+        <li><b>インデックス</b>　市場全体に連動する商品。オルカン（全世界株式）、新NISAで有名。過去10年ほどは、個別株を選ばず全体に投資すれば伸びた時代</li>
+        <li><b>今年</b>　1月1日に1万円をインデックスに入れていたら、今は約1万2,000円。夏前が最も高く約1万4,000円。どこで売るかも判断のうち（授業での概算）</li>
+        <li><b>日本株が強い年</b>　日経平均 年初来 ＋21.7%、S&amp;P500 ＋9.9%（資料の値）</li>
+        <li><b>事件の印</b>　グラフの点線（イランとの戦争、AI不安、中間選挙）で株価が跳ねたり落ちたりする。反応しない事件もある</li>
+        <li><b>個別株の余地</b>　直近1か月は全体があまり伸びていない。それでも伸びた会社はある</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>APECを分解する<span class="h2s">　-　地政学</span></h2>
+      <p class="sub"><a href="d14-1116.html">11月16日の資料</a> 節2。APEC（アジア太平洋経済協力）の場で、米国・中国・ロシアの首脳が会談する。この影響を授業で推理した。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>ニュースを分解する型</caption>
+          <thead><tr><th>段階</th><th>問い</th><th>授業での例</th></tr></thead>
+          <tbody>
+            <tr><td>国・市場</td><td class="l">お金はどの国に動くか</td><td class="l">中間選挙で米国が不調 → 投資家がポートフォリオを変え、アジアへ</td></tr>
+            <tr><td>業種（セクター）</td><td class="l">どの業種が得をするか</td><td class="l">米国の穴にアジアが入り込むなら半導体</td></tr>
+            <tr class="accent"><td>サプライチェーン</td><td class="l">どこに位置し、誰に売るか</td><td class="l">TSMC（製造） → エヌビディア（設計・販売） → データセンター → OpenAI などの利用者</td></tr>
+            <tr><td>競合</td><td class="l">ライバルは誰か。一番強いのは</td><td class="l">エヌビディアは技術の優位でほぼ独占。代わりはあるか</td></tr>
+            <tr><td>株価</td><td class="l">今いくらで、どちらに動きそうか</td><td class="l">エヌビディアは1か月で −25.0%。決算発表を控える</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>ビジネスの論点</b>　CEOの辞任で、顧客が「エヌビディアから買い続けてよいか」と迷うかもしれない。技術の優位がCEOがいなくても続くか、代わりの製品に乗り換えられるか</li>
+        <li><b>政治の論点</b>　半導体は国の富の源。米国は中国への最先端チップの輸出を止めている。エヌビディアにとって中国は大きな市場だが、政治がそれを許さない</li>
+        <li><b>シナリオ</b>　中間選挙で弱った大統領が、中国への手土産に規制を緩めるなら、エヌビディアには追い風で「今は下がっているが買い」。規制がそのままなら変わらない。どちらも頭の体操</li>
+        <li><b>自動車も</b>　イーロン・マスクが同行するなら、テスラと中国のBYDの住み分けが、経済合理性と関係なく首脳の間で決まりうる（推測）</li>
+        <li><b>情報弱者との差</b>　「スキャンダルで株価が下がった、やばい」で止まらず、政治まで俯瞰して判断する</li>
+      </ul>
+      <div class="note"><b>AIへの聞き方の例</b>　「APECの米中ロ首脳会談は、半導体セクターに今後3か月でどんな影響をもたらすか」「日本企業への影響は」「エヌビディアの株価は上がるか下がるか。何%か」。答えと結果を比べて、次の読みを軌道修正する。</div>
+    </div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>株価を動かすファクター<span class="h2s">　-　覚える</span></h2>
+      <p class="sub"><a href="d14-1116.html">11月16日の資料</a> 節3。遠い事件を自分事にするまでのロジックの部品。細かい仕組みはAIに任せ、何が効くかだけ覚える。</p>
+      <ul>
+        <li><b>4つ</b>　金利、為替、エネルギー（原油）、物価。それぞれの重みで株価に効く</li>
+        <li><b>AIへの指示</b>　「金利の要素を踏まえて判断して」と入れるだけで返ってくる答えが変わる。そのために覚える</li>
+        <li><b>悪用する人も</b>　事件を起こして株価を下げ、空売りで儲ける投資家もいる（前回の空売り）</li>
+      </ul>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>金利と投資の物差し</caption>
+          <thead><tr><th>項目</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>今の金利</td><td class="l">米国10年国債の利回り 約4.9%（11月中旬。10月に一時5.3%）</td></tr>
+            <tr class="accent"><td>物差し</td><td class="l">国債で約5%もらえるなら、それ以下しか増えない株やビジネスに投資する意味は薄い</td></tr>
+            <tr><td>例示</td><td class="l">1万円を年5%で借りると利息は年500円。500円以上増やせないビジネスは、ファイナンスの面では価値がない</td></tr>
+            <tr><td>これから</td><td class="l">金利が高い時代は、それだけビジネスを頑張らないといけない時代</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>業種で見る<span class="h2s">　-　セクターローテーション</span></h2>
+      <p class="sub"><a href="d14-1116.html">11月16日の資料</a> 節4。個別企業を1つ上の「業種」でくくっても、これだけ違う。株のテクニックとして知識に。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>米国S&amp;P500の業種別　年初来騰落率　10月14日時点</caption>
+          <thead><tr><th>業種</th><th>騰落率</th><th>中身の例</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>エネルギー</td><td>＋51.3%</td><td class="l">石油・ガス。1万円が約1.5倍</td></tr>
+            <tr><td>情報技術</td><td>＋32.3%</td><td class="l">AI・半導体・ソフトウェア</td></tr>
+            <tr><td>生活必需品</td><td>＋10.8%</td><td class="l">スーパーで売っている食品・化粧品・石鹸</td></tr>
+            <tr><td>金融</td><td>−0.5%</td><td class="l">銀行・保険</td></tr>
+            <tr><td>通信</td><td>−5.9%</td><td class="l">ネット・メディア</td></tr>
+            <tr><td>一般消費財</td><td>−6.6%</td><td class="l">車・衣料・外食など、景気がよいと買うもの</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>訂正</b>　授業では化粧品・石鹸を「一般消費財」と説明。業種の分類では「生活必需品」。一般消費財は自動車・衣料・外食など</li>
+        <li><b>やるかどうか</b>　元の情報はタダで、AIに読ませれば誰でも出てくる。「どう読み取るか」はもう3年前の話で、今は「やるかどうか」</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section>
+    <div class="num">7</div>
+    <div>
+      <h2>AIとお金の未来<span class="h2s">　-　思考実験</span></h2>
+      <p class="sub">これからは「何を知っているか」より「どう整理するか」で差がつく。</p>
+      <ul class="steps">
+        <li>人間が消費しきれない量の情報を、AIが生み出している</li>
+        <li>これまでは、メディア・アナリスト・企業が情報を整理する仲介者（ミドルマン）として商売をしていた</li>
+        <li>ネットで情報そのものが無料になり、今はAIで分析・集約まで無料になりつつある</li>
+        <li>今は過渡期。有料のAIのほうが良い結果を出す、AIに慣れた人が使いこなす、という差がある。差があるからビジネスが成り立つ</li>
+        <li>全員が同じ情報と同じ分析を使えば、差がなくなり、株で資産を増やすという商売も成り立ちにくくなる</li>
+      </ul>
+      <ul>
+        <li><b>その先の仮説</b>　ベーシックインカムでお金を均等に配る社会、お金が交換用のスタンプのようになる社会、お金がいらない社会</li>
+        <li><b>逆算する</b>　卒業までの2年で、その後の何十年を考え、そこから行動を決める。お金やAIで手に入らないもの（食、欲、QOL）は何か</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section>
+    <div class="num">8</div>
+    <div>
+      <h2>AIで講義内容を定着させる<span class="h2s">　-　後半 秋山</span></h2>
+      <p class="sub">受験勉強にたとえると、AIで楽になることは3つ。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>3つの楽になること</caption>
+          <thead><tr><th>作業</th><th>これまで</th><th>AIで</th></tr></thead>
+          <tbody>
+            <tr><td>網羅的に整理</td><td class="l">教科書にマーカー、単語帳づくり</td><td class="l">講義資料を読ませ、見出しレベルの重要語句をすべてリストにする（資料はHTMLなので見出しを拾える）</td></tr>
+            <tr class="accent"><td>自分の説明に書き換え</td><td class="l">分からないところを自分のノートにまとめ直す</td><td class="l">「子どもに分かるように」と頼む。腑に落ちた答えを捨てずに貯めていく</td></tr>
+            <tr><td>反復</td><td class="l">問題集を何周も</td><td class="l">アプリにして、間違えた・当て勘で当たったところだけを解き直す</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <ul>
+        <li><b>間違えた理由を記録</b>　「知らなかった」「前提が分からない」「別のものと混同した」。自信度も付けると、当て勘の正解が見つかる</li>
+        <li><b>前提に戻る</b>　ARRが分からない → サブスクリプション（定額で繰り返し料金を払う形）まで戻る。PBR が分からない → 純資産・BPS まで戻る</li>
+        <li><b>アプリの中にAI</b>　問題ごとに質問でき、質問と答えが教材側に保存される。間違えた概念を上に表示、質問した概念にタグ、など自分用に改造する</li>
+        <li><b>作り方</b>　①5回分の講義資料のリンクを渡し「テスト対策のアプリを作りたい」②中項目をリストにしてグループ分け③理解の順番（依存関係）を整理④アプリを作る。実際のプロンプトは配布資料のトグルの中</li>
+        <li><b>Muse</b>　無料で同じものが作れると紹介。課金したことがない人こそ試す価値（授業時点の説明で未確認）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section>
+    <div class="num">9</div>
+    <div>
+      <h2>質問集</h2>
+      <p class="sub">授業中に答えが出なかった・止まった問いを中心に。着地点は閉じてある。</p>
+
+      <div class="q"><span class="qn">授業の問い</span>APECとは何か。（「初めて聞いた」という学生も）</div>
+      <details><summary>着地点</summary><p>アジア太平洋経済協力（Asia-Pacific Economic Cooperation）。日本・米国・中国・ロシアなど21の国・地域。2026年は中国・深圳で首脳会議（11月18〜19日）。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>米中ロの首脳会談は、どんなインパクトがあるか。</div>
+      <details><summary>着地点</summary><p>学生の答え「米国が不調なので、投資家がポートフォリオを変えてアジアに投資する」。ここから業種（半導体）→ 会社（TSMC）→ 顧客（エヌビディア）と一段ずつ下げていく。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>米国の競合はいるか。TSMC は誰に何を売っているか。（「あまりいない気がする」）</div>
+      <details><summary>着地点</summary><p>TSMC は他社が設計した半導体を製造する会社（ファウンドリ）。エヌビディアは TSMC に製造を任せ、できたチップをデータセンター向けに売る。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>エヌビディアの代わりになるものはあるか。</div>
+      <details><summary>着地点</summary><p>AI向けチップでは、技術の優位でほぼ独占。論点は「CEOがいなくなっても優位が続くか」「顧客が代わりの製品に乗り換えられるか」。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>エヌビディアの決算発表で株価はどうなるか。（学生「すごく買うかも」）</div>
+      <details><summary>着地点</summary><p>発表前に断定はできない。決算の数字（売上・利益・見通し）と、事前の期待との差で動く。発表日と結果は会社の開示で確認する。</p></details>
+
+      <div class="q"><span class="qn">授業の問い</span>ARR の計算式は。（「直近四半期 × 4、MRR × 4」と答えて自信なし）</div>
+      <details><summary>着地点</summary><p>ARR（年間経常収益）＝ MRR（毎月繰り返し入る売上）× 12。直近四半期の繰り返し売上 × 4 でも年額になるが、MRR × 4 は誤り（<a href="s02-yougo.html#arr">経済用語辞典</a>）。</p></details>
+    </div>
+  </section>
+
+  <!-- ============ 10 ============ -->
+  <section>
+    <div class="num">10</div>
+    <div>
+      <h2>出典</h2>
+      <ul class="src">
+        <li>本資料　2026年11月16日の講義（前半 志村、後半 AI業務自動化講座 秋山）の文字起こしから要約</li>
+        <li>担当銘柄の騰落率：<a href="k06-2nen-suii.html">担当銘柄の株価推移</a>（Yahoo Finance の日次の終値、10月19日 → 11月13日）</li>
+        <li>指数の年初来・米10年金利・業種別の騰落率：<a href="d14-1116.html">11月16日の資料</a> 節1・節3・節4の出典</li>
+        <li>インデックスに1万円を投資した場合の金額は授業での概算</li>
+        <li>試験の注意　不正行為があった場合、その年の成績がすべて無効になる</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="y09-2nen-1109.html"><b>← 前の資料</b>中間選挙を分解し、自分の資産へ</a>
+    <a href="d14-1116.html"><b>関連</b>株価を動かすファクターとセクターローテーション（11月16日の資料）</a>
+    <a href="k06-2nen-suii.html"><b>記録</b>2年 担当銘柄の株価推移（10/19＝100）</a>
+    <a href="index.html#memo"><b>一覧</b>イノベーションプロジェクト 授業資料</a>
+  </nav>
+
+</div>
+</body>
+</html>
