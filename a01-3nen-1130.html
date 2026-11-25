@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="AIを用いた資産形成（3年・2026年11月30日）第1回。経済・株式用語：ROE・PER・PBR・株の利回り。地政学：ニュースを分解する型。AIアプリ生成：マッシュアップメディア（情報収集の自動化）。提出と復習クイズの出題範囲。">
+<title>4つの指標とマッシュアップメディア</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* ===== tokens ===== イノプロB共通のポップ配色。構造・タイポは全資料共通 ===== */
+  :root{
+    --plane:#fdfaf4;
+    --surface:#ffffff;
+    --ink:#141019;
+    --ink-2:#5b5468;
+    --muted:#8d869b;
+    --rule:#e9e2f2;
+    --axis:#cfc7de;
+    --ring:rgba(20,16,25,0.12);
+    --s1:#4361ee;
+    --s2:#f8550d;
+    --s3:#0fb87f;
+    --s4:#ffb300;
+    --pop:#ff3d81;
+    --fill-in:#eef1ff;
+    --chip-o:#0fb87f;
+    --chip-x:#8d869b;
+    --sans:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --plane:#120f18; --surface:#1d1926;
+      --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+      --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+      --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+      --pop:#ff5f97;
+      --fill-in:#242041;
+      --chip-o:#1fd396; --chip-x:#918aa1;
+    }
+  }
+  :root[data-theme="dark"]{
+    --plane:#120f18; --surface:#1d1926;
+    --ink:#ffffff; --ink-2:#c7c0d6; --muted:#918aa1;
+    --rule:#2e2840; --axis:#3d3653; --ring:rgba(255,255,255,0.14);
+    --s1:#6b83ff; --s2:#ff7a3d; --s3:#1fd396; --s4:#ffc233;
+    --pop:#ff5f97;
+    --fill-in:#242041;
+    --chip-o:#1fd396; --chip-x:#918aa1;
+  }
+  html{color-scheme:light dark;}
+  *{box-sizing:border-box;}
+  img{max-width:100%;}
+  [hidden]{display:none!important;}
+
+  body{
+    margin:0; background:var(--plane); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:960px; margin:0 auto; padding-block:40px 88px; padding-left:24px; padding-right:24px;}
+  @media (max-width:640px){ .wrap{padding-left:16px; padding-right:16px; padding-block:28px 64px;} }
+
+  /* ---------- header ---------- */
+  .eyebrow{
+    display:inline-block; font-family:var(--mono); font-size:11.5px; letter-spacing:.08em;
+    color:#fff; background:var(--pop); padding:5px 11px; border-radius:999px;
+  }
+  h1{font-size:clamp(28px,5vw,42px); font-weight:900; letter-spacing:-.02em; margin:12px 0 18px; line-height:1.15;}
+  h1 em{font-style:normal; background:linear-gradient(transparent 62%, var(--s4) 62%);}
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:8px;}
+  .facts div{flex:1 1 170px; padding:10px 14px; min-width:0; background:var(--surface); border:1px solid var(--ring); border-radius:12px;}
+  .facts dt{font-family:var(--mono); font-size:10.5px; color:var(--muted); letter-spacing:.06em;}
+  .facts dd{margin:2px 0 0; font-size:13.5px; font-weight:700;}
+
+  /* ---------- section ---------- */
+  section{
+    display:grid; grid-template-columns:44px minmax(0,1fr); gap:0 16px;
+    padding-top:36px; margin-top:34px; border-top:3px solid var(--ink);
+  }
+  section:first-of-type{margin-top:36px;}
+  @media (max-width:640px){ section{grid-template-columns:minmax(0,1fr); gap:0;} .num{margin-bottom:8px;} }
+  .num{
+    font-family:var(--mono); font-size:16px; font-weight:700; color:#fff; background:var(--ink);
+    width:32px; height:32px; border-radius:999px; display:flex; align-items:center; justify-content:center; line-height:1;
+  }
+  section:nth-of-type(1) .num{background:var(--s1);}
+  section:nth-of-type(2) .num{background:var(--s2);}
+  section:nth-of-type(3) .num{background:var(--s3);}
+  section:nth-of-type(4) .num{background:var(--s4);}
+  section:nth-of-type(5) .num{background:var(--pop);}
+  section:nth-of-type(6) .num{background:var(--s1);}
+  section:nth-of-type(7) .num{background:var(--ink);}
+  h2{font-size:23px; font-weight:900; margin:0 0 4px; line-height:1.3; letter-spacing:-.01em;}
+  .sub{font-family:var(--mono); font-size:12px; color:var(--ink-2); margin:0 0 20px;}
+  h3{
+    font-size:13px; font-weight:700; margin:28px 0 10px; letter-spacing:.02em; color:var(--ink);
+    display:inline-block; border-bottom:3px solid var(--s4); padding-bottom:2px;
+  }
+  h3:first-child{margin-top:0;}
+  h4{font-size:12px; font-weight:700; margin:20px 0 8px; letter-spacing:.02em; color:var(--ink-2);}
+  p{margin:0 0 14px; font-size:14px;}
+  .ans{margin-top:12px;}
+  .ans > :last-child{margin-bottom:0;}
+
+  /* ---------- formula ---------- */
+  .formula{
+    font-family:var(--mono); font-size:14px; font-weight:500;
+    background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--s1); border-radius:12px;
+    padding:12px 14px; margin:0 0 20px; overflow-x:auto; white-space:pre; line-height:1.85;
+  }
+
+  /* ---------- list ---------- */
+  ul{margin:0 0 18px; padding-left:0; list-style:none;}
+  li{padding:7px 0 7px 20px; border-bottom:1px solid var(--rule); font-size:14px; position:relative;}
+  li::before{content:""; position:absolute; left:2px; top:15px; width:8px; height:8px; border-radius:999px; background:var(--s4);}
+  li b{font-weight:700;}
+
+  /* ---------- number tiles ---------- */
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:8px; margin:0 0 22px;}
+  .tile{background:var(--surface); border:1px solid var(--ring); border-radius:14px; padding:12px 14px;}
+  .tile dt{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; color:var(--muted);}
+  .tile dd{margin:4px 0 0; font-family:var(--mono); font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.15;}
+  .tile .u{font-size:12px; font-weight:500; color:var(--ink-2); margin-left:2px;}
+  .tile.t1 dd{color:var(--s1);} .tile.t2 dd{color:var(--s2);} .tile.t3 dd{color:var(--s3);}
+
+  /* ---------- table ---------- */
+  .tw{overflow-x:auto; margin:0 0 22px; border:1px solid var(--ring); border-radius:14px; background:var(--surface);}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:440px;}
+  caption{caption-side:top; text-align:left; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:10px 12px 8px;}
+  th,td{padding:8px 12px; text-align:right; border-bottom:1px solid var(--rule); white-space:nowrap;}
+  th:first-child,td:first-child{text-align:left;}
+  thead th{font-size:11.5px; font-weight:700; color:var(--ink-2); background:var(--plane); border-bottom:2px solid var(--axis);}
+  tbody td{font-family:var(--mono); font-variant-numeric:tabular-nums;}
+  tbody td:first-child{font-family:var(--sans); font-weight:500; white-space:normal; min-width:150px;}
+  tbody tr:last-child td{border-bottom:none;}
+  tr.accent td{background:var(--fill-in);}
+  td.blank{background:var(--fill-in); min-width:92px;}
+  td.u{color:var(--muted);}
+  table.words th, table.words td{text-align:left;}
+  table.words tbody td{font-family:var(--sans);}
+  table.mix th:last-child, table.mix td:last-child{text-align:left; font-family:var(--sans);}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:var(--mono); font-size:11px; font-weight:700; line-height:1;
+    padding:4px 9px; border-radius:999px; color:#fff; background:var(--chip-x);
+  }
+  .chip.o{background:var(--chip-o);}
+  .chip.up{background:var(--s1);}
+  .chip.dn{background:var(--s2);}
+
+  /* ---------- schematic diagram ---------- */
+  .dgwrap{overflow-x:auto;}
+  .stk{overflow-x:auto;}
+  .stk svg{min-width:600px;}
+  .dg{min-width:620px; font-family:var(--mono);}
+  .dg .pane{fill:var(--surface);}
+  .dg .hl{fill:var(--fill-in);}
+  .dg .bs{fill:none; stroke:var(--s1); stroke-width:2.5;}
+  .dg .pl{fill:none; stroke:var(--s2); stroke-width:2.5;}
+  .dg .sp{stroke:var(--axis); stroke-width:1; stroke-dasharray:4 3;}
+  .dg .cash{stroke:var(--s3); stroke-width:3.5; fill:none; stroke-linecap:round;}
+  .dg .cashh{fill:var(--s3);}
+  .dg .keep{stroke:var(--s4); stroke-width:2; fill:none; stroke-dasharray:5 4;}
+  .dg .keeph{fill:var(--s4);}
+  .dg .t{fill:var(--ink); font-size:13px; font-weight:700;}
+  .dg .s{fill:var(--ink-2); font-size:11px;}
+  .dg .lbl{fill:var(--muted); font-size:10.5px; letter-spacing:.05em;}
+  .dg .hd{fill:var(--ink-2); font-size:11.5px; font-weight:700; letter-spacing:.04em;}
+  .dg .cl{fill:var(--s3); font-size:11.5px; font-weight:700;}
+  .dg .kl{fill:var(--s4); font-size:11px; font-weight:700;}
+  .dg .out{stroke:var(--s2); stroke-width:3.5; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .dg .outh{fill:var(--s2);}
+  .dg .ol{fill:var(--s2); font-size:11.5px; font-weight:700;}
+  .dg .swap{stroke:var(--s1); stroke-width:2.5; fill:none; stroke-dasharray:5 4;}
+  .dg .swaph{fill:var(--s1);}
+  .dg .sl{fill:var(--s1); font-size:11px; font-weight:700;}
+  .pl5 .r-rev{fill:var(--s3);}
+  .pl5 .r-pf{fill:var(--s1);}
+  .pl5 .r-pf2{fill:var(--pop);}
+  .pl5 .r-cost{fill:var(--surface); stroke:var(--axis); stroke-width:1.5; stroke-dasharray:5 3;}
+  .pl5 .rt{fill:#fff; font-size:13.5px; font-weight:700;}
+  .pl5 .rt.c{fill:var(--ink-2); font-weight:500;}
+  .pl5 .rn{fill:var(--s1); font-size:13px; font-weight:700;}
+  .pl5 .rn.p2{fill:var(--pop);}
+  .pl5 .ar{stroke:var(--s2); stroke-width:2; fill:none;}
+  .pl5 .arh{fill:var(--s2);}
+  .pl5 .at{fill:var(--ink-2); font-size:12px;}
+  .pl5 .ar.hi{stroke:var(--pop); stroke-width:3;}
+  .pl5 .arh.hi{fill:var(--pop);}
+  .pl5 .at.hi{fill:var(--pop); font-size:12.5px; font-weight:700;}
+
+  /* ---------- quadrant ---------- */
+  .quadwrap{overflow-x:auto;}
+  .quad{display:grid; grid-template-columns:76px 1fr 1fr; gap:6px; min-width:440px;}
+  .qh{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); text-align:center; padding:4px 0;}
+  .qs{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--ink-2); display:flex; align-items:center;}
+  .qc{border-radius:14px; padding:10px 12px; background:var(--surface); border:2px solid var(--ring); font-size:12.5px;}
+  .qc b{display:block; font-family:var(--mono); font-size:11px; margin-bottom:5px;}
+  .qc.c1{border-color:var(--s1);} .qc.c1 b{color:var(--s1);}
+  .qc.c2{border-color:var(--s2);} .qc.c2 b{color:var(--s2);}
+  .qc.c3{border-color:var(--s3);} .qc.c3 b{color:var(--s3);}
+  .qc.c4{border-color:var(--axis);} .qc.c4 b{color:var(--muted);}
+  .qc ul{margin:0;} .qc li{border:none; padding:3px 0 3px 14px; font-size:12.5px;}
+  .qc li::before{top:12px; width:5px; height:5px;}
+
+  /* ---------- chart ---------- */
+  figure{margin:0 0 22px; background:var(--surface); border:1px solid var(--ring); border-radius:16px; padding:14px 12px 12px;}
+  .ctitle{display:flex; justify-content:space-between; align-items:baseline; gap:12px; font-family:var(--mono); font-size:11px; letter-spacing:.05em; color:var(--muted); padding:0 2px 10px; flex-wrap:wrap;}
+  .legend{display:flex; gap:14px; flex-wrap:wrap; padding:10px 2px 0;}
+  .lg{display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:11.5px; color:var(--ink-2);}
+  .lg i{width:14px; height:3px; display:inline-block; border-radius:2px;}
+  .lg i.sq{height:10px; width:10px; border-radius:3px;}
+  svg{display:block; width:100%; height:auto; overflow:visible; margin-inline:auto;}
+  .gl{stroke:var(--rule); stroke-width:1;}
+  .ax{stroke:var(--axis); stroke-width:1.5;}
+  .tk{fill:var(--muted); font-family:var(--mono); font-size:10.5px;}
+  .vl{fill:var(--ink); font-family:var(--mono); font-size:11.5px; font-weight:700;}
+  .el{font-family:var(--mono); font-size:11px; font-weight:700; fill:var(--ink-2);}
+  .ln{fill:none; stroke-width:2.5; stroke-linejoin:round; stroke-linecap:round;}
+  .tip{position:fixed; z-index:50; pointer-events:none; opacity:0; background:var(--ink); color:var(--plane); font-family:var(--mono); font-size:11.5px; padding:6px 9px; border-radius:8px; white-space:pre; transition:opacity .1s;}
+
+  /* ---------- exercise / exam ---------- */
+  details{border:1px solid var(--ring); border-radius:12px; background:var(--surface); padding:10px 14px; margin:0 0 12px;}
+  summary{cursor:pointer; font-size:14px; font-weight:700;}
+  details p{margin:10px 0 0; font-family:var(--mono); font-size:13px; white-space:pre-line;}
+  .q{background:var(--surface); border:1px solid var(--ring); border-left:5px solid var(--pop); border-radius:12px; padding:12px 14px; margin:0 0 12px; font-size:14px;}
+  .q .qn{font-family:var(--mono); font-size:11px; color:var(--pop); font-weight:700; display:block; margin-bottom:4px;}
+
+  /* ---------- note / sources ---------- */
+  .note{padding:12px 14px; background:var(--fill-in); border:1px solid var(--ring); border-radius:12px; font-size:13px; color:var(--ink-2); margin:0 0 20px;}
+  .note b{color:var(--ink);}
+  a{color:var(--s1); text-decoration-thickness:1px; text-underline-offset:2px;}
+  a:focus-visible,summary:focus-visible{outline:3px solid var(--pop); outline-offset:2px;}
+  .src{font-size:12.5px; color:var(--ink-2);}
+  .src li{padding-left:20px; font-family:var(--sans);}
+  .src code{font-family:var(--mono); font-size:11.5px;}
+
+  /* ---------- nav ---------- */
+  .nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:34px; padding-top:22px; border-top:3px solid var(--ink);}
+  .nav a{flex:1 1 220px; background:var(--surface); border:1px solid var(--ring); border-radius:12px; padding:12px 14px; text-decoration:none; color:var(--ink); font-size:14px; font-weight:700;}
+  .nav a:hover{border-color:var(--s1);}
+  .nav a b{display:block; font-family:var(--mono); font-size:10.5px; color:var(--muted); font-weight:500; letter-spacing:.06em; margin-bottom:3px;}
+
+
+  /* ---------- three viewpoints ---------- */
+  .eyes{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:8px; margin:0 0 22px;}
+  .eye{background:var(--surface); border:1px solid var(--ring); border-top:6px solid var(--s1); border-radius:14px; padding:12px 14px;}
+  .eye.e2{border-top-color:var(--s2);} .eye.e3{border-top-color:var(--s3);}
+  .eye .who{font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--s1);}
+  .eye.e2 .who{color:var(--s2);} .eye.e3 .who{color:var(--s3);}
+  .eye .q2{font-size:15px; font-weight:900; margin:4px 0 8px; line-height:1.4;}
+  .eye .m{font-family:var(--mono); font-size:12px; color:var(--ink-2); line-height:1.7;}
+  .eye .m b{color:var(--ink);}
+  .chip.e1{background:var(--s1);} .chip.e2{background:var(--s2);} .chip.e3{background:var(--s3);}
+  .chip.warn{background:var(--pop);}
+  .steps{counter-reset:st;}
+  .steps li{padding-left:34px;}
+  .steps li::before{
+    counter-increment:st; content:counter(st); background:var(--ink); color:#fff;
+    width:20px; height:20px; top:8px; left:0; font-family:var(--mono); font-size:11px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  @media print{
+    body{background:#fff;}
+    section{break-inside:avoid;}
+    figure,.tw{break-inside:avoid;}
+  }
+  td.l{text-align:left; font-family:var(--sans);}
+  .form-link{display:inline-block; margin:0 0 22px; padding:11px 18px; background:var(--pop); color:#fff; font-weight:700; font-size:14px; text-decoration:none; border-radius:999px;}
+  .form-link:hover{filter:brightness(1.08);}
+  .form-link:focus-visible{outline:2px solid var(--s1); outline-offset:2px;}
+  table.txt th{text-align:left;}
+  table.wrap td.l{white-space:normal; min-width:120px;}
+  .h2s{font-size:15px; font-weight:500; color:var(--ink-2);}
+  table.form{font-size:12.5px;}
+  table.form th,table.form td{padding:8px 7px;}
+  table.form tbody td:first-child{min-width:0;}
+  details{margin:0 0 20px;}
+
+  /* ---------- 一覧へ戻る（ページ上部） ---------- */
+  .backtop{padding-block:14px 0;}
+  .backtop a{display:inline-block; font-family:var(--mono,inherit); font-size:11.5px; font-weight:500; letter-spacing:.06em; color:inherit; opacity:.62; text-decoration:none;}
+  .backtop a:hover{opacity:1; text-decoration:underline;}
+  .backtop a:focus-visible{opacity:1;}
+  @media print{ .backtop{display:none;} }
+
+  /* ===== 中間選挙の議席図・地図（Cook Political Report の評価色。両モード共通） ===== */
+  figure.elx .sx{overflow-x:auto;}
+  figure.elx .sx svg{min-width:600px;}
+  .elx .st{stroke:var(--surface); stroke-width:1;}
+  .elx .r-SR{fill:#b2182b;} .elx .r-LiR{fill:#d6604d;} .elx .r-LeR{fill:#f4a582;} .elx .r-T{fill:#f2c94c;}
+  .elx .r-LeD{fill:#92c5de;} .elx .r-LiD{fill:#4393c3;} .elx .r-SD{fill:#2166ac;}
+  .elx .p-D{fill:#2166ac;} .elx .p-R{fill:#b2182b;} .elx .p-V{fill:var(--rule);} .elx .p-I{fill:#8a94a6;}
+  .elx .n-RR{fill:#f2dede;} .elx .n-DD{fill:#dde7f3;} .elx .n-RD{fill:#e9e4ef;}
+  .elx .sl{font-size:11px; font-weight:800; fill:#1d2330;} .elx .sl.w{fill:#fff;} .elx .sl.tu{font-size:12.5px;}
+  .elx .sl.nl,.elx .sl.cl{fill:var(--ink-2);} .elx .pd{font-size:8.5px; font-weight:700;}
+  .elx .lead{stroke:var(--muted); stroke-width:.8; fill:none;}
+  .elx .bl{font-size:11.5px; font-weight:800; fill:#1d2330;} .elx .bl.w{fill:#fff;} .elx .bl.nn{fill:var(--ink-2);}
+  .elx .lab{font-size:12.5px; font-weight:700; fill:var(--ink);}
+  .elx .tc{font-size:11.5px; fill:var(--muted);}
+  .elx .mj{stroke:var(--ink); stroke-width:1.5; stroke-dasharray:5 4; fill:none;}
+  .clg{display:flex; flex-wrap:wrap; gap:6px 14px; padding:10px 2px 0; font-size:12px; color:var(--ink-2);}
+  .clg span{display:inline-flex; align-items:center; gap:5px;}
+  .clg i{display:inline-block; width:13px; height:13px; border-radius:3px; border:1px solid var(--ring);}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .elx .n-RR{fill:#4a3036;} :root:not([data-theme="light"]) .elx .n-DD{fill:#2a3850;} :root:not([data-theme="light"]) .elx .n-RD{fill:#3a3346;} }
+  :root[data-theme="dark"] .elx .n-RR{fill:#4a3036;} :root[data-theme="dark"] .elx .n-DD{fill:#2a3850;} :root[data-theme="dark"] .elx .n-RD{fill:#3a3346;}
+
+  /* ===== ビジネスモデルの流れ図 ===== */
+  .bm{display:grid; grid-template-columns:1fr 28px 1.15fr 28px 1fr; gap:6px; align-items:stretch; margin:0 0 10px;}
+  .bm .col{display:flex; flex-direction:column; gap:6px;}
+  .bm .hd{font-family:var(--mono); font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.04em; text-align:center;}
+  .bm .bx{background:var(--surface); border:2px solid var(--ring); border-radius:12px; padding:9px 11px; font-size:12.5px; line-height:1.5;}
+  .bm .bx b{display:block; font-size:13px;}
+  .bm .bx small{color:var(--ink-2);}
+  .bm .in{border-color:var(--s1);} .bm .in b{color:var(--s1);}
+  .bm .me{border-color:var(--pop); background:var(--fill-in);} .bm .me b{color:var(--pop);}
+  .bm .out{border-color:var(--s2);} .bm .out b{color:var(--s2);}
+  .bm .ar{display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--muted);}
+  @media (max-width:640px){ .bm{grid-template-columns:1fr;} .bm .ar{transform:rotate(90deg); height:22px;} }
+
+  /* ===== プロンプト（クリックでコピー） ===== */
+  .prompt{white-space:pre-wrap; cursor:copy; border-left-color:var(--pop); font-size:13px; position:relative;}
+  .prompt::after{content:"クリックでコピー"; position:absolute; top:8px; right:10px; font-size:10px; color:var(--muted);}
+  .prompt.copied::after{content:"コピーしました"; color:var(--s3);}
+  ol.steps{list-style:none; padding:0; margin:0 0 18px;}
+</style>
+</head>
+<body>
+<div class="wrap backtop"><a href="index.html">← 資料一覧</a></div>
+<div class="wrap">
+
+  <!-- ============ header ============ -->
+  <header>
+    <div class="eyebrow">3年　AIを用いた資産形成　第1回　2026年11月30日（月）13:00〜14:30</div>
+    <h1>4つの指標と、<em>マッシュアップメディア</em></h1>
+    <dl class="facts">
+      <div><dt>経済・株式用語（田村）</dt><dd>指標　ROE・PER・PBR・株の利回り</dd></div>
+      <div><dt>地政学（廻）</dt><dd>今週のニュースを分解する</dd></div>
+      <div><dt>AIアプリ生成（秋山）</dt><dd>マッシュアップメディア　情報収集を自動にする</dd></div>
+      <div><dt>提出</dt><dd>自分のメディアと、3銘柄の指標表</dd></div>
+    </dl>
+  </header>
+
+  <!-- ============ 0 この授業 ============ -->
+  <section>
+    <div class="num">0</div>
+    <div>
+      <h2>この授業のゴール<span class="h2s">　-　全7回</span></h2>
+      <p class="sub">毎回 ①経済・株式用語 → ②地政学 → ③AIアプリ生成 の3部構成。評価は復習クイズと定期試験（筆記）。</p>
+
+      <ul>
+        <li><b>ゴール1</b>　自分でアプリ・ダッシュボードを作れる</li>
+        <li><b>ゴール2</b>　AIワークフローを作れる。<b>AIが自動で情報を集める</b> → <b>AIで自作アプリを作る</b> → <b>AIで情報を自分向けにカスタマイズする</b></li>
+      </ul>
+
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>全7回の地図</caption>
+          <thead><tr><th>回</th><th>日程</th><th>① 経済・株式用語</th><th>③ AIアプリ生成</th></tr></thead>
+          <tbody>
+            <tr class="accent"><td>第1回</td><td class="l">11/30（月）</td><td class="l">指標：ROE・PER・PBR・株の利回り</td><td class="l">マッシュアップメディア</td></tr>
+            <tr><td>第2回</td><td class="l">12/7（月）</td><td class="l">テクニカル：うねり・移動平均・MACD</td><td class="l">株価ダッシュボード</td></tr>
+            <tr><td>第3回</td><td class="l">12/14（月）</td><td class="l">ファンダメンタル：MOAT・ネットキャッシュ比率・バフェット・清原・シケモク・AI</td><td class="l">割安株スクリーナー</td></tr>
+            <tr><td>第4回</td><td class="l">12/21（月）</td><td class="l">カラ売り・オプション</td><td class="l">損益シミュレーター</td></tr>
+            <tr><td>第5回</td><td class="l">12/26（土）</td><td class="l">公開情報：決算期・財務諸表・適時開示・官報</td><td class="l">開示ウォッチャー</td></tr>
+            <tr><td>第6回</td><td class="l">1/18（月）</td><td class="l">相場：業種・セクターローテーション・アノマリー</td><td class="l">セクターダッシュボード＋アノマリー検証</td></tr>
+            <tr><td>第7回</td><td class="l">1/25（月）</td><td class="l">まとめ：総復習</td><td class="l">統合AIワークフロー</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><b>今日の位置づけ</b>　第1回は「集める」。ここで作るメディアに、第2回以降のアプリ（ダッシュボード・スクリーナー…）を足していき、第7回で1本のワークフローにつなげる。</p>
+    </div>
+  </section>
+
+  <!-- ============ 1 指標 ============ -->
+  <section>
+    <div class="num">1</div>
+    <div>
+      <h2>4つの指標<span class="h2s">　-　経済・株式用語（田村）</span></h2>
+      <p class="sub">株価が「高いか安いか」「会社が稼げているか」を1つの数字にする。まずこの4つ。</p>
+
+      <h3>4つの式</h3>
+      <div class="formula">ROE（自己資本利益率）  ＝ 当期純利益 ÷ 自己資本 × 100      ［%］  会社の稼ぐ力
+PER（株価収益率）      ＝ 株価 ÷ EPS（1株当たり純利益）     ［倍］  利益から見た株価の高さ
+PBR（株価純資産倍率）  ＝ 株価 ÷ BPS（1株当たり純資産）     ［倍］  資産から見た株価の高さ
+配当利回り             ＝ 1株当たり配当 ÷ 株価 × 100        ［%］  持っているだけでもらえる率
+益回り                 ＝ EPS ÷ 株価 × 100 ＝ 1 ÷ PER × 100  ［%］  利益を利回りで見る</div>
+
+      <h3>4つはつながっている</h3>
+      <div class="formula">PBR ＝ PER × ROE
+
+  株価/BPS ＝ (株価/EPS) × (EPS/BPS)　　EPS/BPS ＝ 純利益/自己資本 ＝ ROE</div>
+      <p>PBRが高いのは「利益に対して高く買われている（PERが高い）」か「よく稼いでいる（ROEが高い）」かのどちらか。どちらなのかを分けて見るのが第一歩。</p>
+
+      <h3>2社で比べる（計算用の架空値）</h3>
+      <div class="tw">
+        <table>
+          <caption>A社とB社　株価・1株当たりの数字から4つの指標を出す</caption>
+          <thead><tr><th>項目</th><th>A社（成長型）</th><th>B社（割安型）</th></tr></thead>
+          <tbody>
+            <tr><td>株価</td><td>2,000円</td><td>1,200円</td></tr>
+            <tr><td>EPS（1株当たり純利益）</td><td>100円</td><td>120円</td></tr>
+            <tr><td>BPS（1株当たり純資産）</td><td>1,000円</td><td>2,000円</td></tr>
+            <tr><td>1株当たり配当</td><td>50円</td><td>48円</td></tr>
+            <tr class="accent"><td>ROE ＝ EPS ÷ BPS</td><td>10.0%</td><td>6.0%</td></tr>
+            <tr class="accent"><td>PER ＝ 株価 ÷ EPS</td><td>20.0倍</td><td>10.0倍</td></tr>
+            <tr class="accent"><td>PBR ＝ 株価 ÷ BPS</td><td>2.0倍</td><td>0.6倍</td></tr>
+            <tr class="accent"><td>配当利回り</td><td>2.5%</td><td>4.0%</td></tr>
+            <tr><td>益回り ＝ 1 ÷ PER</td><td>5.0%</td><td>10.0%</td></tr>
+            <tr><td>検算 PER × ROE</td><td>20 × 0.10 ＝ 2.0</td><td>10 × 0.06 ＝ 0.6</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <dl class="tiles">
+        <div class="tile t1"><dt>ROE　目安</dt><dd>8<span class="u">%以上 伊藤レポート</span></dd></div>
+        <div class="tile t2"><dt>PBR　目安</dt><dd>1<span class="u">倍割れ＝解散価値以下</span></dd></div>
+        <div class="tile t3"><dt>PER　見方</dt><dd>同業<span class="u">と比べる</span></dd></div>
+        <div class="tile"><dt>益回り　物差し</dt><dd>金利<span class="u">と比べる</span></dd></div>
+      </dl>
+
+      <ul>
+        <li><b>ROE</b>　株主が出したお金で1年にいくら稼いだか。伊藤レポート（経済産業省 2014年）の目安は8%以上</li>
+        <li><b>PER</b>　「利益の何年分の値段か」。高い＝成長期待が大きい、または割高。業種で水準が違うので<b>同業と比べる</b></li>
+        <li><b>PBR</b>　1倍割れは「会社を解散して資産を分けた額より株価が安い」。東証が2023年3月に改善策の開示を要請した</li>
+        <li><b>配当利回り</b>　株価が下がると利回りは上がる。<b>利回りが高い＝良い会社</b>とは限らない（株価が落ちている理由を見る）</li>
+        <li><b>益回り</b>　PERを裏返して利回りにしたもの。国債の利回り（米国10年国債 約4.9%、11月中旬）と比べると、株を持つ意味があるかの物差しになる</li>
+      </ul>
+
+      <details>
+        <summary>考えてみよう　A社とB社、どちらを買う？</summary>
+        <p>B社はPER・PBRが低く、配当利回りも高い。数字だけなら「割安」。
+ただしROEは6.0%で目安の8%を下回る。稼ぐ力が弱いから安いのかもしれない。
+A社は高いが、ROE 10.0%で稼げている。この成長が続くと見るならA社。
+→ 「安い理由」「高い理由」を説明できるまで調べるのが投資。第3回（ファンダメンタル）につながる。</p>
+      </details>
+      <p class="note">用語の一覧は <a href="s02-yougo.html">経済用語辞典</a>（ROE・PER・PBR・EPS ほか35語）。</p>
+    </div>
+  </section>
+
+  <!-- ============ 2 地政学 ============ -->
+  <section>
+    <div class="num">2</div>
+    <div>
+      <h2>今週のニュースを分解する<span class="h2s">　-　地政学（廻）</span></h2>
+      <p class="sub">ニュースはその週に決める。どのニュースでも同じ「型」で、自分の資産までつなげる。</p>
+
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>ニュースを分解する型</caption>
+          <thead><tr><th>段階</th><th>問い</th><th>今週のニュースで（当日記入）</th></tr></thead>
+          <tbody>
+            <tr><td>国・市場</td><td class="l">お金はどの国・市場に動くか</td><td class="blank"></td></tr>
+            <tr><td>業種（セクター）</td><td class="l">どの業種が得をし、どの業種が損をするか</td><td class="blank"></td></tr>
+            <tr><td>個別企業</td><td class="l">影響を受ける会社はどこか</td><td class="blank"></td></tr>
+            <tr><td>サプライチェーン</td><td class="l">その会社はどこに位置し、誰に売るか</td><td class="blank"></td></tr>
+            <tr><td>競合</td><td class="l">ライバルは誰か。一番強いのは</td><td class="blank"></td></tr>
+            <tr class="accent"><td>指標・株価</td><td class="l">今いくらか。PER・PBRは同業より高いか安いか（節1）</td><td class="blank"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>株価を動かす4つのファクター</h3>
+      <ul>
+        <li><b>金利</b>　金利が上がると、将来の利益の価値が下がり、PERの高い成長株ほど下がりやすい</li>
+        <li><b>為替</b>　円安は輸出企業に追い風、輸入企業（エネルギー・食品）に向かい風</li>
+        <li><b>エネルギー（原油）</b>　中東・ロシアのニュースは原油を通じて物価と企業のコストに効く</li>
+        <li><b>物価</b>　物価が上がると金利が上がりやすい（中央銀行の利上げ）</li>
+      </ul>
+
+      <h3>AIへの聞き方</h3>
+      <p>「このニュースは、金利・為替・原油を踏まえると、日本の◯◯業界に今後3か月でどんな影響があるか。影響を受ける上場企業を3社挙げ、PERとPBRを出典つきで示して」。<br>答えを記録しておき、1か月後に実際の株価と比べて読みを直す。節3のメディアに「地政学」の欄を作っておくと、毎週ここに貯まる。</p>
+    </div>
+  </section>
+
+  <!-- ============ 3 マッシュアップメディア ============ -->
+  <section>
+    <div class="num">3</div>
+    <div>
+      <h2>マッシュアップメディアを作る<span class="h2s">　-　AIアプリ生成（秋山）</span></h2>
+      <p class="sub">複数の一次情報をAIに読ませ、自分専用の雑誌（ウェブページ）にまとめる。さらに新しい情報が出たら自動で更新させる。</p>
+
+      <div class="bm">
+        <div class="col">
+          <div class="hd">集める</div>
+          <div class="bx in"><b>一次情報</b><small>運用会社・証券会社の見通しレポート、中央銀行、企業の決算資料、ニュース</small></div>
+        </div>
+        <div class="ar">→</div>
+        <div class="col">
+          <div class="hd">まとめる（AI）</div>
+          <div class="bx me"><b>マッシュアップメディア</b><small>日本語・見出し・要点3つ・比較表・指標カード・出典URL</small></div>
+        </div>
+        <div class="ar">→</div>
+        <div class="col">
+          <div class="hd">続ける</div>
+          <div class="bx out"><b>自動更新</b><small>毎週決まった時間に新しい情報を確認し、更新して知らせる</small></div>
+        </div>
+      </div>
+      <p class="note"><b>マッシュアップ</b>　複数の情報源を混ぜて、新しい1つの作品にすること。事前学習で作った「VCのレポートを雑誌風にするメディア」と同じ作り方を、今日は<b>資産形成</b>に向ける。</p>
+
+      <h3>使うAI</h3>
+      <p>事前学習で使った <b>Muse</b>（無料で使える）を基本にする。Claude・ChatGPT・Gemini など普段使っているAIでもよい。自動更新には、<b>決まった時間にタスクを実行する機能（定期実行・スケジュール）</b>のあるAIを使う。</p>
+
+      <h3>手順</h3>
+      <ol class="steps">
+        <li><b>ワーク1　1本のレポートをメディアにする</b>（15分）　下のプロンプト1をコピーし、レポートのURLを入れて実行</li>
+        <li><b>ワーク2　複数の情報源を比べる</b>（15分）　プロンプト2で、運用会社・証券会社の2027年の見通しを比較する</li>
+        <li><b>ワーク3　指標カードを足す</b>（10分）　プロンプト3で、気になる3銘柄のROE・PER・PBR・配当利回りを表にする（節1とつなげる）</li>
+        <li><b>ワーク4　自動で更新させる</b>（5分）　プロンプト4で、毎週の確認と更新をタスクにする</li>
+        <li><b>カスタマイズ</b>　要点だけ・やさしい言葉・英語や母語・音声・図解など、自分が読み続けられる形に直す</li>
+      </ol>
+
+      <h4>プロンプト1　1本のレポートをメディアにする</h4>
+      <div class="formula prompt">次のレポートを読み、日本語の雑誌風ウェブメディア（1ページ）にしてください。
+・見出し、要点を3つ、図や表、難しい用語の解説をつける
+・大学3年生が5分で読める分量にする
+・各記事の最後に、元のレポートの該当ページと出典URLを書く
+レポート：＜ここにURL＞</div>
+
+      <h4>プロンプト2　複数の情報源を比べる</h4>
+      <div class="formula prompt">次の運用会社・証券会社が公開している「2027年の市場見通し」を集め、
+比較できるメディアにしてください。
+比較の軸：①景気 ②金利 ③為替 ④強気の地域と業種 ⑤おすすめの資産配分
+各社の意見が分かれている点を、最初に3つ挙げてください。
+各社の原文の出典URLと公開日を必ず書いてください。
+対象：ブラックロック、JPモルガン・アセット・マネジメント、ゴールドマン・サックス、
+　　　野村アセットマネジメント、＜自分で1社追加＞</div>
+
+      <h4>プロンプト3　指標カードを足す</h4>
+      <div class="formula prompt">このメディアに「注目銘柄」のページを足してください。
+銘柄：＜1社目＞、＜2社目＞、＜3社目＞
+それぞれの株価・ROE・PER・PBR・配当利回りを表にし、
+同じ業種の平均と比べて高いか安いかを一言でコメントしてください。
+数字には取得日と出典（決算短信・取引所・会社のIRページ）を書いてください。
+確かめられない数字は空欄にしてください。</div>
+
+      <h4>プロンプト4　自動で更新させる</h4>
+      <div class="formula prompt">毎週月曜の朝8時に、このメディアの情報源に新しいレポートや
+ニュースが出ていないか確認してください。
+出ていたらメディアを更新し、何が変わったかを3行で知らせてください。
+注目銘柄の株価と指標も、その日の値に更新してください。</div>
+
+      <h3>AIの数字を疑う</h3>
+      <ul>
+        <li><b>検算する</b>　AIが出したPER・PBR・ROEで <b>PER × ROE ≒ PBR</b> になるか確かめる。大きくずれたら、どれかの数字が間違っている</li>
+        <li><b>出典を開く</b>　出典URLを最低1つは自分で開き、数字が本当に書いてあるか見る</li>
+        <li><b>日付を見る</b>　株価と指標は毎日変わる。いつの値かが無い数字は使わない</li>
+        <li><b>自分専用にする</b>　レポートやニュースをまとめたものは、自分の学習用に使う。公開・共有はしない（著作権）</li>
+        <li><b>判断は自分</b>　AIのまとめは投資の助言ではない。買う・売るは自分で決める</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 4 提出 ============ -->
+  <section>
+    <div class="num">4</div>
+    <div>
+      <h2>提出<span class="h2s">　-　Classroom</span></h2>
+      <p class="sub">期限 12月6日（日）23:59。次回の授業の前まで。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>提出するもの</caption>
+          <thead><tr><th>項目</th><th>中身</th></tr></thead>
+          <tbody>
+            <tr><td>1 メディア</td><td class="l">作ったマッシュアップメディアのURL、またはスクリーンショット</td></tr>
+            <tr><td>2 指標表</td><td class="l">3銘柄の株価・ROE・PER・PBR・配当利回り（取得日・出典つき）と、PER × ROE の検算</td></tr>
+            <tr><td>3 ひとこと</td><td class="l">3銘柄のうち、今いちばん買いたいのはどれか。理由を指標を使って2〜3行で</td></tr>
+            <tr><td>4 自動更新</td><td class="l">ワーク4のタスクを設定できたか（できた／できなかった。できなかった理由）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note"><b>次回（12/7）</b>　テクニカル（うねり・移動平均・MACD）と株価ダッシュボード。今日の3銘柄をそのまま使うので、メディアの自動更新を止めずにおく。</p>
+    </div>
+  </section>
+
+  <!-- ============ 5 復習クイズ ============ -->
+  <section>
+    <div class="num">5</div>
+    <div>
+      <h2>復習クイズ<span class="h2s">　-　6問</span></h2>
+      <p class="sub">授業の後に Google フォームで回答する（評価に入る）。出題範囲は次のとおり。</p>
+      <ul>
+        <li><b>式</b>　ROE・PER・PBR・配当利回り・益回りの式と、PBR ＝ PER × ROE の関係</li>
+        <li><b>計算</b>　株価・EPS・BPS・配当から、PER・PBR・配当利回り・益回りを出す</li>
+        <li><b>意味</b>　PBR 1倍割れが何を表すか。益回りを国債の利回りと比べる</li>
+        <li><b>AIを疑う</b>　AIが出した指標を PER × ROE で検算する</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ 6 出典 ============ -->
+  <section>
+    <div class="num">6</div>
+    <div>
+      <h2>出典・参考</h2>
+      <ul class="src">
+        <li>経済産業省「持続的成長への競争力とインセンティブ〜企業と投資家の望ましい関係構築〜」プロジェクト 最終報告書（伊藤レポート）2014年8月</li>
+        <li>東京証券取引所「資本コストや株価を意識した経営の実現に向けた対応について」2023年3月31日</li>
+        <li>米国10年国債の利回りは <a href="d14-1116.html">11月16日の資料</a> の値（11月中旬）</li>
+        <li>指標の数値例（A社・B社）は計算用の架空値</li>
+        <li>用語は <a href="s02-yougo.html">経済用語辞典</a> にそろえた</li>
+      </ul>
+    </div>
+  </section>
+
+  <nav class="nav">
+    <a href="index.html"><b>一覧</b>資料一覧へ戻る</a>
+    <a href="s02-yougo.html"><b>辞典</b>経済用語辞典</a>
+  </nav>
+</div>
+<script>
+  // プロンプトをクリックでコピー
+  document.querySelectorAll('.prompt').forEach(function(el){
+    el.setAttribute('title','クリックでコピー');
+    el.addEventListener('click',function(){
+      try{ navigator.clipboard.writeText(el.innerText); el.classList.add('copied'); setTimeout(function(){el.classList.remove('copied');},1200);}catch(e){}
+    });
+  });
+</script>
+</body>
+</html>
