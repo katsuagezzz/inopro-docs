@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="AIを用いた資産形成（3年・2026年11月30日）第1回。経済・株式用語：ROE・PER・PBR・株の利回り。地政学：ニュースを分解する型。AIアプリ生成：マッシュアップメディア（情報収集の自動化）。提出と復習クイズの出題範囲。">
+<meta name="description" content="AIを用いた資産形成（3年・2026年11月30日）第1回。経済・株式用語：ROE・PER・PBR・株の利回り。地政学：中間選挙後の市場を、ニュースを分解する型で予測する。AIアプリ生成：マッシュアップメディア（情報収集の自動化）。提出と復習クイズの出題範囲。">
 <title>良質・上流・一次情報をキュレートする - マッシュアップメディア</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
@@ -339,7 +339,7 @@
     <h1>良質・上流・一次情報をキュレートする - <em>マッシュアップメディア</em></h1>
     <dl class="facts">
       <div><dt>経済・株式用語（田村）</dt><dd>指標　ROE・PER・PBR・株の利回り</dd></div>
-      <div><dt>地政学（廻）</dt><dd>今週のニュースを分解する</dd></div>
+      <div><dt>地政学（廻）</dt><dd>中間選挙後の市場を予測する</dd></div>
       <div><dt>AIアプリ生成（秋山）</dt><dd>マッシュアップメディア　情報収集を自動にする</dd></div>
       <div><dt>提出</dt><dd>自分のメディアと、3銘柄の指標表</dd></div>
     </dl>
@@ -446,38 +446,137 @@ A社は高いが、ROE 10.0%で稼げている。この成長が続くと見る�
   <section>
     <div class="num">2</div>
     <div>
-      <h2>今週のニュースを分解する<span class="h2s">　-　地政学（廻）</span></h2>
-      <p class="sub">ニュースはその週に決める。どのニュースでも同じ「型」で、自分の資産までつなげる。</p>
+      <h2>中間選挙後の市場を予測する<span class="h2s">　-　地政学（廻）</span></h2>
+      <p class="sub">11月3日の米国中間選挙。「ニュースを分解する型」で起きたことを整理し、これからの3か月を予測する。数字は11月20日時点。</p>
+
+      <h3>選挙の結果</h3>
+      <dl class="tiles">
+        <div class="tile t1"><dt>下院　民主党</dt><dd>254<span class="u">議席 過半数218</span></dd></div>
+        <div class="tile t1"><dt>上院　民主党</dt><dd>54<span class="u">議席 ＋7</span></dd></div>
+        <div class="tile"><dt>大統領</dt><dd>共和<span class="u">トランプのまま</span></dd></div>
+        <div class="tile t2"><dt>政治の形</dt><dd>分割<span class="u">政府 決まりにくい</span></dd></div>
+      </dl>
+      <p><b>分割政府（グリッドロック）</b>　大統領は共和党、議会は民主党。法律を作るには両方の同意が要り、どちらも単独では決められない。民主党は大統領の拒否権を覆す3分の2には届かない。</p>
+
+      <h3>選挙のあと、株価はどう動いたか</h3>
+      <dl class="tiles">
+        <div class="tile t2"><dt>日経平均　選挙前→11/20</dt><dd>−10.5<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>S&amp;P500　選挙前→11/20</dt><dd>−8.7<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>エヌビディア</dt><dd>−39.3<span class="u">%</span></dd></div>
+        <div class="tile t2"><dt>ソフトバンクG</dt><dd>−31.4<span class="u">%</span></dd></div>
+      </dl>
+
+      <figure>
+        <div class="ctitle"><span>選挙前の終値 ＝ 100</span><span>日次の終値　10月19日〜11月20日</span></div>
+        <div id="c-elec"></div>
+        <div class="legend" id="lg-elec"></div>
+      </figure>
+      <p class="note"><b>グラフの読み方</b>　100より上は選挙前より高い、下は安い。米国は11月3日、日本は11月2日（3日は祝日）の終値を100にした。選挙の翌日はいったん上がり、その次の日から半導体を中心に下げが続いた。</p>
 
       <div class="tw">
         <table class="txt wrap">
-          <caption>ニュースを分解する型</caption>
-          <thead><tr><th>段階</th><th>問い</th><th>今週のニュースで（当日記入）</th></tr></thead>
+          <caption>選挙のあとの主な出来事</caption>
+          <thead><tr><th>日付</th><th>出来事</th><th>市場</th></tr></thead>
           <tbody>
-            <tr><td>国・市場</td><td class="l">お金はどの国・市場に動くか</td><td class="blank"></td></tr>
-            <tr><td>業種（セクター）</td><td class="l">どの業種が得をし、どの業種が損をするか</td><td class="blank"></td></tr>
-            <tr><td>個別企業</td><td class="l">影響を受ける会社はどこか</td><td class="blank"></td></tr>
-            <tr><td>サプライチェーン</td><td class="l">その会社はどこに位置し、誰に売るか</td><td class="blank"></td></tr>
-            <tr><td>競合</td><td class="l">ライバルは誰か。一番強いのは</td><td class="blank"></td></tr>
-            <tr class="accent"><td>指標・株価</td><td class="l">今いくらか。PER・PBRは同業より高いか安いか（節1）</td><td class="blank"></td></tr>
+            <tr><td>11月4日（水）</td><td class="l">結果がはっきりし、大統領が受け入れを表明。不透明さが消える</td><td class="l">S&amp;P500 ＋1.6%。一般消費財・ヘルスケア・金融が上昇</td></tr>
+            <tr class="accent"><td>11月5日（木）</td><td class="l">民主党の議会でAI・データセンターの規制が強まるとの不安</td><td class="l">半導体株指数 −12.25%（記録上2番目の下げ）。エヌビディア −9.26%</td></tr>
+            <tr class="accent"><td>11月6日（金）</td><td class="l">前日の米国の半導体安が東京に波及</td><td class="l">日経平均 −3,643円（−5.96%）。33業種すべて下落</td></tr>
+            <tr><td>11月12日（木）</td><td class="l">エヌビディアのCEOが辞任</td><td class="l">エヌビディア −4.3%</td></tr>
+            <tr><td>11月19日（木）</td><td class="l">APECで米中ロ3首脳会談。アンソロピックが上場</td><td class="l">S&amp;P500 −2.0%</td></tr>
+            <tr class="accent"><td>11月20日（金）</td><td class="l">SECがエヌビディアの会計を調べていると報道</td><td class="l">エヌビディア −14.0%。日経平均 −3,008円</td></tr>
           </tbody>
         </table>
       </div>
 
-      <h3>株価を動かす4つのファクター</h3>
-      <ul>
-        <li><b>金利</b>　金利が上がると、将来の利益の価値が下がり、PERの高い成長株ほど下がりやすい</li>
-        <li><b>為替</b>　円安は輸出企業に追い風、輸入企業（エネルギー・食品）に向かい風</li>
-        <li><b>エネルギー（原油）</b>　中東・ロシアのニュースは原油を通じて物価と企業のコストに効く</li>
-        <li><b>物価</b>　物価が上がると金利が上がりやすい（中央銀行の利上げ）</li>
-      </ul>
+      <h3>業種で差がついた</h3>
+      <p>同じ1か月でも、業種によって正反対に動いた。下は担当銘柄の騰落率を、選挙で影響を受ける「経路」ごとに色分けしたもの。</p>
+      <figure>
+        <div class="ctitle"><span>騰落率 %</span><span>10月19日 → 11月20日（選挙をはさむ1か月）</span></div>
+        <div id="c-sector"></div>
+        <div class="legend" id="lg-sector"></div>
+      </figure>
+      <div class="tw">
+        <table class="wrap">
+          <caption>経路ごとの平均　10月19日 → 11月20日</caption>
+          <thead><tr><th>経路</th><th>平均</th><th>銘柄</th></tr></thead>
+          <tbody>
+            <tr><td>医薬（薬価）</td><td>＋10.4%</td><td class="l">中外製薬、イーライリリー</td></tr>
+            <tr><td>日本の輸出（決算・為替）</td><td>＋6.4%</td><td class="l">トヨタ、ソニー、任天堂</td></tr>
+            <tr><td>原油・関税（消費・商社）</td><td>＋1.1%</td><td class="l">コストコ、コカ・コーラ、アップル、伊藤忠、テスラ</td></tr>
+            <tr><td>金融（規制・金利）</td><td>−6.8%</td><td class="l">ビザ、JPモルガン、三菱UFJ</td></tr>
+            <tr class="accent"><td>AI・半導体（規制・金利）</td><td>−22.6%</td><td class="l">アマゾン、マイクロソフト、東京エレクトロン、メタ、アルファベット、ソフトバンクG、エヌビディア</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>分解する型で整理する</h3>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>中間選挙を分解する　起きたこと → これから</caption>
+          <thead><tr><th>段階</th><th>問い</th><th>起きたこと（11/3〜11/20）</th><th>予測のポイント（これから3か月）</th></tr></thead>
+          <tbody>
+            <tr><td>国・市場</td><td class="l">お金はどの国・市場に動くか</td><td class="l">米国は分割政府に。日本株は米国以上に下げた（日経 −10.5%）。ドル円は158円前後</td><td class="l">1982〜2022年の中間選挙11回は、<b>すべて</b>選挙後12か月でS&amp;P500が上昇。「何も決まらない」ことが、政策が急に変わらない安心材料にもなる</td></tr>
+            <tr><td>業種（セクター）</td><td class="l">どの業種が得をし、どの業種が損をするか</td><td class="l">AI・半導体が最も売られ、医薬・日本の輸出は上がった</td><td class="l">民主党の議会が狙うのは、AI・データセンターの規制、ビッグテックの独占の監視、高齢者医療（メディケア）の薬価の交渉。金融は規制緩和が止まる一方、利上げは利ざやに追い風</td></tr>
+            <tr><td>個別企業</td><td class="l">影響を受ける会社はどこか</td><td class="l">エヌビディア −39.3%。ただし規制不安に、CEO辞任・SEC調査という「その会社だけの材料」が重なった</td><td class="l">選挙の影響と、会社だけの材料を分けて考える。トヨタ・ソニーは決算で上がった</td></tr>
+            <tr><td>サプライチェーン</td><td class="l">その会社はどこに位置し、誰に売るか</td><td class="l">米国の半導体安が、東京エレクトロン・アドバンテスト・ソフトバンクGに波及</td><td class="l">設計（エヌビディア）→ 製造（TSMC）→ 装置（東京エレクトロン）→ データセンター → AI企業。下流（データセンター）が規制されると、上流の日本の装置メーカーまで売られる</td></tr>
+            <tr><td>競合</td><td class="l">ライバルは誰か。一番強いのは</td><td class="l">CEO辞任で、顧客が「エヌビディアから買い続けてよいか」と迷う</td><td class="l">AMDや、グーグルなどの自社開発チップに乗り換えが起きるか。起きなければ技術の優位は続く</td></tr>
+            <tr class="accent"><td>指標・株価</td><td class="l">今いくらか。PER・PBRは高いか安いか（節1）</td><td class="l">12月の利上げの確率は約81%（11月6日）。金利が上がるとPERが縮む</td><td class="l">PER ≒ 1 ÷（r − g）。r ＝ 割引率（金利 ＋ 上乗せ）、g ＝ 利益の成長率。<b>高成長株ほど金利に弱い</b>（下の式）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="formula">PER ≒ 1 ÷（r − g）　　割引率 r が 5% → 6% に上がると
+
+  低成長　g 2%　PER 33.3倍 → 25.0倍（−25%）
+  高成長　g 4%　PER 100倍 → 50倍 （−50%）</div>
+
+      <h3>予測　3つのシナリオ</h3>
+      <p>どれが起きるかは分からない。分かるのは「何が起きたら、どの業種が動くか」。きっかけを先に決めておけば、ニュースが出た日に判断できる。</p>
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>これから3か月のシナリオ（授業での例示）</caption>
+          <thead><tr><th>シナリオ</th><th>きっかけ</th><th>上がりやすい</th><th>下がりやすい</th></tr></thead>
+          <tbody>
+            <tr><td>強気　過去のパターンどおり</td><td class="l">FRBが利上げを見送る。SECの調査が軽く終わる。1月10日の関税休戦が延長される</td><td class="l">下げたAI・半導体の反発、日本の装置メーカー・輸出株</td><td class="l">金など守りの資産</td></tr>
+            <tr><td>中立　何も決まらない</td><td class="l">予算はつなぎで先送り。AI規制は議論で止まる</td><td class="l">医薬・生活必需品、利ざやが広がる金融</td><td class="l">PERの高い成長株は横ばい</td></tr>
+            <tr class="accent"><td>弱気　悪い材料が重なる</td><td class="l">12月に利上げ。AI規制の法案が進む。関税休戦が切れ、中国のレアアース規制が再開</td><td class="l">医薬・生活必需品（守り）、エネルギー</td><td class="l">AI・半導体、日本の装置メーカー、自動車（レアアース）</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tw">
+        <table class="txt wrap">
+          <caption>きっかけのカレンダー</caption>
+          <thead><tr><th>日付</th><th>出来事</th><th>見るところ</th></tr></thead>
+          <tbody>
+            <tr><td>12月8〜9日</td><td class="l">FRBの会合</td><td class="l">利上げか見送りか → 金利 → PER</td></tr>
+            <tr><td>12月11日</td><td class="l">つなぎ予算の期限</td><td class="l">分割政府で予算が通るか（政府閉鎖の不安）</td></tr>
+            <tr><td>12月17〜18日</td><td class="l">日銀の会合</td><td class="l">日本の金利 → 円 → 輸出株・銀行株</td></tr>
+            <tr><td>2027年1月</td><td class="l">新しい議会が始まる（民主党が多数）</td><td class="l">AI・データセンター規制、薬価、大統領周辺の調査</td></tr>
+            <tr class="accent"><td>2027年1月10日</td><td class="l">米中の関税休戦・中国のレアアース規制の停止が期限</td><td class="l">延長か再開か → 自動車・電機・半導体</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>ワーク　自分の予測を書く</h3>
+      <p>節3で選ぶ3銘柄について、表を埋める。答え合わせは<b>第6回（1月18日）</b>。外れたら、型のどの段階で読み違えたかを探す。</p>
+      <div class="tw">
+        <table class="txt">
+          <caption>中間選挙後の予測（第6回で答え合わせ）</caption>
+          <thead><tr><th>銘柄</th><th>どの段階で効くか</th><th>シナリオ</th><th>1/18の株価は</th><th>理由</th></tr></thead>
+          <tbody>
+            <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">上がる／下がる</td><td class="blank"></td></tr>
+            <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">上がる／下がる</td><td class="blank"></td></tr>
+            <tr><td class="blank"></td><td class="blank"></td><td class="blank"></td><td class="blank">上がる／下がる</td><td class="blank"></td></tr>
+          </tbody>
+        </table>
+      </div>
 
       <h3>AIへの聞き方</h3>
-      <p>「このニュースは、金利・為替・原油を踏まえると、日本の◯◯業界に今後3か月でどんな影響があるか。影響を受ける上場企業を3社挙げ、PERとPBRを出典つきで示して」。<br>答えを記録しておき、1か月後に実際の株価と比べて読みを直す。節3のメディアに「地政学」の欄を作っておくと、毎週ここに貯まる。</p>
+      <p>「米国の中間選挙で民主党が上下両院を取った。金利・為替・原油も踏まえて、＜銘柄名＞の株価に今後3か月でどんな影響があるか。国・市場 → 業種 → 会社 → サプライチェーン → 競合 → PER の順に整理し、強気・中立・弱気の3つのシナリオで答えて。数字には出典と日付を付けて」。<br>答えは節3のメディアに「地政学」の欄を作って貯めておく。1か月後に実際の株価と比べ、読みを直す。</p>
     </div>
   </section>
 
-  <!-- ============ 3 マッシュアップメディア ============ -->
+<!-- ============ 3 マッシュアップメディア ============ -->
   <section>
     <div class="num">3</div>
     <div>
@@ -601,6 +700,9 @@ A社は高いが、ROE 10.0%で稼げている。この成長が続くと見る�
         <li>経済産業省「持続的成長への競争力とインセンティブ〜企業と投資家の望ましい関係構築〜」プロジェクト 最終報告書（伊藤レポート）2014年8月</li>
         <li>東京証券取引所「資本コストや株価を意識した経営の実現に向けた対応について」2023年3月31日</li>
         <li>米国10年国債の利回りは <a href="d14-1116.html">11月16日の資料</a> の値（11月中旬）</li>
+        <li>中間選挙の結果・市場の反応・今後の予定は <a href="d13-1109.html">11月9日の資料</a>（AP集計、各社報道、モルガン・スタンレー、ゴールドマン・サックス、Bloomberg集計）</li>
+        <li>選挙のあとの株価の日次の終値と担当銘柄の騰落率は <a href="d15-1123.html">11月23日の資料</a>、事件の日の業種の動きは <a href="d14-1116.html">11月16日の資料</a></li>
+        <li>3つのシナリオは授業での例示で、予測の当否や投資の助言ではない</li>
         <li>指標の数値例（A社・B社）は計算用の架空値</li>
         <li>用語は <a href="s02-yougo.html">経済用語辞典</a> にそろえた</li>
       </ul>
@@ -612,6 +714,188 @@ A社は高いが、ROE 10.0%で稼げている。この成長が続くと見る�
     <a href="s02-yougo.html"><b>辞典</b>経済用語辞典</a>
   </nav>
 </div>
+<script>
+var LC=(function(){
+  "use strict";
+  var NS="http://www.w3.org/2000/svg", tip=null;
+
+  function el(n,a){
+    var e=document.createElementNS(NS,n);
+    for(var k in a){
+      if(a[k]===undefined||a[k]===null) continue;
+      /* CSS変数は presentation attribute では解決されないため style へ回す */
+      if((k==="fill"||k==="stroke")&&String(a[k]).indexOf("var(")===0){ e.style[k]=a[k]; continue; }
+      e.setAttribute(k,a[k]);
+    }
+    return e;
+  }
+  function txt(x,y,s,cls,anchor){
+    var t=el("text",{x:x,y:y,"class":cls,"text-anchor":anchor||"middle"});
+    t.textContent=s; return t;
+  }
+  function fmt(n,d){
+    d=d||0;
+    return Number(n).toLocaleString("ja-JP",{minimumFractionDigits:d,maximumFractionDigits:d}).replace("-","−");
+  }
+  function host(h){ return typeof h==="string"?document.querySelector(h):h; }
+  function showTip(e,s){
+    if(!tip){ tip=document.createElement("div"); tip.className="tip"; document.body.appendChild(tip); }
+    tip.textContent=s; tip.style.opacity="1";
+    var x=e.clientX+12, y=e.clientY+12;
+    if(x+180>window.innerWidth) x=e.clientX-188;
+    tip.style.left=x+"px"; tip.style.top=y+"px";
+  }
+  function hideTip(){ if(tip) tip.style.opacity="0"; }
+  function hover(node,label){
+    node.addEventListener("mousemove",function(e){ showTip(e,label); });
+    node.addEventListener("mouseleave",hideTip);
+  }
+  function mount(h,cfg){
+    var n=host(h); if(!n) return null;
+    var s=el("svg",{viewBox:"0 0 "+cfg.w+" "+cfg.h,role:"img"});
+    if(cfg.alt){ var t=el("title",{}); t.textContent=cfg.alt; s.appendChild(t); }
+    if(cfg.max) s.style.maxWidth=cfg.max+"px";
+    n.appendChild(s); return s;
+  }
+  function legend(h,items){
+    var n=host(h); if(!n) return;
+    items.forEach(function(o){
+      var d=document.createElement("span"); d.className="lg";
+      var i=document.createElement("i");
+      if(o.square) i.className="sq";
+      i.style.background=o.color; d.appendChild(i);
+      d.appendChild(document.createTextNode(o.name)); n.appendChild(d);
+    });
+  }
+  function pad(p){
+    p=p||{};
+    return {l:p.l===undefined?52:p.l, r:p.r===undefined?16:p.r, t:p.t===undefined?16:p.t, b:p.b===undefined?34:p.b};
+  }
+  /* y軸・横グリッド線 */
+  function yaxis(s,cfg,P){
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var lo=cfg.y.min===undefined?0:cfg.y.min, hi=cfg.y.max;
+    var Y=function(v){ return P.t+(hi-v)/(hi-lo)*ph; };
+    (cfg.y.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:P.l,y1:Y(v),x2:P.l+pw,y2:Y(v),"class":v===0?"ax":"gl"}));
+      s.appendChild(txt(P.l-8,Y(v)+3.5,(cfg.y.fmt||fmt)(v),"tk","end"));
+    });
+    return {Y:Y,pw:pw,ph:ph};
+  }
+
+  /* ---- 折れ線：推移 ---- */
+  function lines(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var x0=cfg.x.min===undefined?0:cfg.x.min, x1=cfg.x.max;
+    var X=function(v){ return P.l+(v-x0)/(x1-x0)*A.pw; };
+    (cfg.x.ticks||[x0,x1]).forEach(function(v){
+      s.appendChild(txt(X(v),cfg.h-P.b+18,(cfg.x.fmt||String)(v),"tk"));
+    });
+    if(cfg.x.unit) s.appendChild(txt(P.l+A.pw+26,cfg.h-P.b+18,cfg.x.unit,"tk","end"));
+    /* 出来事の縦線。{x, label, row} の配列。row で段違いにして重なりを避ける */
+    (cfg.marks||[]).forEach(function(m){
+      var mx=X(m.x);
+      s.appendChild(el("line",{x1:mx,y1:P.t,x2:mx,y2:P.t+A.ph,"class":"gl","stroke-dasharray":"3 3"}));
+      if(m.label) s.appendChild(txt(mx,P.t-6-(m.row||0)*13,m.label,"tk"));
+    });
+    cfg.series.forEach(function(o){
+      var d="", dp=o.points;
+      /* step:true で階段状に描く。政策金利のように次の変更まで水準が続く量に使う */
+      if(cfg.step){
+        dp=[]; o.points.forEach(function(p,i){ if(i) dp.push([p[0],o.points[i-1][1]]); dp.push(p); });
+      }
+      dp.forEach(function(p,i){ d+=(i?"L":"M")+X(p[0]).toFixed(1)+" "+A.Y(p[1]).toFixed(1)+" "; });
+      s.appendChild(el("path",{d:d,stroke:o.color,"class":"ln"}));
+      var last=o.points[o.points.length-1];
+      s.appendChild(el("circle",{cx:X(last[0]),cy:A.Y(last[1]),r:4,fill:o.color,stroke:"var(--surface)","stroke-width":2}));
+      if(o.label!==false){
+        var t=txt(X(last[0])+9,A.Y(last[1])+4,o.label||o.name,"el","start");
+        s.appendChild(t);
+      }
+      o.points.forEach(function(p,i){
+        if(cfg.every&&i%cfg.every!==0&&i!==o.points.length-1) return;
+        var g=el("circle",{cx:X(p[0]),cy:A.Y(p[1]),r:9,fill:"transparent"});
+        hover(g,cfg.tip?cfg.tip(o,p):o.name+"　"+p[0]+"　"+fmt(p[1],1));
+        s.appendChild(g);
+      });
+    });
+    if(cfg.legend) legend(cfg.legend,cfg.series);
+  }
+
+  /* ---- 縦棒：比較（負値可） ---- */
+  function bars(h,cfg){
+    var P=pad(cfg.pad), s=mount(h,cfg); if(!s) return;
+    var A=yaxis(s,cfg,P);
+    var band=A.pw/cfg.data.length, bw=cfg.bw||24, base=A.Y(0);
+    cfg.data.forEach(function(d,i){
+      var cx=P.l+band*i+band/2, y=A.Y(d[1]);
+      var up=d[1]>=0;
+      s.appendChild((function(){
+        var r=el("rect",{x:cx-bw/2,y:up?y:base,width:bw,height:Math.max(1,Math.abs(base-y)),rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+        hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+        return r;
+      })());
+      s.appendChild(txt(cx,up?y-9:y+18,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl"));
+      s.appendChild(txt(cx,up?cfg.h-P.b+18:base-9,d[0],"tk"));
+    });
+  }
+
+  /* ---- 横棒：順位・長い項目名 ---- */
+  function hbars(h,cfg){
+    var P=pad({l:cfg.pad&&cfg.pad.l!==undefined?cfg.pad.l:120,r:cfg.pad&&cfg.pad.r!==undefined?cfg.pad.r:52,t:cfg.pad&&cfg.pad.t,b:cfg.pad&&cfg.pad.b!==undefined?cfg.pad.b:8});
+    var s=mount(h,cfg); if(!s) return;
+    var pw=cfg.w-P.l-P.r, ph=cfg.h-P.t-P.b;
+    var hi=cfg.x.max, lo=cfg.x.min===undefined?0:cfg.x.min;
+    var X=function(v){ return P.l+(v-lo)/(hi-lo)*pw; };
+    var band=ph/cfg.data.length, bh=cfg.bh||18;
+    (cfg.x.ticks||[lo,hi]).forEach(function(v){
+      s.appendChild(el("line",{x1:X(v),y1:P.t,x2:X(v),y2:P.t+ph,"class":v===lo?"ax":"gl"}));
+      s.appendChild(txt(X(v),P.t-6,(cfg.x.fmt||fmt)(v),"tk"));
+    });
+    cfg.data.forEach(function(d,i){
+      var cy=P.t+band*i+band/2;
+      var r=el("rect",{x:X(Math.min(0,d[1])),y:cy-bh/2,width:Math.max(1,Math.abs(X(d[1])-X(0))),height:bh,rx:2,fill:d[2]||cfg.color||"var(--s1)"});
+      hover(r,cfg.tip?cfg.tip(d):d[0]+"　"+fmt(d[1],cfg.digits)+(cfg.unit||""));
+      s.appendChild(r);
+      s.appendChild(txt(P.l-10,cy+4,d[0],"tk","end"));
+      s.appendChild(txt((d[1]<0?X(0):X(d[1]))+8,cy+4,(cfg.valueFmt||function(v){return fmt(v,cfg.digits)+(cfg.unit||"");})(d[1]),"vl","start"));
+    });
+  }
+
+  return {lines:lines,bars:bars,hbars:hbars,fmt:fmt,legend:legend};
+})();
+
+
+
+(function(){
+  var S={"jp": [[0, 102.91], [1, 101.57], [2, 102.44], [3, 99.73], [4, 99.38], [7, 98.59], [8, 100.3], [9, 101.39], [10, 102.5], [11, 100.33], [14, 100.0], [16, 98.59], [17, 96.83], [18, 91.05], [21, 93.18], [22, 95.84], [23, 97.1], [24, 96.42], [25, 96.93], [28, 94.59], [29, 93.31], [30, 93.57], [31, 94.24], [32, 89.47]], "us": [[0, 101.61], [1, 101.89], [2, 102.48], [3, 101.25], [4, 100.72], [7, 101.42], [8, 102.02], [9, 102.31], [10, 102.0], [11, 100.14], [14, 99.63], [15, 100.0], [16, 101.57], [17, 97.16], [18, 97.46], [21, 99.75], [22, 99.36], [23, 100.66], [24, 100.3], [25, 99.9], [28, 97.99], [29, 96.98], [30, 96.76], [31, 94.8], [32, 91.29]], "nvda": [[0, 105.03], [1, 104.73], [2, 107.39], [3, 102.67], [4, 102.07], [7, 104.51], [8, 105.44], [9, 104.2], [10, 103.37], [11, 99.01], [14, 97.76], [15, 100.0], [16, 96.83], [17, 87.86], [18, 90.3], [21, 86.44], [22, 81.71], [23, 84.06], [24, 80.4], [25, 78.78], [28, 75.54], [29, 75.21], [30, 73.04], [31, 70.62], [32, 60.73]], "sbg": [[0, 109.87], [1, 103.26], [2, 104.81], [3, 97.62], [4, 96.97], [7, 96.67], [8, 101.45], [9, 106.17], [10, 108.05], [11, 101.62], [14, 100.0], [16, 96.8], [17, 90.25], [18, 80.48], [21, 77.1], [22, 87.8], [23, 87.42], [24, 84.76], [25, 80.43], [28, 77.47], [29, 74.4], [30, 76.71], [31, 80.2], [32, 68.6]]};
+  function md(v){ var d=new Date(2026,9,19+Math.round(v)); return (d.getMonth()+1)+"/"+d.getDate(); }
+  LC.lines("#c-elec",{
+    w:760,h:380,pad:{l:48,r:110,t:58,b:34},alt:"選挙前の終値を100とした日経平均・S&P500・エヌビディア・ソフトバンクグループの日次の終値。選挙の翌日に上がった後、半導体を中心に下げが続き、11月20日にエヌビディアは60.7、ソフトバンクGは68.6",
+    x:{min:0,max:32,ticks:[0,7,14,21,28,32],fmt:md},
+    y:{min:50,max:120,ticks:[60,80,100,120]},
+    marks:[{x:15,label:"中間選挙",row:0},{x:17,label:"半導体急落",row:1},{x:24,label:"CEO辞任",row:2},{x:31,label:"APEC",row:0},{x:32,label:"SEC報道",row:3}],
+    series:[
+      {name:"日経平均",color:"var(--s1)",points:S.jp},
+      {name:"S&P500",color:"var(--s3)",points:S.us,label:false},
+      {name:"ソフトバンクG",color:"var(--s4)",points:S.sbg},
+      {name:"エヌビディア",color:"var(--s2)",points:S.nvda}
+    ],
+    tip:function(o,p){ return o.name+"　"+md(p[0])+"　"+LC.fmt(p[1],1); },
+    legend:"#lg-elec"
+  });
+  var C={ai:"var(--s2)",fin:"var(--s4)",oil:"var(--axis)",med:"var(--s3)",exp:"var(--s1)"};
+  LC.hbars("#c-sector",{
+    w:680,h:470,pad:{l:190,r:60,t:24},alt:"選挙をはさむ1か月（10月19日〜11月20日）の担当銘柄の騰落率。医薬と日本の輸出株は上がり、AI・半導体は大きく下げた",max:680,bh:14,
+    x:{min:-50,max:20,ticks:[-50,-40,-30,-20,-10,0,10,20]},
+    digits:1,unit:"%",
+    data:[["中外製薬",12.2,C.med],["コストコ",10.7,C.oil],["ソニーグループ",8.9,C.exp],["イーライリリー",8.6,C.med],["トヨタ自動車",6.8,C.exp],["コカ・コーラ",3.8,C.oil],["任天堂",3.4,C.exp],["アップル",-0.1,C.oil],["ビザ",-0.3,C.fin],["伊藤忠商事",-3.1,C.oil],["アマゾン",-6.0,C.ai],["テスラ",-6.0,C.oil],["JPモルガン",-6.9,C.fin],["マイクロソフト",-9.2,C.ai],["三菱UFJ FG",-13.1,C.fin],["東京エレクトロン",-19.7,C.ai],["メタ",-20.5,C.ai],["アルファベット",-22.9,C.ai],["ソフトバンクG",-37.6,C.ai],["エヌビディア",-42.2,C.ai]],
+    tip:function(d){ return d[0]+"　"+(d[1]>0?"＋":"")+LC.fmt(d[1],1)+"%"; }
+  });
+  LC.legend("#lg-sector",[{name:"医薬（薬価）",color:C.med,square:true},{name:"日本の輸出（決算・為替）",color:C.exp,square:true},{name:"原油・関税",color:C.oil,square:true},{name:"金融（規制・金利）",color:C.fin,square:true},{name:"AI・半導体（規制・金利）",color:C.ai,square:true}]);
+})();
+</script>
 <script>
   // プロンプトをクリックでコピー
   document.querySelectorAll('.prompt').forEach(function(el){
